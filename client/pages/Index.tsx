@@ -31,6 +31,29 @@ const mockStocks: Stock[] = [
     dividendYield: 0.5,
     sector: "Technology",
     isGainer: true,
+    news: [
+      {
+        title: "Apple unveils new iPhone 15 Pro with titanium design",
+        source: "TechCrunch",
+        time: "2h ago",
+        summary:
+          "Apple's latest flagship phone features a titanium build and improved camera system, driving analyst optimism.",
+      },
+      {
+        title: "Apple Services revenue hits record high",
+        source: "Reuters",
+        time: "4h ago",
+        summary:
+          "The company's services division continues to show strong growth, boosting overall quarterly results.",
+      },
+      {
+        title: "Analyst upgrades AAPL price target to $200",
+        source: "MarketWatch",
+        time: "6h ago",
+        summary:
+          "Morgan Stanley raises Apple's price target citing strong iPhone demand and services growth.",
+      },
+    ],
   },
   {
     symbol: "MSFT",
@@ -44,6 +67,22 @@ const mockStocks: Stock[] = [
     dividendYield: 0.7,
     sector: "Technology",
     isGainer: false,
+    news: [
+      {
+        title: "Microsoft Azure sees 30% revenue growth",
+        source: "Bloomberg",
+        time: "1h ago",
+        summary:
+          "Cloud computing division continues strong performance amid enterprise digital transformation.",
+      },
+      {
+        title: "Teams integration with AI capabilities announced",
+        source: "The Verge",
+        time: "3h ago",
+        summary:
+          "Microsoft unveils new AI-powered features for Teams collaboration platform.",
+      },
+    ],
   },
   {
     symbol: "GOOGL",
@@ -57,6 +96,22 @@ const mockStocks: Stock[] = [
     dividendYield: null,
     sector: "Communication Services",
     isGainer: true,
+    news: [
+      {
+        title: "Google Search updates combat AI-generated content",
+        source: "Search Engine Land",
+        time: "2h ago",
+        summary:
+          "New algorithm updates aim to prioritize authentic content over AI-generated material.",
+      },
+      {
+        title: "Waymo expands autonomous vehicle testing",
+        source: "TechCrunch",
+        time: "5h ago",
+        summary:
+          "Alphabet's self-driving car unit increases testing in major metropolitan areas.",
+      },
+    ],
   },
   {
     symbol: "TSLA",
@@ -70,6 +125,22 @@ const mockStocks: Stock[] = [
     dividendYield: null,
     sector: "Consumer Discretionary",
     isGainer: false,
+    news: [
+      {
+        title: "Tesla recalls Model S vehicles over brake concerns",
+        source: "CNN Business",
+        time: "1h ago",
+        summary:
+          "NHTSA investigation prompts voluntary recall affecting thousands of vehicles.",
+      },
+      {
+        title: "Cybertruck production delays extended to 2024",
+        source: "Electrek",
+        time: "4h ago",
+        summary:
+          "Manufacturing challenges push back delivery timeline for electric pickup truck.",
+      },
+    ],
   },
   {
     symbol: "AMZN",
@@ -83,6 +154,22 @@ const mockStocks: Stock[] = [
     dividendYield: null,
     sector: "Consumer Discretionary",
     isGainer: true,
+    news: [
+      {
+        title: "Amazon Prime Day breaks sales records",
+        source: "CNBC",
+        time: "3h ago",
+        summary:
+          "Annual shopping event generates record revenue with strong electronics and home goods sales.",
+      },
+      {
+        title: "AWS launches new AI development tools",
+        source: "VentureBeat",
+        time: "6h ago",
+        summary:
+          "Amazon Web Services introduces machine learning platform for enterprise developers.",
+      },
+    ],
   },
   {
     symbol: "NVDA",
@@ -96,6 +183,22 @@ const mockStocks: Stock[] = [
     dividendYield: 0.3,
     sector: "Technology",
     isGainer: true,
+    news: [
+      {
+        title: "NVIDIA announces next-gen AI chips for data centers",
+        source: "Forbes",
+        time: "1h ago",
+        summary:
+          "New H200 chips promise 2x performance improvement for AI training workloads.",
+      },
+      {
+        title: "Gaming revenue shows resilience amid market challenges",
+        source: "GameIndustry.biz",
+        time: "4h ago",
+        summary:
+          "GeForce RTX series maintains strong demand despite broader PC market slowdown.",
+      },
+    ],
   },
   {
     symbol: "JPM",
@@ -109,6 +212,22 @@ const mockStocks: Stock[] = [
     dividendYield: 2.4,
     sector: "Financial Services",
     isGainer: false,
+    news: [
+      {
+        title: "JPMorgan raises interest rate outlook for 2024",
+        source: "Financial Times",
+        time: "2h ago",
+        summary:
+          "Bank adjusts economic forecasts citing persistent inflation and Fed policy.",
+      },
+      {
+        title: "Investment banking fees decline in Q3",
+        source: "Wall Street Journal",
+        time: "5h ago",
+        summary:
+          "Reduced M&A activity impacts revenue from advisory and underwriting services.",
+      },
+    ],
   },
   {
     symbol: "JNJ",
@@ -122,6 +241,22 @@ const mockStocks: Stock[] = [
     dividendYield: 3.1,
     sector: "Healthcare",
     isGainer: true,
+    news: [
+      {
+        title: "FDA approves new Johnson & Johnson cancer treatment",
+        source: "BioPharma Dive",
+        time: "3h ago",
+        summary:
+          "Innovative therapy receives approval for rare blood cancer, expanding oncology portfolio.",
+      },
+      {
+        title: "J&J increases R&D spending for 2024",
+        source: "Pharmaceutical Executive",
+        time: "7h ago",
+        summary:
+          "Company commits additional $2B to drug development and clinical trials.",
+      },
+    ],
   },
 ];
 
@@ -136,6 +271,7 @@ const defaultFilters: FilterState = {
 export default function Index() {
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [portfolio, setPortfolio] = useState<string[]>([]);
+  const [watchlist, setWatchlist] = useState<string[]>([]);
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
 
   const filteredStocks = useMemo(() => {
@@ -188,6 +324,14 @@ export default function Index() {
   const addToPortfolio = (symbol: string) => {
     if (!portfolio.includes(symbol)) {
       setPortfolio([...portfolio, symbol]);
+    }
+  };
+
+  const toggleWatchlist = (symbol: string) => {
+    if (watchlist.includes(symbol)) {
+      setWatchlist(watchlist.filter((s) => s !== symbol));
+    } else {
+      setWatchlist([...watchlist, symbol]);
     }
   };
 
@@ -345,10 +489,14 @@ export default function Index() {
             </div>
 
             {/* Current Stock */}
-            <div className="max-w-md mx-auto">
+            <div className="max-w-lg mx-auto">
               <StockCard
                 stock={filteredStocks[currentStockIndex]}
                 onAddToPortfolio={addToPortfolio}
+                onToggleWatchlist={toggleWatchlist}
+                isInWatchlist={watchlist.includes(
+                  filteredStocks[currentStockIndex].symbol,
+                )}
                 className={cn(
                   "w-full",
                   portfolio.includes(
