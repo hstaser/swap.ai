@@ -115,13 +115,6 @@ export default function Watchlist() {
     );
   };
 
-  const totalValue = watchlistStocks.reduce(
-    (sum, stock) => sum + stock.price,
-    0,
-  );
-  const gainers = watchlistStocks.filter((stock) => stock.change > 0).length;
-  const losers = watchlistStocks.filter((stock) => stock.change < 0).length;
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
@@ -160,28 +153,6 @@ export default function Watchlist() {
       </header>
 
       <div className="container mx-auto px-4 py-6 space-y-6">
-        {/* Summary Cards */}
-        <div className="grid grid-cols-3 gap-3">
-          <Card className="bg-white/60 backdrop-blur-sm border-0">
-            <CardContent className="p-4 text-center">
-              <div className="text-sm text-muted-foreground">Total Value</div>
-              <div className="text-lg font-bold">${totalValue.toFixed(0)}</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-white/60 backdrop-blur-sm border-0">
-            <CardContent className="p-4 text-center">
-              <div className="text-sm text-muted-foreground">Gainers</div>
-              <div className="text-lg font-bold text-success">{gainers}</div>
-            </CardContent>
-          </Card>
-          <Card className="bg-white/60 backdrop-blur-sm border-0">
-            <CardContent className="p-4 text-center">
-              <div className="text-sm text-muted-foreground">Losers</div>
-              <div className="text-lg font-bold text-destructive">{losers}</div>
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Add Stock Button */}
         <Button asChild className="w-full h-12 text-lg font-semibold">
           <Link to="/">
