@@ -16,6 +16,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 // Mock stock data - in a real app this would come from an API
 const mockStocks: Stock[] = [
