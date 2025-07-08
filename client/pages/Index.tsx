@@ -377,8 +377,10 @@ export default function Index() {
               <Button variant="ghost" size="icon">
                 <Bell className="h-4 w-4" />
               </Button>
-              <Button variant="ghost" size="icon">
-                <Settings className="h-4 w-4" />
+              <Button variant="ghost" size="icon" asChild>
+                <Link to="/settings">
+                  <Settings className="h-4 w-4" />
+                </Link>
               </Button>
               <Button size="sm" asChild>
                 <Link to="/portfolio">
