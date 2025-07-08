@@ -17,7 +17,7 @@ import {
   ArrowLeft,
   MoreVertical,
 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface WatchlistStock {
@@ -107,6 +107,7 @@ const mockWatchlistStocks: WatchlistStock[] = [
 export default function Watchlist() {
   const [watchlistStocks, setWatchlistStocks] = useState(mockWatchlistStocks);
   const [isEditing, setIsEditing] = useState(false);
+  const navigate = useNavigate();
 
   const removeFromWatchlist = (symbol: string) => {
     setWatchlistStocks(
@@ -197,7 +198,8 @@ export default function Watchlist() {
             return (
               <Card
                 key={stock.symbol}
-                className="bg-white/90 backdrop-blur-sm border-0 shadow-sm"
+                className="bg-white/90 backdrop-blur-sm border-0 shadow-sm cursor-pointer hover:shadow-md transition-shadow"
+                onClick={() => !isEditing && navigate(`/stock/${stock.symbol}`)}
               >
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
@@ -262,7 +264,10 @@ export default function Watchlist() {
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => removeFromWatchlist(stock.symbol)}
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                removeFromWatchlist(stock.symbol);
+                              }}
                               className="flex-1 text-destructive border-destructive hover:bg-destructive hover:text-white"
                             >
                               <EyeOff className="h-4 w-4 mr-2" />
@@ -271,6 +276,7 @@ export default function Watchlist() {
                             <Button
                               variant="outline"
                               size="sm"
+                              onClick={(e) => e.stopPropagation()}
                               className="flex-1"
                             >
                               <Plus className="h-4 w-4 mr-2" />
