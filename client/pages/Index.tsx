@@ -12,6 +12,8 @@ import {
   Wallet,
   Bell,
   Settings,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -126,83 +128,62 @@ const mockStocks: Stock[] = [
 const defaultFilters: FilterState = {
   sector: "All Sectors",
   marketCap: "All",
-  peRange: { min: "", max: "" },
+  peRange: "All P/E",
   dividendYield: "All",
-  priceRange: { min: "", max: "" },
-  searchTerm: "",
+  priceRange: "All Prices",
 };
 
 export default function Index() {
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [portfolio, setPortfolio] = useState<string[]>([]);
-  const [sortBy, setSortBy] = useState<"price" | "change" | "volume">("price");
+  const [currentStockIndex, setCurrentStockIndex] = useState(0);
 
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
-      // Search filter
-      if (
-        filters.searchTerm &&
-        !stock.symbol
-          .toLowerCase()
-          .includes(filters.searchTerm.toLowerCase()) &&
-        !stock.name.toLowerCase().includes(filters.searchTerm.toLowerCase())
-      ) {
-        return false;
-      }
-
       // Sector filter
       if (filters.sector !== "All Sectors" && stock.sector !== filters.sector) {
         return false;
       }
 
-      // Price range filter
-      if (
-        filters.priceRange.min &&
-        stock.price < Number(filters.priceRange.min)
-      ) {
-        return false;
+      // Market cap filter
+      if (filters.marketCap !== "All") {
+        // Simple logic - in real app would use actual market cap numbers
+        return true;
       }
-      if (
-        filters.priceRange.max &&
-        stock.price > Number(filters.priceRange.max)
-      ) {
-        return false;
+
+      // Price range filter
+      if (filters.priceRange !== "All Prices") {
+        const [min, max] = filters.priceRange.includes("-")
+          ? filters.priceRange
+              .split("-")
+              .map((p) => Number(p.replace(/[^\d]/g, "")))
+          : [500, Infinity];
+
+        if (filters.priceRange === "$500+") {
+          if (stock.price < 500) return false;
+        } else if (min && max) {
+          if (stock.price < min || stock.price > max) return false;
+        }
       }
 
       // P/E range filter
-      if (
-        filters.peRange.min &&
-        (!stock.pe || stock.pe < Number(filters.peRange.min))
-      ) {
-        return false;
-      }
-      if (
-        filters.peRange.max &&
-        (!stock.pe || stock.pe > Number(filters.peRange.max))
-      ) {
-        return false;
+      if (filters.peRange !== "All P/E" && stock.pe) {
+        const [min, max] = filters.peRange.includes("-")
+          ? filters.peRange.split("-").map(Number)
+          : [40, Infinity];
+
+        if (filters.peRange === "40+") {
+          if (stock.pe < 40) return false;
+        } else if (min && max) {
+          if (stock.pe < min || stock.pe > max) return false;
+        }
       }
 
       return true;
     });
 
-    // Sort stocks
-    filtered.sort((a, b) => {
-      switch (sortBy) {
-        case "change":
-          return b.changePercent - a.changePercent;
-        case "volume":
-          return (
-            Number(b.volume.replace(/[^\d.]/g, "")) -
-            Number(a.volume.replace(/[^\d.]/g, ""))
-          );
-        default:
-          return b.price - a.price;
-      }
-    });
-
     return filtered;
-  }, [filters, sortBy]);
+  }, [filters]);
 
   const addToPortfolio = (symbol: string) => {
     if (!portfolio.includes(symbol)) {
@@ -317,73 +298,77 @@ export default function Index() {
           </Card>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-          {/* Filters Sidebar */}
-          <div className="lg:col-span-1">
-            <StockFilters
-              filters={filters}
-              onFiltersChange={setFilters}
-              onClearFilters={() => setFilters(defaultFilters)}
-              className="sticky top-24 bg-white/60 backdrop-blur-sm border-0"
-            />
-          </div>
+        {/* Mobile Filters */}
+        <div className="mb-4">
+          <StockFilters
+            filters={filters}
+            onFiltersChange={setFilters}
+            onClearFilters={() => setFilters(defaultFilters)}
+            className="bg-white/60 backdrop-blur-sm rounded-lg p-3"
+          />
+        </div>
 
-          {/* Main Content */}
-          <div className="lg:col-span-3">
-            {/* Sort Controls */}
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <span className="text-sm text-muted-foreground">Sort by:</span>
-                <div className="flex gap-1">
-                  {[
-                    { key: "price", label: "Price" },
-                    { key: "change", label: "% Change" },
-                    { key: "volume", label: "Volume" },
-                  ].map((option) => (
-                    <Button
-                      key={option.key}
-                      variant={sortBy === option.key ? "default" : "ghost"}
-                      size="sm"
-                      onClick={() => setSortBy(option.key as any)}
-                    >
-                      {option.label}
-                    </Button>
-                  ))}
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                {filteredStocks.length} stocks found
-              </p>
-            </div>
+        {/* Single Stock Display */}
+        {filteredStocks.length > 0 ? (
+          <div className="space-y-4">
+            {/* Navigation */}
+            <div className="flex items-center justify-between">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() =>
+                  setCurrentStockIndex(Math.max(0, currentStockIndex - 1))
+                }
+                disabled={currentStockIndex === 0}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
 
-            {/* Stock Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-              {filteredStocks.map((stock) => (
-                <StockCard
-                  key={stock.symbol}
-                  stock={stock}
-                  onAddToPortfolio={addToPortfolio}
-                  className={cn(
-                    portfolio.includes(stock.symbol) &&
-                      "ring-2 ring-primary bg-primary/5",
-                  )}
-                />
-              ))}
-            </div>
-
-            {filteredStocks.length === 0 && (
-              <div className="text-center py-12">
-                <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-lg font-medium text-foreground mb-2">
-                  No stocks found
-                </h3>
-                <p className="text-muted-foreground">
-                  Try adjusting your filters to see more results.
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground">
+                  {currentStockIndex + 1} of {filteredStocks.length}
                 </p>
               </div>
-            )}
+
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() =>
+                  setCurrentStockIndex(
+                    Math.min(filteredStocks.length - 1, currentStockIndex + 1),
+                  )
+                }
+                disabled={currentStockIndex === filteredStocks.length - 1}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Current Stock */}
+            <div className="max-w-md mx-auto">
+              <StockCard
+                stock={filteredStocks[currentStockIndex]}
+                onAddToPortfolio={addToPortfolio}
+                className={cn(
+                  "w-full",
+                  portfolio.includes(
+                    filteredStocks[currentStockIndex].symbol,
+                  ) && "ring-2 ring-primary bg-primary/5",
+                )}
+              />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="text-center py-12">
+            <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">
+              No stocks found
+            </h3>
+            <p className="text-muted-foreground">
+              Try adjusting your filters to see more results.
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
