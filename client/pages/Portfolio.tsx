@@ -662,6 +662,19 @@ export default function Portfolio() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Modals */}
+        {showExportModal && (
+          <ExportModal
+            onClose={() => setShowExportModal(false)}
+            portfolioValue={portfolioMetrics.totalValue}
+            portfolioReturn={portfolioMetrics.totalReturnPercent}
+          />
+        )}
+
+        {showAlertsModal && (
+          <PriceAlerts onClose={() => setShowAlertsModal(false)} />
+        )}
       </div>
     </div>
   );
