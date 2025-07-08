@@ -1,6 +1,9 @@
 import { useState, useMemo, useEffect } from "react";
 import { StockCard, type Stock } from "@/components/ui/stock-card";
 import { StockFilters, type FilterState } from "@/components/ui/stock-filters";
+import { StockSearch } from "@/components/ui/stock-search";
+import { MarketSentiment } from "@/components/ui/market-sentiment";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -377,6 +380,7 @@ export default function Index() {
               <Button variant="ghost" size="icon">
                 <Bell className="h-4 w-4" />
               </Button>
+              <ThemeToggle />
               <Button variant="ghost" size="icon" asChild>
                 <Link to="/settings">
                   <Settings className="h-4 w-4" />
@@ -394,6 +398,13 @@ export default function Index() {
       </header>
 
       <div className="container mx-auto px-4 py-6">
+        {/* Enhanced Search */}
+        <div className="mb-6">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4">
+            <StockSearch />
+          </div>
+        </div>
+
         {/* Mobile Filters */}
         <div className="mb-4">
           <StockFilters
