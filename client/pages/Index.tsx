@@ -37,6 +37,7 @@ const mockStocks: Stock[] = [
     dividendYield: 0.5,
     sector: "Technology",
     isGainer: true,
+    newsSummary: "Strong iPhone sales, AI momentum",
     news: [
       {
         title: "Apple unveils new iPhone 15 Pro with titanium design",
@@ -73,6 +74,7 @@ const mockStocks: Stock[] = [
     dividendYield: 0.7,
     sector: "Technology",
     isGainer: false,
+    newsSummary: "Cloud growth slowing, costs rising",
     news: [
       {
         title: "Microsoft Azure sees 30% revenue growth",
@@ -102,6 +104,7 @@ const mockStocks: Stock[] = [
     dividendYield: null,
     sector: "Communication Services",
     isGainer: true,
+    newsSummary: "Search dominance, AI investments",
     news: [
       {
         title: "Google Search updates combat AI-generated content",
@@ -131,6 +134,7 @@ const mockStocks: Stock[] = [
     dividendYield: null,
     sector: "Consumer Discretionary",
     isGainer: false,
+    newsSummary: "Production delays, competition fears",
     news: [
       {
         title: "Tesla recalls Model S vehicles over brake concerns",
@@ -160,6 +164,7 @@ const mockStocks: Stock[] = [
     dividendYield: null,
     sector: "Consumer Discretionary",
     isGainer: true,
+    newsSummary: "AWS growth, retail margins up",
     news: [
       {
         title: "Amazon Prime Day breaks sales records",
@@ -189,6 +194,7 @@ const mockStocks: Stock[] = [
     dividendYield: 0.3,
     sector: "Technology",
     isGainer: true,
+    newsSummary: "AI chip demand surging, earnings beat",
     news: [
       {
         title: "NVIDIA announces next-gen AI chips for data centers",
@@ -218,6 +224,7 @@ const mockStocks: Stock[] = [
     dividendYield: 2.4,
     sector: "Financial Services",
     isGainer: false,
+    newsSummary: "Rate concerns, lending slowdown",
     news: [
       {
         title: "JPMorgan raises interest rate outlook for 2024",
@@ -247,6 +254,7 @@ const mockStocks: Stock[] = [
     dividendYield: 3.1,
     sector: "Healthcare",
     isGainer: true,
+    newsSummary: "Drug approvals, dividend stable",
     news: [
       {
         title: "FDA approves new Johnson & Johnson cancer treatment",
@@ -328,8 +336,13 @@ export default function Index() {
     return filtered;
   }, [filters]);
 
-  const addToPortfolio = (symbol: string) => {
-    if (!portfolio.includes(symbol)) {
+  const handleConfidenceSelect = (
+    symbol: string,
+    confidence: "not-interested" | "conservative" | "bullish" | "very-bullish",
+  ) => {
+    console.log(`Selected ${confidence} for ${symbol}`);
+    // Add to portfolio based on confidence level
+    if (confidence !== "not-interested" && !portfolio.includes(symbol)) {
       setPortfolio([...portfolio, symbol]);
     }
   };

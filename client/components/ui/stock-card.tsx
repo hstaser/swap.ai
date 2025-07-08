@@ -37,7 +37,10 @@ export interface Stock {
 
 interface StockCardProps {
   stock: Stock;
-  onAddToPortfolio: (symbol: string) => void;
+  onConfidenceSelect: (
+    symbol: string,
+    confidence: "not-interested" | "conservative" | "bullish" | "very-bullish",
+  ) => void;
   onToggleWatchlist: (symbol: string) => void;
   isInWatchlist: boolean;
   className?: string;
@@ -45,7 +48,7 @@ interface StockCardProps {
 
 export function StockCard({
   stock,
-  onAddToPortfolio,
+  onConfidenceSelect,
   onToggleWatchlist,
   isInWatchlist,
   className,
@@ -110,9 +113,9 @@ export function StockCard({
             <div className="font-bold text-lg">{stock.marketCap}</div>
           </div>
           <div className="text-center space-y-1">
-            <div className="text-sm text-muted-foreground">P/E</div>
-            <div className="font-bold text-lg">
-              {stock.pe ? stock.pe.toFixed(2) : "N/A"}
+            <div className="text-sm text-muted-foreground">News Summary</div>
+            <div className="font-bold text-sm text-primary leading-tight">
+              {stock.newsSummary}
             </div>
           </div>
           <div className="text-center space-y-1">
@@ -127,67 +130,60 @@ export function StockCard({
 
         <Separator />
 
-        {/* Recent News */}
+        {/* Confidence Level Buttons */}
         <div className="space-y-4">
-          <h4 className="font-bold text-lg text-center flex items-center justify-center gap-2">
-            <Clock className="h-5 w-5" />
-            Recent News
+          <h4 className="font-semibold text-center text-sm text-muted-foreground">
+            Your Confidence Level
           </h4>
-          <div className="space-y-3 max-h-64 overflow-y-auto">
-            {stock.news.slice(0, 3).map((newsItem, index) => (
-              <div key={index} className="p-4 bg-gray-50 rounded-lg border">
-                <div className="flex items-start justify-between gap-2 mb-2">
-                  <h5 className="font-semibold text-sm leading-tight flex-1">
-                    {newsItem.title}
-                  </h5>
-                  <ExternalLink className="h-4 w-4 text-muted-foreground flex-shrink-0 mt-0.5" />
-                </div>
-                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
-                  <span className="font-medium">{newsItem.source}</span>
-                  <span>•</span>
-                  <span>{newsItem.time}</span>
-                </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {newsItem.summary}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <Separator />
-
-        {/* Action Buttons */}
-        <div className="space-y-3">
-          <Button
-            onClick={() => onAddToPortfolio(stock.symbol)}
-            className="w-full h-12 text-lg font-semibold"
-            size="lg"
-          >
-            <Plus className="h-5 w-5 mr-2" />
-            Add to Portfolio
-          </Button>
-
           <div className="grid grid-cols-2 gap-3">
             <Button
               variant="outline"
-              onClick={() => onToggleWatchlist(stock.symbol)}
-              className="h-12 font-semibold"
-              size="lg"
+              onClick={() => onConfidenceSelect(stock.symbol, "not-interested")}
+              className="h-12 text-sm font-semibold border-red-200 text-red-700 hover:bg-red-50"
             >
-              {isInWatchlist ? (
-                <EyeOff className="h-5 w-5 mr-2" />
-              ) : (
-                <Eye className="h-5 w-5 mr-2" />
-              )}
-              {isInWatchlist ? "Remove" : "Watchlist"}
+              Not Interested
             </Button>
-
-            <Button variant="outline" className="h-12 font-semibold" size="lg">
-              <ExternalLink className="h-5 w-5 mr-2" />
-              Learn More
+            <Button
+              variant="outline"
+              onClick={() => onConfidenceSelect(stock.symbol, "conservative")}
+              className="h-12 text-sm font-semibold border-yellow-200 text-yellow-700 hover:bg-yellow-50"
+            >
+              Conservative
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => onConfidenceSelect(stock.symbol, "bullish")}
+              className="h-12 text-sm font-semibold border-green-200 text-green-700 hover:bg-green-50"
+            >
+              Bullish
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => onConfidenceSelect(stock.symbol, "very-bullish")}
+              className="h-12 text-sm font-semibold border-green-300 text-green-800 hover:bg-green-100"
+            >
+              Very Bullish
             </Button>
           </div>
+
+          {/* Watchlist Button */}
+          <Button
+            variant="ghost"
+            onClick={() => onToggleWatchlist(stock.symbol)}
+            className="w-full h-12 text-sm font-medium text-muted-foreground"
+          >
+            {isInWatchlist ? (
+              <>
+                <EyeOff className="h-4 w-4 mr-2" />
+                Remove from Watchlist
+              </>
+            ) : (
+              <>
+                <Eye className="h-4 w-4 mr-2" />
+                Not sure? Add to Watchlist
+              </>
+            )}
+          </Button>
         </div>
       </CardContent>
     </Card>
