@@ -6,6 +6,8 @@ import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
 import { PerformanceChart } from "@/components/ui/performance-chart";
+import { ExportModal } from "@/components/ui/export-modal";
+import { PriceAlerts } from "@/components/ui/price-alerts";
 import {
   ArrowLeft,
   TrendingUp,
@@ -21,6 +23,8 @@ import {
   CheckCircle,
   PieChart,
   Activity,
+  Download,
+  Bell,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -180,6 +184,8 @@ export default function Portfolio() {
   const navigate = useNavigate();
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [showRebalanceDetails, setShowRebalanceDetails] = useState(false);
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [showAlertsModal, setShowAlertsModal] = useState(false);
 
   const runOptimization = () => {
     setIsOptimizing(true);
@@ -223,19 +229,37 @@ export default function Portfolio() {
                 </p>
               </div>
             </div>
-            <Button
-              onClick={runOptimization}
-              disabled={isOptimizing}
-              size="sm"
-              className="relative"
-            >
-              {isOptimizing ? (
-                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-              ) : (
-                <Zap className="h-4 w-4 mr-2" />
-              )}
-              {isOptimizing ? "Optimizing..." : "Optimize"}
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowAlertsModal(true)}
+              >
+                <Bell className="h-4 w-4 mr-2" />
+                Alerts
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowExportModal(true)}
+              >
+                <Download className="h-4 w-4 mr-2" />
+                Export
+              </Button>
+              <Button
+                onClick={runOptimization}
+                disabled={isOptimizing}
+                size="sm"
+                className="relative"
+              >
+                {isOptimizing ? (
+                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <Zap className="h-4 w-4 mr-2" />
+                )}
+                {isOptimizing ? "Optimizing..." : "Optimize"}
+              </Button>
+            </div>
           </div>
         </div>
       </header>
