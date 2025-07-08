@@ -4,6 +4,7 @@ import { StockFilters, type FilterState } from "@/components/ui/stock-filters";
 import { StockSearch } from "@/components/ui/stock-search";
 import { MarketSentiment } from "@/components/ui/market-sentiment";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { HelpSystem } from "@/components/ui/help-system";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -17,6 +18,7 @@ import {
   Settings,
   ChevronLeft,
   ChevronRight,
+  HelpCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
@@ -277,6 +279,7 @@ export default function Index() {
   const [portfolio, setPortfolio] = useState<string[]>([]);
   const [watchlist, setWatchlist] = useState<string[]>([]);
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
+  const [showHelp, setShowHelp] = useState(false);
 
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
@@ -379,6 +382,13 @@ export default function Index() {
               </Badge>
               <Button variant="ghost" size="icon">
                 <Bell className="h-4 w-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowHelp(true)}
+              >
+                <HelpCircle className="h-4 w-4" />
               </Button>
               <ThemeToggle />
               <Button variant="ghost" size="icon" asChild>
