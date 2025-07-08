@@ -1,61 +1,389 @@
-import { DemoResponse } from "@shared/api";
-import { useEffect, useState } from "react";
+import { useState, useMemo } from "react";
+import { StockCard, type Stock } from "@/components/ui/stock-card";
+import { StockFilters, type FilterState } from "@/components/ui/stock-filters";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import {
+  TrendingUp,
+  TrendingDown,
+  Search,
+  BarChart3,
+  Wallet,
+  Bell,
+  Settings,
+} from "lucide-react";
+import { cn } from "@/lib/utils";
+
+// Mock stock data - in a real app this would come from an API
+const mockStocks: Stock[] = [
+  {
+    symbol: "AAPL",
+    name: "Apple Inc.",
+    price: 182.52,
+    change: 2.31,
+    changePercent: 1.28,
+    volume: "52.4M",
+    marketCap: "2.85T",
+    pe: 29.8,
+    dividendYield: 0.5,
+    sector: "Technology",
+    isGainer: true,
+  },
+  {
+    symbol: "MSFT",
+    name: "Microsoft Corporation",
+    price: 378.85,
+    change: -1.52,
+    changePercent: -0.4,
+    volume: "28.1M",
+    marketCap: "2.81T",
+    pe: 32.1,
+    dividendYield: 0.7,
+    sector: "Technology",
+    isGainer: false,
+  },
+  {
+    symbol: "GOOGL",
+    name: "Alphabet Inc.",
+    price: 138.21,
+    change: 3.45,
+    changePercent: 2.56,
+    volume: "31.2M",
+    marketCap: "1.75T",
+    pe: 25.4,
+    dividendYield: null,
+    sector: "Communication Services",
+    isGainer: true,
+  },
+  {
+    symbol: "TSLA",
+    name: "Tesla, Inc.",
+    price: 238.77,
+    change: -8.32,
+    changePercent: -3.37,
+    volume: "89.7M",
+    marketCap: "759.8B",
+    pe: 73.2,
+    dividendYield: null,
+    sector: "Consumer Discretionary",
+    isGainer: false,
+  },
+  {
+    symbol: "AMZN",
+    name: "Amazon.com, Inc.",
+    price: 144.05,
+    change: 1.88,
+    changePercent: 1.32,
+    volume: "44.3M",
+    marketCap: "1.50T",
+    pe: 45.6,
+    dividendYield: null,
+    sector: "Consumer Discretionary",
+    isGainer: true,
+  },
+  {
+    symbol: "NVDA",
+    name: "NVIDIA Corporation",
+    price: 722.48,
+    change: 12.66,
+    changePercent: 1.78,
+    volume: "67.8M",
+    marketCap: "1.78T",
+    pe: 68.9,
+    dividendYield: 0.3,
+    sector: "Technology",
+    isGainer: true,
+  },
+  {
+    symbol: "JPM",
+    name: "JPMorgan Chase & Co.",
+    price: 154.23,
+    change: -0.87,
+    changePercent: -0.56,
+    volume: "12.4M",
+    marketCap: "452.1B",
+    pe: 12.8,
+    dividendYield: 2.4,
+    sector: "Financial Services",
+    isGainer: false,
+  },
+  {
+    symbol: "JNJ",
+    name: "Johnson & Johnson",
+    price: 161.42,
+    change: 0.34,
+    changePercent: 0.21,
+    volume: "8.9M",
+    marketCap: "427.3B",
+    pe: 15.2,
+    dividendYield: 3.1,
+    sector: "Healthcare",
+    isGainer: true,
+  },
+];
+
+const defaultFilters: FilterState = {
+  sector: "All Sectors",
+  marketCap: "All",
+  peRange: { min: "", max: "" },
+  dividendYield: "All",
+  priceRange: { min: "", max: "" },
+  searchTerm: "",
+};
 
 export default function Index() {
-  const [exampleFromServer, setExampleFromServer] = useState("");
-  // Fetch users on component mount
-  useEffect(() => {
-    fetchDemo();
-  }, []);
+  const [filters, setFilters] = useState<FilterState>(defaultFilters);
+  const [portfolio, setPortfolio] = useState<string[]>([]);
+  const [sortBy, setSortBy] = useState<"price" | "change" | "volume">("price");
 
-  // Example of how to fetch data from the server (if needed)
-  const fetchDemo = async () => {
-    try {
-      const response = await fetch("/api/demo");
-      const data = (await response.json()) as DemoResponse;
-      setExampleFromServer(data.message);
-    } catch (error) {
-      console.error("Error fetching hello:", error);
+  const filteredStocks = useMemo(() => {
+    let filtered = mockStocks.filter((stock) => {
+      // Search filter
+      if (
+        filters.searchTerm &&
+        !stock.symbol
+          .toLowerCase()
+          .includes(filters.searchTerm.toLowerCase()) &&
+        !stock.name.toLowerCase().includes(filters.searchTerm.toLowerCase())
+      ) {
+        return false;
+      }
+
+      // Sector filter
+      if (filters.sector !== "All Sectors" && stock.sector !== filters.sector) {
+        return false;
+      }
+
+      // Price range filter
+      if (
+        filters.priceRange.min &&
+        stock.price < Number(filters.priceRange.min)
+      ) {
+        return false;
+      }
+      if (
+        filters.priceRange.max &&
+        stock.price > Number(filters.priceRange.max)
+      ) {
+        return false;
+      }
+
+      // P/E range filter
+      if (
+        filters.peRange.min &&
+        (!stock.pe || stock.pe < Number(filters.peRange.min))
+      ) {
+        return false;
+      }
+      if (
+        filters.peRange.max &&
+        (!stock.pe || stock.pe > Number(filters.peRange.max))
+      ) {
+        return false;
+      }
+
+      return true;
+    });
+
+    // Sort stocks
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case "change":
+          return b.changePercent - a.changePercent;
+        case "volume":
+          return (
+            Number(b.volume.replace(/[^\d.]/g, "")) -
+            Number(a.volume.replace(/[^\d.]/g, ""))
+          );
+        default:
+          return b.price - a.price;
+      }
+    });
+
+    return filtered;
+  }, [filters, sortBy]);
+
+  const addToPortfolio = (symbol: string) => {
+    if (!portfolio.includes(symbol)) {
+      setPortfolio([...portfolio, symbol]);
     }
   };
 
+  const marketStats = {
+    gainers: mockStocks.filter((s) => s.change > 0).length,
+    losers: mockStocks.filter((s) => s.change < 0).length,
+    unchanged: mockStocks.filter((s) => s.change === 0).length,
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200">
-      <div className="text-center">
-        {/* TODO: FUSION_GENERATION_APP_PLACEHOLDER replace everything here with the actual app! */}
-        <h1 className="text-2xl font-semibold text-slate-800 flex items-center justify-center gap-3">
-          <svg
-            className="animate-spin h-8 w-8 text-slate-400"
-            viewBox="0 0 50 50"
-          >
-            <circle
-              className="opacity-30"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      {/* Header */}
+      <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                  <BarChart3 className="h-5 w-5 text-white" />
+                </div>
+                <h1 className="text-xl font-bold text-foreground">
+                  StockScope
+                </h1>
+              </div>
+              <nav className="hidden md:flex items-center gap-4">
+                <Button variant="ghost" size="sm">
+                  Markets
+                </Button>
+                <Button variant="ghost" size="sm">
+                  Watchlist
+                </Button>
+                <Button variant="ghost" size="sm">
+                  Research
+                </Button>
+              </nav>
+            </div>
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="bg-white/50">
+                Portfolio: {portfolio.length} stocks
+              </Badge>
+              <Button variant="ghost" size="icon">
+                <Bell className="h-4 w-4" />
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Settings className="h-4 w-4" />
+              </Button>
+              <Button size="sm">
+                <Wallet className="h-4 w-4 mr-2" />
+                Portfolio
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-6">
+        {/* Market Overview */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+          <Card className="bg-white/60 backdrop-blur-sm border-0">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Total Stocks</p>
+                  <p className="text-2xl font-bold">{mockStocks.length}</p>
+                </div>
+                <Search className="h-8 w-8 text-muted-foreground" />
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="bg-white/60 backdrop-blur-sm border-0">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Gainers</p>
+                  <p className="text-2xl font-bold text-success">
+                    {marketStats.gainers}
+                  </p>
+                </div>
+                <TrendingUp className="h-8 w-8 text-success" />
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="bg-white/60 backdrop-blur-sm border-0">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">Losers</p>
+                  <p className="text-2xl font-bold text-destructive">
+                    {marketStats.losers}
+                  </p>
+                </div>
+                <TrendingDown className="h-8 w-8 text-destructive" />
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="bg-white/60 backdrop-blur-sm border-0">
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm text-muted-foreground">In Portfolio</p>
+                  <p className="text-2xl font-bold text-primary">
+                    {portfolio.length}
+                  </p>
+                </div>
+                <Wallet className="h-8 w-8 text-primary" />
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+          {/* Filters Sidebar */}
+          <div className="lg:col-span-1">
+            <StockFilters
+              filters={filters}
+              onFiltersChange={setFilters}
+              onClearFilters={() => setFilters(defaultFilters)}
+              className="sticky top-24 bg-white/60 backdrop-blur-sm border-0"
             />
-            <circle
-              className="text-slate-600"
-              cx="25"
-              cy="25"
-              r="20"
-              stroke="currentColor"
-              strokeWidth="5"
-              fill="none"
-              strokeDasharray="100"
-              strokeDashoffset="75"
-            />
-          </svg>
-          Generating your app...
-        </h1>
-        <p className="mt-4 text-slate-600 max-w-md">
-          Watch the chat on the left for updates that might need your attention
-          to finish generating
-        </p>
-        <p className="mt-4 hidden max-w-md">{exampleFromServer}</p>
+          </div>
+
+          {/* Main Content */}
+          <div className="lg:col-span-3">
+            {/* Sort Controls */}
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-muted-foreground">Sort by:</span>
+                <div className="flex gap-1">
+                  {[
+                    { key: "price", label: "Price" },
+                    { key: "change", label: "% Change" },
+                    { key: "volume", label: "Volume" },
+                  ].map((option) => (
+                    <Button
+                      key={option.key}
+                      variant={sortBy === option.key ? "default" : "ghost"}
+                      size="sm"
+                      onClick={() => setSortBy(option.key as any)}
+                    >
+                      {option.label}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <p className="text-sm text-muted-foreground">
+                {filteredStocks.length} stocks found
+              </p>
+            </div>
+
+            {/* Stock Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
+              {filteredStocks.map((stock) => (
+                <StockCard
+                  key={stock.symbol}
+                  stock={stock}
+                  onAddToPortfolio={addToPortfolio}
+                  className={cn(
+                    portfolio.includes(stock.symbol) &&
+                      "ring-2 ring-primary bg-primary/5",
+                  )}
+                />
+              ))}
+            </div>
+
+            {filteredStocks.length === 0 && (
+              <div className="text-center py-12">
+                <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+                <h3 className="text-lg font-medium text-foreground mb-2">
+                  No stocks found
+                </h3>
+                <p className="text-muted-foreground">
+                  Try adjusting your filters to see more results.
+                </p>
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
