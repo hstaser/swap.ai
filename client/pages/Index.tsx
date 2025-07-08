@@ -358,11 +358,11 @@ export default function Index() {
                 </h1>
               </div>
               <nav className="hidden md:flex items-center gap-4">
-                <Button variant="ghost" size="sm">
-                  Markets
+                <Button variant="ghost" size="sm" asChild>
+                  <Link to="/markets">Markets</Link>
                 </Button>
-                <Button variant="ghost" size="sm">
-                  Watchlist
+                <Button variant="ghost" size="sm" asChild>
+                  <Link to="/watchlist">Watchlist</Link>
                 </Button>
                 <Button variant="ghost" size="sm">
                   Research
@@ -379,9 +379,11 @@ export default function Index() {
               <Button variant="ghost" size="icon">
                 <Settings className="h-4 w-4" />
               </Button>
-              <Button size="sm">
-                <Wallet className="h-4 w-4 mr-2" />
-                Portfolio
+              <Button size="sm" asChild>
+                <Link to="/portfolio">
+                  <Wallet className="h-4 w-4 mr-2" />
+                  Portfolio
+                </Link>
               </Button>
             </div>
           </div>
