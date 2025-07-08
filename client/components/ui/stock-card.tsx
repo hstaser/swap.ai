@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { StockChart } from "./stock-chart";
 import {
   TrendingUp,
   TrendingDown,
@@ -12,6 +14,7 @@ import {
   Clock,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
 export interface NewsItem {
   title: string;
@@ -34,6 +37,12 @@ export interface Stock {
   isGainer: boolean;
   news: NewsItem[];
   newsSummary: string;
+  returns?: {
+    oneMonth: number;
+    sixMonth: number;
+    oneYear: number;
+  };
+  earningsDate?: string;
 }
 
 interface StockCardProps {
@@ -55,6 +64,9 @@ export function StockCard({
   className,
 }: StockCardProps) {
   const isPositive = stock.change >= 0;
+  const [showChart, setShowChart] = useState(false);
+  const [showNews, setShowNews] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <Card
@@ -104,29 +116,91 @@ export function StockCard({
         </div>
 
         {/* Key Metrics */}
-        <div className="grid grid-cols-2 gap-6">
-          <div className="text-center space-y-1">
-            <div className="text-sm text-muted-foreground">Volume</div>
-            <div className="font-bold text-lg">{stock.volume}</div>
+        <div className="space-y-4">
+          <div className="grid grid-cols-2 gap-6">
+            <div className="text-center space-y-1">
+              <div className="text-sm text-muted-foreground">Market Cap</div>
+              <div className="font-bold text-lg">{stock.marketCap}</div>
+            </div>
+            <div className="text-center space-y-1">
+              <div className="text-sm text-muted-foreground">Div Yield</div>
+              <div className="font-bold text-lg">
+                {stock.dividendYield
+                  ? `${stock.dividendYield.toFixed(2)}%`
+                  : "N/A"}
+              </div>
+            </div>
           </div>
-          <div className="text-center space-y-1">
-            <div className="text-sm text-muted-foreground">Market Cap</div>
-            <div className="font-bold text-lg">{stock.marketCap}</div>
+
+          {/* Returns Section with Toggles */}
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-muted-foreground">
+                Recent Returns
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setShowChart(true)}
+                className="h-6 px-2 text-xs"
+              >
+                Chart
+              </Button>
+            </div>
+            <div className="flex gap-2">
+              {[
+                { label: "1M", value: stock.returns?.oneMonth || 2.4 },
+                { label: "6M", value: stock.returns?.sixMonth || 8.7 },
+                { label: "1Y", value: stock.returns?.oneYear || 15.3 },
+              ].map((period) => (
+                <div
+                  key={period.label}
+                  className="flex-1 p-2 bg-gray-50 rounded text-center"
+                >
+                  <div className="text-xs text-muted-foreground">
+                    {period.label}
+                  </div>
+                  <div
+                    className={cn(
+                      "text-sm font-semibold",
+                      period.value >= 0 ? "text-success" : "text-destructive",
+                    )}
+                  >
+                    {period.value >= 0 ? "+" : ""}
+                    {period.value.toFixed(1)}%
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="text-center space-y-1">
+
+          {/* News Summary */}
+          <div className="space-y-2">
             <div className="text-sm text-muted-foreground">News Summary</div>
             <div className="font-bold text-sm text-primary leading-tight">
               {stock.newsSummary}
             </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setShowNews(true)}
+              className="h-6 px-2 text-xs text-blue-600"
+            >
+              See More
+            </Button>
           </div>
-          <div className="text-center space-y-1">
-            <div className="text-sm text-muted-foreground">Div Yield</div>
-            <div className="font-bold text-lg">
-              {stock.dividendYield
-                ? `${stock.dividendYield.toFixed(2)}%`
-                : "N/A"}
+
+          {/* Earnings Date */}
+          {stock.earningsDate && (
+            <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+              <div className="text-sm font-medium text-yellow-800">
+                📅 Earnings: {stock.earningsDate}
+              </div>
+              <div className="text-xs text-yellow-600">
+                Less than 2 weeks away
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <Separator />

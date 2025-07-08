@@ -38,6 +38,8 @@ const mockStocks: Stock[] = [
     sector: "Technology",
     isGainer: true,
     newsSummary: "Strong iPhone sales, AI momentum",
+    returns: { oneMonth: 3.2, sixMonth: 12.7, oneYear: 18.4 },
+    earningsDate: "Jan 25, 2024",
     news: [
       {
         title: "Apple unveils new iPhone 15 Pro with titanium design",
@@ -75,6 +77,7 @@ const mockStocks: Stock[] = [
     sector: "Technology",
     isGainer: false,
     newsSummary: "Cloud growth slowing, costs rising",
+    returns: { oneMonth: 1.8, sixMonth: 9.2, oneYear: 14.6 },
     news: [
       {
         title: "Microsoft Azure sees 30% revenue growth",
@@ -105,6 +108,7 @@ const mockStocks: Stock[] = [
     sector: "Communication Services",
     isGainer: true,
     newsSummary: "Search dominance, AI investments",
+    returns: { oneMonth: 4.1, sixMonth: 15.3, oneYear: 22.8 },
     news: [
       {
         title: "Google Search updates combat AI-generated content",

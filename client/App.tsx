@@ -11,6 +11,7 @@ import Markets from "./pages/Markets";
 import Watchlist from "./pages/Watchlist";
 import Portfolio from "./pages/Portfolio";
 import StockDetail from "./pages/StockDetail";
+import StockNews from "./pages/StockNews";
 import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/stock/:symbol" element={<StockDetail />} />
+          <Route path="/stock/:symbol/news" element={<StockNews />} />
           <Route path="/settings" element={<Settings />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
