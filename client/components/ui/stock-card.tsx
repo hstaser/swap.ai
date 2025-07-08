@@ -33,6 +33,7 @@ export interface Stock {
   sector: string;
   isGainer: boolean;
   news: NewsItem[];
+  newsSummary: string;
 }
 
 interface StockCardProps {
