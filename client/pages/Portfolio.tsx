@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Progress } from "@/components/ui/progress";
+import { PerformanceChart } from "@/components/ui/performance-chart";
 import {
   ArrowLeft,
   TrendingUp,
@@ -352,10 +353,11 @@ export default function Portfolio() {
 
         {/* Portfolio Details Tabs */}
         <Tabs defaultValue="holdings" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="holdings">Holdings</TabsTrigger>
             <TabsTrigger value="allocation">Allocation</TabsTrigger>
             <TabsTrigger value="performance">Performance</TabsTrigger>
+            <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="risk">Risk</TabsTrigger>
           </TabsList>
 
@@ -571,6 +573,10 @@ export default function Portfolio() {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="analytics" className="space-y-4">
+            <PerformanceChart />
           </TabsContent>
 
           <TabsContent value="risk" className="space-y-4">
