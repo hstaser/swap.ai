@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { StockCard, type Stock } from "@/components/ui/stock-card";
 import { StockFilters, type FilterState } from "@/components/ui/stock-filters";
 import { Button } from "@/components/ui/button";
@@ -335,6 +335,13 @@ export default function Index() {
     }
   };
 
+  // Reset current stock index when filtered stocks change
+  useEffect(() => {
+    if (currentStockIndex >= filteredStocks.length) {
+      setCurrentStockIndex(0);
+    }
+  }, [filteredStocks.length, currentStockIndex]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
@@ -393,7 +400,7 @@ export default function Index() {
         </div>
 
         {/* Single Stock Display */}
-        {filteredStocks.length > 0 ? (
+        {filteredStocks.length > 0 && filteredStocks[currentStockIndex] ? (
           <div className="space-y-4">
             {/* Navigation */}
             <div className="flex items-center justify-between">
