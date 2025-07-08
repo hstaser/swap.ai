@@ -335,12 +335,6 @@ export default function Index() {
     }
   };
 
-  const marketStats = {
-    gainers: mockStocks.filter((s) => s.change > 0).length,
-    losers: mockStocks.filter((s) => s.change < 0).length,
-    unchanged: mockStocks.filter((s) => s.change === 0).length,
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
@@ -388,60 +382,6 @@ export default function Index() {
       </header>
 
       <div className="container mx-auto px-4 py-6">
-        {/* Market Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-          <Card className="bg-white/60 backdrop-blur-sm border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Total Stocks</p>
-                  <p className="text-2xl font-bold">{mockStocks.length}</p>
-                </div>
-                <Search className="h-8 w-8 text-muted-foreground" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="bg-white/60 backdrop-blur-sm border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Gainers</p>
-                  <p className="text-2xl font-bold text-success">
-                    {marketStats.gainers}
-                  </p>
-                </div>
-                <TrendingUp className="h-8 w-8 text-success" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="bg-white/60 backdrop-blur-sm border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">Losers</p>
-                  <p className="text-2xl font-bold text-destructive">
-                    {marketStats.losers}
-                  </p>
-                </div>
-                <TrendingDown className="h-8 w-8 text-destructive" />
-              </div>
-            </CardContent>
-          </Card>
-          <Card className="bg-white/60 backdrop-blur-sm border-0">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-muted-foreground">In Portfolio</p>
-                  <p className="text-2xl font-bold text-primary">
-                    {portfolio.length}
-                  </p>
-                </div>
-                <Wallet className="h-8 w-8 text-primary" />
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
         {/* Mobile Filters */}
         <div className="mb-4">
           <StockFilters
