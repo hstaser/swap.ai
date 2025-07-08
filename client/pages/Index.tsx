@@ -478,7 +478,7 @@ export default function Index() {
             <div className="max-w-lg mx-auto">
               <StockCard
                 stock={filteredStocks[currentStockIndex]}
-                onAddToPortfolio={addToPortfolio}
+                onConfidenceSelect={handleConfidenceSelect}
                 onToggleWatchlist={toggleWatchlist}
                 isInWatchlist={watchlist.includes(
                   filteredStocks[currentStockIndex].symbol,
