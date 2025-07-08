@@ -23,8 +23,29 @@ import {
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 
-// Mock stock data - in a real app this would come from an API
-const mockStocks: Stock[] = [
+import { extendedStockDatabase } from "../data/extended-stocks";
+
+// Use extended stock database
+const mockStocks: Stock[] = extendedStockDatabase.map((stock) => ({
+  symbol: stock.symbol,
+  name: stock.name,
+  price: stock.price,
+  change: stock.change,
+  changePercent: stock.changePercent,
+  volume: stock.volume,
+  marketCap: stock.marketCap,
+  pe: stock.pe,
+  dividendYield: stock.dividendYield,
+  sector: stock.sector,
+  isGainer: stock.isGainer,
+  news: [],
+  newsSummary: stock.newsSummary,
+  returns: stock.returns,
+  earningsDate: stock.earningsDate,
+}));
+
+// Legacy mock data for comparison
+const legacyMockStocks: Stock[] = [
   {
     symbol: "AAPL",
     name: "Apple Inc.",

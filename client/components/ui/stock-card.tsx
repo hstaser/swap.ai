@@ -183,7 +183,7 @@ export function StockCard({
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setShowNews(true)}
+              onClick={() => navigate(`/stock/${stock.symbol}/news`)}
               className="h-6 px-2 text-xs text-blue-600"
             >
               See More
