@@ -388,8 +388,9 @@ export default function Portfolio() {
 
         {/* Portfolio Details Tabs */}
         <Tabs defaultValue="holdings" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="holdings">Holdings</TabsTrigger>
+            <TabsTrigger value="allocation">Allocation</TabsTrigger>
             <TabsTrigger value="performance">Performance</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="risk">Risk</TabsTrigger>
