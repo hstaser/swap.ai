@@ -179,7 +179,11 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
                 <Zap className="h-4 w-4 mr-2" />
                 Apply Changes
               </Button>
-              <Button variant="outline" onClick={onClose} className="w-full">
+              <Button
+                variant="outline"
+                onClick={() => onComplete(recommendations)}
+                className="w-full"
+              >
                 Review Details
               </Button>
             </div>
