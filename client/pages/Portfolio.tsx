@@ -539,7 +539,6 @@ export default function Portfolio() {
           </TabsContent>
 
           <TabsContent value="allocation" className="space-y-4">
-            {/* Sector Allocation */}
             <Card className="bg-white/90 backdrop-blur-sm border-0">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
@@ -547,45 +546,106 @@ export default function Portfolio() {
                   Sector Allocation
                 </CardTitle>
               </CardHeader>
-              <CardContent className="space-y-3">
-                {sectorAllocation.map((sector) => (
-                  <div key={sector.sector}>
-                    <div className="flex justify-between text-sm mb-1">
-                      <span>{sector.sector}</span>
-                      <span className="font-medium">{sector.allocation}%</span>
-                    </div>
-                    <Progress value={sector.allocation} className="h-2" />
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
+              <CardContent>
+                {/* Pie Chart Visualization */}
+                <div className="relative w-64 h-64 mx-auto mb-6">
+                  <svg
+                    viewBox="0 0 100 100"
+                    className="w-full h-full transform -rotate-90"
+                  >
+                    {(() => {
+                      let cumulativePercentage = 0;
+                      const colors = [
+                        "#3B82F6",
+                        "#10B981",
+                        "#F59E0B",
+                        "#EF4444",
+                        "#8B5CF6",
+                        "#06B6D4",
+                      ];
+                      return sectorAllocation.map((sector, index) => {
+                        const percentage = sector.allocation;
+                        const angle = (percentage / 100) * 2 * Math.PI;
+                        const x1 =
+                          50 +
+                          40 *
+                            Math.cos(
+                              (2 * Math.PI * cumulativePercentage) / 100,
+                            );
+                        const y1 =
+                          50 +
+                          40 *
+                            Math.sin(
+                              (2 * Math.PI * cumulativePercentage) / 100,
+                            );
+                        cumulativePercentage += percentage;
+                        const x2 =
+                          50 +
+                          40 *
+                            Math.cos(
+                              (2 * Math.PI * cumulativePercentage) / 100,
+                            );
+                        const y2 =
+                          50 +
+                          40 *
+                            Math.sin(
+                              (2 * Math.PI * cumulativePercentage) / 100,
+                            );
+                        const largeArcFlag = percentage > 50 ? 1 : 0;
+                        const pathData = [
+                          `M 50 50`,
+                          `L ${x1} ${y1}`,
+                          `A 40 40 0 ${largeArcFlag} 1 ${x2} ${y2}`,
+                          "Z",
+                        ].join(" ");
+                        return (
+                          <path
+                            key={sector.sector}
+                            d={pathData}
+                            fill={colors[index % colors.length]}
+                            stroke="white"
+                            strokeWidth="0.5"
+                          />
+                        );
+                      });
+                    })()}
+                  </svg>
+                </div>
 
-            {/* Asset Allocation vs Target */}
-            <Card className="bg-white/90 backdrop-blur-sm border-0">
-              <CardHeader>
-                <CardTitle>Current vs Target Allocation</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                {mockPortfolioStocks.map((stock) => (
-                  <div key={stock.symbol} className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="font-medium">{stock.symbol}</span>
-                      <span>
-                        {stock.allocation.toFixed(1)}% /{" "}
-                        {stock.recommendedAllocation.toFixed(1)}%
-                      </span>
-                    </div>
-                    <div className="relative">
-                      <Progress value={stock.allocation} className="h-3" />
+                {/* Legend */}
+                <div className="space-y-3">
+                  {sectorAllocation.map((sector, index) => {
+                    const colors = [
+                      "#3B82F6",
+                      "#10B981",
+                      "#F59E0B",
+                      "#EF4444",
+                      "#8B5CF6",
+                      "#06B6D4",
+                    ];
+                    return (
                       <div
-                        className="absolute top-0 h-3 w-1 bg-destructive rounded"
-                        style={{
-                          left: `${stock.recommendedAllocation}%`,
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
+                        key={sector.sector}
+                        className="flex items-center justify-between"
+                      >
+                        <div className="flex items-center gap-2">
+                          <div
+                            className="w-4 h-4 rounded-sm"
+                            style={{
+                              backgroundColor: colors[index % colors.length],
+                            }}
+                          />
+                          <span className="text-sm font-medium">
+                            {sector.sector}
+                          </span>
+                        </div>
+                        <span className="text-sm font-bold">
+                          {sector.allocation}%
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
