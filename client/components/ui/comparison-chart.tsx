@@ -169,34 +169,100 @@ export function ComparisonChart({
         </div>
 
         {/* Chart */}
-        <div className="relative">
-          <svg width={chartWidth} height={chartHeight} className="w-full">
-            {/* Grid lines */}
-            <defs>
-              <pattern
-                id="grid"
-                width="40"
-                height="30"
-                patternUnits="userSpaceOnUse"
-              >
-                <path
-                  d="M 40 0 L 0 0 0 30"
-                  fill="none"
-                  stroke="#f3f4f6"
-                  strokeWidth="0.5"
-                />
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
+        <div className="relative bg-white rounded-lg p-2 border">
+          <svg width="100%" height="300" viewBox="0 0 800 300" className="w-full">
+            {/* Background */}
+            <rect width="800" height="300" fill="white" />
 
-            {/* S&P 500 line (background) */}
-            <path
-              d={sp500Path}
-              fill="none"
-              stroke="#6b7280"
-              strokeWidth="2"
-              strokeDasharray="5,5"
-              opacity="0.8"
+            {/* Chart area with margins for axes */}
+            <g transform="translate(60, 20)">
+              {/* Grid lines */}
+              <defs>
+                <pattern
+                  id="grid"
+                  width="60"
+                  height="40"
+                  patternUnits="userSpaceOnUse"
+                >
+                  <path
+                    d="M 60 0 L 0 0 0 40"
+                    fill="none"
+                    stroke="#f3f4f6"
+                    strokeWidth="1"
+                  />
+                </pattern>
+              </defs>
+              <rect width="720" height="240" fill="url(#grid)" />
+
+              {/* Y-axis labels */}
+              {[0, 20, 40, 60, 80, 100].map((value, index) => (
+                <g key={value}>
+                  <line
+                    x1="0"
+                    y1={240 - (value / 100) * 240}
+                    x2="720"
+                    y2={240 - (value / 100) * 240}
+                    stroke="#e5e7eb"
+                    strokeWidth="1"
+                  />
+                  <text
+                    x="-10"
+                    y={240 - (value / 100) * 240 + 4}
+                    textAnchor="end"
+                    fontSize="10"
+                    fill="#6b7280"
+                  >
+                    {value}%
+                  </text>
+                </g>
+              ))}
+
+              {/* X-axis labels */}
+              {[0, 25, 50, 75, 100].map((percentage, index) => {
+                const x = (percentage / 100) * 720;
+                const dataIndex = Math.floor((percentage / 100) * (data.length - 1));
+                const date = new Date(data[dataIndex]?.date);
+                const label = timeframe === "1M"
+                  ? date.getDate().toString()
+                  : timeframe === "6M"
+                  ? date.toLocaleDateString('en-US', { month: 'short' })
+                  : date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+
+                return (
+                  <g key={percentage}>
+                    <line
+                      x1={x}
+                      y1="240"
+                      x2={x}
+                      y2="245"
+                      stroke="#6b7280"
+                      strokeWidth="1"
+                    />
+                    <text
+                      x={x}
+                      y="255"
+                      textAnchor="middle"
+                      fontSize="10"
+                      fill="#6b7280"
+                    >
+                      {label}
+                    </text>
+                  </g>
+                );
+              })}
+
+              {/* S&P 500 line (background) */}
+              <path
+                d={sp500Path.replace(/(\d+),(\d+)/g, (match, x, y) => {
+                  const newX = (parseFloat(x) / chartWidth) * 720;
+                  const newY = (parseFloat(y) / chartHeight) * 240;
+                  return `${newX},${newY}`;
+                })}
+                fill="none"
+                stroke="#9ca3af"
+                strokeWidth="2"
+                strokeDasharray="4,4"
+                opacity="0.8"
             />
 
             {/* Portfolio line (foreground) */}

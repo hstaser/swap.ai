@@ -237,26 +237,6 @@ export function PerformanceChart({ className }: PerformanceChartProps) {
               </CardContent>
             </Card>
           </div>
-
-          {/* Performance vs Benchmark Chart Placeholder */}
-          <Card className="bg-white/90 backdrop-blur-sm border-0">
-            <CardHeader>
-              <CardTitle className="text-base">Portfolio vs S&P 500</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="h-32 bg-gradient-to-r from-primary/10 to-success/10 rounded-lg flex items-center justify-center">
-                <div className="text-center">
-                  <BarChart3 className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                  <div className="text-sm text-muted-foreground">
-                    Interactive chart would be here
-                  </div>
-                  <div className="text-xs text-muted-foreground">
-                    Portfolio: +18.92% | Benchmark: +12.34%
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
         </TabsContent>
 
         {/* Detailed Analytics */}
