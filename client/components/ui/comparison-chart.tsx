@@ -12,21 +12,14 @@ interface ChartDataPoint {
 }
 
 interface ComparisonChartProps {
-  timeframe: "1M" | "3M" | "6M" | "1Y";
-  onTimeframeChange: (timeframe: "1M" | "3M" | "6M" | "1Y") => void;
+  timeframe: "1M" | "6M" | "1Y";
+  onTimeframeChange: (timeframe: "1M" | "6M" | "1Y") => void;
   className?: string;
 }
 
 // Mock data for demonstration
 const generateMockData = (timeframe: string): ChartDataPoint[] => {
-  const periods =
-    timeframe === "1M"
-      ? 30
-      : timeframe === "3M"
-        ? 90
-        : timeframe === "6M"
-          ? 180
-          : 365;
+  const periods = timeframe === "1M" ? 30 : timeframe === "6M" ? 180 : 365;
   const data: ChartDataPoint[] = [];
 
   let portfolioValue = 100;

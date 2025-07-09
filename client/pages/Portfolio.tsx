@@ -54,7 +54,6 @@ interface PortfolioMetrics {
   totalReturnPercent: number;
   diversificationScore: number;
   riskScore: number;
-  sharpeRatio: number;
   beta: number;
   expectedAnnualReturn: number;
   volatility: number;
@@ -146,7 +145,6 @@ const portfolioMetrics: PortfolioMetrics = {
   totalReturnPercent: 12.16,
   diversificationScore: 82,
   riskScore: 68,
-  sharpeRatio: 1.45,
   beta: 0.89,
   expectedAnnualReturn: 10.2,
   volatility: 14.8,
@@ -159,7 +157,7 @@ const optimizationInsights = [
     title: "Rebalancing Recommended",
     description:
       "Your Apple allocation is 3.5% above optimal. Consider reducing position.",
-    impact: "Could improve Sharpe ratio by 0.08",
+    impact: "Could reduce portfolio volatility by 1.2%",
     icon: RefreshCw,
     severity: "medium",
   },
@@ -193,7 +191,7 @@ export default function Portfolio() {
   const [showAIReview, setShowAIReview] = useState(false);
   const [optimizationData, setOptimizationData] = useState<any>(null);
   const [comparisonTimeframe, setComparisonTimeframe] = useState<
-    "1M" | "3M" | "6M" | "1Y"
+    "1M" | "6M" | "1Y"
   >("1Y");
 
   const runOptimization = () => {
@@ -390,9 +388,8 @@ export default function Portfolio() {
 
         {/* Portfolio Details Tabs */}
         <Tabs defaultValue="holdings" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="holdings">Holdings</TabsTrigger>
-            <TabsTrigger value="allocation">Allocation</TabsTrigger>
             <TabsTrigger value="performance">Performance</TabsTrigger>
             <TabsTrigger value="analytics">Analytics</TabsTrigger>
             <TabsTrigger value="risk">Risk</TabsTrigger>
@@ -414,14 +411,16 @@ export default function Portfolio() {
                           {stock.sector}
                         </Badge>
                         <Badge
-                          variant={
-                            stock.risk === "Low"
-                              ? "secondary"
-                              : stock.risk === "Medium"
-                                ? "outline"
-                                : "destructive"
-                          }
-                          className="text-xs"
+                          variant="outline"
+                          className={cn(
+                            "text-xs",
+                            stock.risk === "Low" &&
+                              "bg-green-100 text-green-800 border-green-300",
+                            stock.risk === "Medium" &&
+                              "bg-yellow-100 text-yellow-800 border-yellow-300",
+                            stock.risk === "High" &&
+                              "bg-red-100 text-red-800 border-red-300",
+                          )}
                         >
                           {stock.risk} Risk
                         </Badge>
@@ -446,6 +445,9 @@ export default function Portfolio() {
                       <div className="text-right">
                         <div className="text-sm text-muted-foreground">
                           {stock.allocation.toFixed(1)}% of portfolio
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          Target: {stock.recommendedAllocation.toFixed(1)}%
                         </div>
                         <div
                           className={cn(
@@ -616,14 +618,16 @@ export default function Portfolio() {
                       <div className="flex items-center gap-2">
                         <span className="font-medium">{stock.symbol}</span>
                         <Badge
-                          variant={
-                            stock.risk === "Low"
-                              ? "secondary"
-                              : stock.risk === "Medium"
-                                ? "outline"
-                                : "destructive"
-                          }
-                          className="text-xs"
+                          variant="outline"
+                          className={cn(
+                            "text-xs",
+                            stock.risk === "Low" &&
+                              "bg-green-100 text-green-800 border-green-300",
+                            stock.risk === "Medium" &&
+                              "bg-yellow-100 text-yellow-800 border-yellow-300",
+                            stock.risk === "High" &&
+                              "bg-red-100 text-red-800 border-red-300",
+                          )}
                         >
                           {stock.risk}
                         </Badge>

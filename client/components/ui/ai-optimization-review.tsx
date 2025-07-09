@@ -45,10 +45,10 @@ const mathInsights = [
     icon: Calculator,
   },
   {
-    title: "Sharpe Ratio Optimization",
-    formula: "S = (Rp - Rf) / σp",
+    title: "Risk-Return Optimization",
+    formula: "E(R) = Rf + β[E(Rm) - Rf]",
     insight:
-      "Expected Sharpe ratio improvement from 1.24 to 1.47 through risk reduction",
+      "Optimized risk-adjusted returns through systematic rebalancing approach",
     icon: TrendingUp,
   },
   {
@@ -78,7 +78,7 @@ function QuantAnalysisSimulation() {
   const [currentCalculation, setCurrentCalculation] = useState(0);
   const [animatedValues, setAnimatedValues] = useState({
     correlation: 0.68,
-    sharpe: 1.24,
+    riskAdjustedReturn: 8.2,
     var: 8.4,
     efficiency: 0,
   });
@@ -96,7 +96,7 @@ function QuantAnalysisSimulation() {
       description: "Integrating market equilibrium with investor views",
       progress: "Optimizing expected returns vector μ_BL...",
       formula: "μ_BL = [(τΣ)⁻¹ + P^T Ω⁻¹ P]⁻¹ [(τΣ)⁻¹ π + P^T Ω⁻¹ Q]",
-      targetValue: { sharpe: 1.47 },
+      targetValue: { riskAdjustedReturn: 11.4 },
     },
     {
       title: "Applying Monte Carlo Risk Simulation",
@@ -194,11 +194,13 @@ function QuantAnalysisSimulation() {
         </div>
 
         <div className="p-4 bg-gradient-to-br from-green-50 to-emerald-50 border border-green-200 rounded-lg">
-          <div className="text-sm font-medium text-green-700">Sharpe Ratio</div>
-          <div className="text-2xl font-bold text-green-900">
-            {animatedValues.sharpe.toFixed(3)}
+          <div className="text-sm font-medium text-green-700">
+            Risk-Adj Return
           </div>
-          <div className="text-xs text-green-600">Target: 1.470</div>
+          <div className="text-2xl font-bold text-green-900">
+            {animatedValues.riskAdjustedReturn.toFixed(1)}%
+          </div>
+          <div className="text-xs text-green-600">Target: 11.4%</div>
         </div>
 
         <div className="p-4 bg-gradient-to-br from-red-50 to-pink-50 border border-red-200 rounded-lg">
