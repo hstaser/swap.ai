@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { StockChart } from "./stock-chart";
+import { CommunitySentiment } from "./community-sentiment";
 import {
   TrendingUp,
   TrendingDown,
@@ -202,6 +203,11 @@ export function StockCard({
             </div>
           )}
         </div>
+
+        <Separator />
+
+        {/* Community Sentiment */}
+        <CommunitySentiment symbol={stock.symbol} />
 
         <Separator />
 

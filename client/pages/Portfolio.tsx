@@ -8,6 +8,8 @@ import { Progress } from "@/components/ui/progress";
 import { PerformanceChart } from "@/components/ui/performance-chart";
 import { ExportModal } from "@/components/ui/export-modal";
 import { PriceAlerts } from "@/components/ui/price-alerts";
+import { AIRebalancing } from "@/components/ui/ai-rebalancing";
+import { ComparisonChart } from "@/components/ui/comparison-chart";
 import {
   ArrowLeft,
   TrendingUp,
@@ -186,13 +188,19 @@ export default function Portfolio() {
   const [showRebalanceDetails, setShowRebalanceDetails] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
   const [showAlertsModal, setShowAlertsModal] = useState(false);
+  const [showAIRebalancing, setShowAIRebalancing] = useState(false);
+  const [comparisonTimeframe, setComparisonTimeframe] = useState<
+    "1M" | "3M" | "6M" | "1Y"
+  >("1Y");
 
   const runOptimization = () => {
-    setIsOptimizing(true);
-    // Simulate optimization process
-    setTimeout(() => {
-      setIsOptimizing(false);
-    }, 3000);
+    setShowAIRebalancing(true);
+  };
+
+  const handleRebalancingComplete = (recommendations: any) => {
+    console.log("Rebalancing recommendations:", recommendations);
+    setShowAIRebalancing(false);
+    // Apply the recommendations to the portfolio
   };
 
   const getSectorAllocation = () => {
@@ -248,16 +256,11 @@ export default function Portfolio() {
               </Button>
               <Button
                 onClick={runOptimization}
-                disabled={isOptimizing}
                 size="sm"
-                className="relative"
+                className="relative bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
               >
-                {isOptimizing ? (
-                  <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                ) : (
-                  <Zap className="h-4 w-4 mr-2" />
-                )}
-                {isOptimizing ? "Optimizing..." : "Optimize"}
+                <Zap className="h-4 w-4 mr-2" />
+                AI Optimize
               </Button>
             </div>
           </div>
@@ -300,7 +303,7 @@ export default function Portfolio() {
                     {portfolioMetrics.diversificationScore}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Diversification Score
+                    Spread Score
                   </div>
                 </div>
                 <div>
@@ -308,15 +311,15 @@ export default function Portfolio() {
                     {portfolioMetrics.riskScore}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Risk Score
+                    Risk Level
                   </div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-success">
-                    {portfolioMetrics.sharpeRatio.toFixed(2)}
+                    {portfolioMetrics.expectedAnnualReturn.toFixed(1)}%
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Sharpe Ratio
+                    Expected Return
                   </div>
                 </div>
               </div>
@@ -533,6 +536,11 @@ export default function Portfolio() {
           </TabsContent>
 
           <TabsContent value="performance" className="space-y-4">
+            <ComparisonChart
+              timeframe={comparisonTimeframe}
+              onTimeframeChange={setComparisonTimeframe}
+            />
+
             <div className="grid grid-cols-2 gap-4">
               <Card className="bg-white/90 backdrop-blur-sm border-0">
                 <CardContent className="p-4 text-center">
@@ -546,57 +554,15 @@ export default function Portfolio() {
               </Card>
               <Card className="bg-white/90 backdrop-blur-sm border-0">
                 <CardContent className="p-4 text-center">
-                  <div className="text-2xl font-bold text-warning">
-                    {portfolioMetrics.volatility.toFixed(1)}%
+                  <div className="text-2xl font-bold text-primary">
+                    {portfolioMetrics.diversificationScore}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Volatility
+                    Spread Score
                   </div>
                 </CardContent>
               </Card>
             </div>
-
-            <Card className="bg-white/90 backdrop-blur-sm border-0">
-              <CardHeader>
-                <CardTitle>Performance Metrics</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <div className="text-sm text-muted-foreground">
-                      Sharpe Ratio
-                    </div>
-                    <div className="text-xl font-bold">
-                      {portfolioMetrics.sharpeRatio.toFixed(2)}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-muted-foreground">
-                      Portfolio Beta
-                    </div>
-                    <div className="text-xl font-bold">
-                      {portfolioMetrics.beta.toFixed(2)}
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-muted-foreground">
-                      Total Return
-                    </div>
-                    <div className="text-xl font-bold text-success">
-                      {portfolioMetrics.totalReturnPercent.toFixed(2)}%
-                    </div>
-                  </div>
-                  <div>
-                    <div className="text-sm text-muted-foreground">
-                      Diversification
-                    </div>
-                    <div className="text-xl font-bold text-primary">
-                      {portfolioMetrics.diversificationScore}/100
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
           </TabsContent>
 
           <TabsContent value="analytics" className="space-y-4">
@@ -674,6 +640,13 @@ export default function Portfolio() {
 
         {showAlertsModal && (
           <PriceAlerts onClose={() => setShowAlertsModal(false)} />
+        )}
+
+        {showAIRebalancing && (
+          <AIRebalancing
+            onComplete={handleRebalancingComplete}
+            onClose={() => setShowAIRebalancing(false)}
+          />
         )}
       </div>
     </div>
