@@ -86,7 +86,7 @@ const faqItems: FAQItem[] = [
 const tutorials: Tutorial[] = [
   {
     id: "getting-started",
-    title: "Getting Started with StockScope",
+    title: "Getting Started with swap.ai",
     description: "Learn the basics of navigating and using the app",
     duration: "8 min",
     difficulty: "Beginner",

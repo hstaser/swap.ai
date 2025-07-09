@@ -103,7 +103,7 @@ export function Onboarding({ onComplete, onSkip }: OnboardingProps) {
 
   const steps = [
     {
-      title: "Welcome to StockScope",
+      title: "Welcome to swap.ai",
       subtitle: "Let's personalize your investment experience",
       icon: Sparkles,
       content: (

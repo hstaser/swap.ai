@@ -68,7 +68,7 @@ export function ExportModal({
   };
 
   const generateShareUrl = () => {
-    const url = `https://stockscope.app/portfolio/shared/${Math.random()
+    const url = `https://swap.ai/portfolio/shared/${Math.random()
       .toString(36)
       .substring(2, 15)}`;
     setShareUrl(url);

@@ -170,7 +170,7 @@ export function PerformanceChart({ className }: PerformanceChartProps) {
         </TabsList>
 
         {/* Performance Overview */}
-        <TabsContent value="overview" className="space-y-4">
+      <div className="space-y-4">
           <Card className="bg-white/90 backdrop-blur-sm border-0">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">

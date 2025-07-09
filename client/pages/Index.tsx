@@ -398,9 +398,7 @@ export default function Index() {
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                   <BarChart3 className="h-5 w-5 text-white" />
                 </div>
-                <h1 className="text-xl font-bold text-foreground">
-                  StockScope
-                </h1>
+                <h1 className="text-xl font-bold text-foreground">swap.ai</h1>
               </div>
               <nav className="hidden md:flex items-center gap-4">
                 <Button variant="ghost" size="sm" asChild>
