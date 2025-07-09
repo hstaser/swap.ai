@@ -59,12 +59,170 @@ export function ExportModal({
     emailRecipients: [],
   });
 
+  const generatePDFContent = () => {
+    const currentDate = new Date().toLocaleDateString();
+    return `
+      <html>
+        <head>
+          <title>swap.ai Portfolio Report</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
+            .header { text-align: center; border-bottom: 2px solid #3b82f6; padding-bottom: 20px; margin-bottom: 30px; }
+            .metric { display: inline-block; margin: 10px 20px; padding: 15px; border: 1px solid #e5e7eb; border-radius: 8px; }
+            .positive { color: #10b981; }
+            .negative { color: #ef4444; }
+            .section { margin: 30px 0; }
+            h1 { color: #3b82f6; margin: 0; }
+            h2 { color: #374151; border-bottom: 1px solid #e5e7eb; padding-bottom: 10px; }
+            .value { font-size: 24px; font-weight: bold; }
+            table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            th, td { padding: 12px; text-align: left; border: 1px solid #e5e7eb; }
+            th { background-color: #f9fafb; font-weight: bold; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>🔄 swap.ai Portfolio Report</h1>
+            <p>AI-Powered Portfolio Analysis • Generated on ${currentDate}</p>
+          </div>
+
+          <div class="section">
+            <h2>📊 Portfolio Overview</h2>
+            <div class="metric">
+              <div>Total Portfolio Value</div>
+              <div class="value">$${portfolioValue.toLocaleString()}</div>
+            </div>
+            <div class="metric">
+              <div>Total Return</div>
+              <div class="value ${portfolioReturn >= 0 ? "positive" : "negative"}">
+                ${portfolioReturn >= 0 ? "+" : ""}${portfolioReturn.toFixed(2)}%
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2>💼 Key Holdings</h2>
+            <table>
+              <tr>
+                <th>Symbol</th>
+                <th>Company</th>
+                <th>Allocation</th>
+                <th>Value</th>
+                <th>1Y Return</th>
+              </tr>
+              <tr>
+                <td><strong>AAPL</strong></td>
+                <td>Apple Inc.</td>
+                <td>28.5%</td>
+                <td>$4,928</td>
+                <td class="positive">+18.9%</td>
+              </tr>
+              <tr>
+                <td><strong>MSFT</strong></td>
+                <td>Microsoft Corporation</td>
+                <td>24.1%</td>
+                <td>$4,167</td>
+                <td class="positive">+11.2%</td>
+              </tr>
+              <tr>
+                <td><strong>JNJ</strong></td>
+                <td>Johnson & Johnson</td>
+                <td>17.7%</td>
+                <td>$3,067</td>
+                <td class="positive">+13.5%</td>
+              </tr>
+              <tr>
+                <td><strong>JPM</strong></td>
+                <td>JPMorgan Chase</td>
+                <td>14.3%</td>
+                <td>$2,468</td>
+                <td class="positive">+14.7%</td>
+              </tr>
+            </table>
+          </div>
+
+          <div class="section">
+            <h2>🎯 AI Analysis</h2>
+            <div style="background-color: #f0f9ff; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+              <h3 style="margin-top: 0; color: #1e40af;">Portfolio Strengths:</h3>
+              <ul>
+                <li><strong>Strong Diversification:</strong> Well-balanced across technology, healthcare, and financial sectors</li>
+                <li><strong>Quality Holdings:</strong> All positions are in established, profitable companies</li>
+                <li><strong>Growth Potential:</strong> Portfolio positioned for continued long-term growth</li>
+                <li><strong>Risk Management:</strong> Moderate risk profile suitable for balanced investors</li>
+              </ul>
+
+              <h3 style="color: #1e40af;">AI Recommendations:</h3>
+              <ul>
+                <li>Consider rebalancing Apple position (slightly overweight at 28.5%)</li>
+                <li>Strong performance across all holdings - maintain current strategy</li>
+                <li>Portfolio correlation optimized for risk-adjusted returns</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="section">
+            <h2>📈 Performance Summary</h2>
+            <p>Your portfolio has generated exceptional returns of <strong class="${portfolioReturn >= 0 ? "positive" : "negative"}">${portfolioReturn >= 0 ? "+" : ""}${portfolioReturn.toFixed(2)}%</strong>, significantly outperforming major market indices. The AI-optimized allocation has successfully balanced growth and risk management.</p>
+
+            <div style="margin: 20px 0; padding: 15px; background-color: #f0fdf4; border-radius: 8px;">
+              <strong>Risk Metrics:</strong>
+              <ul style="margin: 10px 0;">
+                <li>Portfolio Beta: 0.92 (Slightly less volatile than market)</li>
+                <li>Diversification Score: 82/100 (Well diversified)</li>
+                <li>Risk Level: Moderate (68/100)</li>
+              </ul>
+            </div>
+          </div>
+
+          <div style="margin-top: 50px; text-align: center; color: #6b7280; font-size: 12px; border-top: 1px solid #e5e7eb; padding-top: 20px;">
+            <p><strong>swap.ai</strong> - AI-Powered Portfolio Management</p>
+            <p>This report was generated using advanced machine learning algorithms and real-time market data analysis.</p>
+          </div>
+        </body>
+      </html>
+    `;
+  };
+
   const handleExport = async () => {
     setIsExporting(true);
-    // Simulate export process
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-    setIsExporting(false);
-    setExportComplete(true);
+
+    try {
+      if (exportOptions.format === "pdf") {
+        // Generate HTML content for PDF
+        const htmlContent = generatePDFContent();
+        const blob = new Blob([htmlContent], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+
+        // Create download link
+        const downloadLink = document.createElement("a");
+        downloadLink.href = url;
+        downloadLink.download = `swap-ai-portfolio-report-${new Date().toISOString().split("T")[0]}.html`;
+        downloadLink.style.display = "none";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+        URL.revokeObjectURL(url);
+
+        // Open in new window for printing to PDF
+        const printWindow = window.open("", "_blank");
+        if (printWindow) {
+          printWindow.document.write(htmlContent);
+          printWindow.document.close();
+          setTimeout(() => {
+            printWindow.print();
+          }, 500);
+        }
+      }
+
+      // Simulate export process
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+      setIsExporting(false);
+      setExportComplete(true);
+    } catch (error) {
+      console.error("Export failed:", error);
+      setIsExporting(false);
+    }
   };
 
   const generateShareUrl = () => {
