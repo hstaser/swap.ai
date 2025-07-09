@@ -321,32 +321,7 @@ export function ComparisonChart({
               )
             </text>
 
-            {/* Portfolio gradient fill */}
-            <defs>
-              <linearGradient
-                id="portfolioGradient"
-                x1="0%"
-                y1="0%"
-                x2="0%"
-                y2="100%"
-              >
-                <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.2" />
-                <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-            <path
-              d={`${portfolioPath} L ${chartWidth - padding} ${chartHeight - padding} L ${padding} ${chartHeight - padding} Z`}
-              fill="url(#portfolioGradient)"
-            />
 
-            {/* Interactive points */}
-            {data.map((point, index) => {
-              if (index % Math.ceil(data.length / 10) !== 0) return null; // Show every 10th point
-
-              const x =
-                padding +
-                (index / (data.length - 1)) * (chartWidth - 2 * padding);
-              const portfolioY =
                 padding +
                 ((maxValue - point.portfolio) / valueRange) *
                   (chartHeight - 2 * padding);
