@@ -465,18 +465,33 @@ export default function Portfolio() {
                       </div>
                     </div>
 
-                    <div>
-                      <div className="flex justify-between text-xs text-muted-foreground mb-1">
-                        <span>Current: {stock.allocation.toFixed(1)}%</span>
-                        <span>
-                          Target: {stock.recommendedAllocation.toFixed(1)}%
-                        </span>
+                    {/* Allocation Progress */}
+                    <div className="space-y-1">
+                      <div className="flex justify-between text-xs text-muted-foreground">
+                        <span>Allocation vs Target</span>
+                        <span>{stock.allocation > stock.recommendedAllocation ? 'Overweight' : stock.allocation < stock.recommendedAllocation ? 'Underweight' : 'On Target'}</span>
                       </div>
-                      <Progress value={stock.allocation} className="h-2" />
-                      {Math.abs(
-                        stock.allocation - stock.recommendedAllocation,
-                      ) > 2 && (
-                        <div className="text-xs text-warning mt-1 flex items-center gap-1">
+                      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                        <div
+                          className={cn(
+                            "h-full transition-all duration-300",
+                            stock.allocation > stock.recommendedAllocation ? "bg-yellow-500" :
+                            stock.allocation < stock.recommendedAllocation ? "bg-blue-500" : "bg-green-500"
+                          )}
+                          style={{ width: `${(stock.allocation / Math.max(stock.allocation, stock.recommendedAllocation)) * 100}%` }}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-2 text-sm">
+                      <div
+                        className={cn(
+                          "flex items-center gap-1",
+                          stock.changePercent >= 0
+                            ? "text-success"
+                            : "text-destructive",
+                        )}
+                      >
                           <AlertTriangle className="h-3 w-3" />
                           Rebalancing suggested
                         </div>

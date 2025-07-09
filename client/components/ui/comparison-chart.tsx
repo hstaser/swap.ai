@@ -108,7 +108,7 @@ export function ComparisonChart({
             Performance vs S&P 500
           </CardTitle>
           <div className="flex gap-1">
-            {(["1M", "3M", "6M", "1Y"] as const).map((tf) => (
+            {(["1M", "6M", "1Y"] as const).map((tf) => (
               <Button
                 key={tf}
                 variant={timeframe === tf ? "default" : "outline"}
