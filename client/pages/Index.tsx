@@ -311,6 +311,9 @@ export default function Index() {
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [portfolio, setPortfolio] = useState<string[]>([]);
   const [watchlist, setWatchlist] = useState<string[]>([]);
+  const [personalNotes, setPersonalNotes] = useState<Record<string, string>>(
+    {},
+  );
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
 
@@ -378,6 +381,13 @@ export default function Index() {
     } else {
       setWatchlist([...watchlist, symbol]);
     }
+  };
+
+  const handleSaveNote = (symbol: string, note: string) => {
+    setPersonalNotes((prev) => ({
+      ...prev,
+      [symbol]: note,
+    }));
   };
 
   // Reset current stock index when filtered stocks change
@@ -505,9 +515,13 @@ export default function Index() {
                 stock={filteredStocks[currentStockIndex]}
                 onConfidenceSelect={handleConfidenceSelect}
                 onToggleWatchlist={toggleWatchlist}
+                onSaveNote={handleSaveNote}
                 isInWatchlist={watchlist.includes(
                   filteredStocks[currentStockIndex].symbol,
                 )}
+                personalNote={
+                  personalNotes[filteredStocks[currentStockIndex].symbol] || ""
+                }
                 className={cn(
                   "w-full",
                   portfolio.includes(
