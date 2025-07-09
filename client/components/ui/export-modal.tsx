@@ -188,7 +188,7 @@ export function ExportModal({
     setIsExporting(true);
 
     try {
-      if (exportOptions.format === "pdf") {
+      if (options.format === "pdf") {
         // Generate HTML content for PDF
         const htmlContent = generatePDFContent();
         const blob = new Blob([htmlContent], { type: "text/html" });
