@@ -215,6 +215,16 @@ export function StockCard({
         {/* Community Sentiment */}
         <CommunitySentiment symbol={stock.symbol} />
 
+        {/* Chart Modal */}
+        {showChart && (
+          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+            <StockChart
+              symbol={stock.symbol}
+              onClose={() => setShowChart(false)}
+            />
+          </div>
+        )}
+
         <Separator />
 
         {/* Confidence Level Buttons */}
