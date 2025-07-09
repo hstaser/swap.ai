@@ -9,6 +9,7 @@ import { PerformanceChart } from "@/components/ui/performance-chart";
 import { ExportModal } from "@/components/ui/export-modal";
 import { PriceAlerts } from "@/components/ui/price-alerts";
 import { AIRebalancing } from "@/components/ui/ai-rebalancing";
+import { AIOptimizationReview } from "@/components/ui/ai-optimization-review";
 import { ComparisonChart } from "@/components/ui/comparison-chart";
 import {
   ArrowLeft,
@@ -189,6 +190,8 @@ export default function Portfolio() {
   const [showExportModal, setShowExportModal] = useState(false);
   const [showAlertsModal, setShowAlertsModal] = useState(false);
   const [showAIRebalancing, setShowAIRebalancing] = useState(false);
+  const [showAIReview, setShowAIReview] = useState(false);
+  const [optimizationData, setOptimizationData] = useState<any>(null);
   const [comparisonTimeframe, setComparisonTimeframe] = useState<
     "1M" | "3M" | "6M" | "1Y"
   >("1Y");
@@ -199,7 +202,14 @@ export default function Portfolio() {
 
   const handleRebalancingComplete = (recommendations: any) => {
     console.log("Rebalancing recommendations:", recommendations);
+    setOptimizationData(recommendations);
     setShowAIRebalancing(false);
+    setShowAIReview(true);
+  };
+
+  const handleApplyOptimization = () => {
+    console.log("Applying optimization:", optimizationData);
+    setShowAIReview(false);
     // Apply the recommendations to the portfolio
   };
 
@@ -646,6 +656,14 @@ export default function Portfolio() {
           <AIRebalancing
             onComplete={handleRebalancingComplete}
             onClose={() => setShowAIRebalancing(false)}
+          />
+        )}
+
+        {showAIReview && optimizationData && (
+          <AIOptimizationReview
+            data={optimizationData}
+            onApply={handleApplyOptimization}
+            onClose={() => setShowAIReview(false)}
           />
         )}
       </div>
