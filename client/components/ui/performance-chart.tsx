@@ -225,14 +225,14 @@ export function PerformanceChart({ className }: PerformanceChartProps) {
             <Card className="bg-white/90 backdrop-blur-sm border-0">
               <CardContent className="p-4">
                 <div className="flex items-center gap-2 mb-2">
-                  <BarChart3 className="h-4 w-4 text-success" />
-                  <span className="text-sm font-medium">Sharpe Ratio</span>
+                  <BarChart3 className="h-4 w-4 text-red-600" />
+                  <span className="text-sm font-medium">Max Drawdown</span>
                 </div>
-                <div className="text-2xl font-bold text-success">
-                  {performanceData[4].sharpeRatio.toFixed(2)}
+                <div className="text-2xl font-bold text-red-600">
+                  {performanceData[4].maxDrawdown.toFixed(1)}%
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  Excellent risk-adjusted return
+                  Worst decline from peak
                 </div>
               </CardContent>
             </Card>
