@@ -170,7 +170,12 @@ export function ComparisonChart({
 
         {/* Chart */}
         <div className="relative bg-white rounded-lg p-2 border">
-          <svg width="100%" height="300" viewBox="0 0 800 300" className="w-full">
+          <svg
+            width="100%"
+            height="300"
+            viewBox="0 0 800 300"
+            className="w-full"
+          >
             {/* Background */}
             <rect width="800" height="300" fill="white" />
 
@@ -220,13 +225,19 @@ export function ComparisonChart({
               {/* X-axis labels */}
               {[0, 25, 50, 75, 100].map((percentage, index) => {
                 const x = (percentage / 100) * 720;
-                const dataIndex = Math.floor((percentage / 100) * (data.length - 1));
+                const dataIndex = Math.floor(
+                  (percentage / 100) * (data.length - 1),
+                );
                 const date = new Date(data[dataIndex]?.date);
-                const label = timeframe === "1M"
-                  ? date.getDate().toString()
-                  : timeframe === "6M"
-                  ? date.toLocaleDateString('en-US', { month: 'short' })
-                  : date.toLocaleDateString('en-US', { month: 'short', year: '2-digit' });
+                const label =
+                  timeframe === "1M"
+                    ? date.getDate().toString()
+                    : timeframe === "6M"
+                      ? date.toLocaleDateString("en-US", { month: "short" })
+                      : date.toLocaleDateString("en-US", {
+                          month: "short",
+                          year: "2-digit",
+                        });
 
                 return (
                   <g key={percentage}>
@@ -263,16 +274,52 @@ export function ComparisonChart({
                 strokeWidth="2"
                 strokeDasharray="4,4"
                 opacity="0.8"
-            />
+              />
 
-            {/* Portfolio line (foreground) */}
-            <path
-              d={portfolioPath}
-              fill="none"
-              stroke="#3b82f6"
-              strokeWidth="3"
-              className="drop-shadow-sm"
-            />
+              {/* Portfolio line (foreground) */}
+              <path
+                d={portfolioPath.replace(/(\d+),(\d+)/g, (match, x, y) => {
+                  const newX = (parseFloat(x) / chartWidth) * 720;
+                  const newY = (parseFloat(y) / chartHeight) * 240;
+                  return `${newX},${newY}`;
+                })}
+                fill="none"
+                stroke="#3b82f6"
+                strokeWidth="3"
+                className="drop-shadow-sm"
+              />
+            </g>
+
+            {/* Y-axis title */}
+            <text
+              x="20"
+              y="150"
+              textAnchor="middle"
+              fontSize="12"
+              fill="#374151"
+              transform="rotate(-90, 20, 150)"
+              fontWeight="500"
+            >
+              Return (%)
+            </text>
+
+            {/* X-axis title */}
+            <text
+              x="400"
+              y="290"
+              textAnchor="middle"
+              fontSize="12"
+              fill="#374151"
+              fontWeight="500"
+            >
+              Time (
+              {timeframe === "1M"
+                ? "Days"
+                : timeframe === "6M"
+                  ? "Months"
+                  : "Months"}
+              )
+            </text>
 
             {/* Portfolio gradient fill */}
             <defs>
