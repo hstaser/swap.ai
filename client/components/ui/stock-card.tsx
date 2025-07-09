@@ -13,10 +13,7 @@ import {
   EyeOff,
   ExternalLink,
   Clock,
-  StickyNote,
-  Edit3,
-  Save,
-  X,
+  AlertCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
@@ -57,9 +54,7 @@ interface StockCardProps {
     confidence: "not-interested" | "conservative" | "bullish" | "very-bullish",
   ) => void;
   onToggleWatchlist: (symbol: string) => void;
-  onSaveNote: (symbol: string, note: string) => void;
   isInWatchlist: boolean;
-  personalNote?: string;
   className?: string;
 }
 
@@ -67,27 +62,13 @@ export function StockCard({
   stock,
   onConfidenceSelect,
   onToggleWatchlist,
-  onSaveNote,
   isInWatchlist,
-  personalNote = "",
   className,
 }: StockCardProps) {
   const isPositive = stock.change >= 0;
   const [showChart, setShowChart] = useState(false);
   const [showNews, setShowNews] = useState(false);
-  const [isEditingNote, setIsEditingNote] = useState(false);
-  const [noteText, setNoteText] = useState(personalNote);
   const navigate = useNavigate();
-
-  const handleSaveNote = () => {
-    onSaveNote(stock.symbol, noteText);
-    setIsEditingNote(false);
-  };
-
-  const handleCancelNote = () => {
-    setNoteText(personalNote);
-    setIsEditingNote(false);
-  };
 
   return (
     <Card
@@ -98,7 +79,24 @@ export function StockCard({
     >
       <CardContent className="p-6 space-y-6">
         {/* Header */}
-        <div className="text-center space-y-3">
+        <div className="relative text-center space-y-3">
+          {/* Earnings Alert Icon */}
+          {stock.earningsDate && (
+            <div className="absolute top-0 right-0">
+              <div className="group relative">
+                <AlertCircle className="h-5 w-5 text-yellow-600 animate-pulse cursor-pointer" />
+                <div className="absolute right-0 top-6 invisible group-hover:visible bg-black text-white text-xs rounded-lg p-2 w-48 z-10">
+                  <div className="font-semibold">
+                    📅 Earnings: {stock.earningsDate}
+                  </div>
+                  <div className="text-xs opacity-90">
+                    Less than 2 weeks away
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
           <div className="flex items-center justify-center gap-3">
             <h3 className="font-bold text-foreground text-4xl">
               {stock.symbol}
@@ -210,90 +208,12 @@ export function StockCard({
               See More
             </Button>
           </div>
-
-          {/* Earnings Date */}
-          {stock.earningsDate && (
-            <div className="p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
-              <div className="text-sm font-medium text-yellow-800">
-                📅 Earnings: {stock.earningsDate}
-              </div>
-              <div className="text-xs text-yellow-600">
-                Less than 2 weeks away
-              </div>
-            </div>
-          )}
         </div>
 
         <Separator />
 
         {/* Community Sentiment */}
         <CommunitySentiment symbol={stock.symbol} />
-
-        <Separator />
-
-        {/* Personal Notes */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <StickyNote className="h-4 w-4 text-muted-foreground" />
-              <span className="font-semibold text-sm">Personal Note</span>
-            </div>
-            {!isEditingNote && (
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setIsEditingNote(true)}
-                className="h-6 px-2 text-xs"
-              >
-                <Edit3 className="h-3 w-3 mr-1" />
-                {personalNote ? "Edit" : "Add"}
-              </Button>
-            )}
-          </div>
-
-          {isEditingNote ? (
-            <div className="space-y-2">
-              <textarea
-                value={noteText}
-                onChange={(e) => setNoteText(e.target.value)}
-                placeholder="Add your thoughts about this stock..."
-                className="w-full p-3 text-sm border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"
-                rows={3}
-              />
-              <div className="flex gap-2">
-                <Button
-                  onClick={handleSaveNote}
-                  size="sm"
-                  className="flex-1 h-8"
-                >
-                  <Save className="h-3 w-3 mr-1" />
-                  Save
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={handleCancelNote}
-                  size="sm"
-                  className="flex-1 h-8"
-                >
-                  <X className="h-3 w-3 mr-1" />
-                  Cancel
-                </Button>
-              </div>
-            </div>
-          ) : (
-            <div className="min-h-[2rem] p-3 bg-gray-50 rounded-lg">
-              {personalNote ? (
-                <p className="text-sm text-gray-700 leading-relaxed">
-                  {personalNote}
-                </p>
-              ) : (
-                <p className="text-sm text-muted-foreground italic">
-                  No notes yet. Click 'Add' to jot down your thoughts.
-                </p>
-              )}
-            </div>
-          )}
-        </div>
 
         <Separator />
 

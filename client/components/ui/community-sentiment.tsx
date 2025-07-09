@@ -37,11 +37,13 @@ export function CommunitySentiment({
             <div className="flex justify-between text-xs text-muted-foreground">
               <span className="flex items-center gap-1">
                 <TrendingUp className="h-3 w-3 text-green-600" />
-                {bullishPercentage.toFixed(1)}% Bullish
+                {bullishPercentage.toFixed(1)}% bullish (
+                {bullishCount.toLocaleString()})
               </span>
               <span className="flex items-center gap-1">
                 <TrendingDown className="h-3 w-3 text-red-600" />
-                {(100 - bullishPercentage).toFixed(1)}% Bearish
+                {(100 - bullishPercentage).toFixed(1)}% bearish (
+                {bearishCount.toLocaleString()})
               </span>
             </div>
             <div className="relative h-3 bg-gray-200 rounded-full overflow-hidden">
@@ -49,12 +51,6 @@ export function CommunitySentiment({
                 className="absolute left-0 top-0 h-full bg-green-500 transition-all duration-500"
                 style={{ width: `${bullishPercentage}%` }}
               />
-            </div>
-            <div className="text-center">
-              <span className="text-xs text-muted-foreground">
-                {bullishCount.toLocaleString()} bullish,{" "}
-                {bearishCount.toLocaleString()} bearish
-              </span>
             </div>
           </div>
         </div>
