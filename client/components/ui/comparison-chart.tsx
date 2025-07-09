@@ -52,19 +52,7 @@ export function ComparisonChart({
   className,
 }: ComparisonChartProps) {
   const [hoveredPoint, setHoveredPoint] = useState<ChartDataPoint | null>(null);
-
   const data = generateMockData(timeframe);
-  const chartWidth = 350;
-  const chartHeight = 200;
-  const padding = 30;
-
-  const allValues = [
-    ...data.map((d) => d.portfolio),
-    ...data.map((d) => d.sp500),
-  ];
-  const minValue = Math.min(...allValues);
-  const maxValue = Math.max(...allValues);
-  const valueRange = maxValue - minValue;
 
   // Calculate returns
   const portfolioReturn =
@@ -75,29 +63,28 @@ export function ComparisonChart({
     ((data[data.length - 1].sp500 - data[0].sp500) / data[0].sp500) * 100;
   const outperformance = portfolioReturn - sp500Return;
 
-  // Generate SVG paths
-  const portfolioPath = data
-    .map((point, index) => {
-      const x =
-        padding + (index / (data.length - 1)) * (chartWidth - 2 * padding);
-      const y =
-        padding +
-        ((maxValue - point.portfolio) / valueRange) *
-          (chartHeight - 2 * padding);
-      return `${index === 0 ? "M" : "L"} ${x} ${y}`;
-    })
-    .join(" ");
+  // Chart dimensions
+  const chartWidth = 720;
+  const chartHeight = 240;
 
-  const sp500Path = data
-    .map((point, index) => {
-      const x =
-        padding + (index / (data.length - 1)) * (chartWidth - 2 * padding);
-      const y =
-        padding +
-        ((maxValue - point.sp500) / valueRange) * (chartHeight - 2 * padding);
-      return `${index === 0 ? "M" : "L"} ${x} ${y}`;
-    })
-    .join(" ");
+  // Find min/max values for scaling
+  const allValues = data.flatMap((d) => [d.portfolio, d.sp500]);
+  const minY = Math.min(...allValues) * 0.98;
+  const maxY = Math.max(...allValues) * 1.02;
+
+  // Create path strings for lines
+  const createPath = (values: number[]) => {
+    return values
+      .map((value, index) => {
+        const x = (index / (values.length - 1)) * chartWidth;
+        const y = chartHeight - ((value - minY) / (maxY - minY)) * chartHeight;
+        return `${index === 0 ? "M" : "L"} ${x} ${y}`;
+      })
+      .join(" ");
+  };
+
+  const portfolioPath = createPath(data.map((d) => d.portfolio));
+  const sp500Path = createPath(data.map((d) => d.sp500));
 
   return (
     <Card className={cn("bg-white/90 backdrop-blur-sm border-0", className)}>
@@ -125,11 +112,11 @@ export function ComparisonChart({
       <CardContent className="space-y-4">
         {/* Performance Summary */}
         <div className="grid grid-cols-3 gap-3">
-          <div className="text-center p-2 bg-blue-50 rounded-lg">
+          <div className="text-center p-3 bg-blue-50 rounded-lg">
             <div className="text-xs text-muted-foreground">Your Portfolio</div>
             <div
               className={cn(
-                "font-bold",
+                "font-bold text-lg",
                 portfolioReturn >= 0 ? "text-green-600" : "text-red-600",
               )}
             >
@@ -137,11 +124,11 @@ export function ComparisonChart({
               {portfolioReturn.toFixed(1)}%
             </div>
           </div>
-          <div className="text-center p-2 bg-gray-50 rounded-lg">
+          <div className="text-center p-3 bg-gray-50 rounded-lg">
             <div className="text-xs text-muted-foreground">S&P 500</div>
             <div
               className={cn(
-                "font-bold",
+                "font-bold text-lg",
                 sp500Return >= 0 ? "text-green-600" : "text-red-600",
               )}
             >
@@ -149,18 +136,18 @@ export function ComparisonChart({
               {sp500Return.toFixed(1)}%
             </div>
           </div>
-          <div className="text-center p-2 bg-purple-50 rounded-lg">
+          <div className="text-center p-3 bg-purple-50 rounded-lg">
             <div className="text-xs text-muted-foreground">Difference</div>
             <div
               className={cn(
-                "font-bold flex items-center justify-center gap-1",
+                "font-bold text-lg flex items-center justify-center gap-1",
                 outperformance >= 0 ? "text-green-600" : "text-red-600",
               )}
             >
               {outperformance >= 0 ? (
-                <TrendingUp className="h-3 w-3" />
+                <TrendingUp className="h-4 w-4" />
               ) : (
-                <TrendingDown className="h-3 w-3" />
+                <TrendingDown className="h-4 w-4" />
               )}
               {outperformance >= 0 ? "+" : ""}
               {outperformance.toFixed(1)}%
@@ -169,15 +156,15 @@ export function ComparisonChart({
         </div>
 
         {/* Chart */}
-        <div className="relative bg-white rounded-lg p-2 border">
+        <div className="relative bg-white rounded-lg p-4 border">
           <svg
             width="100%"
-            height="300"
-            viewBox="0 0 800 300"
+            height="320"
+            viewBox="0 0 800 320"
             className="w-full"
           >
             {/* Background */}
-            <rect width="800" height="300" fill="white" />
+            <rect width="800" height="320" fill="white" />
 
             {/* Chart area with margins for axes */}
             <g transform="translate(60, 20)">
@@ -185,12 +172,12 @@ export function ComparisonChart({
               <defs>
                 <pattern
                   id="grid"
-                  width="60"
+                  width="80"
                   height="40"
                   patternUnits="userSpaceOnUse"
                 >
                   <path
-                    d="M 60 0 L 0 0 0 40"
+                    d="M 80 0 L 0 0 0 40"
                     fill="none"
                     stroke="#f3f4f6"
                     strokeWidth="1"
@@ -214,7 +201,7 @@ export function ComparisonChart({
                     x="-10"
                     y={240 - (value / 100) * 240 + 4}
                     textAnchor="end"
-                    fontSize="10"
+                    fontSize="12"
                     fill="#6b7280"
                   >
                     {value}%
@@ -245,15 +232,15 @@ export function ComparisonChart({
                       x1={x}
                       y1="240"
                       x2={x}
-                      y2="245"
+                      y2="250"
                       stroke="#6b7280"
                       strokeWidth="1"
                     />
                     <text
                       x={x}
-                      y="255"
+                      y="265"
                       textAnchor="middle"
-                      fontSize="10"
+                      fontSize="12"
                       fill="#6b7280"
                     >
                       {label}
@@ -264,40 +251,32 @@ export function ComparisonChart({
 
               {/* S&P 500 line (background) */}
               <path
-                d={sp500Path.replace(/(\d+),(\d+)/g, (match, x, y) => {
-                  const newX = (parseFloat(x) / chartWidth) * 720;
-                  const newY = (parseFloat(y) / chartHeight) * 240;
-                  return `${newX},${newY}`;
-                })}
+                d={sp500Path}
                 fill="none"
                 stroke="#9ca3af"
-                strokeWidth="2"
-                strokeDasharray="4,4"
+                strokeWidth="3"
+                strokeDasharray="6,6"
                 opacity="0.8"
               />
 
               {/* Portfolio line (foreground) */}
               <path
-                d={portfolioPath.replace(/(\d+),(\d+)/g, (match, x, y) => {
-                  const newX = (parseFloat(x) / chartWidth) * 720;
-                  const newY = (parseFloat(y) / chartHeight) * 240;
-                  return `${newX},${newY}`;
-                })}
+                d={portfolioPath}
                 fill="none"
                 stroke="#3b82f6"
-                strokeWidth="3"
+                strokeWidth="4"
                 className="drop-shadow-sm"
               />
             </g>
 
             {/* Y-axis title */}
             <text
-              x="20"
-              y="150"
+              x="25"
+              y="160"
               textAnchor="middle"
-              fontSize="12"
+              fontSize="14"
               fill="#374151"
-              transform="rotate(-90, 20, 150)"
+              transform="rotate(-90, 25, 160)"
               fontWeight="500"
             >
               Return (%)
@@ -305,94 +284,42 @@ export function ComparisonChart({
 
             {/* X-axis title */}
             <text
-              x="400"
-              y="290"
+              x="420"
+              y="310"
               textAnchor="middle"
-              fontSize="12"
+              fontSize="14"
               fill="#374151"
               fontWeight="500"
             >
-              Time (
-              {timeframe === "1M"
-                ? "Days"
-                : timeframe === "6M"
-                  ? "Months"
-                  : "Months"}
-              )
+              Time ({timeframe === "1M" ? "Days" : "Months"})
             </text>
-
-
-                padding +
-                ((maxValue - point.portfolio) / valueRange) *
-                  (chartHeight - 2 * padding);
-              const sp500Y =
-                padding +
-                ((maxValue - point.sp500) / valueRange) *
-                  (chartHeight - 2 * padding);
-
-              return (
-                <g key={index}>
-                  {/* S&P 500 point */}
-                  <circle
-                    cx={x}
-                    cy={sp500Y}
-                    r="3"
-                    fill="#6b7280"
-                    className="opacity-0 hover:opacity-100 cursor-pointer transition-opacity"
-                    onMouseEnter={() => setHoveredPoint(point)}
-                    onMouseLeave={() => setHoveredPoint(null)}
-                  />
-                  {/* Portfolio point */}
-                  <circle
-                    cx={x}
-                    cy={portfolioY}
-                    r="4"
-                    fill="#3b82f6"
-                    className="opacity-0 hover:opacity-100 cursor-pointer transition-opacity"
-                    onMouseEnter={() => setHoveredPoint(point)}
-                    onMouseLeave={() => setHoveredPoint(null)}
-                  />
-                </g>
-              );
-            })}
           </svg>
-
-          {/* Tooltip */}
-          {hoveredPoint && (
-            <div className="absolute top-2 left-2 bg-black text-white px-2 py-1 rounded text-xs">
-              <div>Portfolio: {hoveredPoint.portfolio.toFixed(1)}%</div>
-              <div>S&P 500: {hoveredPoint.sp500.toFixed(1)}%</div>
-              <div>{new Date(hoveredPoint.date).toLocaleDateString()}</div>
-            </div>
-          )}
         </div>
 
         {/* Legend */}
-        <div className="flex items-center justify-center gap-4 text-xs">
+        <div className="flex items-center justify-center gap-6 text-sm">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-0.5 bg-blue-500" />
+            <div className="w-4 h-1 bg-blue-500 rounded" />
             <span>Your Portfolio</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-0.5 border-t-2 border-gray-500 border-dashed" />
+            <div className="w-4 h-1 border-t-2 border-gray-500 border-dashed" />
             <span>S&P 500</span>
           </div>
         </div>
 
-        {/* Performance Message */}
+        {/* Outperformance Badge */}
         {Math.abs(outperformance) > 1 && (
-          <div
-            className={cn(
-              "p-3 rounded-lg text-sm text-center",
-              outperformance > 0
-                ? "bg-green-50 text-green-800 border border-green-200"
-                : "bg-red-50 text-red-800 border border-red-200",
-            )}
-          >
-            {outperformance > 0 ? "🎉" : "📈"} Your portfolio is{" "}
-            {outperformance > 0 ? "outperforming" : "underperforming"} the
-            market by {Math.abs(outperformance).toFixed(1)}% this{" "}
-            {timeframe.toLowerCase()}
+          <div className="text-center">
+            <Badge
+              variant={outperformance >= 0 ? "default" : "destructive"}
+              className="text-sm px-3 py-1"
+            >
+              🎯 Your portfolio is{" "}
+              {outperformance >= 0 ? "outperforming" : "underperforming"} the
+              market by {Math.abs(outperformance).toFixed(1)}% this{" "}
+              {timeframe.toLowerCase()}
+            </Badge>
           </div>
         )}
       </CardContent>
