@@ -45,6 +45,7 @@ export interface Stock {
     oneYear: number;
   };
   earningsDate?: string;
+  risk?: "Low" | "Medium" | "High";
 }
 
 interface StockCardProps {
@@ -101,9 +102,27 @@ export function StockCard({
             <h3 className="font-bold text-foreground text-4xl">
               {stock.symbol}
             </h3>
-            <Badge variant="outline" className="text-sm">
-              {stock.sector}
-            </Badge>
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="text-sm">
+                {stock.sector}
+              </Badge>
+              {stock.risk && (
+                <Badge
+                  variant="outline"
+                  className={cn(
+                    "text-xs px-2 py-0.5",
+                    stock.risk === "Low" &&
+                      "bg-green-100 text-green-800 border-green-300",
+                    stock.risk === "Medium" &&
+                      "bg-yellow-100 text-yellow-800 border-yellow-300",
+                    stock.risk === "High" &&
+                      "bg-red-100 text-red-800 border-red-300",
+                  )}
+                >
+                  {stock.risk} Risk
+                </Badge>
+              )}
+            </div>
           </div>
           <p className="text-lg text-muted-foreground font-medium">
             {stock.name}

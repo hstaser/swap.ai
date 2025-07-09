@@ -25,6 +25,20 @@ import { Link } from "react-router-dom";
 
 import { extendedStockDatabase } from "../data/extended-stocks";
 
+// Helper function to determine risk level based on sector and other factors
+const calculateRiskLevel = (stock: any): "Low" | "Medium" | "High" => {
+  // Simple risk calculation based on sector and volatility indicators
+  if (stock.sector === "Utilities" || stock.sector === "Consumer Staples")
+    return "Low";
+  if (stock.sector === "Healthcare" || stock.sector === "Financial Services")
+    return "Low";
+  if (stock.sector === "Technology" && stock.beta && stock.beta > 1.2)
+    return "High";
+  if (stock.sector === "Technology") return "Medium";
+  if (stock.sector === "Energy" || stock.sector === "Materials") return "High";
+  return "Medium";
+};
+
 // Use extended stock database
 const mockStocks: Stock[] = extendedStockDatabase.map((stock) => ({
   symbol: stock.symbol,
@@ -42,6 +56,7 @@ const mockStocks: Stock[] = extendedStockDatabase.map((stock) => ({
   newsSummary: stock.newsSummary,
   returns: stock.returns,
   earningsDate: stock.earningsDate,
+  risk: calculateRiskLevel(stock),
 }));
 
 // Legacy mock data for comparison
