@@ -123,9 +123,9 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
         reason: "Better diversification",
       },
     ],
-    expectedImprovement: "8.2%",
-    riskReduction: "12%",
-    estimatedReturn: "11.4%",
+    correlationReduction: "15.3%",
+    riskReduction: "12.4%",
+    diversificationImprovement: "22.7%",
   };
 
   if (isComplete) {
@@ -151,21 +151,21 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
               <h4 className="font-semibold">Key Improvements:</h4>
               <div className="space-y-2">
                 <div className="flex justify-between text-sm">
-                  <span>Expected Performance Boost:</span>
+                  <span>Reduced Asset Correlation:</span>
                   <span className="font-semibold text-green-600">
-                    +{recommendations.expectedImprovement}
+                    -{recommendations.correlationReduction}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span>Risk Reduction:</span>
+                  <span>Decreased Overall Risk:</span>
                   <span className="font-semibold text-blue-600">
-                    {recommendations.riskReduction}
+                    -{recommendations.riskReduction}
                   </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span>Target Annual Return:</span>
+                  <span>Improved Diversification:</span>
                   <span className="font-semibold text-primary">
-                    {recommendations.estimatedReturn}
+                    +{recommendations.diversificationImprovement}
                   </span>
                 </div>
               </div>
@@ -289,13 +289,13 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
               </div>
               <p className="text-xs text-purple-700">
                 {currentStep === 0 &&
-                  "Identifying overweight positions and rebalancing opportunities..."}
+                  "Identifying overweight positions and correlation inefficiencies..."}
                 {currentStep === 1 &&
                   "Analyzing 50,000+ data points from global markets..."}
                 {currentStep === 2 &&
                   "Your risk tolerance suggests a balanced growth approach..."}
                 {currentStep === 3 &&
-                  "Found 3 optimization opportunities to boost returns by 8.2%..."}
+                  "Found 3 optimization opportunities to reduce portfolio risk..."}
                 {currentStep === 4 &&
                   "Generating personalized recommendations based on your goals..."}
               </p>

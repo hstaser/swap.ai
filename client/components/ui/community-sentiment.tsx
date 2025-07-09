@@ -23,7 +23,6 @@ interface CommunityFlag {
   timestamp: Date;
   likes: number;
   isLiked: boolean;
-  isFriend: boolean;
 }
 
 interface CommunitySentimentProps {
@@ -42,7 +41,6 @@ const mockCommunityFlags: CommunityFlag[] = [
     timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
     likes: 12,
     isLiked: false,
-    isFriend: true,
   },
   {
     id: "2",
@@ -54,7 +52,6 @@ const mockCommunityFlags: CommunityFlag[] = [
     timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
     likes: 8,
     isLiked: true,
-    isFriend: true,
   },
   {
     id: "3",
@@ -66,7 +63,6 @@ const mockCommunityFlags: CommunityFlag[] = [
     timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
     likes: 3,
     isLiked: false,
-    isFriend: false,
   },
 ];
 
@@ -99,7 +95,6 @@ export function CommunitySentiment({
       timestamp: new Date(),
       likes: 0,
       isLiked: false,
-      isFriend: false,
     };
 
     setFlags([newFlag, ...flags]);
@@ -239,11 +234,6 @@ export function CommunitySentiment({
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <span className="font-medium text-sm">{flag.userName}</span>
-                    {flag.isFriend && (
-                      <Badge variant="secondary" className="text-xs px-1 py-0">
-                        Friend
-                      </Badge>
-                    )}
                     <Badge
                       variant={
                         flag.sentiment === "bullish" ? "default" : "destructive"
