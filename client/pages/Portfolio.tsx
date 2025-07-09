@@ -469,16 +469,27 @@ export default function Portfolio() {
                     <div className="space-y-1">
                       <div className="flex justify-between text-xs text-muted-foreground">
                         <span>Allocation vs Target</span>
-                        <span>{stock.allocation > stock.recommendedAllocation ? 'Overweight' : stock.allocation < stock.recommendedAllocation ? 'Underweight' : 'On Target'}</span>
+                        <span>
+                          {stock.allocation > stock.recommendedAllocation
+                            ? "Overweight"
+                            : stock.allocation < stock.recommendedAllocation
+                              ? "Underweight"
+                              : "On Target"}
+                        </span>
                       </div>
                       <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                         <div
                           className={cn(
                             "h-full transition-all duration-300",
-                            stock.allocation > stock.recommendedAllocation ? "bg-yellow-500" :
-                            stock.allocation < stock.recommendedAllocation ? "bg-blue-500" : "bg-green-500"
+                            stock.allocation > stock.recommendedAllocation
+                              ? "bg-yellow-500"
+                              : stock.allocation < stock.recommendedAllocation
+                                ? "bg-blue-500"
+                                : "bg-green-500",
                           )}
-                          style={{ width: `${(stock.allocation / Math.max(stock.allocation, stock.recommendedAllocation)) * 100}%` }}
+                          style={{
+                            width: `${(stock.allocation / Math.max(stock.allocation, stock.recommendedAllocation)) * 100}%`,
+                          }}
                         />
                       </div>
                     </div>
@@ -492,6 +503,22 @@ export default function Portfolio() {
                             : "text-destructive",
                         )}
                       >
+                        {stock.changePercent >= 0 ? (
+                          <TrendingUp className="h-4 w-4" />
+                        ) : (
+                          <TrendingDown className="h-4 w-4" />
+                        )}
+                        <span>
+                          {stock.change >= 0 ? "+" : ""}$
+                          {stock.change.toFixed(2)} (
+                          {stock.changePercent >= 0 ? "+" : ""}
+                          {stock.changePercent.toFixed(2)}%)
+                        </span>
+                      </div>
+                      {Math.abs(
+                        stock.allocation - stock.recommendedAllocation,
+                      ) > 2 && (
+                        <div className="text-xs text-warning flex items-center gap-1">
                           <AlertTriangle className="h-3 w-3" />
                           Rebalancing suggested
                         </div>
