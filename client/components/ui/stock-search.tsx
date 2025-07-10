@@ -115,8 +115,8 @@ export function StockSearch({ onStockSelect, className }: StockSearchProps) {
   };
 
   const handleQuickSelect = (symbol: string) => {
-    setSearchQuery(symbol);
-    handleStockClick(symbol);
+    // For quick select from trending/recent, navigate to main page to browse that stock
+    navigate(`/?symbol=${symbol}`);
   };
 
   return (

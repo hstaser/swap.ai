@@ -14,6 +14,7 @@ import {
   ExternalLink,
   Clock,
   AlertCircle,
+  MessageCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
@@ -243,6 +244,20 @@ export function StockCard({
             />
           </div>
         )}
+
+        <Separator />
+
+        {/* AI Assistance Button */}
+        <div className="text-center">
+          <Button
+            variant="outline"
+            onClick={() => navigate(`/research?symbol=${stock.symbol}`)}
+            className="w-full h-12 text-sm font-medium border-blue-200 text-blue-700 hover:bg-blue-50"
+          >
+            <MessageCircle className="h-4 w-4 mr-2" />
+            Need help? Ask AI about {stock.symbol}
+          </Button>
+        </div>
 
         <Separator />
 
