@@ -450,9 +450,7 @@ export default function Index() {
                 className="bg-white/50 cursor-pointer hover:bg-white/70 transition-colors"
                 asChild
               >
-                <Link to="/portfolio">
-                  Portfolio: {portfolio.length} stocks
-                </Link>
+                <Link to="/queue/review">Queue: {queue.length} stocks</Link>
               </Badge>
               <Button variant="ghost" size="icon">
                 <Bell className="h-4 w-4" />
