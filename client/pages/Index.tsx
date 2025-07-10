@@ -380,17 +380,6 @@ export default function Index() {
     return filtered;
   }, [filters]);
 
-  const handleConfidenceSelect = (
-    symbol: string,
-    confidence: "not-interested" | "conservative" | "bullish" | "very-bullish",
-  ) => {
-    console.log(`Selected ${confidence} for ${symbol}`);
-    // Add to portfolio based on confidence level
-    if (confidence !== "not-interested" && !portfolio.includes(symbol)) {
-      setPortfolio([...portfolio, symbol]);
-    }
-  };
-
   const toggleWatchlist = (symbol: string) => {
     if (watchlist.includes(symbol)) {
       setWatchlist(watchlist.filter((s) => s !== symbol));
