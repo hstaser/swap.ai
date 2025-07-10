@@ -330,6 +330,7 @@ export default function Index() {
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [portfolio, setPortfolio] = useState<string[]>([]);
   const [watchlist, setWatchlist] = useState<string[]>([]);
+  const [queue, setQueue] = useState<string[]>([]);
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
 
@@ -534,7 +535,7 @@ export default function Index() {
             </div>
 
             {/* Current Stock */}
-            <div className="max-w-lg mx-auto">
+            <div className="max-w-lg mx-auto space-y-4">
               <StockCard
                 stock={filteredStocks[currentStockIndex]}
                 onToggleWatchlist={toggleWatchlist}
@@ -543,11 +544,23 @@ export default function Index() {
                 )}
                 className={cn(
                   "w-full",
-                  portfolio.includes(
-                    filteredStocks[currentStockIndex].symbol,
-                  ) && "ring-2 ring-primary bg-primary/5",
+                  queue.includes(filteredStocks[currentStockIndex].symbol) &&
+                    "ring-2 ring-blue-400 bg-blue-50",
                 )}
               />
+
+              {/* End Session Button */}
+              {queue.length > 0 && (
+                <div className="text-center">
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate("/queue/review")}
+                    className="h-12 px-8 text-sm font-medium border-orange-200 text-orange-700 hover:bg-orange-50"
+                  >
+                    End Session & Review ({queue.length} stocks)
+                  </Button>
+                </div>
+              )}
             </div>
           </div>
         ) : (

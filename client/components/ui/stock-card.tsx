@@ -256,14 +256,14 @@ export function StockCard({
 
         <Separator />
 
-        {/* Add to Portfolio Button */}
+        {/* Add to Queue Button */}
         <div className="space-y-4">
           <Button
-            onClick={() => navigate(`/portfolio/add/${stock.symbol}`)}
-            className="w-full h-12 text-sm font-semibold bg-green-600 hover:bg-green-700 text-white"
+            onClick={() => navigate(`/queue/add/${stock.symbol}`)}
+            className="w-full h-12 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
-            Add to Portfolio
+            Add to Queue
           </Button>
 
           {/* Watchlist Button */}
