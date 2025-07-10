@@ -437,42 +437,141 @@ export default function Research() {
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
           <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-3">
                 <TrendingUp className="h-4 w-4 text-green-600" />
                 <h4 className="font-semibold text-sm">Popular Companies</h4>
               </div>
-              <div className="space-y-1 text-xs">
-                <div>• Apple (AAPL) - Consumer Electronics</div>
-                <div>• Microsoft (MSFT) - Cloud & Software</div>
-                <div>• NVIDIA (NVDA) - AI & Graphics</div>
+              <div className="space-y-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-green-50"
+                  onClick={() =>
+                    handleSuggestionClick(
+                      "Tell me about Apple's business model and revenue sources",
+                    )
+                  }
+                >
+                  • Apple (AAPL) - Consumer Electronics
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-green-50"
+                  onClick={() =>
+                    handleSuggestionClick(
+                      "What makes Microsoft's cloud business competitive?",
+                    )
+                  }
+                >
+                  • Microsoft (MSFT) - Cloud & Software
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-green-50"
+                  onClick={() =>
+                    handleSuggestionClick(
+                      "How is NVIDIA positioned in the AI chip market?",
+                    )
+                  }
+                >
+                  • NVIDIA (NVDA) - AI & Graphics
+                </Button>
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-3">
                 <BarChart3 className="h-4 w-4 text-blue-600" />
                 <h4 className="font-semibold text-sm">Key Metrics</h4>
               </div>
-              <div className="space-y-1 text-xs">
-                <div>• Revenue & Growth Rates</div>
-                <div>• Profit Margins & Efficiency</div>
-                <div>• Market Position & Competition</div>
+              <div className="space-y-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-blue-50"
+                  onClick={() =>
+                    handleSuggestionClick(
+                      "Explain revenue growth rates and what they indicate",
+                    )
+                  }
+                >
+                  • Revenue & Growth Rates
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-blue-50"
+                  onClick={() =>
+                    handleSuggestionClick(
+                      "What are profit margins and how do they show efficiency?",
+                    )
+                  }
+                >
+                  • Profit Margins & Efficiency
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-blue-50"
+                  onClick={() =>
+                    handleSuggestionClick(
+                      "How do you analyze market position and competitive advantages?",
+                    )
+                  }
+                >
+                  • Market Position & Competition
+                </Button>
               </div>
             </CardContent>
           </Card>
 
           <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-3">
                 <Globe className="h-4 w-4 text-purple-600" />
                 <h4 className="font-semibold text-sm">Industry Analysis</h4>
               </div>
-              <div className="space-y-1 text-xs">
-                <div>• Technology Sector Trends</div>
-                <div>• Healthcare Innovations</div>
-                <div>• Financial Services Evolution</div>
+              <div className="space-y-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
+                  onClick={() =>
+                    handleSuggestionClick(
+                      "What are the current trends in the technology sector?",
+                    )
+                  }
+                >
+                  • Technology Sector Trends
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
+                  onClick={() =>
+                    handleSuggestionClick(
+                      "Tell me about recent healthcare innovations and opportunities",
+                    )
+                  }
+                >
+                  • Healthcare Innovations
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
+                  onClick={() =>
+                    handleSuggestionClick(
+                      "How are financial services evolving with technology?",
+                    )
+                  }
+                >
+                  • Financial Services Evolution
+                </Button>
               </div>
             </CardContent>
           </Card>
