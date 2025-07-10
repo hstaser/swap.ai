@@ -21,7 +21,7 @@ import {
   HelpCircle,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { extendedStockDatabase } from "../data/extended-stocks";
 
@@ -324,6 +324,9 @@ const defaultFilters: FilterState = {
 };
 
 export default function Index() {
+  const [searchParams, setSearchParams] = useSearchParams();
+  const symbolParam = searchParams.get("symbol");
+
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [portfolio, setPortfolio] = useState<string[]>([]);
   const [watchlist, setWatchlist] = useState<string[]>([]);
@@ -402,6 +405,23 @@ export default function Index() {
       setCurrentStockIndex(0);
     }
   }, [filteredStocks.length, currentStockIndex]);
+
+  // Handle symbol parameter to navigate to specific stock
+  useEffect(() => {
+    if (symbolParam && filteredStocks.length > 0) {
+      const stockIndex = filteredStocks.findIndex(
+        (stock) => stock.symbol === symbolParam,
+      );
+      if (stockIndex !== -1) {
+        setCurrentStockIndex(stockIndex);
+        // Clear the symbol parameter after navigation
+        setSearchParams((params) => {
+          params.delete("symbol");
+          return params;
+        });
+      }
+    }
+  }, [symbolParam, filteredStocks, setSearchParams]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
