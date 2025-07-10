@@ -422,8 +422,8 @@ export default function Index() {
                 <Button variant="ghost" size="sm" asChild>
                   <Link to="/watchlist">Watchlist</Link>
                 </Button>
-                <Button variant="ghost" size="sm">
-                  Research
+                <Button variant="ghost" size="sm" asChild>
+                  <Link to="/research">Research</Link>
                 </Button>
               </nav>
             </div>

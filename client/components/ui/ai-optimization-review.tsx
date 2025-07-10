@@ -145,10 +145,10 @@ function QuantAnalysisSimulation() {
     <div className="space-y-6">
       <div className="text-center space-y-2">
         <h3 className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Citadel-Grade Quantitative Analysis
+          AI Agents Quantitative Analysis
         </h3>
         <p className="text-sm text-muted-foreground">
-          Institutional-level mathematical optimization in progress
+          AI agents are optimizing portfolio allocation in real-time
         </p>
       </div>
 
