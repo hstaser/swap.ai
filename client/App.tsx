@@ -9,6 +9,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import Markets from "./pages/Markets";
 import Research from "./pages/Research";
+import Banking from "./pages/Banking";
 import Watchlist from "./pages/Watchlist";
 import Portfolio from "./pages/Portfolio";
 import StockDetail from "./pages/StockDetail";
@@ -28,6 +29,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/markets" element={<Markets />} />
           <Route path="/research" element={<Research />} />
+          <Route path="/banking" element={<Banking />} />
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/portfolio" element={<Portfolio />} />
           <Route path="/stock/:symbol" element={<StockDetail />} />
