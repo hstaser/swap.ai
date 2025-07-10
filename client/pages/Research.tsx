@@ -1,152 +1,199 @@
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
 import {
-  Brain,
-  TrendingUp,
-  TrendingDown,
-  Zap,
-  Target,
-  Activity,
-  BarChart3,
-  Globe,
-  AlertTriangle,
-  CheckCircle,
   ArrowLeft,
-  Sparkles,
-  Eye,
-  Clock,
+  Send,
+  Bot,
+  User,
+  TrendingUp,
+  BarChart3,
   DollarSign,
+  Clock,
+  Globe,
+  Sparkles,
+  MessageCircle,
+  Lightbulb,
+  AlertTriangle,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
-interface MarketInsight {
+interface ChatMessage {
   id: string;
-  type: "bullish" | "bearish" | "neutral";
-  title: string;
-  summary: string;
-  confidence: number;
-  timeframe: string;
-  sector?: string;
-  impact: "low" | "medium" | "high";
+  type: "user" | "ai";
+  content: string;
+  timestamp: Date;
+  stockMentioned?: string;
+  suggestions?: string[];
 }
 
-interface AIAnalysis {
-  id: string;
-  title: string;
-  analysis: string;
-  recommendation: "buy" | "sell" | "hold";
-  targetPrice?: number;
-  currentPrice: number;
-  symbol: string;
-  confidence: number;
-  reasoning: string[];
-}
-
-const mockInsights: MarketInsight[] = [
-  {
-    id: "1",
-    type: "bullish",
-    title: "AI Semiconductor Surge Expected",
-    summary:
-      "ML models predict 40% growth in GPU demand over next 6 months driven by enterprise AI adoption",
-    confidence: 87,
-    timeframe: "6M",
-    sector: "Technology",
-    impact: "high",
-  },
-  {
-    id: "2",
-    type: "bearish",
-    title: "Interest Rate Pressure Building",
-    summary:
-      "Fed sentiment analysis indicates 73% probability of rate hike, affecting growth stocks",
-    confidence: 73,
-    timeframe: "3M",
-    sector: "Financial Services",
-    impact: "medium",
-  },
-  {
-    id: "3",
-    type: "bullish",
-    title: "Healthcare Innovation Momentum",
-    summary:
-      "Breakthrough drug approvals and AI diagnostics creating new market opportunities",
-    confidence: 91,
-    timeframe: "12M",
-    sector: "Healthcare",
-    impact: "high",
-  },
+const suggestedQuestions = [
+  "What is Apple's current business model?",
+  "Tell me about NVIDIA's competitive advantages",
+  "How does Tesla's revenue compare to traditional automakers?",
+  "What are the key financial metrics for Microsoft?",
+  "Explain Amazon's different business segments",
+  "What factors affect Google's advertising revenue?",
 ];
 
-const mockAIAnalyses: AIAnalysis[] = [
-  {
-    id: "1",
-    title: "NVIDIA Deep Dive Analysis",
-    analysis:
-      "Advanced neural networks have analyzed 50,000+ data points across earnings, patent filings, competitive landscape, and market sentiment. AI models show exceptionally strong indicators for continued growth.",
-    recommendation: "buy",
-    targetPrice: 850,
-    currentPrice: 722,
-    symbol: "NVDA",
-    confidence: 94,
-    reasoning: [
-      "Patent velocity increased 340% in AI-related filings",
-      "Enterprise adoption curve accelerating beyond projections",
-      "Competitive moat strengthening in high-performance computing",
-      "Revenue diversification reducing datacenter dependency",
-    ],
-  },
-  {
-    id: "2",
-    title: "Apple Services Revolution",
-    analysis:
-      "Multi-modal AI analysis reveals Apple's services transition is undervalued by traditional metrics. Vision Pro ecosystem creating new revenue streams not reflected in current pricing.",
-    recommendation: "buy",
-    targetPrice: 210,
-    currentPrice: 182,
-    symbol: "AAPL",
-    confidence: 88,
-    reasoning: [
-      "Services margin expansion accelerating",
-      "Vision Pro developer ecosystem growing 500% QoQ",
-      "AI integration across products creating lock-in effects",
-      "China market recovery stronger than anticipated",
-    ],
-  },
-];
+const stockResponses: Record<string, string> = {
+  AAPL: "Apple Inc. is a multinational technology company that designs, manufactures, and markets consumer electronics, computer software, and online services. Key business segments include iPhone (largest revenue driver), Mac computers, iPad, Services (App Store, iCloud, Apple Music), and Wearables (Apple Watch, AirPods). The company is known for its premium pricing strategy, strong brand loyalty, and integrated ecosystem approach. Apple generates revenue through hardware sales, digital services, and accessories.",
+
+  NVDA: "NVIDIA Corporation is a technology company that designs graphics processing units (GPUs) and system-on-chip units (SoCs). Originally focused on gaming graphics, NVIDIA has become a leader in AI and data center computing. Key business segments include Data Center (AI training and inference), Gaming (consumer graphics cards), Professional Visualization, and Automotive (self-driving technology). The company's CUDA software platform and AI chip architecture have created strong competitive moats in machine learning applications.",
+
+  TSLA: "Tesla Inc. is an electric vehicle and clean energy company. Primary business segments include Automotive (Model S, 3, X, Y), Energy Generation and Storage (solar panels, Powerwall, Megapack), and Services. Tesla operates with a direct-sales model, bypassing traditional dealerships. The company also develops autonomous driving technology and operates a growing network of Supercharger stations. Tesla's integrated approach combines vehicle manufacturing, battery technology, and charging infrastructure.",
+
+  MSFT: "Microsoft Corporation is a multinational technology company offering software, services, devices, and solutions. Key business segments include Productivity and Business Processes (Office 365, Microsoft Teams), Intelligent Cloud (Azure, Windows Server), and More Personal Computing (Windows, Xbox, Surface devices). Microsoft has successfully transitioned to a cloud-first, subscription-based model with Azure being a major growth driver competing with Amazon Web Services.",
+
+  AMZN: "Amazon.com Inc. operates diverse business segments including North America e-commerce, International e-commerce, and Amazon Web Services (AWS). AWS is the highly profitable cloud computing division providing infrastructure, platform, and software services. Other segments include advertising services, Amazon Prime subscription services, and physical stores (Whole Foods). The company is known for its long-term investment approach and customer-centric philosophy.",
+
+  GOOGL:
+    "Alphabet Inc. (Google) is primarily an advertising and technology company. Main revenue sources include Google Search advertising, YouTube advertising, Google Network (AdSense), Google Cloud, and Other Bets (experimental projects). The company dominates digital advertising through its search engine and vast data collection capabilities. Google Cloud competes in the enterprise cloud market, while Other Bets includes ventures like Waymo (autonomous vehicles).",
+};
 
 export default function Research() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState("insights");
-  const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const [analysisProgress, setAnalysisProgress] = useState(0);
+  const [messages, setMessages] = useState<ChatMessage[]>([
+    {
+      id: "1",
+      type: "ai",
+      content:
+        "Hello! I'm your AI research assistant. I can help you understand companies, their business models, financial metrics, and market position. What would you like to learn about?",
+      timestamp: new Date(),
+      suggestions: suggestedQuestions.slice(0, 3),
+    },
+  ]);
+  const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  const runNewAnalysis = () => {
-    setIsAnalyzing(true);
-    setAnalysisProgress(0);
-
-    const interval = setInterval(() => {
-      setAnalysisProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setIsAnalyzing(false);
-          return 100;
-        }
-        return prev + Math.random() * 15;
-      });
-    }, 200);
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
-    // Auto-start analysis when component mounts
-    const timer = setTimeout(() => runNewAnalysis(), 500);
-    return () => clearTimeout(timer);
-  }, []);
+    scrollToBottom();
+  }, [messages]);
+
+  const generateResponse = (userMessage: string): string => {
+    const upperMessage = userMessage.toUpperCase();
+
+    // Check for stock symbols
+    for (const [symbol, info] of Object.entries(stockResponses)) {
+      if (
+        upperMessage.includes(symbol) ||
+        upperMessage.includes(symbol.toLowerCase())
+      ) {
+        return info;
+      }
+    }
+
+    // Check for company names
+    if (upperMessage.includes("APPLE") || upperMessage.includes("IPHONE")) {
+      return stockResponses.AAPL;
+    }
+    if (upperMessage.includes("NVIDIA") || upperMessage.includes("GPU")) {
+      return stockResponses.NVDA;
+    }
+    if (upperMessage.includes("TESLA") || upperMessage.includes("ELECTRIC")) {
+      return stockResponses.TSLA;
+    }
+    if (upperMessage.includes("MICROSOFT") || upperMessage.includes("AZURE")) {
+      return stockResponses.MSFT;
+    }
+    if (upperMessage.includes("AMAZON") || upperMessage.includes("AWS")) {
+      return stockResponses.AMZN;
+    }
+    if (upperMessage.includes("GOOGLE") || upperMessage.includes("ALPHABET")) {
+      return stockResponses.GOOGL;
+    }
+
+    // Generic responses for different types of questions
+    if (
+      upperMessage.includes("FINANCIAL") ||
+      upperMessage.includes("METRICS")
+    ) {
+      return "I can help you understand financial metrics like revenue, profit margins, debt levels, and cash flow. However, I cannot provide investment advice or specific buy/sell recommendations. For detailed financial analysis, I'd recommend reviewing the company's latest quarterly reports and SEC filings.";
+    }
+
+    if (
+      upperMessage.includes("INVEST") ||
+      upperMessage.includes("BUY") ||
+      upperMessage.includes("SELL")
+    ) {
+      return "I cannot provide investment advice or recommendations on whether to buy or sell securities. However, I can help you understand company fundamentals, business models, competitive positioning, and industry trends to support your own research and decision-making process.";
+    }
+
+    if (
+      upperMessage.includes("PRICE") ||
+      upperMessage.includes("TARGET") ||
+      upperMessage.includes("FORECAST")
+    ) {
+      return "I cannot predict stock prices or provide price targets. Stock prices are influenced by numerous factors including market sentiment, economic conditions, company performance, and global events. I can help you understand the factors that typically influence a company's valuation.";
+    }
+
+    // Default response
+    return "I'd be happy to help you learn about specific companies, their business models, competitive advantages, or industry trends. Try asking about a specific company like Apple, Microsoft, Tesla, or NVIDIA, or ask about business concepts you'd like to understand better.";
+  };
+
+  const extractStockSymbol = (message: string): string | undefined => {
+    const symbols = ["AAPL", "NVDA", "TSLA", "MSFT", "AMZN", "GOOGL"];
+    const upperMessage = message.toUpperCase();
+    return symbols.find((symbol) => upperMessage.includes(symbol));
+  };
+
+  const handleSendMessage = async () => {
+    if (!inputValue.trim()) return;
+
+    const userMessage: ChatMessage = {
+      id: Date.now().toString(),
+      type: "user",
+      content: inputValue,
+      timestamp: new Date(),
+    };
+
+    setMessages((prev) => [...prev, userMessage]);
+    setInputValue("");
+    setIsTyping(true);
+
+    // Simulate AI thinking time
+    await new Promise((resolve) =>
+      setTimeout(resolve, 1000 + Math.random() * 2000),
+    );
+
+    const aiResponse: ChatMessage = {
+      id: (Date.now() + 1).toString(),
+      type: "ai",
+      content: generateResponse(inputValue),
+      timestamp: new Date(),
+      stockMentioned: extractStockSymbol(inputValue),
+      suggestions:
+        Math.random() > 0.5
+          ? suggestedQuestions.slice(
+              Math.floor(Math.random() * 3),
+              Math.floor(Math.random() * 3) + 3,
+            )
+          : undefined,
+    };
+
+    setIsTyping(false);
+    setMessages((prev) => [...prev, aiResponse]);
+  };
+
+  const handleSuggestionClick = (suggestion: string) => {
+    setInputValue(suggestion);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSendMessage();
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -166,10 +213,10 @@ export default function Research() {
               </Button>
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
-                  <Brain className="h-5 w-5 text-white" />
+                  <MessageCircle className="h-5 w-5 text-white" />
                 </div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  AI Research Lab
+                  AI Research Chat
                 </h1>
               </div>
             </div>
@@ -179,279 +226,245 @@ export default function Research() {
                 variant="outline"
                 className="bg-white/50 flex items-center gap-1"
               >
-                <Sparkles className="h-3 w-3" />
-                AI Agents Active
+                <Bot className="h-3 w-3" />
+                AI Assistant Active
               </Badge>
-              <Button
-                onClick={runNewAnalysis}
-                disabled={isAnalyzing}
-                className="bg-gradient-to-r from-purple-500 to-blue-500 hover:from-purple-600 hover:to-blue-600"
+              <Badge
+                variant="outline"
+                className="bg-green-50 text-green-700 border-green-200"
               >
-                <Zap className="h-4 w-4 mr-2" />
-                {isAnalyzing ? "Analyzing..." : "New Analysis"}
-              </Button>
+                <Lightbulb className="h-3 w-3 mr-1" />
+                Educational Only
+              </Badge>
             </div>
           </div>
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-6 space-y-6">
-        {/* AI Analysis Status */}
-        {isAnalyzing && (
-          <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
-            <CardContent className="p-6">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                <span className="font-semibold">
-                  AI agents are optimizing feed...
-                </span>
+      <div className="container mx-auto px-4 py-6 max-w-4xl">
+        {/* Disclaimer */}
+        <Card className="bg-yellow-50 border-yellow-200 mb-6">
+          <CardContent className="p-4">
+            <div className="flex items-start gap-3">
+              <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
+              <div className="space-y-1">
+                <h3 className="font-semibold text-yellow-800">
+                  Educational Information Only
+                </h3>
+                <p className="text-sm text-yellow-700">
+                  This AI assistant provides educational information about
+                  companies and markets. It does not provide investment advice,
+                  price predictions, or buy/sell recommendations. Always conduct
+                  your own research and consult with financial professionals
+                  before making investment decisions.
+                </p>
               </div>
-              <Progress value={analysisProgress} className="h-2 mb-2" />
-              <div className="text-sm text-muted-foreground">
-                Processing market data, earnings reports, and sentiment
-                analysis...
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Chat Interface */}
+        <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
+          <CardHeader className="border-b">
+            <CardTitle className="flex items-center gap-2">
+              <MessageCircle className="h-5 w-5" />
+              Stock Research Assistant
+            </CardTitle>
+          </CardHeader>
+
+          {/* Messages */}
+          <CardContent className="p-0">
+            <div className="h-[600px] overflow-y-auto p-4 space-y-4">
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className={cn(
+                    "flex gap-3",
+                    message.type === "user" ? "justify-end" : "justify-start",
+                  )}
+                >
+                  <div
+                    className={cn(
+                      "flex gap-3 max-w-[80%]",
+                      message.type === "user" ? "flex-row-reverse" : "flex-row",
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        "w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0",
+                        message.type === "user"
+                          ? "bg-blue-500"
+                          : "bg-gradient-to-r from-purple-500 to-blue-500",
+                      )}
+                    >
+                      {message.type === "user" ? (
+                        <User className="h-4 w-4 text-white" />
+                      ) : (
+                        <Bot className="h-4 w-4 text-white" />
+                      )}
+                    </div>
+
+                    <div className="space-y-2">
+                      <div
+                        className={cn(
+                          "p-3 rounded-lg",
+                          message.type === "user"
+                            ? "bg-blue-500 text-white"
+                            : "bg-gray-100 text-gray-900",
+                        )}
+                      >
+                        <p className="text-sm leading-relaxed">
+                          {message.content}
+                        </p>
+                      </div>
+
+                      {message.stockMentioned && (
+                        <div className="flex items-center gap-2">
+                          <Button size="sm" variant="outline" asChild>
+                            <Link to={`/stock/${message.stockMentioned}`}>
+                              <BarChart3 className="h-3 w-3 mr-1" />
+                              View {message.stockMentioned} Details
+                            </Link>
+                          </Button>
+                        </div>
+                      )}
+
+                      {message.suggestions && (
+                        <div className="space-y-2">
+                          <p className="text-xs text-muted-foreground">
+                            Suggested questions:
+                          </p>
+                          <div className="flex flex-wrap gap-2">
+                            {message.suggestions.map((suggestion, index) => (
+                              <Button
+                                key={index}
+                                variant="ghost"
+                                size="sm"
+                                className="text-xs h-auto p-2 text-left"
+                                onClick={() =>
+                                  handleSuggestionClick(suggestion)
+                                }
+                              >
+                                {suggestion}
+                              </Button>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              ))}
+
+              {isTyping && (
+                <div className="flex gap-3">
+                  <div className="w-8 h-8 rounded-full bg-gradient-to-r from-purple-500 to-blue-500 flex items-center justify-center">
+                    <Bot className="h-4 w-4 text-white" />
+                  </div>
+                  <div className="bg-gray-100 p-3 rounded-lg">
+                    <div className="flex items-center gap-1">
+                      <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" />
+                      <div
+                        className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                        style={{ animationDelay: "0.1s" }}
+                      />
+                      <div
+                        className="w-2 h-2 bg-gray-500 rounded-full animate-bounce"
+                        style={{ animationDelay: "0.2s" }}
+                      />
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              <div ref={messagesEndRef} />
+            </div>
+
+            {/* Input Area */}
+            <div className="border-t p-4">
+              <div className="flex gap-2">
+                <Input
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                  placeholder="Ask about any stock or company..."
+                  className="flex-1"
+                  disabled={isTyping}
+                />
+                <Button
+                  onClick={handleSendMessage}
+                  disabled={!inputValue.trim() || isTyping}
+                  className="px-4"
+                >
+                  <Send className="h-4 w-4" />
+                </Button>
+              </div>
+
+              {/* Quick Actions */}
+              <div className="mt-3 flex flex-wrap gap-2">
+                <span className="text-xs text-muted-foreground mr-2">
+                  Quick questions:
+                </span>
+                {suggestedQuestions.slice(0, 3).map((question, index) => (
+                  <Button
+                    key={index}
+                    variant="ghost"
+                    size="sm"
+                    className="text-xs h-auto p-1 text-blue-600"
+                    onClick={() => handleSuggestionClick(question)}
+                  >
+                    {question}
+                  </Button>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Popular Topics */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <TrendingUp className="h-4 w-4 text-green-600" />
+                <h4 className="font-semibold text-sm">Popular Companies</h4>
+              </div>
+              <div className="space-y-1 text-xs">
+                <div>• Apple (AAPL) - Consumer Electronics</div>
+                <div>• Microsoft (MSFT) - Cloud & Software</div>
+                <div>• NVIDIA (NVDA) - AI & Graphics</div>
               </div>
             </CardContent>
           </Card>
-        )}
 
-        {/* Main Research Interface */}
-        <Tabs
-          value={activeTab}
-          onValueChange={setActiveTab}
-          className="space-y-6"
-        >
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="insights">Market Insights</TabsTrigger>
-            <TabsTrigger value="analysis">AI Analysis</TabsTrigger>
-            <TabsTrigger value="trends">Trend Scanner</TabsTrigger>
-            <TabsTrigger value="alerts">Smart Alerts</TabsTrigger>
-          </TabsList>
+          <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <BarChart3 className="h-4 w-4 text-blue-600" />
+                <h4 className="font-semibold text-sm">Key Metrics</h4>
+              </div>
+              <div className="space-y-1 text-xs">
+                <div>• Revenue & Growth Rates</div>
+                <div>• Profit Margins & Efficiency</div>
+                <div>• Market Position & Competition</div>
+              </div>
+            </CardContent>
+          </Card>
 
-          {/* Market Insights */}
-          <TabsContent value="insights" className="space-y-4">
-            <div className="grid gap-4">
-              {mockInsights.map((insight) => (
-                <Card
-                  key={insight.id}
-                  className="bg-white/90 backdrop-blur-sm border-0 shadow-lg hover:shadow-xl transition-shadow"
-                >
-                  <CardContent className="p-6">
-                    <div className="flex items-start justify-between mb-4">
-                      <div className="flex items-center gap-3">
-                        <div
-                          className={cn(
-                            "w-3 h-3 rounded-full",
-                            insight.type === "bullish"
-                              ? "bg-green-500"
-                              : insight.type === "bearish"
-                                ? "bg-red-500"
-                                : "bg-yellow-500",
-                          )}
-                        />
-                        <div>
-                          <h3 className="font-bold text-lg">{insight.title}</h3>
-                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                            <Clock className="h-3 w-3" />
-                            {insight.timeframe} outlook
-                            {insight.sector && (
-                              <>
-                                •{" "}
-                                <Badge variant="outline" className="text-xs">
-                                  {insight.sector}
-                                </Badge>
-                              </>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="text-sm font-medium">Confidence</div>
-                        <div className="text-2xl font-bold text-primary">
-                          {insight.confidence}%
-                        </div>
-                      </div>
-                    </div>
-
-                    <p className="text-muted-foreground leading-relaxed">
-                      {insight.summary}
-                    </p>
-
-                    <div className="flex items-center justify-between mt-4">
-                      <Badge
-                        variant={
-                          insight.impact === "high"
-                            ? "default"
-                            : insight.impact === "medium"
-                              ? "secondary"
-                              : "outline"
-                        }
-                      >
-                        {insight.impact.toUpperCase()} Impact
-                      </Badge>
-                      <Button variant="ghost" size="sm">
-                        <Eye className="h-4 w-4 mr-2" />
-                        View Details
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          {/* AI Analysis */}
-          <TabsContent value="analysis" className="space-y-4">
-            <div className="grid gap-6">
-              {mockAIAnalyses.map((analysis) => (
-                <Card
-                  key={analysis.id}
-                  className="bg-white/90 backdrop-blur-sm border-0 shadow-lg"
-                >
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="flex items-center gap-2">
-                        <Brain className="h-5 w-5 text-purple-600" />
-                        {analysis.title}
-                      </CardTitle>
-                      <Badge
-                        className={cn(
-                          analysis.recommendation === "buy"
-                            ? "bg-green-100 text-green-800"
-                            : analysis.recommendation === "sell"
-                              ? "bg-red-100 text-red-800"
-                              : "bg-yellow-100 text-yellow-800",
-                        )}
-                      >
-                        {analysis.recommendation.toUpperCase()}
-                      </Badge>
-                    </div>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid grid-cols-3 gap-4">
-                      <div className="text-center p-3 bg-blue-50 rounded-lg">
-                        <div className="text-sm text-muted-foreground">
-                          Current
-                        </div>
-                        <div className="text-xl font-bold">
-                          ${analysis.currentPrice}
-                        </div>
-                      </div>
-                      <div className="text-center p-3 bg-green-50 rounded-lg">
-                        <div className="text-sm text-muted-foreground">
-                          Target
-                        </div>
-                        <div className="text-xl font-bold text-green-600">
-                          ${analysis.targetPrice}
-                        </div>
-                      </div>
-                      <div className="text-center p-3 bg-purple-50 rounded-lg">
-                        <div className="text-sm text-muted-foreground">
-                          Confidence
-                        </div>
-                        <div className="text-xl font-bold text-purple-600">
-                          {analysis.confidence}%
-                        </div>
-                      </div>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold mb-2">AI Analysis</h4>
-                      <p className="text-muted-foreground leading-relaxed">
-                        {analysis.analysis}
-                      </p>
-                    </div>
-
-                    <div>
-                      <h4 className="font-semibold mb-2">Key Reasoning</h4>
-                      <ul className="space-y-1">
-                        {analysis.reasoning.map((reason, index) => (
-                          <li
-                            key={index}
-                            className="flex items-start gap-2 text-sm"
-                          >
-                            <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                            {reason}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    <Button className="w-full" asChild>
-                      <Link to={`/stock/${analysis.symbol}`}>
-                        <BarChart3 className="h-4 w-4 mr-2" />
-                        View {analysis.symbol} Details
-                      </Link>
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          {/* Trend Scanner */}
-          <TabsContent value="trends" className="space-y-4">
-            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Activity className="h-5 w-5" />
-                  Real-Time Trend Analysis
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <TrendingUp className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    Advanced Trend Scanner
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    AI models are analyzing patterns across 10,000+ securities
-                    in real-time
-                  </p>
-                  <Button
-                    onClick={runNewAnalysis}
-                    className="bg-gradient-to-r from-blue-500 to-purple-500"
-                  >
-                    <Sparkles className="h-4 w-4 mr-2" />
-                    Scan for Trends
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          {/* Smart Alerts */}
-          <TabsContent value="alerts" className="space-y-4">
-            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertTriangle className="h-5 w-5" />
-                  Smart Alerts System
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-12">
-                  <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <AlertTriangle className="h-8 w-8 text-white" />
-                  </div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    Intelligent Alert Engine
-                  </h3>
-                  <p className="text-muted-foreground mb-4">
-                    Get notified when AI detects significant market
-                    opportunities or risks
-                  </p>
-                  <Button className="bg-gradient-to-r from-orange-500 to-red-500">
-                    <Target className="h-4 w-4 mr-2" />
-                    Configure Alerts
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+          <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-2">
+                <Globe className="h-4 w-4 text-purple-600" />
+                <h4 className="font-semibold text-sm">Industry Analysis</h4>
+              </div>
+              <div className="space-y-1 text-xs">
+                <div>• Technology Sector Trends</div>
+                <div>• Healthcare Innovations</div>
+                <div>• Financial Services Evolution</div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div>
   );
