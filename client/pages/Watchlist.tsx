@@ -285,11 +285,19 @@ export default function Watchlist() {
         {/* Quick Actions */}
         {!isEditing && watchlistStocks.length > 0 && (
           <div className="grid grid-cols-2 gap-3 pt-4">
-            <Button variant="outline" className="h-12">
+            <Button
+              variant="outline"
+              className="h-12"
+              onClick={() => navigate("/markets")}
+            >
               <BarChart3 className="h-5 w-5 mr-2" />
               Market Analysis
             </Button>
-            <Button variant="outline" className="h-12">
+            <Button
+              variant="outline"
+              className="h-12"
+              onClick={() => navigate("/settings?tab=alerts")}
+            >
               <Bell className="h-5 w-5 mr-2" />
               Price Alerts
             </Button>

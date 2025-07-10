@@ -261,41 +261,15 @@ export function StockCard({
 
         <Separator />
 
-        {/* Confidence Level Buttons */}
+        {/* Add to Portfolio Button */}
         <div className="space-y-4">
-          <h4 className="font-semibold text-center text-sm text-muted-foreground">
-            Your Confidence Level
-          </h4>
-          <div className="grid grid-cols-2 gap-3">
-            <Button
-              variant="outline"
-              onClick={() => onConfidenceSelect(stock.symbol, "not-interested")}
-              className="h-12 text-sm font-semibold border-red-200 text-red-700 hover:bg-red-50"
-            >
-              Not Interested
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => onConfidenceSelect(stock.symbol, "conservative")}
-              className="h-12 text-sm font-semibold border-yellow-200 text-yellow-700 hover:bg-yellow-50"
-            >
-              Conservative
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => onConfidenceSelect(stock.symbol, "bullish")}
-              className="h-12 text-sm font-semibold border-green-200 text-green-700 hover:bg-green-50"
-            >
-              Bullish
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => onConfidenceSelect(stock.symbol, "very-bullish")}
-              className="h-12 text-sm font-semibold border-green-300 text-green-800 hover:bg-green-100"
-            >
-              Very Bullish
-            </Button>
-          </div>
+          <Button
+            onClick={() => navigate(`/portfolio/add/${stock.symbol}`)}
+            className="w-full h-12 text-sm font-semibold bg-green-600 hover:bg-green-700 text-white"
+          >
+            <Plus className="h-4 w-4 mr-2" />
+            Add to Portfolio
+          </Button>
 
           {/* Watchlist Button */}
           <Button

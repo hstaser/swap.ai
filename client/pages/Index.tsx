@@ -444,6 +444,9 @@ export default function Index() {
                   <Link to="/watchlist">Watchlist</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
+                  <Link to="/portfolio">My Portfolio</Link>
+                </Button>
+                <Button variant="ghost" size="sm" asChild>
                   <Link to="/research">AI assistance</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
@@ -452,8 +455,14 @@ export default function Index() {
               </nav>
             </div>
             <div className="flex items-center gap-2">
-              <Badge variant="outline" className="bg-white/50">
-                Portfolio: {portfolio.length} stocks
+              <Badge
+                variant="outline"
+                className="bg-white/50 cursor-pointer hover:bg-white/70 transition-colors"
+                asChild
+              >
+                <Link to="/portfolio">
+                  Portfolio: {portfolio.length} stocks
+                </Link>
               </Badge>
               <Button variant="ghost" size="icon">
                 <Bell className="h-4 w-4" />
