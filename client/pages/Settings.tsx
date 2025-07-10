@@ -62,7 +62,6 @@ interface UserSettings {
   // Advanced Settings
   includeDividends: boolean;
   taxOptimization: boolean;
-  esgFocus: boolean;
   internationalExposure: number;
 }
 
@@ -97,7 +96,6 @@ const defaultSettings: UserSettings = {
   // Advanced Settings
   includeDividends: true,
   taxOptimization: false,
-  esgFocus: false,
   internationalExposure: 20,
 };
 
