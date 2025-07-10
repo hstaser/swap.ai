@@ -14,6 +14,7 @@ export interface FilterState {
   peRange: string;
   dividendYield: string;
   priceRange: string;
+  exchange: string;
 }
 
 interface StockFiltersProps {
@@ -46,6 +47,15 @@ const marketCapOptions = [
 ];
 
 const peRangeOptions = ["All P/E", "0-15", "15-25", "25-40", "40+"];
+
+const exchangeOptions = [
+  "All Markets",
+  "NASDAQ",
+  "NYSE",
+  "DOW JONES",
+  "S&P 500",
+  "Russell 2000",
+];
 
 const priceRangeOptions = [
   "All Prices",
