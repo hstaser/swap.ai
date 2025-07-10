@@ -281,10 +281,11 @@ export default function Banking() {
           onValueChange={setActiveTab}
           className="space-y-6"
         >
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="deposit">Deposit</TabsTrigger>
             <TabsTrigger value="direct-deposit">Direct Deposit</TabsTrigger>
+            <TabsTrigger value="transfer">Transfer</TabsTrigger>
             <TabsTrigger value="savings">Savings</TabsTrigger>
             <TabsTrigger value="transactions">Transactions</TabsTrigger>
           </TabsList>
@@ -459,6 +460,113 @@ export default function Banking() {
             </Card>
           </TabsContent>
 
+          {/* Transfer to Investment */}
+          <TabsContent value="transfer" className="space-y-4">
+            <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <ArrowUpRight className="h-5 w-5" />
+                  Transfer to Investment Account
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="text-center p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
+                  <TrendingUp className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold mb-2">
+                    Start Investing Today
+                  </h3>
+                  <p className="text-muted-foreground">
+                    Transfer funds from your savings or checking account
+                    directly to your investment portfolio
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  <div>
+                    <Label htmlFor="transfer-amount">Transfer Amount</Label>
+                    <div className="relative">
+                      <DollarSign className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        id="transfer-amount"
+                        type="number"
+                        placeholder="0.00"
+                        className="pl-10 text-lg h-12"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <Label>Transfer From</Label>
+                    <div className="grid grid-cols-2 gap-3 mt-2">
+                      <Card className="border-2 border-blue-200 bg-blue-50">
+                        <CardContent className="p-4 text-center">
+                          <CreditCard className="h-6 w-6 mx-auto mb-2 text-blue-600" />
+                          <div className="font-semibold">Checking</div>
+                          <div className="text-sm text-muted-foreground">
+                            ****4521
+                          </div>
+                          <div className="text-lg font-bold text-blue-600">
+                            {formatCurrency(mockAccounts[0].balance)}
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      <Card className="border-2 hover:border-green-200 hover:bg-green-50 transition-colors cursor-pointer">
+                        <CardContent className="p-4 text-center">
+                          <PiggyBank className="h-6 w-6 mx-auto mb-2 text-green-600" />
+                          <div className="font-semibold">Savings</div>
+                          <div className="text-sm text-muted-foreground">
+                            ****7891
+                          </div>
+                          <div className="text-lg font-bold text-green-600">
+                            {formatCurrency(mockAccounts[1].balance)}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+
+                  <div className="p-4 bg-blue-50 rounded-lg">
+                    <h5 className="font-semibold mb-2 flex items-center gap-2">
+                      <Zap className="h-4 w-4" />
+                      Instant Investment Transfer
+                    </h5>
+                    <div className="text-sm space-y-2">
+                      <div className="flex justify-between">
+                        <span>Transfer Speed:</span>
+                        <span className="font-medium">Instant</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Transfer Fee:</span>
+                        <span className="font-medium text-green-600">
+                          $0.00
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Available for Trading:</span>
+                        <span className="font-medium">Immediately</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <Button className="w-full h-12 bg-gradient-to-r from-green-500 to-blue-500 hover:from-green-600 hover:to-blue-600">
+                    <ArrowUpRight className="h-4 w-4 mr-2" />
+                    Transfer to Investment Account
+                  </Button>
+
+                  <div className="text-center">
+                    <Button variant="ghost" size="sm" asChild>
+                      <Link to="/portfolio">
+                        <BarChart3 className="h-4 w-4 mr-2" />
+                        View Investment Portfolio
+                      </Link>
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           {/* Direct Deposit */}
           <TabsContent value="direct-deposit" className="space-y-4">
             <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
@@ -491,6 +599,13 @@ export default function Banking() {
                       <div className="text-lg font-mono font-bold mt-1">
                         121000248
                       </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="mt-2 text-xs"
+                      >
+                        Copy to Clipboard
+                      </Button>
                     </div>
                     <div className="p-4 bg-gray-50 rounded-lg">
                       <Label className="text-sm font-medium">
@@ -499,6 +614,13 @@ export default function Banking() {
                       <div className="text-lg font-mono font-bold mt-1">
                         ****4521
                       </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="mt-2 text-xs"
+                      >
+                        Copy to Clipboard
+                      </Button>
                     </div>
                   </div>
 
@@ -511,10 +633,37 @@ export default function Banking() {
                     </div>
                   </div>
 
-                  <Button className="w-full">
-                    <Phone className="h-4 w-4 mr-2" />
-                    Contact Payroll Department
-                  </Button>
+                  <div className="space-y-3">
+                    <h5 className="font-semibold">
+                      Automatic Investment Setup
+                    </h5>
+                    <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                      <div className="flex items-start gap-3">
+                        <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+                        <div>
+                          <div className="font-medium text-green-800">
+                            Auto-Invest Option Available
+                          </div>
+                          <div className="text-sm text-green-700 mt-1">
+                            Automatically transfer a percentage of each paycheck
+                            to your investment account. Set it up after your
+                            first direct deposit arrives.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button className="w-full">
+                      <Phone className="h-4 w-4 mr-2" />
+                      Contact HR
+                    </Button>
+                    <Button variant="outline" className="w-full">
+                      <DollarSign className="h-4 w-4 mr-2" />
+                      Setup Auto-Invest
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
