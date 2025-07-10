@@ -55,6 +55,14 @@ const exchangeOptions = [
   "DOW JONES",
   "S&P 500",
   "Russell 2000",
+  "LSE (London)",
+  "TSE (Tokyo)",
+  "TSX (Toronto)",
+  "ASX (Australia)",
+  "DAX (Germany)",
+  "CAC 40 (France)",
+  "Nikkei 225",
+  "FTSE 100",
 ];
 
 const priceRangeOptions = [
