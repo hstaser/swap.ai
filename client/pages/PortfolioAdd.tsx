@@ -14,7 +14,7 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
-export default function PortfolioAdd() {
+export default function QueueAdd() {
   const navigate = useNavigate();
   const { symbol } = useParams<{ symbol: string }>();
   const [selectedConfidence, setSelectedConfidence] = useState<string | null>(
@@ -91,12 +91,12 @@ export default function PortfolioAdd() {
 
   const handleConfidenceSelect = (confidence: string) => {
     setSelectedConfidence(confidence);
-    // Add to portfolio logic here
-    console.log(`Adding ${symbol} to portfolio with ${confidence} confidence`);
+    // Add to queue logic here
+    console.log(`Adding ${symbol} to queue with ${confidence} confidence`);
 
-    // Navigate back to portfolio with success message
+    // Navigate back to main swiping with success message
     setTimeout(() => {
-      navigate("/portfolio?added=" + symbol);
+      navigate("/?queued=" + symbol);
     }, 1000);
   };
 
@@ -138,7 +138,7 @@ export default function PortfolioAdd() {
                 <BarChart3 className="h-5 w-5 text-white" />
               </div>
               <h1 className="text-xl font-bold text-foreground">
-                Add to Portfolio
+                Add to Queue
               </h1>
             </div>
           </div>
@@ -195,8 +195,8 @@ export default function PortfolioAdd() {
             </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground text-center">
-                Your confidence level will help determine the position size in
-                your portfolio.
+                Your confidence level will help determine the position size when
+                you're ready to optimize your portfolio.
               </p>
 
               <div className="space-y-3">
@@ -236,12 +236,12 @@ export default function PortfolioAdd() {
                   <div className="flex items-center gap-2 text-green-800">
                     <CheckCircle className="h-5 w-5" />
                     <span className="font-semibold">
-                      Successfully added to portfolio!
+                      Successfully added to queue!
                     </span>
                   </div>
                   <p className="text-sm text-green-700 mt-1">
-                    {symbol} has been added to your portfolio. Redirecting to
-                    portfolio...
+                    {symbol} has been added to your queue. Returning to stock
+                    browsing...
                   </p>
                 </div>
               )}
