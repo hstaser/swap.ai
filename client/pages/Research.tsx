@@ -19,7 +19,7 @@ import {
   Lightbulb,
   AlertTriangle,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface ChatMessage {
@@ -57,17 +57,29 @@ const stockResponses: Record<string, string> = {
 
 export default function Research() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const symbolParam = searchParams.get("symbol");
+
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "1",
       type: "ai",
-      content:
-        "Hello! I'm your AI research assistant. I can help you understand companies, their business models, financial metrics, and market position. What would you like to learn about?",
+      content: symbolParam
+        ? `Hello! I see you're interested in learning about ${symbolParam}. I can help you understand the company's business model, financial metrics, and market position. What would you like to know about ${symbolParam}?`
+        : "Hello! I'm your AI research assistant. I can help you understand companies, their business models, financial metrics, and market position. What would you like to learn about?",
       timestamp: new Date(),
-      suggestions: suggestedQuestions.slice(0, 3),
+      suggestions: symbolParam
+        ? [
+            `Tell me about ${symbolParam}'s business model`,
+            `What are ${symbolParam}'s key revenue sources?`,
+            `How does ${symbolParam} compare to competitors?`,
+          ]
+        : suggestedQuestions.slice(0, 3),
     },
   ]);
-  const [inputValue, setInputValue] = useState("");
+  const [inputValue, setInputValue] = useState(
+    symbolParam ? `Tell me about ${symbolParam}` : "",
+  );
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
