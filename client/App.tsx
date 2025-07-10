@@ -12,6 +12,7 @@ import Research from "./pages/Research";
 import Banking from "./pages/Banking";
 import Watchlist from "./pages/Watchlist";
 import Portfolio from "./pages/Portfolio";
+import PortfolioAdd from "./pages/PortfolioAdd";
 import StockDetail from "./pages/StockDetail";
 import StockNews from "./pages/StockNews";
 import Settings from "./pages/Settings";
@@ -32,6 +33,7 @@ const App = () => (
           <Route path="/banking" element={<Banking />} />
           <Route path="/watchlist" element={<Watchlist />} />
           <Route path="/portfolio" element={<Portfolio />} />
+          <Route path="/portfolio/add/:symbol" element={<PortfolioAdd />} />
           <Route path="/stock/:symbol" element={<StockDetail />} />
           <Route path="/stock/:symbol/news" element={<StockNews />} />
           <Route path="/settings" element={<Settings />} />
