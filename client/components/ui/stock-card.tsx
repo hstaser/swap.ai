@@ -51,10 +51,6 @@ export interface Stock {
 
 interface StockCardProps {
   stock: Stock;
-  onConfidenceSelect: (
-    symbol: string,
-    confidence: "not-interested" | "conservative" | "bullish" | "very-bullish",
-  ) => void;
   onToggleWatchlist: (symbol: string) => void;
   isInWatchlist: boolean;
   className?: string;
@@ -62,7 +58,6 @@ interface StockCardProps {
 
 export function StockCard({
   stock,
-  onConfidenceSelect,
   onToggleWatchlist,
   isInWatchlist,
   className,
