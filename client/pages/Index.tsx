@@ -426,6 +426,9 @@ export default function Index() {
                 <Button variant="ghost" size="sm" asChild>
                   <Link to="/research">Research</Link>
                 </Button>
+                <Button variant="ghost" size="sm" asChild>
+                  <Link to="/banking">Banking</Link>
+                </Button>
               </nav>
             </div>
             <div className="flex items-center gap-2">
