@@ -494,20 +494,6 @@ export default function Settings() {
                         }
                       />
                     </div>
-                    <div className="flex items-center justify-between">
-                      <div>
-                        <Label className="text-sm font-medium">ESG Focus</Label>
-                        <p className="text-xs text-muted-foreground">
-                          Prioritize sustainable investments
-                        </p>
-                      </div>
-                      <Switch
-                        checked={settings.esgFocus}
-                        onCheckedChange={(checked) =>
-                          updateSetting("esgFocus", checked)
-                        }
-                      />
-                    </div>
                   </div>
                 </div>
               </CardContent>
