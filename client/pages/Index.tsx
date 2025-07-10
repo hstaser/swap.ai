@@ -3,7 +3,7 @@ import { StockCard, type Stock } from "@/components/ui/stock-card";
 import { StockFilters, type FilterState } from "@/components/ui/stock-filters";
 import { StockSearch } from "@/components/ui/stock-search";
 import { MarketSentiment } from "@/components/ui/market-sentiment";
-import { ThemeToggle } from "@/components/ui/theme-toggle";
+
 import { HelpSystem } from "@/components/ui/help-system";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -320,6 +320,7 @@ const defaultFilters: FilterState = {
   peRange: "All P/E",
   dividendYield: "All",
   priceRange: "All Prices",
+  exchange: "All Markets",
 };
 
 export default function Index() {
@@ -441,7 +442,6 @@ export default function Index() {
               >
                 <HelpCircle className="h-4 w-4" />
               </Button>
-              <ThemeToggle />
               <Button variant="ghost" size="icon" asChild>
                 <Link to="/settings">
                   <Settings className="h-4 w-4" />
