@@ -102,6 +102,22 @@ export function StockFilters({
         </Select>
 
         <Select
+          value={filters.exchange}
+          onValueChange={(value) => updateFilter("exchange", value)}
+        >
+          <SelectTrigger className="w-[120px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {exchangeOptions.map((option) => (
+              <SelectItem key={option} value={option}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
+        <Select
           value={filters.marketCap}
           onValueChange={(value) => updateFilter("marketCap", value)}
         >
