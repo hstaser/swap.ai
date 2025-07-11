@@ -590,6 +590,9 @@ export default function Index() {
           </div>
         )}
       </div>
+
+      {/* Help System */}
+      {showHelp && <HelpSystem onClose={() => setShowHelp(false)} />}
     </div>
   );
 }
