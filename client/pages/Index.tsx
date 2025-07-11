@@ -578,7 +578,7 @@ export default function Index() {
                 )}
                 className={cn(
                   "w-full",
-                  queue.includes(filteredStocks[currentStockIndex].symbol) &&
+                  isInQueue(filteredStocks[currentStockIndex].symbol) &&
                     "ring-2 ring-blue-400 bg-blue-50",
                 )}
               />
