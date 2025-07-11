@@ -470,7 +470,10 @@ export function HelpSystem({ onClose }: HelpSystemProps) {
                       <p className="text-sm text-muted-foreground mb-4">
                         Get instant help from our support team
                       </p>
-                      <Button className="w-full">Start Chat</Button>
+                      <Button className="w-full" onClick={handleLiveChat}>
+                        <MessageCircle className="h-4 w-4 mr-2" />
+                        Start Chat
+                      </Button>
                     </CardContent>
                   </Card>
 
@@ -481,7 +484,12 @@ export function HelpSystem({ onClose }: HelpSystemProps) {
                       <p className="text-sm text-muted-foreground mb-4">
                         Send us your questions via email
                       </p>
-                      <Button variant="outline" className="w-full">
+                      <Button
+                        variant="outline"
+                        className="w-full"
+                        onClick={() => setShowEmailForm(true)}
+                      >
+                        <Send className="h-4 w-4 mr-2" />
                         Send Email
                       </Button>
                     </CardContent>
