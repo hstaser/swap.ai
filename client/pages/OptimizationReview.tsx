@@ -154,7 +154,7 @@ export default function OptimizationReview() {
                 <Brain className="h-5 w-5 text-white" />
               </div>
               <h1 className="text-xl font-bold text-foreground">
-                Optimized Portfolio
+                Review Investment
               </h1>
             </div>
           </div>
@@ -333,7 +333,7 @@ export default function OptimizationReview() {
               ) : (
                 <>
                   <Zap className="h-4 w-4 mr-2" />
-                  Confirm & Execute Portfolio
+                  Confirm & Execute Investment
                 </>
               )}
             </Button>

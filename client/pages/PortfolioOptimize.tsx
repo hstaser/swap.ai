@@ -93,7 +93,7 @@ export default function PortfolioOptimize() {
                 <Brain className="h-5 w-5 text-white" />
               </div>
               <h1 className="text-xl font-bold text-foreground">
-                Portfolio Optimization
+                Optimize & Invest
               </h1>
             </div>
           </div>
@@ -143,9 +143,10 @@ export default function PortfolioOptimize() {
                   )}
                 >
                   <div className="flex-1">
-                    <div className="font-semibold">Add with New Investment</div>
+                    <div className="font-semibold">Invest New Money</div>
                     <div className="text-sm opacity-80 mt-1">
-                      Invest fresh money to add these stocks to your portfolio
+                      Use fresh funds to buy these stocks with optimal
+                      allocation
                     </div>
                   </div>
                 </Button>
@@ -159,11 +160,9 @@ export default function PortfolioOptimize() {
                   )}
                 >
                   <div className="flex-1">
-                    <div className="font-semibold">
-                      Rebalance Existing Portfolio
-                    </div>
+                    <div className="font-semibold">Rebalance & Invest</div>
                     <div className="text-sm opacity-80 mt-1">
-                      Sell some existing holdings to add these new stocks ($
+                      Sell some current holdings to buy these new stocks ($
                       {existingPortfolioValue.toLocaleString()} portfolio)
                     </div>
                   </div>
@@ -289,8 +288,8 @@ export default function PortfolioOptimize() {
           >
             <Zap className="h-4 w-4 mr-2" />
             {optimizationType === "new"
-              ? "Generate Optimized Portfolio"
-              : "Rebalance Portfolio"}
+              ? "Optimize & Invest"
+              : "Rebalance & Invest"}
           </Button>
 
           {optimizationType === "new" &&
