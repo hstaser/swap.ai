@@ -177,8 +177,16 @@ interface HelpSystemProps {
 }
 
 export function HelpSystem({ onClose }: HelpSystemProps) {
+  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedFAQ, setSelectedFAQ] = useState<string | null>(null);
+  const [showEmailForm, setShowEmailForm] = useState(false);
+  const [emailForm, setEmailForm] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
   const filteredFAQs = faqItems.filter(
     (item) =>
