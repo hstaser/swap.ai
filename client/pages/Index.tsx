@@ -321,6 +321,7 @@ const defaultFilters: FilterState = {
   dividendYield: "All",
   priceRange: "All Prices",
   exchange: "All Markets",
+  performance: "All Performance",
 };
 
 export default function Index() {
