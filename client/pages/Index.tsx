@@ -425,23 +425,6 @@ export default function Index() {
     }
   };
 
-  const addToQueue = (symbol: string) => {
-    if (!queue.includes(symbol)) {
-      setQueue([...queue, symbol]);
-    }
-  };
-
-  // Listen for queue updates from QueueAdd page
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const queuedSymbol = urlParams.get("queued");
-    if (queuedSymbol && !queue.includes(queuedSymbol)) {
-      setQueue([...queue, queuedSymbol]);
-      // Clean up URL parameter
-      window.history.replaceState({}, "", window.location.pathname);
-    }
-  }, [queue]);
-
   // Reset current stock index when filtered stocks change
   useEffect(() => {
     if (currentStockIndex >= filteredStocks.length) {
