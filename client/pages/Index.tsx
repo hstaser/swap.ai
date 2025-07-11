@@ -316,17 +316,13 @@ const legacyMockStocks: Stock[] = [
 ];
 
 const defaultFilters: FilterState = {
-  sector: "All Sectors",
+  sector: "All",
   marketCap: "All",
-  peRange: "All P/E",
+  peRange: "All",
   dividendYield: "All",
-  priceRange: "All Prices",
-  exchange: "All Markets",
-  performance: "All Performance",
-  revenueGrowth: "All Growth",
-  profitMargin: "All Margins",
-  debtToEquity: "All Debt Levels",
-  roe: "All ROE",
+  priceRange: "All",
+  exchange: "All",
+  performance: "All",
 };
 
 export default function Index() {
@@ -343,7 +339,7 @@ export default function Index() {
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
       // Sector filter
-      if (filters.sector !== "All Sectors" && stock.sector !== filters.sector) {
+      if (filters.sector !== "All" && stock.sector !== filters.sector) {
         return false;
       }
 
@@ -354,7 +350,7 @@ export default function Index() {
       }
 
       // Price range filter
-      if (filters.priceRange !== "All Prices") {
+      if (filters.priceRange !== "All") {
         const [min, max] = filters.priceRange.includes("-")
           ? filters.priceRange
               .split("-")
@@ -369,7 +365,7 @@ export default function Index() {
       }
 
       // P/E range filter
-      if (filters.peRange !== "All P/E" && stock.pe) {
+      if (filters.peRange !== "All" && stock.pe) {
         const [min, max] = filters.peRange.includes("-")
           ? filters.peRange.split("-").map(Number)
           : [40, Infinity];
@@ -382,7 +378,7 @@ export default function Index() {
       }
 
       // Performance filter
-      if (filters.performance !== "All Performance") {
+      if (filters.performance !== "All") {
         const changePercent = stock.changePercent;
         const oneMonthReturn = stock.returns?.oneMonth || 0;
 
