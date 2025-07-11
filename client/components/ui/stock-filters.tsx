@@ -200,6 +200,22 @@ export function StockFilters({
           </SelectContent>
         </Select>
 
+        <Select
+          value={filters.performance}
+          onValueChange={(value) => updateFilter("performance", value)}
+        >
+          <SelectTrigger className="w-[140px]">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            {performanceOptions.map((option) => (
+              <SelectItem key={option} value={option}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+
         {hasActiveFilters && (
           <Button variant="ghost" size="sm" onClick={onClearFilters}>
             <X className="h-4 w-4" />
