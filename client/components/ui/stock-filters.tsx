@@ -58,6 +58,14 @@ const marketCapOptions = [
 
 const peRangeOptions = ["All P/E", "0-15", "15-25", "25-40", "40+"];
 
+const priceRangeOptions = [
+  "All Prices",
+  "$0-$50",
+  "$50-$200",
+  "$200-$500",
+  "$500+",
+];
+
 const exchangeOptions = [
   "All Markets",
   "NASDAQ",
@@ -121,14 +129,6 @@ const roeOptions = [
   "Poor (<5%)",
 ];
 
-const priceRangeOptions = [
-  "All Prices",
-  "$0-$50",
-  "$50-$200",
-  "$200-$500",
-  "$500+",
-];
-
 export function StockFilters({
   filters,
   onFiltersChange,
@@ -167,123 +167,214 @@ export function StockFilters({
 
         <TabsContent value="basic" className="mt-4">
           <div className="flex flex-wrap gap-2">
-        <Select
-          value={filters.sector}
-          onValueChange={(value) => updateFilter("sector", value)}
-        >
-          <SelectTrigger className="w-[140px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {sectors.map((sector) => (
-              <SelectItem key={sector} value={sector}>
-                {sector}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <Select
+              value={filters.sector}
+              onValueChange={(value) => updateFilter("sector", value)}
+            >
+              <SelectTrigger className="w-[140px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {sectors.map((sector) => (
+                  <SelectItem key={sector} value={sector}>
+                    {sector}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-        <Select
-          value={filters.exchange}
-          onValueChange={(value) => updateFilter("exchange", value)}
-        >
-          <SelectTrigger className="w-[120px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {exchangeOptions.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <Select
+              value={filters.exchange}
+              onValueChange={(value) => updateFilter("exchange", value)}
+            >
+              <SelectTrigger className="w-[120px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {exchangeOptions.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-        <Select
-          value={filters.marketCap}
-          onValueChange={(value) => updateFilter("marketCap", value)}
-        >
-          <SelectTrigger className="w-[160px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {marketCapOptions.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <Select
+              value={filters.marketCap}
+              onValueChange={(value) => updateFilter("marketCap", value)}
+            >
+              <SelectTrigger className="w-[160px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {marketCapOptions.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-        <Select
-          value={filters.peRange}
-          onValueChange={(value) => updateFilter("peRange", value)}
-        >
-          <SelectTrigger className="w-[100px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {peRangeOptions.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <Select
+              value={filters.peRange}
+              onValueChange={(value) => updateFilter("peRange", value)}
+            >
+              <SelectTrigger className="w-[100px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {peRangeOptions.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-        <Select
-          value={filters.priceRange}
-          onValueChange={(value) => updateFilter("priceRange", value)}
-        >
-          <SelectTrigger className="w-[120px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {priceRangeOptions.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <Select
+              value={filters.priceRange}
+              onValueChange={(value) => updateFilter("priceRange", value)}
+            >
+              <SelectTrigger className="w-[120px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {priceRangeOptions.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
 
-        <Select
-          value={filters.dividendYield}
-          onValueChange={(value) => updateFilter("dividendYield", value)}
-        >
-          <SelectTrigger className="w-[100px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="All">All Div</SelectItem>
-            <SelectItem value="0-2%">0-2%</SelectItem>
-            <SelectItem value="2-4%">2-4%</SelectItem>
-            <SelectItem value="4%+">4%+</SelectItem>
-          </SelectContent>
-        </Select>
+            <Select
+              value={filters.dividendYield}
+              onValueChange={(value) => updateFilter("dividendYield", value)}
+            >
+              <SelectTrigger className="w-[100px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="All">All Div</SelectItem>
+                <SelectItem value="0-2%">0-2%</SelectItem>
+                <SelectItem value="2-4%">2-4%</SelectItem>
+                <SelectItem value="4%+">4%+</SelectItem>
+              </SelectContent>
+            </Select>
 
-        <Select
-          value={filters.performance}
-          onValueChange={(value) => updateFilter("performance", value)}
-        >
-          <SelectTrigger className="w-[140px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {performanceOptions.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+            <Select
+              value={filters.performance}
+              onValueChange={(value) => updateFilter("performance", value)}
+            >
+              <SelectTrigger className="w-[140px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {performanceOptions.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </TabsContent>
 
-        {hasActiveFilters && (
-          <Button variant="ghost" size="sm" onClick={onClearFilters}>
-            <X className="h-4 w-4" />
+        <TabsContent value="financials" className="mt-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Revenue Growth</Label>
+              <Select
+                value={filters.revenueGrowth}
+                onValueChange={(value) => updateFilter("revenueGrowth", value)}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {revenueGrowthOptions.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Profit Margin</Label>
+              <Select
+                value={filters.profitMargin}
+                onValueChange={(value) => updateFilter("profitMargin", value)}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {profitMarginOptions.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Debt to Equity</Label>
+              <Select
+                value={filters.debtToEquity}
+                onValueChange={(value) => updateFilter("debtToEquity", value)}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {debtToEquityOptions.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
+              <Label className="text-sm font-medium">Return on Equity</Label>
+              <Select
+                value={filters.roe}
+                onValueChange={(value) => updateFilter("roe", value)}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  {roeOptions.map((option) => (
+                    <SelectItem key={option} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
+        </TabsContent>
+      </Tabs>
+
+      {hasActiveFilters && (
+        <div className="mt-4 flex items-center justify-between">
+          <span className="text-sm text-muted-foreground">Filters applied</span>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={onClearFilters}
+            className="h-8 px-2 lg:px-3"
+          >
+            Clear filters
+            <X className="ml-2 h-4 w-4" />
           </Button>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
