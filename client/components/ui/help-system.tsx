@@ -195,6 +195,37 @@ export function HelpSystem({ onClose }: HelpSystemProps) {
       item.category.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
+  const handleEmailSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In real app, would submit to backend
+    console.log("Email submitted:", emailForm);
+    setShowEmailForm(false);
+    setEmailForm({ name: "", email: "", subject: "", message: "" });
+    // Show success message or notification
+  };
+
+  const handleLiveChat = () => {
+    navigate("/research");
+    onClose();
+  };
+
+  const handleArticleClick = (articleTitle: string) => {
+    // Open external articles - these would be real URLs in production
+    const articleUrls: Record<string, string> = {
+      "Getting Started with Stock Investing":
+        "https://www.investopedia.com/articles/basics/06/invest1000.asp",
+      "Understanding Risk and Diversification":
+        "https://www.investopedia.com/terms/d/diversification.asp",
+      "Reading Financial Statements":
+        "https://www.investopedia.com/articles/fundamental-analysis/09/five-must-have-metrics-value-investors.asp",
+      "Dollar-Cost Averaging Strategy":
+        "https://www.investopedia.com/terms/d/dollarcostaveraging.asp",
+    };
+
+    const url = articleUrls[articleTitle] || "https://www.investopedia.com/";
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Beginner":
