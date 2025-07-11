@@ -467,8 +467,10 @@ export default function Index() {
                   Queue: {queue.length} stocks
                 </Badge>
               </Link>
-              <Button variant="ghost" size="icon">
-                <Bell className="h-4 w-4" />
+              <Button variant="ghost" size="icon" asChild>
+                <Link to="/settings?tab=alerts">
+                  <Bell className="h-4 w-4" />
+                </Link>
               </Button>
               <Button
                 variant="ghost"
