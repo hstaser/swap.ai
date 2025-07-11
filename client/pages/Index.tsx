@@ -445,13 +445,14 @@ export default function Index() {
               </nav>
             </div>
             <div className="flex items-center gap-2">
-              <Badge
-                variant="outline"
-                className="bg-white/50 cursor-pointer hover:bg-white/70 transition-colors"
-                asChild
-              >
-                <Link to="/queue/review">Queue: {queue.length} stocks</Link>
-              </Badge>
+              <Link to="/queue/review">
+                <Badge
+                  variant="outline"
+                  className="bg-white/50 cursor-pointer hover:bg-white/70 transition-colors"
+                >
+                  Queue: {queue.length} stocks
+                </Badge>
+              </Link>
               <Button variant="ghost" size="icon">
                 <Bell className="h-4 w-4" />
               </Button>
