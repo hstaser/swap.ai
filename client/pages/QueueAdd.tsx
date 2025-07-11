@@ -114,11 +114,6 @@ export default function QueueAdd() {
         confidence as "conservative" | "bullish" | "very-bullish",
       );
     }
-
-    // Navigate back to main swiping
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
   };
 
   const confidenceOptions = [
