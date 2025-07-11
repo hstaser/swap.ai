@@ -332,11 +332,11 @@ const defaultFilters: FilterState = {
 export default function Index() {
   const [searchParams, setSearchParams] = useSearchParams();
   const symbolParam = searchParams.get("symbol");
+  const { queue, isInQueue } = useQueue();
 
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [portfolio, setPortfolio] = useState<string[]>([]);
   const [watchlist, setWatchlist] = useState<string[]>([]);
-  const [queue, setQueue] = useState<string[]>([]);
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
 
