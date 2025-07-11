@@ -77,10 +77,15 @@ const trendingStocks = ["NVDA", "AMD", "PLTR", "RIVN", "COIN"];
 
 interface StockSearchProps {
   onStockSelect?: (symbol: string) => void;
+  onFilterOverride?: (symbol: string) => void;
   className?: string;
 }
 
-export function StockSearch({ onStockSelect, className }: StockSearchProps) {
+export function StockSearch({
+  onStockSelect,
+  onFilterOverride,
+  className,
+}: StockSearchProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [filteredSuggestions, setFilteredSuggestions] = useState<
@@ -115,8 +120,12 @@ export function StockSearch({ onStockSelect, className }: StockSearchProps) {
   };
 
   const handleQuickSelect = (symbol: string) => {
-    // For quick select from trending/recent, navigate to main page to browse that stock
-    navigate(`/?symbol=${symbol}`);
+    // Override filters and navigate to specific stock
+    if (onFilterOverride) {
+      onFilterOverride(symbol);
+    } else {
+      navigate(`/?symbol=${symbol}`);
+    }
   };
 
   return (
