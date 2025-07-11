@@ -15,6 +15,7 @@ export interface FilterState {
   dividendYield: string;
   priceRange: string;
   exchange: string;
+  performance: string;
 }
 
 interface StockFiltersProps {
@@ -63,6 +64,17 @@ const exchangeOptions = [
   "CAC 40 (France)",
   "Nikkei 225",
   "FTSE 100",
+];
+
+const performanceOptions = [
+  "All Performance",
+  "Top Gainers (>5%)",
+  "Strong Performers (2-5%)",
+  "Stable (-2% to 2%)",
+  "Declining (-5% to -2%)",
+  "Top Losers (<-5%)",
+  "1M Winners (>10%)",
+  "1M Losers (<-10%)",
 ];
 
 const priceRangeOptions = [
