@@ -376,6 +376,36 @@ export default function Index() {
         }
       }
 
+      // Performance filter
+      if (filters.performance !== "All Performance") {
+        const changePercent = stock.changePercent;
+        const oneMonthReturn = stock.returns?.oneMonth || 0;
+
+        switch (filters.performance) {
+          case "Top Gainers (>5%)":
+            if (changePercent <= 5) return false;
+            break;
+          case "Strong Performers (2-5%)":
+            if (changePercent < 2 || changePercent > 5) return false;
+            break;
+          case "Stable (-2% to 2%)":
+            if (changePercent < -2 || changePercent > 2) return false;
+            break;
+          case "Declining (-5% to -2%)":
+            if (changePercent < -5 || changePercent > -2) return false;
+            break;
+          case "Top Losers (<-5%)":
+            if (changePercent >= -5) return false;
+            break;
+          case "1M Winners (>10%)":
+            if (oneMonthReturn <= 10) return false;
+            break;
+          case "1M Losers (<-10%)":
+            if (oneMonthReturn >= -10) return false;
+            break;
+        }
+      }
+
       return true;
     });
 
