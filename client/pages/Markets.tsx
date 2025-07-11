@@ -319,7 +319,6 @@ export default function Markets() {
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="sectors">Sectors</TabsTrigger>
             <TabsTrigger value="global">Global</TabsTrigger>
-            <TabsTrigger value="economic">Economic</TabsTrigger>
             <TabsTrigger value="news">News</TabsTrigger>
           </TabsList>
 
