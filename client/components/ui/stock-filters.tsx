@@ -144,11 +144,29 @@ export function StockFilters({
     filters.marketCap !== "All" ||
     filters.peRange !== "All P/E" ||
     filters.dividendYield !== "All" ||
-    filters.priceRange !== "All Prices";
+    filters.priceRange !== "All Prices" ||
+    filters.performance !== "All Performance" ||
+    filters.revenueGrowth !== "All Growth" ||
+    filters.profitMargin !== "All Margins" ||
+    filters.debtToEquity !== "All Debt Levels" ||
+    filters.roe !== "All ROE";
 
   return (
     <div className={className}>
-      <div className="flex flex-wrap gap-2">
+      <Tabs defaultValue="basic" className="w-full">
+        <TabsList className="grid w-full grid-cols-2">
+          <TabsTrigger value="basic" className="flex items-center gap-2">
+            <TrendingUp className="h-4 w-4" />
+            Basic Filters
+          </TabsTrigger>
+          <TabsTrigger value="financials" className="flex items-center gap-2">
+            <Calculator className="h-4 w-4" />
+            Financials
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="basic" className="mt-4">
+          <div className="flex flex-wrap gap-2">
         <Select
           value={filters.sector}
           onValueChange={(value) => updateFilter("sector", value)}
