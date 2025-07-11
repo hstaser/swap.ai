@@ -30,7 +30,7 @@ interface StockFiltersProps {
 }
 
 const sectors = [
-  "All",
+  "All Sectors",
   "Technology",
   "Healthcare",
   "Financial Services",
@@ -45,18 +45,24 @@ const sectors = [
 ];
 
 const marketCapOptions = [
-  "All",
+  "All Market Cap",
   "Large Cap (>$10B)",
   "Mid Cap ($2B-$10B)",
   "Small Cap (<$2B)",
 ];
 
-const peRangeOptions = ["All", "0-15", "15-25", "25-40", "40+"];
+const peRangeOptions = ["All P/E Ratios", "0-15", "15-25", "25-40", "40+"];
 
-const priceRangeOptions = ["All", "$0-$50", "$50-$200", "$200-$500", "$500+"];
+const priceRangeOptions = [
+  "All Prices",
+  "$0-$50",
+  "$50-$200",
+  "$200-$500",
+  "$500+",
+];
 
 const exchangeOptions = [
-  "All",
+  "All Markets",
   "NASDAQ",
   "NYSE",
   "DOW JONES",
@@ -73,7 +79,7 @@ const exchangeOptions = [
 ];
 
 const performanceOptions = [
-  "All",
+  "All Performance",
   "Top Gainers (>5%)",
   "Strong Performers (2-5%)",
   "Stable (-2% to 2%)",
@@ -129,13 +135,13 @@ export function StockFilters({
   };
 
   const hasActiveFilters =
-    filters.sector !== "All" ||
-    filters.marketCap !== "All" ||
-    filters.peRange !== "All" ||
-    filters.dividendYield !== "All" ||
-    filters.priceRange !== "All" ||
-    filters.exchange !== "All" ||
-    filters.performance !== "All";
+    filters.sector !== "All Sectors" ||
+    filters.marketCap !== "All Market Cap" ||
+    filters.peRange !== "All P/E Ratios" ||
+    filters.dividendYield !== "All Dividends" ||
+    filters.priceRange !== "All Prices" ||
+    filters.exchange !== "All Markets" ||
+    filters.performance !== "All Performance";
 
   return (
     <div className={className}>
@@ -145,7 +151,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("sector", value)}
         >
           <SelectTrigger className="w-[140px]">
-            <SelectValue placeholder="Sectors" />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {sectors.map((sector) => (
@@ -161,7 +167,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("exchange", value)}
         >
           <SelectTrigger className="w-[120px]">
-            <SelectValue placeholder="Markets" />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {exchangeOptions.map((option) => (
@@ -177,7 +183,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("marketCap", value)}
         >
           <SelectTrigger className="w-[140px]">
-            <SelectValue placeholder="Market Cap" />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {marketCapOptions.map((option) => (
@@ -192,8 +198,8 @@ export function StockFilters({
           value={filters.peRange}
           onValueChange={(value) => updateFilter("peRange", value)}
         >
-          <SelectTrigger className="w-[100px]">
-            <SelectValue placeholder="P/E Ratio" />
+          <SelectTrigger className="w-[120px]">
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {peRangeOptions.map((option) => (
@@ -209,7 +215,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("priceRange", value)}
         >
           <SelectTrigger className="w-[120px]">
-            <SelectValue placeholder="Price Range" />
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {priceRangeOptions.map((option) => (
@@ -224,11 +230,11 @@ export function StockFilters({
           value={filters.dividendYield}
           onValueChange={(value) => updateFilter("dividendYield", value)}
         >
-          <SelectTrigger className="w-[110px]">
-            <SelectValue placeholder="Dividends" />
+          <SelectTrigger className="w-[130px]">
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="All">All</SelectItem>
+            <SelectItem value="All Dividends">All Dividends</SelectItem>
             <SelectItem value="0-2%">0-2%</SelectItem>
             <SelectItem value="2-4%">2-4%</SelectItem>
             <SelectItem value="4%+">4%+</SelectItem>
@@ -239,8 +245,8 @@ export function StockFilters({
           value={filters.performance}
           onValueChange={(value) => updateFilter("performance", value)}
         >
-          <SelectTrigger className="w-[140px]">
-            <SelectValue placeholder="Performance" />
+          <SelectTrigger className="w-[150px]">
+            <SelectValue />
           </SelectTrigger>
           <SelectContent>
             {performanceOptions.map((option) => (
