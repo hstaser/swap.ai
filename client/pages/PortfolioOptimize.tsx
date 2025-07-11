@@ -95,13 +95,13 @@ export default function PortfolioOptimize() {
                     Ready to Optimize
                   </span>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <div className="text-sm text-muted-foreground">
                   We'll create an optimized portfolio allocation for your{" "}
                   <Badge variant="outline" className="mx-1">
                     {queuedStocksCount} queued stocks
                   </Badge>
                   based on your investment amount.
-                </p>
+                </div>
               </div>
             </CardContent>
           </Card>
