@@ -260,53 +260,19 @@ export default function OptimizationReview() {
             </CardContent>
           </Card>
 
-          {/* Portfolio Metrics */}
-          <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Target className="h-5 w-5 text-green-600" />
-                Portfolio Metrics
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="text-center p-3 bg-blue-50 rounded-lg">
-                  <TrendingUp className="h-6 w-6 text-blue-600 mx-auto mb-1" />
-                  <div className="font-bold text-lg">
-                    {portfolioMetrics.expectedReturn}%
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Expected Annual Return
-                  </div>
-                </div>
-                <div className="text-center p-3 bg-green-50 rounded-lg">
-                  <Shield className="h-6 w-6 text-green-600 mx-auto mb-1" />
-                  <div className="font-bold text-lg">
-                    {portfolioMetrics.riskScore}/10
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Risk Score
-                  </div>
-                </div>
-                <div className="text-center p-3 bg-purple-50 rounded-lg">
-                  <PieChart className="h-6 w-6 text-purple-600 mx-auto mb-1" />
-                  <div className="font-bold text-lg">
-                    {portfolioMetrics.diversificationScore}/10
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Diversification
-                  </div>
-                </div>
-                <div className="text-center p-3 bg-orange-50 rounded-lg">
-                  <Brain className="h-6 w-6 text-orange-600 mx-auto mb-1" />
-                  <div className="font-bold text-lg">
-                    -{portfolioMetrics.correlationReduction}%
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    Correlation Reduction
-                  </div>
-                </div>
-              </div>
+          {/* Encouraging Message */}
+          <Card className="border-0 bg-gradient-to-r from-green-100 to-blue-100 shadow-lg">
+            <CardContent className="p-6 text-center">
+              <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
+              <h3 className="text-lg font-semibold text-green-800 mb-2">
+                Great job building your portfolio! 🎉
+              </h3>
+              <p className="text-sm text-green-700">
+                Our AI has carefully analyzed your selections and created an
+                optimized allocation that balances your confidence levels with
+                smart risk management. You're making thoughtful investment
+                choices!
+              </p>
             </CardContent>
           </Card>
 
