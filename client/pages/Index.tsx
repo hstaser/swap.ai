@@ -416,6 +416,15 @@ export default function Index() {
     }
   };
 
+  const handleSkip = () => {
+    if (currentStockIndex < filteredStocks.length - 1) {
+      setCurrentStockIndex(currentStockIndex + 1);
+    } else {
+      // If at the end, go back to the beginning
+      setCurrentStockIndex(0);
+    }
+  };
+
   const handleFilterOverride = (symbol: string) => {
     // Reset filters to default
     setFilters(defaultFilters);
@@ -599,6 +608,7 @@ export default function Index() {
                 isInWatchlist={watchlist.includes(
                   filteredStocks[currentStockIndex].symbol,
                 )}
+                onSkip={handleSkip}
                 className={cn(
                   "w-full",
                   isInQueue(filteredStocks[currentStockIndex].symbol) &&
