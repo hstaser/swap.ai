@@ -320,7 +320,6 @@ const defaultFilters: FilterState = {
   marketCap: "All Market Cap",
   peRange: "All P/E Ratios",
   dividendYield: "All Dividends",
-  priceRange: "All Prices",
   exchange: "All Markets",
   performance: "All Performance",
 };
@@ -349,21 +348,6 @@ export default function Index() {
         return true;
       }
 
-      // Price range filter
-      if (filters.priceRange !== "All Prices") {
-        const [min, max] = filters.priceRange.includes("-")
-          ? filters.priceRange
-              .split("-")
-              .map((p) => Number(p.replace(/[^\d]/g, "")))
-          : [500, Infinity];
-
-        if (filters.priceRange === "$500+") {
-          if (stock.price < 500) return false;
-        } else if (min && max) {
-          if (stock.price < min || stock.price > max) return false;
-        }
-      }
-
       // P/E range filter
       if (filters.peRange !== "All P/E Ratios" && stock.pe) {
         const [min, max] = filters.peRange.includes("-")
@@ -381,28 +365,33 @@ export default function Index() {
       if (filters.performance !== "All Performance") {
         const changePercent = stock.changePercent;
         const oneMonthReturn = stock.returns?.oneMonth || 0;
+        const oneYearReturn = stock.returns?.oneYear || 0;
 
         switch (filters.performance) {
-          case "Top Gainers (>5%)":
+          case "Today's Gainers (>5%)":
             if (changePercent <= 5) return false;
             break;
-          case "Strong Performers (2-5%)":
-            if (changePercent < 2 || changePercent > 5) return false;
-            break;
-          case "Stable (-2% to 2%)":
-            if (changePercent < -2 || changePercent > 2) return false;
-            break;
-          case "Declining (-5% to -2%)":
-            if (changePercent < -5 || changePercent > -2) return false;
-            break;
-          case "Top Losers (<-5%)":
+          case "Today's Losers (<-5%)":
             if (changePercent >= -5) return false;
             break;
-          case "1M Winners (>10%)":
-            if (oneMonthReturn <= 10) return false;
+          case "Weekly Gainers (>10%)":
+            // Using changePercent as proxy for weekly performance
+            if (changePercent <= 10) return false;
             break;
-          case "1M Losers (<-10%)":
-            if (oneMonthReturn >= -10) return false;
+          case "Weekly Losers (<-10%)":
+            if (changePercent >= -10) return false;
+            break;
+          case "Monthly Winners (>20%)":
+            if (oneMonthReturn <= 20) return false;
+            break;
+          case "Monthly Losers (<-20%)":
+            if (oneMonthReturn >= -20) return false;
+            break;
+          case "YTD Winners (>50%)":
+            if (oneYearReturn <= 50) return false;
+            break;
+          case "YTD Losers (<-50%)":
+            if (oneYearReturn >= -50) return false;
             break;
         }
       }
