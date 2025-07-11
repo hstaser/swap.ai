@@ -316,12 +316,12 @@ const legacyMockStocks: Stock[] = [
 ];
 
 const defaultFilters: FilterState = {
-  sector: "All Sectors",
-  marketCap: "All Market Cap",
-  peRange: "All P/E Ratios",
-  dividendYield: "All Dividends",
-  exchange: "All Markets",
-  performance: "All Performance",
+  sector: "All",
+  marketCap: "All",
+  peRange: "All",
+  dividendYield: "All",
+  exchange: "All",
+  performance: "All",
 };
 
 export default function Index() {
@@ -339,18 +339,18 @@ export default function Index() {
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
       // Sector filter
-      if (filters.sector !== "All Sectors" && stock.sector !== filters.sector) {
+      if (filters.sector !== "All" && stock.sector !== filters.sector) {
         return false;
       }
 
       // Market cap filter
-      if (filters.marketCap !== "All Market Cap") {
+      if (filters.marketCap !== "All") {
         // Simple logic - in real app would use actual market cap numbers
         return true;
       }
 
       // P/E range filter
-      if (filters.peRange !== "All P/E Ratios" && stock.pe) {
+      if (filters.peRange !== "All" && stock.pe) {
         const [min, max] = filters.peRange.includes("-")
           ? filters.peRange.split("-").map(Number)
           : [40, Infinity];
@@ -363,7 +363,7 @@ export default function Index() {
       }
 
       // Performance filter
-      if (filters.performance !== "All Performance") {
+      if (filters.performance !== "All") {
         const changePercent = stock.changePercent;
         const oneMonthReturn = stock.returns?.oneMonth || 0;
         const oneYearReturn = stock.returns?.oneYear || 0;
