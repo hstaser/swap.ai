@@ -235,6 +235,63 @@ export function HelpSystem({ onClose }: HelpSystemProps) {
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
+  const handleTutorialClick = (tutorialId: string) => {
+    // Create tutorial modals/pages - for now just alert with tutorial content
+    const tutorialContent: Record<string, string[]> = {
+      "getting-started": [
+        "1. Browse stocks by swiping through the main page",
+        "2. Use filters to narrow down stocks (Sectors, Markets, P/E Ratio, etc.)",
+        "3. Click on trending/recent stocks to jump to specific companies",
+        "4. Use the search bar to find specific stocks",
+        "5. Navigate between Markets, Watchlist, Portfolio, and Banking",
+      ],
+      "queue-and-invest": [
+        "1. Click 'Add to Queue' on any stock you're interested in",
+        "2. Choose your confidence level (Conservative, Bullish, Very Bullish)",
+        "3. Choose 'Review & Invest Now' or 'Keep Swiping'",
+        "4. Review your queued stocks and remove any you don't want",
+        "5. Click 'Optimize & Invest' to proceed",
+        "6. Set your investment amount and confirm the optimized allocation",
+      ],
+      "portfolio-optimization": [
+        "1. Our AI analyzes your queued stocks and confidence levels",
+        "2. Considers your existing portfolio to avoid overconcentration",
+        "3. Calculates optimal allocation percentages based on risk/return",
+        "4. Factors in correlation between stocks to reduce risk",
+        "5. Shows expected returns and risk metrics",
+        "6. Automatically executes trades when you confirm",
+        "7. Continues to monitor and suggest rebalancing over time",
+        "8. Adapts to market changes and your evolving preferences",
+      ],
+      "risk-and-filters": [
+        "1. Each stock shows a risk indicator (Low, Medium, High)",
+        "2. Use Sectors filter to diversify across industries",
+        "3. Markets filter helps with geographic diversification",
+        "4. P/E Ratio filter finds value vs growth stocks",
+        "5. Performance filter identifies momentum stocks",
+        "6. Dividends filter for income-focused investing",
+        "7. Combine filters for precise stock screening",
+      ],
+      "banking-integration": [
+        "1. Go to Banking tab to set up your accounts",
+        "2. Add checking and savings accounts",
+        "3. Set up direct deposit for automatic investing",
+        "4. Use 'Deposit' to add funds to your investment account",
+        "5. Choose from bank transfer or instant transfer",
+        "6. Set up auto-invest from savings to investment account",
+        "7. Monitor transactions in the Banking dashboard",
+        "8. FDIC insured up to $250,000",
+        "9. Transfer between accounts as needed",
+      ],
+    };
+
+    const steps = tutorialContent[tutorialId] || [
+      "Tutorial content coming soon!",
+    ];
+    const tutorial = tutorials.find((t) => t.id === tutorialId);
+    alert(`${tutorial?.title}\n\n${steps.join("\n")}`);
+  };
+
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case "Beginner":
