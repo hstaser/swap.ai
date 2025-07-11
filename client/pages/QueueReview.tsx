@@ -102,37 +102,37 @@ export default function QueueReview() {
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" asChild>
-              <Link to="/">
-                <ArrowLeft className="h-4 w-4" />
-              </Link>
-            </Button>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <BarChart3 className="h-5 w-5 text-white" />
-              </div>
-              <div className="flex-1">
+          <div className="flex items-center justify-between w-full">
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="icon" asChild>
+                <Link to="/">
+                  <ArrowLeft className="h-4 w-4" />
+                </Link>
+              </Button>
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                  <BarChart3 className="h-5 w-5 text-white" />
+                </div>
                 <h1 className="text-xl font-bold text-foreground">
                   Review Your Queue
                 </h1>
               </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  variant={viewMode === "marginal" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("marginal")}
-                >
-                  Queue Only
-                </Button>
-                <Button
-                  variant={viewMode === "net" ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setViewMode("net")}
-                >
-                  Net Portfolio
-                </Button>
-              </div>
+            </div>
+            <div className="flex items-center gap-2">
+              <Button
+                variant={viewMode === "marginal" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setViewMode("marginal")}
+              >
+                Queue Only
+              </Button>
+              <Button
+                variant={viewMode === "net" ? "default" : "outline"}
+                size="sm"
+                onClick={() => setViewMode("net")}
+              >
+                Net Portfolio
+              </Button>
             </div>
           </div>
         </div>
