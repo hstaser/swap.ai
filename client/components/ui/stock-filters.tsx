@@ -29,7 +29,7 @@ interface StockFiltersProps {
 }
 
 const sectors = [
-  "All Sectors",
+  "All",
   "Technology",
   "Healthcare",
   "Financial Services",
@@ -44,16 +44,16 @@ const sectors = [
 ];
 
 const marketCapOptions = [
-  "All Market Cap",
+  "All",
   "Large Cap (>$10B)",
   "Mid Cap ($2B-$10B)",
   "Small Cap (<$2B)",
 ];
 
-const peRangeOptions = ["All P/E Ratios", "0-15", "15-25", "25-40", "40+"];
+const peRangeOptions = ["All", "0-15", "15-25", "25-40", "40+"];
 
 const exchangeOptions = [
-  "All Markets",
+  "All",
   "NASDAQ",
   "NYSE",
   "DOW JONES",
@@ -70,7 +70,7 @@ const exchangeOptions = [
 ];
 
 const performanceOptions = [
-  "All Performance",
+  "All",
   "Today's Gainers (>5%)",
   "Today's Losers (<-5%)",
   "Weekly Gainers (>10%)",
@@ -127,12 +127,12 @@ export function StockFilters({
   };
 
   const hasActiveFilters =
-    filters.sector !== "All Sectors" ||
-    filters.marketCap !== "All Market Cap" ||
-    filters.peRange !== "All P/E Ratios" ||
-    filters.dividendYield !== "All Dividends" ||
-    filters.exchange !== "All Markets" ||
-    filters.performance !== "All Performance";
+    filters.sector !== "All" ||
+    filters.marketCap !== "All" ||
+    filters.peRange !== "All" ||
+    filters.dividendYield !== "All" ||
+    filters.exchange !== "All" ||
+    filters.performance !== "All";
 
   return (
     <div className={className}>
@@ -142,7 +142,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("sector", value)}
         >
           <SelectTrigger className="w-[140px]">
-            <SelectValue />
+            <SelectValue placeholder="Sectors" />
           </SelectTrigger>
           <SelectContent>
             {sectors.map((sector) => (
@@ -209,7 +209,7 @@ export function StockFilters({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="All Dividends">All Dividends</SelectItem>
+            <SelectItem value="All">All</SelectItem>
             <SelectItem value="0-2%">0-2%</SelectItem>
             <SelectItem value="2-4%">2-4%</SelectItem>
             <SelectItem value="4%+">4%+</SelectItem>
