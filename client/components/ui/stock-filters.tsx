@@ -142,12 +142,14 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("sector", value)}
         >
           <SelectTrigger className="w-[140px]">
-            <SelectValue placeholder="Sectors" />
+            <SelectValue placeholder="Sectors">
+              {filters.sector === "All" ? "All Sectors" : filters.sector}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {sectors.map((sector) => (
               <SelectItem key={sector} value={sector}>
-                {sector}
+                {sector === "All" ? "All Sectors" : sector}
               </SelectItem>
             ))}
           </SelectContent>
@@ -158,12 +160,14 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("exchange", value)}
         >
           <SelectTrigger className="w-[120px]">
-            <SelectValue placeholder="Markets" />
+            <SelectValue placeholder="Markets">
+              {filters.exchange === "All" ? "All Markets" : filters.exchange}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {exchangeOptions.map((option) => (
               <SelectItem key={option} value={option}>
-                {option}
+                {option === "All" ? "All Markets" : option}
               </SelectItem>
             ))}
           </SelectContent>
@@ -174,12 +178,14 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("marketCap", value)}
         >
           <SelectTrigger className="w-[140px]">
-            <SelectValue placeholder="Market Cap" />
+            <SelectValue placeholder="Market Cap">
+              {filters.marketCap === "All" ? "All Sizes" : filters.marketCap}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {marketCapOptions.map((option) => (
               <SelectItem key={option} value={option}>
-                {option}
+                {option === "All" ? "All Sizes" : option}
               </SelectItem>
             ))}
           </SelectContent>
@@ -190,12 +196,14 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("peRange", value)}
         >
           <SelectTrigger className="w-[120px]">
-            <SelectValue placeholder="P/E Ratio" />
+            <SelectValue placeholder="P/E Ratio">
+              {filters.peRange === "All" ? "All P/E" : filters.peRange}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {peRangeOptions.map((option) => (
               <SelectItem key={option} value={option}>
-                {option}
+                {option === "All" ? "All P/E" : option}
               </SelectItem>
             ))}
           </SelectContent>
@@ -206,10 +214,14 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("dividendYield", value)}
         >
           <SelectTrigger className="w-[130px]">
-            <SelectValue placeholder="Dividends" />
+            <SelectValue placeholder="Dividends">
+              {filters.dividendYield === "All"
+                ? "All Dividends"
+                : filters.dividendYield}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="All">All</SelectItem>
+            <SelectItem value="All">All Dividends</SelectItem>
             <SelectItem value="0-2%">0-2%</SelectItem>
             <SelectItem value="2-4%">2-4%</SelectItem>
             <SelectItem value="4%+">4%+</SelectItem>
@@ -221,12 +233,16 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("performance", value)}
         >
           <SelectTrigger className="w-[150px]">
-            <SelectValue placeholder="Performance" />
+            <SelectValue placeholder="Performance">
+              {filters.performance === "All"
+                ? "All Performance"
+                : filters.performance}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent>
             {performanceOptions.map((option) => (
               <SelectItem key={option} value={option}>
-                {option}
+                {option === "All" ? "All Performance" : option}
               </SelectItem>
             ))}
           </SelectContent>
