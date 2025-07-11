@@ -41,14 +41,44 @@ export default function QueueReview() {
   ];
 
   // Convert queue to display format with mock stock data
-  const queuedStocks = queue.map(item => {
+  const queuedStocks = queue.map((item) => {
     // Mock stock data - in real app this would be fetched
     const stockData: Record<string, any> = {
-      AAPL: { name: "Apple Inc.", price: 182.52, change: 2.31, changePercent: 1.28, sector: "Technology" },
-      NVDA: { name: "NVIDIA Corporation", price: 722.48, change: 12.66, changePercent: 1.78, sector: "Technology" },
-      MSFT: { name: "Microsoft Corporation", price: 378.85, change: -1.52, changePercent: -0.4, sector: "Technology" },
-      RIVN: { name: "Rivian Automotive, Inc.", price: 24.67, change: -1.23, changePercent: -4.75, sector: "Consumer Discretionary" },
-      COIN: { name: "Coinbase Global, Inc.", price: 156.78, change: 8.45, changePercent: 5.69, sector: "Financial Services" },
+      AAPL: {
+        name: "Apple Inc.",
+        price: 182.52,
+        change: 2.31,
+        changePercent: 1.28,
+        sector: "Technology",
+      },
+      NVDA: {
+        name: "NVIDIA Corporation",
+        price: 722.48,
+        change: 12.66,
+        changePercent: 1.78,
+        sector: "Technology",
+      },
+      MSFT: {
+        name: "Microsoft Corporation",
+        price: 378.85,
+        change: -1.52,
+        changePercent: -0.4,
+        sector: "Technology",
+      },
+      RIVN: {
+        name: "Rivian Automotive, Inc.",
+        price: 24.67,
+        change: -1.23,
+        changePercent: -4.75,
+        sector: "Consumer Discretionary",
+      },
+      COIN: {
+        name: "Coinbase Global, Inc.",
+        price: 156.78,
+        change: 8.45,
+        changePercent: 5.69,
+        sector: "Financial Services",
+      },
     };
 
     const stock = stockData[item.symbol] || {
@@ -56,7 +86,7 @@ export default function QueueReview() {
       price: 100,
       change: 0,
       changePercent: 0,
-      sector: "Technology"
+      sector: "Technology",
     };
 
     return {
@@ -67,52 +97,15 @@ export default function QueueReview() {
       changePercent: stock.changePercent,
       sector: stock.sector,
       confidence: item.confidence,
-      confidenceLabel: item.confidence === "conservative" ? "Conservative" :
-                      item.confidence === "bullish" ? "Bullish" : "Very Bullish",
+      confidenceLabel:
+        item.confidence === "conservative"
+          ? "Conservative"
+          : item.confidence === "bullish"
+            ? "Bullish"
+            : "Very Bullish",
       addedAt: item.addedAt,
     };
   });
-
-  // Remove the local state definition as we're using context
-  // const [queuedStocks, setQueuedStocks] = useState<QueuedStock[]>([
-    {
-      symbol: "AAPL",
-      name: "Apple Inc.",
-      price: 182.52,
-      change: 2.31,
-      changePercent: 1.28,
-      sector: "Technology",
-      confidence: "bullish",
-      confidenceLabel: "Bullish",
-      addedAt: new Date(Date.now() - 300000), // 5 min ago
-    },
-    {
-      symbol: "NVDA",
-      name: "NVIDIA Corporation",
-      price: 722.48,
-      change: 12.66,
-      changePercent: 1.78,
-      sector: "Technology",
-      confidence: "very-bullish",
-      confidenceLabel: "Very Bullish",
-      addedAt: new Date(Date.now() - 600000), // 10 min ago
-    },
-    {
-      symbol: "MSFT",
-      name: "Microsoft Corporation",
-      price: 378.85,
-      change: -1.52,
-      changePercent: -0.4,
-      sector: "Technology",
-      confidence: "conservative",
-      confidenceLabel: "Conservative",
-      addedAt: new Date(Date.now() - 900000), // 15 min ago
-    },
-  ]);
-
-  const removeFromQueue = (symbol: string) => {
-    setQueuedStocks(queuedStocks.filter((stock) => stock.symbol !== symbol));
-  };
 
   const getConfidenceColor = (confidence: string) => {
     switch (confidence) {
@@ -187,18 +180,22 @@ export default function QueueReview() {
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-blue-600">
-                    {viewMode === "marginal" ? queuedStocks.length : queuedStocks.length + existingPortfolio.length}
+                    {viewMode === "marginal"
+                      ? queuedStocks.length
+                      : queuedStocks.length + existingPortfolio.length}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    {viewMode === "marginal" ? "Stocks Queued" : "Total Holdings"}
+                    {viewMode === "marginal"
+                      ? "Stocks Queued"
+                      : "Total Holdings"}
                   </div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-green-600">
                     {viewMode === "marginal"
                       ? queuedStocks.filter((s) => s.change > 0).length
-                      : queuedStocks.filter((s) => s.change > 0).length + existingPortfolio.length
-                    }
+                      : queuedStocks.filter((s) => s.change > 0).length +
+                        existingPortfolio.length}
                   </div>
                   <div className="text-sm text-muted-foreground">
                     {viewMode === "marginal" ? "Gainers" : "Positive Holdings"}
@@ -208,8 +205,8 @@ export default function QueueReview() {
                   <div className="text-2xl font-bold text-purple-600">
                     {viewMode === "marginal"
                       ? new Set(queuedStocks.map((s) => s.sector)).size
-                      : new Set([...queuedStocks.map((s) => s.sector), "ETF"]).size
-                    }
+                      : new Set([...queuedStocks.map((s) => s.sector), "ETF"])
+                          .size}
                   </div>
                   <div className="text-sm text-muted-foreground">Sectors</div>
                 </div>
