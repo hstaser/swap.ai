@@ -262,14 +262,6 @@ export default function Portfolio() {
                 <Download className="h-4 w-4 mr-2" />
                 Export
               </Button>
-              <Button
-                onClick={runOptimization}
-                size="sm"
-                className="relative bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600"
-              >
-                <Zap className="h-4 w-4 mr-2" />
-                AI Optimize
-              </Button>
             </div>
           </div>
         </div>
