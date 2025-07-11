@@ -30,6 +30,13 @@ interface QueuedStock {
 
 export default function QueueReview() {
   const navigate = useNavigate();
+  const [viewMode, setViewMode] = useState<"marginal" | "net">("marginal");
+
+  // Mock existing portfolio
+  const existingPortfolio = [
+    { symbol: "SPY", name: "SPDR S&P 500 ETF", amount: 1500, shares: 3.2 },
+    { symbol: "QQQ", name: "Invesco QQQ Trust", amount: 1000, shares: 2.8 },
+  ];
 
   // Mock queued stocks - in real app this would come from state/localStorage
   const [queuedStocks, setQueuedStocks] = useState<QueuedStock[]>([
@@ -105,9 +112,27 @@ export default function QueueReview() {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <BarChart3 className="h-5 w-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-foreground">
-                Review Your Queue
-              </h1>
+              <div className="flex-1">
+                <h1 className="text-xl font-bold text-foreground">
+                  Review Your Queue
+                </h1>
+              </div>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={viewMode === "marginal" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("marginal")}
+                >
+                  Queue Only
+                </Button>
+                <Button
+                  variant={viewMode === "net" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("net")}
+                >
+                  Net Portfolio
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -153,8 +178,56 @@ export default function QueueReview() {
           {queuedStocks.length > 0 ? (
             <div className="space-y-4">
               <h2 className="text-lg font-semibold text-foreground">
-                Your Queued Stocks
+                {viewMode === "marginal"
+                  ? "Your Queued Stocks"
+                  : "Your Complete Portfolio (Preview)"}
               </h2>
+
+              {/* Show existing portfolio in net view */}
+              {viewMode === "net" && (
+                <div className="space-y-3">
+                  <h3 className="text-md font-medium text-muted-foreground">
+                    Current Holdings
+                  </h3>
+                  {existingPortfolio.map((stock) => (
+                    <Card
+                      key={stock.symbol}
+                      className="border-0 bg-blue-50 backdrop-blur-sm shadow-sm"
+                    >
+                      <CardContent className="p-3">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3">
+                            <div className="text-center">
+                              <div className="font-bold text-sm">
+                                {stock.symbol}
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                Current
+                              </div>
+                            </div>
+                            <div className="flex-1">
+                              <div className="font-medium text-sm">
+                                {stock.name}
+                              </div>
+                              <div className="text-xs text-muted-foreground">
+                                {stock.shares} shares
+                              </div>
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="font-bold text-sm">
+                              ${stock.amount.toLocaleString()}
+                            </div>
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                  <h3 className="text-md font-medium text-muted-foreground mt-6">
+                    Adding to Portfolio
+                  </h3>
+                </div>
+              )}
 
               {queuedStocks.map((stock) => {
                 const isPositive = stock.change >= 0;
