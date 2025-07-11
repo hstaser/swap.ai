@@ -36,8 +36,15 @@ export default function OptimizationReview() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const investmentAmount = Number(searchParams.get("amount")) || 10000;
+  const optimizationType = searchParams.get("type") || "new";
   const [isConfirming, setIsConfirming] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+
+  // Mock existing portfolio for rebalancing
+  const existingHoldings = [
+    { symbol: "SPY", amount: 1500, toSell: 800 },
+    { symbol: "QQQ", amount: 1000, toSell: 400 },
+  ];
 
   // Mock optimized allocation
   const optimizedPortfolio: OptimizedAllocation[] = [
@@ -161,26 +168,61 @@ export default function OptimizationReview() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <PieChart className="h-5 w-5 text-blue-600" />
-                Investment Summary
+                {optimizationType === "rebalance"
+                  ? "Portfolio Rebalancing"
+                  : "Investment Summary"}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-2 gap-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-green-600">
-                    {formatCurrency(investmentAmount)}
+              {optimizationType === "rebalance" ? (
+                <div className="space-y-4">
+                  <div className="grid grid-cols-2 gap-6">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-blue-600">
+                        {formatCurrency(1200)}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Funds from Sales
+                      </div>
+                    </div>
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-green-600">
+                        {optimizedPortfolio.length}
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        New Holdings
+                      </div>
+                    </div>
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    Total Investment
+                  <div className="p-3 bg-blue-50 rounded-lg">
+                    <div className="text-sm text-blue-800 font-medium mb-1">
+                      Existing holdings to be partially sold:
+                    </div>
+                    <div className="text-xs text-blue-700">
+                      SPY: Sell $800 • QQQ: Sell $400
+                    </div>
                   </div>
                 </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-blue-600">
-                    {optimizedPortfolio.length}
+              ) : (
+                <div className="grid grid-cols-2 gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-green-600">
+                      {formatCurrency(investmentAmount)}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Total Investment
+                    </div>
                   </div>
-                  <div className="text-sm text-muted-foreground">Holdings</div>
+                  <div className="text-center">
+                    <div className="text-3xl font-bold text-blue-600">
+                      {optimizedPortfolio.length}
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      Holdings
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
             </CardContent>
           </Card>
 
