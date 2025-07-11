@@ -410,6 +410,17 @@ export default function Index() {
     }
   };
 
+  const handleFilterOverride = (symbol: string) => {
+    // Reset filters to default
+    setFilters(defaultFilters);
+
+    // Find the stock in the full database and navigate to it
+    const stockIndex = mockStocks.findIndex((stock) => stock.symbol === symbol);
+    if (stockIndex !== -1) {
+      setCurrentStockIndex(stockIndex);
+    }
+  };
+
   // Reset current stock index when filtered stocks change
   useEffect(() => {
     if (currentStockIndex >= filteredStocks.length) {
@@ -503,7 +514,7 @@ export default function Index() {
         {/* Enhanced Search */}
         <div className="mb-6">
           <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4">
-            <StockSearch />
+            <StockSearch onFilterOverride={handleFilterOverride} />
           </div>
         </div>
 
