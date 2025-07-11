@@ -13,10 +13,12 @@ import {
 } from "lucide-react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useQueue } from "@/hooks/use-queue";
 
 export default function QueueAdd() {
   const navigate = useNavigate();
   const { symbol } = useParams<{ symbol: string }>();
+  const { addToQueue } = useQueue();
   const [selectedConfidence, setSelectedConfidence] = useState<string | null>(
     null,
   );
@@ -91,12 +93,17 @@ export default function QueueAdd() {
 
   const handleConfidenceSelect = (confidence: string) => {
     setSelectedConfidence(confidence);
-    // Add to queue logic here
-    console.log(`Adding ${symbol} to queue with ${confidence} confidence`);
 
-    // Navigate back to main swiping with success message
+    if (symbol) {
+      addToQueue(
+        symbol,
+        confidence as "conservative" | "bullish" | "very-bullish",
+      );
+    }
+
+    // Navigate back to main swiping
     setTimeout(() => {
-      navigate("/?queued=" + symbol);
+      navigate("/");
     }, 1000);
   };
 
