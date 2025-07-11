@@ -22,7 +22,9 @@ export default function PortfolioOptimize() {
   const navigate = useNavigate();
   const [investmentAmount, setInvestmentAmount] = useState("");
   const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
-  const [optimizationType, setOptimizationType] = useState<"new" | "rebalance">("new");
+  const [optimizationType, setOptimizationType] = useState<"new" | "rebalance">(
+    "new",
+  );
 
   // Mock queued stocks count and existing portfolio
   const queuedStocksCount = 3;
@@ -48,7 +50,10 @@ export default function PortfolioOptimize() {
   };
 
   const handleOptimize = () => {
-    if (optimizationType === "new" && (!investmentAmount || Number(investmentAmount) < 100)) {
+    if (
+      optimizationType === "new" &&
+      (!investmentAmount || Number(investmentAmount) < 100)
+    ) {
       alert("Please enter a minimum investment amount of $100");
       return;
     }
@@ -133,7 +138,8 @@ export default function PortfolioOptimize() {
                   onClick={() => setOptimizationType("new")}
                   className={cn(
                     "h-auto p-4 text-left justify-start",
-                    optimizationType === "new" && "bg-blue-50 border-blue-300 text-blue-700"
+                    optimizationType === "new" &&
+                      "bg-blue-50 border-blue-300 text-blue-700",
                   )}
                 >
                   <div className="flex-1">
@@ -148,13 +154,17 @@ export default function PortfolioOptimize() {
                   onClick={() => setOptimizationType("rebalance")}
                   className={cn(
                     "h-auto p-4 text-left justify-start",
-                    optimizationType === "rebalance" && "bg-purple-50 border-purple-300 text-purple-700"
+                    optimizationType === "rebalance" &&
+                      "bg-purple-50 border-purple-300 text-purple-700",
                   )}
                 >
                   <div className="flex-1">
-                    <div className="font-semibold">Rebalance Existing Portfolio</div>
+                    <div className="font-semibold">
+                      Rebalance Existing Portfolio
+                    </div>
                     <div className="text-sm opacity-80 mt-1">
-                      Sell some existing holdings to add these new stocks (${existingPortfolioValue.toLocaleString()} portfolio)
+                      Sell some existing holdings to add these new stocks ($
+                      {existingPortfolioValue.toLocaleString()} portfolio)
                     </div>
                   </div>
                 </Button>
@@ -171,68 +181,69 @@ export default function PortfolioOptimize() {
                   Investment Amount
                 </CardTitle>
               </CardHeader>
-            <CardContent className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="amount" className="text-sm font-medium">
-                  How much would you like to invest?
-                </Label>
-                <div className="relative">
-                  <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="amount"
-                    type="number"
-                    value={investmentAmount}
-                    onChange={(e) => {
-                      setInvestmentAmount(e.target.value);
-                      setSelectedPreset(null);
-                    }}
-                    placeholder="0"
-                    className="pl-10 h-12 text-lg"
-                    min="100"
-                    step="100"
-                  />
+              <CardContent className="space-y-6">
+                <div className="space-y-2">
+                  <Label htmlFor="amount" className="text-sm font-medium">
+                    How much would you like to invest?
+                  </Label>
+                  <div className="relative">
+                    <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input
+                      id="amount"
+                      type="number"
+                      value={investmentAmount}
+                      onChange={(e) => {
+                        setInvestmentAmount(e.target.value);
+                        setSelectedPreset(null);
+                      }}
+                      placeholder="0"
+                      className="pl-10 h-12 text-lg"
+                      min="100"
+                      step="100"
+                    />
+                  </div>
+                  {investmentAmount && (
+                    <p className="text-sm text-muted-foreground">
+                      {formatCurrency(investmentAmount)}
+                    </p>
+                  )}
                 </div>
-                {investmentAmount && (
-                  <p className="text-sm text-muted-foreground">
-                    {formatCurrency(investmentAmount)}
-                  </p>
-                )}
-              </div>
 
-              <Separator />
+                <Separator />
 
-              {/* Preset Amounts */}
-              <div className="space-y-3">
-                <Label className="text-sm font-medium">Quick Select</Label>
-                <div className="grid grid-cols-2 gap-3">
-                  {presetAmounts.map((preset) => (
-                    <Button
-                      key={preset.value}
-                      variant="outline"
-                      onClick={() => handlePresetSelect(preset.value)}
-                      className={cn(
-                        "h-12 relative",
-                        selectedPreset === preset.value &&
-                          "bg-blue-50 border-blue-300 text-blue-700",
-                        preset.popular &&
-                          "ring-1 ring-green-300 border-green-300",
-                      )}
-                    >
-                      {preset.label}
-                      {preset.popular && (
-                        <Badge
-                          variant="secondary"
-                          className="absolute -top-2 -right-2 text-xs bg-green-100 text-green-700 border-green-300"
-                        >
-                          Popular
-                        </Badge>
-                      )}
-                    </Button>
-                  ))}
+                {/* Preset Amounts */}
+                <div className="space-y-3">
+                  <Label className="text-sm font-medium">Quick Select</Label>
+                  <div className="grid grid-cols-2 gap-3">
+                    {presetAmounts.map((preset) => (
+                      <Button
+                        key={preset.value}
+                        variant="outline"
+                        onClick={() => handlePresetSelect(preset.value)}
+                        className={cn(
+                          "h-12 relative",
+                          selectedPreset === preset.value &&
+                            "bg-blue-50 border-blue-300 text-blue-700",
+                          preset.popular &&
+                            "ring-1 ring-green-300 border-green-300",
+                        )}
+                      >
+                        {preset.label}
+                        {preset.popular && (
+                          <Badge
+                            variant="secondary"
+                            className="absolute -top-2 -right-2 text-xs bg-green-100 text-green-700 border-green-300"
+                          >
+                            Popular
+                          </Badge>
+                        )}
+                      </Button>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Optimization Preview */}
           <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg">
@@ -270,18 +281,25 @@ export default function PortfolioOptimize() {
           {/* Action Button */}
           <Button
             onClick={handleOptimize}
-            disabled={optimizationType === "new" && (!investmentAmount || Number(investmentAmount) < 100)}
+            disabled={
+              optimizationType === "new" &&
+              (!investmentAmount || Number(investmentAmount) < 100)
+            }
             className="w-full h-12 text-sm font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
           >
             <Zap className="h-4 w-4 mr-2" />
-            {optimizationType === "new" ? "Generate Optimized Portfolio" : "Rebalance Portfolio"}
+            {optimizationType === "new"
+              ? "Generate Optimized Portfolio"
+              : "Rebalance Portfolio"}
           </Button>
 
-          {optimizationType === "new" && Number(investmentAmount) > 0 && Number(investmentAmount) < 100 && (
-            <p className="text-center text-sm text-red-600">
-              Minimum investment amount is $100
-            </p>
-          )}
+          {optimizationType === "new" &&
+            Number(investmentAmount) > 0 &&
+            Number(investmentAmount) < 100 && (
+              <p className="text-center text-sm text-red-600">
+                Minimum investment amount is $100
+              </p>
+            )}
         </div>
       </div>
     </div>
