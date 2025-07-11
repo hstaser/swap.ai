@@ -386,7 +386,7 @@ export default function QueueReview() {
             {queuedStocks.length > 0 && (
               <Button
                 variant="ghost"
-                onClick={() => setQueuedStocks([])}
+                onClick={clearQueue}
                 className="w-full text-sm text-muted-foreground hover:text-red-600"
               >
                 <Trash2 className="h-4 w-4 mr-2" />
