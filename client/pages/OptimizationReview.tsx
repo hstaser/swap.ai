@@ -1,0 +1,363 @@
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Progress } from "@/components/ui/progress";
+import { Separator } from "@/components/ui/separator";
+import {
+  ArrowLeft,
+  DollarSign,
+  BarChart3,
+  TrendingUp,
+  Brain,
+  Zap,
+  CheckCircle,
+  PieChart,
+  ArrowRight,
+  Shield,
+  Target,
+} from "lucide-react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { cn } from "@/lib/utils";
+
+interface OptimizedAllocation {
+  symbol: string;
+  name: string;
+  sector: string;
+  confidence: string;
+  percentage: number;
+  amount: number;
+  shares: number;
+  price: number;
+  reasoning: string;
+}
+
+export default function OptimizationReview() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const investmentAmount = Number(searchParams.get("amount")) || 10000;
+  const [isConfirming, setIsConfirming] = useState(false);
+  const [confirmed, setConfirmed] = useState(false);
+
+  // Mock optimized allocation
+  const optimizedPortfolio: OptimizedAllocation[] = [
+    {
+      symbol: "NVDA",
+      name: "NVIDIA Corporation",
+      sector: "Technology",
+      confidence: "very-bullish",
+      percentage: 45,
+      amount: investmentAmount * 0.45,
+      shares: Math.floor((investmentAmount * 0.45) / 722.48),
+      price: 722.48,
+      reasoning:
+        "Highest confidence + strong AI growth potential. Largest allocation.",
+    },
+    {
+      symbol: "AAPL",
+      name: "Apple Inc.",
+      sector: "Technology",
+      confidence: "bullish",
+      percentage: 35,
+      amount: investmentAmount * 0.35,
+      shares: Math.floor((investmentAmount * 0.35) / 182.52),
+      price: 182.52,
+      reasoning: "Strong fundamentals with stable growth. Core holding.",
+    },
+    {
+      symbol: "MSFT",
+      name: "Microsoft Corporation",
+      sector: "Technology",
+      confidence: "conservative",
+      percentage: 20,
+      amount: investmentAmount * 0.2,
+      shares: Math.floor((investmentAmount * 0.2) / 378.85),
+      price: 378.85,
+      reasoning: "Conservative approach balances risk. Defensive position.",
+    },
+  ];
+
+  const totalAllocated = optimizedPortfolio.reduce(
+    (sum, stock) => sum + stock.amount,
+    0,
+  );
+  const cashRemaining = investmentAmount - totalAllocated;
+
+  const portfolioMetrics = {
+    expectedReturn: 8.7,
+    riskScore: 6.2,
+    diversificationScore: 7.8,
+    correlationReduction: 15.3,
+  };
+
+  const getConfidenceColor = (confidence: string) => {
+    switch (confidence) {
+      case "conservative":
+        return "bg-yellow-100 text-yellow-800 border-yellow-300";
+      case "bullish":
+        return "bg-green-100 text-green-800 border-green-300";
+      case "very-bullish":
+        return "bg-green-200 text-green-900 border-green-400";
+      default:
+        return "bg-gray-100 text-gray-800 border-gray-300";
+    }
+  };
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 0,
+    }).format(amount);
+  };
+
+  const handleConfirmPortfolio = async () => {
+    setIsConfirming(true);
+
+    // Simulate portfolio execution
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    setIsConfirming(false);
+    setConfirmed(true);
+
+    // Navigate to portfolio after success
+    setTimeout(() => {
+      navigate("/portfolio?optimized=true");
+    }, 2000);
+  };
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      {/* Header */}
+      <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center gap-4">
+            <Button
+              variant="ghost"
+              size="icon"
+              asChild
+              disabled={isConfirming || confirmed}
+            >
+              <Link to="/optimize">
+                <ArrowLeft className="h-4 w-4" />
+              </Link>
+            </Button>
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <Brain className="h-5 w-5 text-white" />
+              </div>
+              <h1 className="text-xl font-bold text-foreground">
+                Optimized Portfolio
+              </h1>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <div className="container mx-auto px-4 py-8">
+        <div className="max-w-2xl mx-auto space-y-6">
+          {/* Investment Summary */}
+          <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <PieChart className="h-5 w-5 text-blue-600" />
+                Investment Summary
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-6">
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-green-600">
+                    {formatCurrency(investmentAmount)}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Total Investment
+                  </div>
+                </div>
+                <div className="text-center">
+                  <div className="text-3xl font-bold text-blue-600">
+                    {optimizedPortfolio.length}
+                  </div>
+                  <div className="text-sm text-muted-foreground">Holdings</div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Portfolio Allocation */}
+          <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <BarChart3 className="h-5 w-5 text-purple-600" />
+                Optimized Allocation
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {optimizedPortfolio.map((stock) => (
+                <div
+                  key={stock.symbol}
+                  className="p-4 bg-gray-50 rounded-lg space-y-3"
+                >
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="text-center">
+                        <div className="font-bold text-lg">{stock.symbol}</div>
+                        <Badge
+                          variant="outline"
+                          className={cn(
+                            "text-xs",
+                            getConfidenceColor(stock.confidence),
+                          )}
+                        >
+                          {stock.confidence}
+                        </Badge>
+                      </div>
+                      <div>
+                        <div className="font-medium">{stock.name}</div>
+                        <div className="text-sm text-muted-foreground">
+                          {stock.sector}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-bold text-lg">
+                        {stock.percentage}%
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {formatCurrency(stock.amount)}
+                      </div>
+                    </div>
+                  </div>
+
+                  <Progress value={stock.percentage} className="h-2" />
+
+                  <div className="flex justify-between text-sm">
+                    <span className="text-muted-foreground">
+                      {stock.shares} shares @ ${stock.price.toFixed(2)}
+                    </span>
+                    <span className="text-blue-600 font-medium">
+                      {stock.reasoning}
+                    </span>
+                  </div>
+                </div>
+              ))}
+
+              {cashRemaining > 0 && (
+                <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                  <div className="flex justify-between items-center">
+                    <span className="font-medium text-green-800">
+                      Cash Remaining
+                    </span>
+                    <span className="font-bold text-green-600">
+                      {formatCurrency(cashRemaining)}
+                    </span>
+                  </div>
+                  <div className="text-sm text-green-700 mt-1">
+                    Available for future opportunities
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Portfolio Metrics */}
+          <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Target className="h-5 w-5 text-green-600" />
+                Portfolio Metrics
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 gap-4">
+                <div className="text-center p-3 bg-blue-50 rounded-lg">
+                  <TrendingUp className="h-6 w-6 text-blue-600 mx-auto mb-1" />
+                  <div className="font-bold text-lg">
+                    {portfolioMetrics.expectedReturn}%
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Expected Annual Return
+                  </div>
+                </div>
+                <div className="text-center p-3 bg-green-50 rounded-lg">
+                  <Shield className="h-6 w-6 text-green-600 mx-auto mb-1" />
+                  <div className="font-bold text-lg">
+                    {portfolioMetrics.riskScore}/10
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Risk Score
+                  </div>
+                </div>
+                <div className="text-center p-3 bg-purple-50 rounded-lg">
+                  <PieChart className="h-6 w-6 text-purple-600 mx-auto mb-1" />
+                  <div className="font-bold text-lg">
+                    {portfolioMetrics.diversificationScore}/10
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Diversification
+                  </div>
+                </div>
+                <div className="text-center p-3 bg-orange-50 rounded-lg">
+                  <Brain className="h-6 w-6 text-orange-600 mx-auto mb-1" />
+                  <div className="font-bold text-lg">
+                    -{portfolioMetrics.correlationReduction}%
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Correlation Reduction
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Confirmation */}
+          {!confirmed && (
+            <Button
+              onClick={handleConfirmPortfolio}
+              disabled={isConfirming}
+              className="w-full h-12 text-sm font-semibold bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white"
+            >
+              {isConfirming ? (
+                <>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Executing Trades...
+                </>
+              ) : (
+                <>
+                  <Zap className="h-4 w-4 mr-2" />
+                  Confirm & Execute Portfolio
+                </>
+              )}
+            </Button>
+          )}
+
+          {confirmed && (
+            <Card className="border-0 bg-gradient-to-r from-green-100 to-blue-100 shadow-lg">
+              <CardContent className="p-6 text-center">
+                <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
+                <h3 className="text-lg font-semibold text-green-800 mb-2">
+                  Portfolio Successfully Created!
+                </h3>
+                <p className="text-sm text-green-700">
+                  Your optimized portfolio has been created and trades have been
+                  executed. Redirecting to your portfolio...
+                </p>
+              </CardContent>
+            </Card>
+          )}
+
+          {!confirmed && !isConfirming && (
+            <Button
+              variant="ghost"
+              onClick={() => navigate("/optimize")}
+              className="w-full text-sm text-muted-foreground"
+            >
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              Back to Adjust Investment Amount
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
