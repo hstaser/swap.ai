@@ -480,7 +480,8 @@ export default function Index() {
                   variant="outline"
                   className="bg-white/50 cursor-pointer hover:bg-white/70 transition-colors"
                 >
-                  Queue: {queue.length} stocks
+                  Queue: {queue.length}{" "}
+                  {queue.length === 1 ? "stock" : "stocks"}
                 </Badge>
               </Link>
               <Button variant="ghost" size="icon" asChild>
@@ -588,7 +589,8 @@ export default function Index() {
                     onClick={() => navigate("/queue/review")}
                     className="h-12 px-8 text-sm font-medium border-orange-200 text-orange-700 hover:bg-orange-50"
                   >
-                    Review & Invest ({queue.length} stocks)
+                    Review & Invest ({queue.length}{" "}
+                    {queue.length === 1 ? "stock" : "stocks"})
                   </Button>
                 </div>
               )}
