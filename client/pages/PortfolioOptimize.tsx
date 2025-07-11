@@ -113,11 +113,12 @@ export default function PortfolioOptimize() {
                   </span>
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  We'll create an optimized portfolio allocation for your{" "}
+                  Choose how much to invest and we'll optimize the allocation of
+                  your{" "}
                   <Badge variant="outline" className="mx-1">
                     {queuedStocksCount} queued stocks
                   </Badge>
-                  based on your investment amount.
+                  then execute the trades.
                 </div>
               </div>
             </CardContent>
