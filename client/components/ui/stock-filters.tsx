@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -6,7 +7,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { X } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { X, TrendingUp, Calculator } from "lucide-react";
 
 export interface FilterState {
   sector: string;
@@ -16,6 +20,11 @@ export interface FilterState {
   priceRange: string;
   exchange: string;
   performance: string;
+  // Financials
+  revenueGrowth: string;
+  profitMargin: string;
+  debtToEquity: string;
+  roe: string;
 }
 
 interface StockFiltersProps {
@@ -75,6 +84,41 @@ const performanceOptions = [
   "Top Losers (<-5%)",
   "1M Winners (>10%)",
   "1M Losers (<-10%)",
+];
+
+const revenueGrowthOptions = [
+  "All Growth",
+  "High Growth (>20%)",
+  "Moderate Growth (10-20%)",
+  "Steady Growth (5-10%)",
+  "Slow Growth (0-5%)",
+  "Declining (<0%)",
+];
+
+const profitMarginOptions = [
+  "All Margins",
+  "High Margin (>20%)",
+  "Good Margin (15-20%)",
+  "Average Margin (10-15%)",
+  "Low Margin (5-10%)",
+  "Poor Margin (<5%)",
+];
+
+const debtToEquityOptions = [
+  "All Debt Levels",
+  "Low Debt (<0.3)",
+  "Moderate Debt (0.3-0.6)",
+  "High Debt (0.6-1.0)",
+  "Very High Debt (>1.0)",
+];
+
+const roeOptions = [
+  "All ROE",
+  "Excellent (>20%)",
+  "Good (15-20%)",
+  "Average (10-15%)",
+  "Below Average (5-10%)",
+  "Poor (<5%)",
 ];
 
 const priceRangeOptions = [
