@@ -328,6 +328,7 @@ export default function Index() {
   const [searchParams, setSearchParams] = useSearchParams();
   const symbolParam = searchParams.get("symbol");
   const { queue, isInQueue } = useQueue();
+  const navigate = useNavigate();
 
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [portfolio, setPortfolio] = useState<string[]>([]);
