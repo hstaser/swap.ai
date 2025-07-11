@@ -67,6 +67,20 @@ export default function QueueAdd() {
       changePercent: 2.56,
       sector: "Communication Services",
     },
+    COIN: {
+      name: "Coinbase Global, Inc.",
+      price: 156.78,
+      change: 8.45,
+      changePercent: 5.69,
+      sector: "Financial Services",
+    },
+    RIVN: {
+      name: "Rivian Automotive, Inc.",
+      price: 24.67,
+      change: -1.23,
+      changePercent: -4.75,
+      sector: "Consumer Discretionary",
+    },
   };
 
   const stock =
