@@ -350,7 +350,8 @@ export function HelpSystem({ onClose }: HelpSystemProps) {
                 {tutorials.map((tutorial) => (
                   <Card
                     key={tutorial.id}
-                    className="hover:shadow-md transition-shadow"
+                    className="hover:shadow-md transition-shadow cursor-pointer"
+                    onClick={() => handleTutorialClick(tutorial.id)}
                   >
                     <CardContent className="p-4">
                       <div className="flex items-start gap-4">
