@@ -338,6 +338,11 @@ export default function Index() {
 
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
+      // Filter out queued stocks - user shouldn't see them again
+      if (isInQueue(stock.symbol)) {
+        return false;
+      }
+
       // Sector filter
       if (filters.sector !== "All" && stock.sector !== filters.sector) {
         return false;
@@ -401,7 +406,7 @@ export default function Index() {
     });
 
     return filtered;
-  }, [filters]);
+  }, [filters, isInQueue]);
 
   const toggleWatchlist = (symbol: string) => {
     if (watchlist.includes(symbol)) {
