@@ -404,6 +404,7 @@ export function HelpSystem({ onClose }: HelpSystemProps) {
                   <Card
                     key={index}
                     className="hover:shadow-md transition-shadow cursor-pointer"
+                    onClick={() => handleArticleClick(article.title)}
                   >
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between mb-2">
