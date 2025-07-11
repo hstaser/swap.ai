@@ -158,7 +158,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("exchange", value)}
         >
           <SelectTrigger className="w-[120px]">
-            <SelectValue />
+            <SelectValue placeholder="Markets" />
           </SelectTrigger>
           <SelectContent>
             {exchangeOptions.map((option) => (
@@ -190,7 +190,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("peRange", value)}
         >
           <SelectTrigger className="w-[120px]">
-            <SelectValue />
+            <SelectValue placeholder="P/E Ratio" />
           </SelectTrigger>
           <SelectContent>
             {peRangeOptions.map((option) => (
