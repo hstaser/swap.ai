@@ -174,7 +174,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("marketCap", value)}
         >
           <SelectTrigger className="w-[140px]">
-            <SelectValue />
+            <SelectValue placeholder="Market Cap" />
           </SelectTrigger>
           <SelectContent>
             {marketCapOptions.map((option) => (
