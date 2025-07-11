@@ -451,6 +451,26 @@ export default function Index() {
     }
   }, [symbolParam, filteredStocks, setSearchParams]);
 
+  // Move to next stock when current stock gets added to queue
+  useEffect(() => {
+    if (
+      filteredStocks.length > 0 &&
+      currentStockIndex < filteredStocks.length
+    ) {
+      const currentStock = filteredStocks[currentStockIndex];
+      if (currentStock && isInQueue(currentStock.symbol)) {
+        // Current stock was added to queue, move to next available stock
+        if (currentStockIndex < filteredStocks.length - 1) {
+          setCurrentStockIndex(currentStockIndex + 1);
+        } else if (currentStockIndex > 0) {
+          setCurrentStockIndex(currentStockIndex - 1);
+        } else {
+          setCurrentStockIndex(0);
+        }
+      }
+    }
+  }, [queue, filteredStocks, currentStockIndex, isInQueue]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
