@@ -266,24 +266,35 @@ export function StockCard({
             Add to Queue
           </Button>
 
-          {/* Watchlist Button */}
-          <Button
-            variant="ghost"
-            onClick={() => onToggleWatchlist(stock.symbol)}
-            className="w-full h-12 text-sm font-medium text-muted-foreground"
-          >
-            {isInWatchlist ? (
-              <>
-                <EyeOff className="h-4 w-4 mr-2" />
-                Remove from Watchlist
-              </>
-            ) : (
-              <>
-                <Eye className="h-4 w-4 mr-2" />
-                Not sure? Add to Watchlist
-              </>
-            )}
-          </Button>
+          {/* Action Buttons */}
+          <div className="grid grid-cols-2 gap-3">
+            <Button
+              variant="ghost"
+              onClick={() => onToggleWatchlist(stock.symbol)}
+              className="h-12 text-sm font-medium text-muted-foreground"
+            >
+              {isInWatchlist ? (
+                <>
+                  <EyeOff className="h-4 w-4 mr-2" />
+                  Remove from List
+                </>
+              ) : (
+                <>
+                  <Eye className="h-4 w-4 mr-2" />
+                  Save for Later
+                </>
+              )}
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                /* Pass functionality - could navigate to next stock */
+              }}
+              className="h-12 text-sm font-medium text-muted-foreground hover:text-orange-600"
+            >
+              Skip
+            </Button>
+          </div>
         </div>
       </CardContent>
     </Card>
