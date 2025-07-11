@@ -22,32 +22,44 @@ export default function PortfolioOptimize() {
   const navigate = useNavigate();
   const [investmentAmount, setInvestmentAmount] = useState("");
   const [selectedPreset, setSelectedPreset] = useState<string | null>(null);
+  const [optimizationType, setOptimizationType] = useState<"new" | "rebalance">("new");
 
-  // Mock queued stocks count
+  // Mock queued stocks count and existing portfolio
   const queuedStocksCount = 3;
+  const existingPortfolioValue = 2500; // Mock existing portfolio value
 
   const presetAmounts = [
-    { label: "$1,000", value: "1000", popular: false },
-    { label: "$5,000", value: "5000", popular: true },
-    { label: "$10,000", value: "10000", popular: true },
-    { label: "$25,000", value: "25000", popular: false },
-    { label: "$50,000", value: "50000", popular: false },
-    { label: "$100,000", value: "100000", popular: false },
+    { label: "$100", value: "100", popular: false },
+    { label: "$250", value: "250", popular: true },
+    { label: "$500", value: "500", popular: true },
+    { label: "$750", value: "750", popular: false },
+    { label: "$1,000", value: "1000", popular: true },
   ];
 
   const handlePresetSelect = (value: string) => {
-    setInvestmentAmount(value);
-    setSelectedPreset(value);
+    if (selectedPreset === value) {
+      // Deselect if clicking the same preset
+      setInvestmentAmount("");
+      setSelectedPreset(null);
+    } else {
+      setInvestmentAmount(value);
+      setSelectedPreset(value);
+    }
   };
 
   const handleOptimize = () => {
-    if (!investmentAmount || Number(investmentAmount) < 100) {
+    if (optimizationType === "new" && (!investmentAmount || Number(investmentAmount) < 100)) {
       alert("Please enter a minimum investment amount of $100");
       return;
     }
 
-    // Navigate to optimization review with the amount
-    navigate(`/optimize/review?amount=${investmentAmount}`);
+    // Navigate to optimization review with the amount and type
+    const params = new URLSearchParams();
+    if (optimizationType === "new") {
+      params.set("amount", investmentAmount);
+    }
+    params.set("type", optimizationType);
+    navigate(`/optimize/review?${params.toString()}`);
   };
 
   const formatCurrency = (amount: string) => {
@@ -106,14 +118,59 @@ export default function PortfolioOptimize() {
             </CardContent>
           </Card>
 
-          {/* Investment Amount Input */}
+          {/* Optimization Type */}
           <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <DollarSign className="h-5 w-5 text-green-600" />
-                Investment Amount
+                <Brain className="h-5 w-5 text-purple-600" />
+                Optimization Type
               </CardTitle>
             </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 gap-3">
+                <Button
+                  variant="outline"
+                  onClick={() => setOptimizationType("new")}
+                  className={cn(
+                    "h-auto p-4 text-left justify-start",
+                    optimizationType === "new" && "bg-blue-50 border-blue-300 text-blue-700"
+                  )}
+                >
+                  <div className="flex-1">
+                    <div className="font-semibold">Add with New Investment</div>
+                    <div className="text-sm opacity-80 mt-1">
+                      Invest fresh money to add these stocks to your portfolio
+                    </div>
+                  </div>
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setOptimizationType("rebalance")}
+                  className={cn(
+                    "h-auto p-4 text-left justify-start",
+                    optimizationType === "rebalance" && "bg-purple-50 border-purple-300 text-purple-700"
+                  )}
+                >
+                  <div className="flex-1">
+                    <div className="font-semibold">Rebalance Existing Portfolio</div>
+                    <div className="text-sm opacity-80 mt-1">
+                      Sell some existing holdings to add these new stocks (${existingPortfolioValue.toLocaleString()} portfolio)
+                    </div>
+                  </div>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Investment Amount Input */}
+          {optimizationType === "new" && (
+            <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <DollarSign className="h-5 w-5 text-green-600" />
+                  Investment Amount
+                </CardTitle>
+              </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="amount" className="text-sm font-medium">
@@ -213,14 +270,14 @@ export default function PortfolioOptimize() {
           {/* Action Button */}
           <Button
             onClick={handleOptimize}
-            disabled={!investmentAmount || Number(investmentAmount) < 100}
+            disabled={optimizationType === "new" && (!investmentAmount || Number(investmentAmount) < 100)}
             className="w-full h-12 text-sm font-semibold bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white"
           >
             <Zap className="h-4 w-4 mr-2" />
-            Generate Optimized Portfolio
+            {optimizationType === "new" ? "Generate Optimized Portfolio" : "Rebalance Portfolio"}
           </Button>
 
-          {Number(investmentAmount) > 0 && Number(investmentAmount) < 100 && (
+          {optimizationType === "new" && Number(investmentAmount) > 0 && Number(investmentAmount) < 100 && (
             <p className="text-center text-sm text-red-600">
               Minimum investment amount is $100
             </p>
