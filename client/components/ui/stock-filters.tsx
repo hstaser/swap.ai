@@ -206,7 +206,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("dividendYield", value)}
         >
           <SelectTrigger className="w-[130px]">
-            <SelectValue />
+            <SelectValue placeholder="Dividends" />
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="All">All</SelectItem>
@@ -221,7 +221,7 @@ export function StockFilters({
           onValueChange={(value) => updateFilter("performance", value)}
         >
           <SelectTrigger className="w-[150px]">
-            <SelectValue />
+            <SelectValue placeholder="Performance" />
           </SelectTrigger>
           <SelectContent>
             {performanceOptions.map((option) => (
