@@ -152,21 +152,33 @@ export default function QueueReview() {
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
                   <div className="text-2xl font-bold text-blue-600">
-                    {queuedStocks.length}
+                    {viewMode === "marginal"
+                      ? queuedStocks.length
+                      : queuedStocks.length + existingPortfolio.length}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Stocks Queued
+                    {viewMode === "marginal"
+                      ? "Stocks Queued"
+                      : "Total Holdings"}
                   </div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-green-600">
-                    {queuedStocks.filter((s) => s.change > 0).length}
+                    {viewMode === "marginal"
+                      ? queuedStocks.filter((s) => s.change > 0).length
+                      : queuedStocks.filter((s) => s.change > 0).length +
+                        existingPortfolio.length}
                   </div>
-                  <div className="text-sm text-muted-foreground">Gainers</div>
+                  <div className="text-sm text-muted-foreground">
+                    {viewMode === "marginal" ? "Gainers" : "Positive Holdings"}
+                  </div>
                 </div>
                 <div>
                   <div className="text-2xl font-bold text-purple-600">
-                    {new Set(queuedStocks.map((s) => s.sector)).size}
+                    {viewMode === "marginal"
+                      ? new Set(queuedStocks.map((s) => s.sector)).size
+                      : new Set([...queuedStocks.map((s) => s.sector), "ETF"])
+                          .size}
                   </div>
                   <div className="text-sm text-muted-foreground">Sectors</div>
                 </div>
