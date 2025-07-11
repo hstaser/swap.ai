@@ -54,6 +54,7 @@ interface StockCardProps {
   onToggleWatchlist: (symbol: string) => void;
   isInWatchlist: boolean;
   className?: string;
+  onSkip?: () => void;
 }
 
 export function StockCard({
@@ -61,6 +62,7 @@ export function StockCard({
   onToggleWatchlist,
   isInWatchlist,
   className,
+  onSkip,
 }: StockCardProps) {
   const isPositive = stock.change >= 0;
   const [showChart, setShowChart] = useState(false);
@@ -270,7 +272,13 @@ export function StockCard({
           <div className="grid grid-cols-2 gap-3">
             <Button
               variant="ghost"
-              onClick={() => onToggleWatchlist(stock.symbol)}
+              onClick={() => {
+                onToggleWatchlist(stock.symbol);
+                // Auto-advance to next stock after adding to watchlist
+                if (!isInWatchlist && onSkip) {
+                  setTimeout(() => onSkip(), 200); // Small delay for visual feedback
+                }
+              }}
               className="h-12 text-sm font-medium text-muted-foreground"
             >
               {isInWatchlist ? (
@@ -287,9 +295,7 @@ export function StockCard({
             </Button>
             <Button
               variant="ghost"
-              onClick={() => {
-                /* Pass functionality - could navigate to next stock */
-              }}
+              onClick={() => onSkip && onSkip()}
               className="h-12 text-sm font-medium text-muted-foreground hover:text-orange-600"
             >
               Skip
