@@ -253,17 +253,37 @@ export default function QueueAdd() {
               </div>
 
               {selectedConfidence && (
-                <div className="mt-6 p-4 bg-green-50 rounded-lg border border-green-200">
-                  <div className="flex items-center gap-2 text-green-800">
-                    <CheckCircle className="h-5 w-5" />
-                    <span className="font-semibold">
-                      Successfully added to queue!
-                    </span>
+                <div className="mt-6 space-y-4">
+                  <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <div className="flex items-center gap-2 text-green-800">
+                      <CheckCircle className="h-5 w-5" />
+                      <span className="font-semibold">
+                        Successfully added to queue!
+                      </span>
+                    </div>
+                    <p className="text-sm text-green-700 mt-1">
+                      {symbol} has been added to your queue. What would you like
+                      to do next?
+                    </p>
                   </div>
-                  <p className="text-sm text-green-700 mt-1">
-                    {symbol} has been added to your queue. Returning to stock
-                    browsing...
-                  </p>
+
+                  {/* Action Buttons */}
+                  <div className="grid grid-cols-1 gap-3">
+                    <Button
+                      onClick={() => navigate("/queue/review")}
+                      className="w-full h-12 text-sm font-semibold bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white"
+                    >
+                      <CheckCircle className="h-4 w-4 mr-2" />
+                      Review & Invest Now
+                    </Button>
+                    <Button
+                      variant="outline"
+                      onClick={() => navigate("/")}
+                      className="w-full h-12 text-sm font-medium"
+                    >
+                      Keep Swiping
+                    </Button>
+                  </div>
                 </div>
               )}
             </CardContent>
