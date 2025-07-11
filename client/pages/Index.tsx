@@ -322,6 +322,10 @@ const defaultFilters: FilterState = {
   priceRange: "All Prices",
   exchange: "All Markets",
   performance: "All Performance",
+  revenueGrowth: "All Growth",
+  profitMargin: "All Margins",
+  debtToEquity: "All Debt Levels",
+  roe: "All ROE",
 };
 
 export default function Index() {
