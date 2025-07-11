@@ -513,6 +513,99 @@ export function HelpSystem({ onClose }: HelpSystemProps) {
           </Tabs>
         </CardContent>
       </Card>
+
+      {/* Email Form Modal */}
+      {showEmailForm && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-[60]">
+          <Card className="w-full max-w-md bg-white">
+            <CardHeader className="flex flex-row items-center justify-between">
+              <CardTitle>Send Email Support</CardTitle>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowEmailForm(false)}
+              >
+                <X className="h-4 w-4" />
+              </Button>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleEmailSubmit} className="space-y-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    value={emailForm.name}
+                    onChange={(e) =>
+                      setEmailForm((prev) => ({
+                        ...prev,
+                        name: e.target.value,
+                      }))
+                    }
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    type="email"
+                    value={emailForm.email}
+                    onChange={(e) =>
+                      setEmailForm((prev) => ({
+                        ...prev,
+                        email: e.target.value,
+                      }))
+                    }
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="subject">Subject</Label>
+                  <Input
+                    id="subject"
+                    value={emailForm.subject}
+                    onChange={(e) =>
+                      setEmailForm((prev) => ({
+                        ...prev,
+                        subject: e.target.value,
+                      }))
+                    }
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea
+                    id="message"
+                    rows={4}
+                    value={emailForm.message}
+                    onChange={(e) =>
+                      setEmailForm((prev) => ({
+                        ...prev,
+                        message: e.target.value,
+                      }))
+                    }
+                    required
+                  />
+                </div>
+                <div className="flex gap-2">
+                  <Button type="submit" className="flex-1">
+                    <Send className="h-4 w-4 mr-2" />
+                    Send Message
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    onClick={() => setShowEmailForm(false)}
+                  >
+                    Cancel
+                  </Button>
+                </div>
+              </form>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
