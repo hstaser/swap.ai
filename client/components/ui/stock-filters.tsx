@@ -17,7 +17,6 @@ export interface FilterState {
   marketCap: string;
   peRange: string;
   dividendYield: string;
-  priceRange: string;
   exchange: string;
   performance: string;
 }
@@ -53,14 +52,6 @@ const marketCapOptions = [
 
 const peRangeOptions = ["All P/E Ratios", "0-15", "15-25", "25-40", "40+"];
 
-const priceRangeOptions = [
-  "All Prices",
-  "$0-$50",
-  "$50-$200",
-  "$200-$500",
-  "$500+",
-];
-
 const exchangeOptions = [
   "All Markets",
   "NASDAQ",
@@ -80,13 +71,14 @@ const exchangeOptions = [
 
 const performanceOptions = [
   "All Performance",
-  "Top Gainers (>5%)",
-  "Strong Performers (2-5%)",
-  "Stable (-2% to 2%)",
-  "Declining (-5% to -2%)",
-  "Top Losers (<-5%)",
-  "1M Winners (>10%)",
-  "1M Losers (<-10%)",
+  "Today's Gainers (>5%)",
+  "Today's Losers (<-5%)",
+  "Weekly Gainers (>10%)",
+  "Weekly Losers (<-10%)",
+  "Monthly Winners (>20%)",
+  "Monthly Losers (<-20%)",
+  "YTD Winners (>50%)",
+  "YTD Losers (<-50%)",
 ];
 
 const revenueGrowthOptions = [
@@ -139,7 +131,6 @@ export function StockFilters({
     filters.marketCap !== "All Market Cap" ||
     filters.peRange !== "All P/E Ratios" ||
     filters.dividendYield !== "All Dividends" ||
-    filters.priceRange !== "All Prices" ||
     filters.exchange !== "All Markets" ||
     filters.performance !== "All Performance";
 
@@ -203,22 +194,6 @@ export function StockFilters({
           </SelectTrigger>
           <SelectContent>
             {peRangeOptions.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-
-        <Select
-          value={filters.priceRange}
-          onValueChange={(value) => updateFilter("priceRange", value)}
-        >
-          <SelectTrigger className="w-[120px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            {priceRangeOptions.map((option) => (
               <SelectItem key={option} value={option}>
                 {option}
               </SelectItem>
