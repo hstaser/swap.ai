@@ -370,7 +370,7 @@ export default function QueueReview() {
                 className="w-full h-12 text-sm font-semibold bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white"
               >
                 <Zap className="h-4 w-4 mr-2" />
-                Optimize & Invest Now
+                Optimize & Invest
               </Button>
             )}
 

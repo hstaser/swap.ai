@@ -248,7 +248,7 @@ export function HelpSystem({ onClose }: HelpSystemProps) {
       "queue-and-invest": [
         "1. Click 'Add to Queue' on any stock you're interested in",
         "2. Choose your confidence level (Conservative, Bullish, Very Bullish)",
-        "3. Choose 'Review & Invest Now' or 'Keep Swiping'",
+        "3. Choose 'Review & Invest' or 'Keep Swiping'",
         "4. Review your queued stocks and remove any you don't want",
         "5. Click 'Optimize & Invest' to proceed",
         "6. Set your investment amount and confirm the optimized allocation",
