@@ -202,6 +202,7 @@ export default function Banking() {
   };
 
   const handleSkipForNow = () => {
+    console.log("Skip button clicked - enabling demo mode");
     setIsSkippedMode(true);
     setShowSkipOption(false);
   };
@@ -236,6 +237,12 @@ export default function Banking() {
   const totalBalance = mockAccounts
     .filter((acc) => acc.isLinked)
     .reduce((sum, acc) => sum + acc.balance, 0);
+
+  console.log("Banking component state:", {
+    isSkippedMode,
+    mockAccounts: mockAccounts.length,
+    totalBalance,
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -296,7 +303,7 @@ export default function Banking() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold mb-2">
-                  ${(isSkippedMode ? 25000 : totalBalance).toLocaleString()}
+                  ${(isSkippedMode ? 67417 : totalBalance).toLocaleString()}
                 </div>
                 <p className="text-muted-foreground">
                   {isSkippedMode
