@@ -167,8 +167,43 @@ export default function Banking() {
       </header>
 
       <div className="container mx-auto px-4 py-6">
-        {/* Account Overview Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        {!showBankingFeatures ? (
+          // Blank state before banking is added
+          <div className="flex flex-col items-center justify-center min-h-[60vh] text-center">
+            <div className="max-w-md">
+              <div className="w-20 h-20 bg-gradient-to-r from-green-600 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Building className="h-10 w-10 text-white" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">
+                Banking Features Coming Soon
+              </h2>
+              <p className="text-gray-600 mb-6">
+                Connect your bank accounts to manage deposits, withdrawals, and track your financial growth alongside your investments.
+              </p>
+              <div className="space-y-3 text-left">
+                <div className="flex items-center gap-3 text-gray-700">
+                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <span>Secure bank account linking</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-700">
+                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <span>Real-time balance tracking</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-700">
+                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <span>Investment analytics</span>
+                </div>
+                <div className="flex items-center gap-3 text-gray-700">
+                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <span>Automated transfers</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <>
+            {/* Account Overview Cards */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           {mockAccounts.map((account, index) => (
             <Card
               key={account.accountNumber}
