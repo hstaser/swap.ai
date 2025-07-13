@@ -45,6 +45,40 @@ export default function Landing() {
     }
   };
 
+  const handleSkipWithTestData = async () => {
+    setIsLoading(true);
+
+    try {
+      if (mode === "signin") {
+        // Auto-fill and submit with test signin data
+        await signIn("developer@test.com", "testpassword");
+      } else if (mode === "signup") {
+        // Auto-fill and submit with test signup data
+        await signUp("Test Developer", "developer@test.com", "testpassword");
+      }
+    } catch (error) {
+      console.error("Auth error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const fillTestData = () => {
+    if (mode === "signin") {
+      setFormData({
+        name: "",
+        email: "developer@test.com",
+        password: "testpassword",
+      });
+    } else if (mode === "signup") {
+      setFormData({
+        name: "Test Developer",
+        email: "developer@test.com",
+        password: "testpassword",
+      });
+    }
+  };
+
   const handleGuestMode = () => {
     continueAsGuest();
   };
@@ -248,6 +282,37 @@ export default function Landing() {
                   ? "Sign In"
                   : "Create Account"}
             </Button>
+
+            {/* Development Skip Options */}
+            <div className="mt-4 space-y-2">
+              <div className="text-xs text-center text-gray-500 mb-2">
+                Development Tools
+              </div>
+
+              <div className="grid grid-cols-2 gap-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="sm"
+                  onClick={fillTestData}
+                  disabled={isLoading}
+                  className="text-xs h-8"
+                >
+                  Fill Test Data
+                </Button>
+
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="sm"
+                  onClick={handleSkipWithTestData}
+                  disabled={isLoading}
+                  className="text-xs h-8 text-blue-600"
+                >
+                  {mode === "signin" ? "Skip Sign In" : "Skip Sign Up"}
+                </Button>
+              </div>
+            </div>
           </form>
 
           <div className="mt-6 space-y-4">
