@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { NotificationSystem } from "@/components/ui/notifications";
 
 interface WatchlistStock {
   symbol: string;
@@ -296,14 +297,37 @@ export default function Watchlist() {
             <Button
               variant="outline"
               className="h-12"
-              onClick={() => navigate("/settings?tab=alerts")}
+              onClick={() => setShowNotifications(true)}
             >
               <Bell className="h-5 w-5 mr-2" />
-              Price Alerts
+              Notifications
             </Button>
           </div>
         )}
       </div>
+
+      {/* Notifications */}
+      {showNotifications && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="w-full max-w-md">
+            <NotificationSystem
+              className="border shadow-lg"
+              onPreferencesChange={(prefs) =>
+                console.log("Preferences updated:", prefs)
+              }
+            />
+            <div className="mt-4 text-center">
+              <Button
+                variant="outline"
+                onClick={() => setShowNotifications(false)}
+                className="bg-white"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
