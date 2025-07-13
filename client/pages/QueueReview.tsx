@@ -12,10 +12,13 @@ import {
   Plus,
   Zap,
   RefreshCw,
+  AlertTriangle,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
+import { useAuth } from "@/hooks/use-auth";
+import { GuestWarning } from "@/components/ui/guest-warning";
 
 interface QueuedStock {
   symbol: string;
@@ -370,7 +373,13 @@ export default function QueueReview() {
           <div className="space-y-3">
             {queuedStocks.length > 0 && (
               <Button
-                onClick={() => navigate("/optimize")}
+                onClick={() => {
+                  if (authStatus === "guest") {
+                    setShowGuestWarning(true);
+                  } else {
+                    navigate("/optimize");
+                  }
+                }}
                 className="w-full h-12 text-sm font-semibold bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white"
               >
                 <Zap className="h-4 w-4 mr-2" />
@@ -399,6 +408,40 @@ export default function QueueReview() {
             )}
           </div>
         </div>
+
+        {/* Guest Warning Modal */}
+        {showGuestWarning && (
+          <GuestWarning
+            action="invest your money"
+            onSignUp={() => {
+              setShowGuestWarning(false);
+              navigate("/");
+            }}
+            onContinue={() => {
+              setShowGuestWarning(false);
+              navigate("/optimize");
+            }}
+          />
+        )}
+
+        {/* Guest Mode Banner */}
+        {authStatus === "guest" && (
+          <div className="fixed bottom-4 left-4 right-4 z-40">
+            <div className="bg-amber-100 border border-amber-300 rounded-lg p-3 shadow-lg">
+              <div className="flex items-center gap-2">
+                <AlertTriangle className="h-4 w-4 text-amber-600" />
+                <div className="flex-1">
+                  <span className="text-sm font-medium text-amber-900">
+                    Guest Mode:
+                  </span>
+                  <span className="text-sm text-amber-800 ml-1">
+                    Your queue won't be saved if you leave the app
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
