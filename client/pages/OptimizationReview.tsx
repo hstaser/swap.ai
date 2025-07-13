@@ -422,23 +422,36 @@ export default function OptimizationReview() {
 
           {/* Confirmation */}
           {!confirmed && (
-            <Button
-              onClick={handleConfirmPortfolio}
-              disabled={isConfirming}
-              className="w-full h-12 text-sm font-semibold bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white"
-            >
-              {isConfirming ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  Executing Trades...
-                </>
-              ) : (
-                <>
-                  <Zap className="h-4 w-4 mr-2" />
-                  Confirm & Execute Investment
-                </>
+            <div className="space-y-3">
+              {isManualMode && isOverAllocated && (
+                <div className="p-3 bg-red-50 rounded-lg border border-red-200">
+                  <div className="text-sm text-red-800 font-medium">
+                    ⚠️ Cannot proceed: Over-allocated by{" "}
+                    {(getTotalAllocation() - 100).toFixed(1)}%
+                  </div>
+                  <div className="text-xs text-red-700 mt-1">
+                    Please reduce allocations to 100% or less.
+                  </div>
+                </div>
               )}
-            </Button>
+              <Button
+                onClick={handleConfirmPortfolio}
+                disabled={isConfirming || (isManualMode && isOverAllocated)}
+                className="w-full h-12 text-sm font-semibold bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {isConfirming ? (
+                  <>
+                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                    Executing Trades...
+                  </>
+                ) : (
+                  <>
+                    <Zap className="h-4 w-4 mr-2" />
+                    Confirm & Execute Investment
+                  </>
+                )}
+              </Button>
+            </div>
           )}
 
           {confirmed && (
