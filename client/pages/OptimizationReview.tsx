@@ -330,7 +330,7 @@ export default function OptimizationReview() {
               )}
             </CardHeader>
             <CardContent className="space-y-4">
-              {optimizedPortfolio.map((stock) => (
+              {currentPortfolio.map((stock) => (
                 <div
                   key={stock.symbol}
                   className="p-4 bg-gray-50 rounded-lg space-y-3"
@@ -366,15 +366,38 @@ export default function OptimizationReview() {
                     </div>
                   </div>
 
-                  <Progress value={stock.percentage} className="h-2" />
+                  {isManualMode ? (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between text-sm">
+                        <span>Allocation: {stock.percentage}%</span>
+                        <span className="text-muted-foreground">
+                          {formatCurrency(stock.amount)}
+                        </span>
+                      </div>
+                      <Slider
+                        value={[stock.percentage]}
+                        onValueChange={(value) =>
+                          handleManualAllocationChange(stock.symbol, value[0])
+                        }
+                        max={100}
+                        min={0}
+                        step={1}
+                        className="w-full"
+                      />
+                    </div>
+                  ) : (
+                    <Progress value={stock.percentage} className="h-2" />
+                  )}
 
                   <div className="flex justify-between text-sm">
                     <span className="text-muted-foreground">
                       {stock.shares} shares @ ${stock.price.toFixed(2)}
                     </span>
-                    <span className="text-blue-600 font-medium">
-                      {stock.reasoning}
-                    </span>
+                    {!isManualMode && (
+                      <span className="text-blue-600 font-medium">
+                        {stock.reasoning}
+                      </span>
+                    )}
                   </div>
                 </div>
               ))}
