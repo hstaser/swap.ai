@@ -82,36 +82,38 @@ export function AuthModal({
   if (mode === "initial") {
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-        <Card className="w-full max-w-sm">
-          <CardHeader className="relative">
+        <Card className="w-full max-w-sm mx-4 sm:mx-0">
+          <CardHeader className="relative pb-4 sm:pb-6">
             <Button
               variant="ghost"
               size="icon"
               onClick={onClose}
-              className="absolute right-0 top-0"
+              className="absolute right-2 top-2 sm:right-0 sm:top-0 h-8 w-8 sm:h-10 sm:w-10"
             >
               <X className="h-4 w-4" />
             </Button>
-            <CardTitle className="text-center text-xl">{title}</CardTitle>
+            <CardTitle className="text-center text-lg sm:text-xl pt-2 sm:pt-0 px-8 sm:px-0">
+              {title}
+            </CardTitle>
             {subtitle && (
-              <p className="text-center text-sm text-muted-foreground">
+              <p className="text-center text-xs sm:text-sm text-muted-foreground px-2 sm:px-0 pt-2">
                 {subtitle}
               </p>
             )}
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-3 sm:space-y-4 px-4 sm:px-6 pb-6">
             <Button
               onClick={() => setMode("signup")}
-              className="w-full h-12 text-lg font-semibold"
+              className="w-full h-12 sm:h-12 text-base sm:text-lg font-semibold"
             >
               Sign Up
-              <ArrowRight className="h-5 w-5 ml-2" />
+              <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5 ml-2" />
             </Button>
 
             <Button
               variant="ghost"
               onClick={() => setMode("signin")}
-              className="w-full h-12 text-lg"
+              className="w-full h-12 sm:h-12 text-base sm:text-lg"
             >
               Sign In
             </Button>
@@ -122,32 +124,34 @@ export function AuthModal({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <Card className="w-full max-w-md">
-        <CardHeader className="relative">
+    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-3 sm:p-4 z-50">
+      <Card className="w-full max-w-md mx-2 sm:mx-0 max-h-[90vh] overflow-y-auto">
+        <CardHeader className="relative pb-4 sm:pb-6">
           <Button
             variant="ghost"
             size="icon"
             onClick={onClose}
-            className="absolute right-0 top-0"
+            className="absolute right-2 top-2 sm:right-0 sm:top-0 h-8 w-8 sm:h-10 sm:w-10"
           >
             <X className="h-4 w-4" />
           </Button>
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <BarChart3 className="h-5 w-5 text-white" />
+          <div className="flex items-center justify-center gap-2 sm:gap-3 mb-3 sm:mb-4 pt-2 sm:pt-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-lg flex items-center justify-center">
+              <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
-            <span className="text-xl font-bold">swap.ai</span>
+            <span className="text-lg sm:text-xl font-bold">swap.ai</span>
           </div>
-          <CardTitle className="text-center">
+          <CardTitle className="text-center text-lg sm:text-xl">
             {mode === "signin" ? "Welcome Back" : "Create Account"}
           </CardTitle>
         </CardHeader>
-        <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+        <CardContent className="px-4 sm:px-6 pb-4 sm:pb-6">
+          <form onSubmit={handleSubmit} className="space-y-3 sm:space-y-4">
             {mode === "signup" && (
               <div>
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name" className="text-sm sm:text-base">
+                  Full Name
+                </Label>
                 <Input
                   id="name"
                   type="text"
@@ -157,12 +161,15 @@ export function AuthModal({
                   }
                   required
                   placeholder="Enter your full name"
+                  className="h-11 sm:h-10 text-base sm:text-sm"
                 />
               </div>
             )}
 
             <div>
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email" className="text-sm sm:text-base">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -172,11 +179,14 @@ export function AuthModal({
                 }
                 required
                 placeholder="Enter your email"
+                className="h-11 sm:h-10 text-base sm:text-sm"
               />
             </div>
 
             <div>
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password" className="text-sm sm:text-base">
+                Password
+              </Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -187,12 +197,13 @@ export function AuthModal({
                   }
                   required
                   placeholder="Enter your password"
+                  className="h-11 sm:h-10 text-base sm:text-sm pr-12"
                 />
                 <Button
                   type="button"
                   variant="ghost"
                   size="icon"
-                  className="absolute right-0 top-0 h-full"
+                  className="absolute right-0 top-0 h-11 sm:h-10 w-11 sm:w-10"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
@@ -204,7 +215,11 @@ export function AuthModal({
               </div>
             </div>
 
-            <Button type="submit" className="w-full h-12" disabled={isLoading}>
+            <Button
+              type="submit"
+              className="w-full h-12 text-base sm:text-sm mt-4 sm:mt-4"
+              disabled={isLoading}
+            >
               {isLoading
                 ? "Please wait..."
                 : mode === "signin"
@@ -214,7 +229,7 @@ export function AuthModal({
           </form>
 
           {/* Development Skip Options */}
-          <div className="mt-4 space-y-2">
+          <div className="mt-3 sm:mt-4 space-y-2">
             <div className="text-xs text-center text-gray-500 mb-2">
               Development Tools
             </div>
@@ -226,7 +241,7 @@ export function AuthModal({
                 size="sm"
                 onClick={fillTestData}
                 disabled={isLoading}
-                className="text-xs h-8"
+                className="text-xs h-9 sm:h-8"
               >
                 Fill Test Data
               </Button>
@@ -237,14 +252,14 @@ export function AuthModal({
                 size="sm"
                 onClick={handleSkipWithTestData}
                 disabled={isLoading}
-                className="text-xs h-8 text-blue-600"
+                className="text-xs h-9 sm:h-8 text-blue-600"
               >
                 {mode === "signin" ? "Skip Sign In" : "Skip Sign Up"}
               </Button>
             </div>
           </div>
 
-          <div className="mt-6 space-y-4">
+          <div className="mt-4 sm:mt-6 space-y-3 sm:space-y-4">
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <Separator className="w-full" />
@@ -257,7 +272,7 @@ export function AuthModal({
             <Button
               variant="outline"
               onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-              className="w-full"
+              className="w-full h-11 sm:h-10 text-base sm:text-sm"
             >
               {mode === "signin" ? "Create Account" : "Sign In Instead"}
             </Button>
@@ -265,7 +280,7 @@ export function AuthModal({
             <Button
               variant="ghost"
               onClick={() => setMode("initial")}
-              className="w-full"
+              className="w-full h-11 sm:h-10 text-base sm:text-sm"
             >
               ← Back
             </Button>
