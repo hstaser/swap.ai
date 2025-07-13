@@ -124,6 +124,60 @@ export default function OptimizationReview() {
     }).format(amount);
   };
 
+  // Initialize manual allocations with optimized portfolio
+  useEffect(() => {
+    if (!isManualMode) {
+      setManualAllocations(optimizedPortfolio.map((stock) => ({ ...stock })));
+    }
+  }, [isManualMode]);
+
+  const handleManualAllocationChange = (
+    symbol: string,
+    newPercentage: number,
+  ) => {
+    setManualAllocations((prev) => {
+      const updated = prev.map((stock) => {
+        if (stock.symbol === symbol) {
+          const amount = investmentAmount * (newPercentage / 100);
+          return {
+            ...stock,
+            percentage: newPercentage,
+            amount,
+            shares: Math.floor(amount / stock.price),
+          };
+        }
+        return stock;
+      });
+      return updated;
+    });
+  };
+
+  const toggleManualMode = () => {
+    setIsManualMode(!isManualMode);
+    if (!isManualMode) {
+      // Reset to optimized allocations when entering manual mode
+      setManualAllocations(optimizedPortfolio.map((stock) => ({ ...stock })));
+    }
+  };
+
+  const getTotalAllocation = () => {
+    return manualAllocations.reduce((sum, stock) => sum + stock.percentage, 0);
+  };
+
+  const getRemainingAmount = () => {
+    const totalAllocated = manualAllocations.reduce(
+      (sum, stock) => sum + stock.amount,
+      0,
+    );
+    return investmentAmount - totalAllocated;
+  };
+
+  const currentPortfolio = isManualMode
+    ? manualAllocations
+    : optimizedPortfolio;
+  const isOverAllocated = getTotalAllocation() > 100;
+  const remainingAmount = getRemainingAmount();
+
   const handleConfirmPortfolio = async () => {
     setIsConfirming(true);
 
