@@ -32,6 +32,8 @@ interface QueuedStock {
 export default function QueueReview() {
   const navigate = useNavigate();
   const { queue, removeFromQueue, clearQueue } = useQueue();
+  const { authStatus } = useAuth();
+  const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [viewMode, setViewMode] = useState<"marginal" | "net">("marginal");
 
   // Mock existing portfolio
