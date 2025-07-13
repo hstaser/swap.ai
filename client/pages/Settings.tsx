@@ -102,6 +102,7 @@ const defaultSettings: UserSettings = {
 
 export default function Settings() {
   const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [settings, setSettings] = useState<UserSettings>(defaultSettings);
   const [hasChanges, setHasChanges] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
@@ -680,11 +681,7 @@ export default function Settings() {
                       variant="outline"
                       onClick={() => {
                         if (confirm("Are you sure you want to sign out?")) {
-                          // Clear all user data
-                          localStorage.clear();
-                          sessionStorage.clear();
-                          // Redirect to landing page
-                          window.location.href = "/";
+                          signOut();
                         }
                       }}
                       className="w-full justify-start"
