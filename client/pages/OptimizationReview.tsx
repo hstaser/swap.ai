@@ -36,6 +36,7 @@ interface OptimizedAllocation {
 export default function OptimizationReview() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const { clearQueue } = useQueue();
   const investmentAmount = Number(searchParams.get("amount")) || 10000;
   const optimizationType = searchParams.get("type") || "new";
   const [isConfirming, setIsConfirming] = useState(false);
