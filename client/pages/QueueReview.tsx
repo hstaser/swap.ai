@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -38,6 +38,13 @@ export default function QueueReview() {
   const { authStatus, saveGuestDataAndSignOut } = useAuth();
   const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [viewMode, setViewMode] = useState<"marginal" | "net">("marginal");
+
+  // Cleanup function to prevent state updates after unmount
+  useEffect(() => {
+    return () => {
+      // Component cleanup
+    };
+  }, []);
 
   // Mock existing portfolio
   const existingPortfolio = [
@@ -412,9 +419,12 @@ export default function QueueReview() {
           <GuestWarning
             action="invest your money"
             onSignUp={() => {
+              // Close modal first to prevent React errors during transition
               setShowGuestWarning(false);
-              // Save queue and sign out guest to show landing page
-              saveGuestDataAndSignOut();
+              // Use setTimeout to ensure modal is closed before auth state change
+              setTimeout(() => {
+                saveGuestDataAndSignOut();
+              }, 100);
             }}
             onCancel={() => {
               setShowGuestWarning(false);

@@ -127,11 +127,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("guest_queue_backup", guestQueue);
     }
 
-    // Sign out guest user to show landing page
-    setUser(null);
-    setAuthStatus("unauthenticated");
-    localStorage.removeItem("auth_status");
-    localStorage.removeItem("user_data");
+    // Use setTimeout to ensure state transition happens after current render cycle
+    setTimeout(() => {
+      setUser(null);
+      setAuthStatus("unauthenticated");
+      localStorage.removeItem("auth_status");
+      localStorage.removeItem("user_data");
+    }, 0);
   };
 
   const signOut = () => {
