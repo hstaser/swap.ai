@@ -108,7 +108,7 @@ const filledMockAccounts: BankAccount[] = [
     bankName: "Bank of America",
     accountType: "checking",
     accountNumber: "****9876",
-    balance: 8650.0,
+    balance: 8649.53,
     isLinked: true,
     isVerified: true,
   },
@@ -260,7 +260,13 @@ export default function Banking() {
             </div>
 
             {showSkipOption && (
-              <Button variant="outline" onClick={handleSkipForNow}>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  console.log("Skip for Now clicked!");
+                  handleSkipForNow();
+                }}
+              >
                 Skip for Now (Development)
               </Button>
             )}
