@@ -5,12 +5,15 @@ import { createRoot } from "react-dom/client";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueueProvider } from "@/hooks/use-queue";
+import { OnboardingFlow } from "@/components/onboarding/OnboardingFlow";
 import Index from "./pages/Index";
 import Markets from "./pages/Markets";
 import Research from "./pages/Research";
 import Banking from "./pages/Banking";
+import Transactions from "./pages/Transactions";
 import Watchlist from "./pages/Watchlist";
 import Portfolio from "./pages/Portfolio";
 import QueueAdd from "./pages/QueueAdd";
@@ -24,35 +27,60 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <QueueProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/markets" element={<Markets />} />
-            <Route path="/research" element={<Research />} />
-            <Route path="/banking" element={<Banking />} />
-            <Route path="/transactions" element={<Transactions />} />
-            <Route path="/watchlist" element={<Watchlist />} />
-            <Route path="/portfolio" element={<Portfolio />} />
-            <Route path="/queue/add/:symbol" element={<QueueAdd />} />
-            <Route path="/queue/review" element={<QueueReview />} />
-            <Route path="/optimize" element={<PortfolioOptimize />} />
-            <Route path="/optimize/review" element={<OptimizationReview />} />
-            <Route path="/stock/:symbol" element={<StockDetail />} />
-            <Route path="/stock/:symbol/news" element={<StockNews />} />
-            <Route path="/settings" element={<Settings />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </QueueProvider>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+const App = () => {
+  const [showOnboarding, setShowOnboarding] = useState(
+    // Show onboarding for new users (in real app, check user settings)
+    localStorage.getItem("onboarding_completed") !== "true",
+  );
+
+  const handleOnboardingComplete = (data: any) => {
+    console.log("Onboarding completed with data:", data);
+    localStorage.setItem("onboarding_completed", "true");
+    setShowOnboarding(false);
+  };
+
+  const handleOnboardingSkip = () => {
+    setShowOnboarding(false);
+  };
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <QueueProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/markets" element={<Markets />} />
+              <Route path="/research" element={<Research />} />
+              <Route path="/banking" element={<Banking />} />
+              <Route path="/transactions" element={<Transactions />} />
+              <Route path="/watchlist" element={<Watchlist />} />
+              <Route path="/portfolio" element={<Portfolio />} />
+              <Route path="/queue/add/:symbol" element={<QueueAdd />} />
+              <Route path="/queue/review" element={<QueueReview />} />
+              <Route path="/optimize" element={<PortfolioOptimize />} />
+              <Route path="/optimize/review" element={<OptimizationReview />} />
+              <Route path="/stock/:symbol" element={<StockDetail />} />
+              <Route path="/stock/:symbol/news" element={<StockNews />} />
+              <Route path="/settings" element={<Settings />} />
+              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+
+            {/* Onboarding Flow */}
+            {showOnboarding && (
+              <OnboardingFlow
+                onComplete={handleOnboardingComplete}
+                onSkip={handleOnboardingSkip}
+              />
+            )}
+          </BrowserRouter>
+        </QueueProvider>
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
+};
 
 createRoot(document.getElementById("root")!).render(<App />);
