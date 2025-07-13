@@ -6,6 +6,7 @@ import { MarketSentiment } from "@/components/ui/market-sentiment";
 import { useQueue } from "@/hooks/use-queue";
 
 import { HelpSystem } from "@/components/ui/help-system";
+import { NotificationSystem } from "@/components/ui/notifications";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -335,6 +336,7 @@ export default function Index() {
   const [watchlist, setWatchlist] = useState<string[]>([]);
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
 
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
@@ -521,10 +523,12 @@ export default function Index() {
                   {queue.length === 1 ? "stock" : "stocks"}
                 </Badge>
               </Link>
-              <Button variant="ghost" size="icon" asChild>
-                <Link to="/settings?tab=alerts">
-                  <Bell className="h-4 w-4" />
-                </Link>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowNotifications(true)}
+              >
+                <Bell className="h-4 w-4" />
               </Button>
               <Button
                 variant="ghost"
@@ -660,6 +664,29 @@ export default function Index() {
 
       {/* Help System */}
       {showHelp && <HelpSystem onClose={() => setShowHelp(false)} />}
+
+      {/* Notifications */}
+      {showNotifications && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="w-full max-w-md">
+            <NotificationSystem
+              className="border shadow-lg"
+              onPreferencesChange={(prefs) =>
+                console.log("Preferences updated:", prefs)
+              }
+            />
+            <div className="mt-4 text-center">
+              <Button
+                variant="outline"
+                onClick={() => setShowNotifications(false)}
+                className="bg-white"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
