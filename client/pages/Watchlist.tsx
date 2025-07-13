@@ -108,6 +108,7 @@ const mockWatchlistStocks: WatchlistStock[] = [
 export default function Watchlist() {
   const [watchlistStocks, setWatchlistStocks] = useState(mockWatchlistStocks);
   const [isEditing, setIsEditing] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const navigate = useNavigate();
 
   const removeFromWatchlist = (symbol: string) => {
