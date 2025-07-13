@@ -5,13 +5,13 @@ import { useAuth } from "@/hooks/use-auth";
 
 interface GuestWarningProps {
   onSignUp: () => void;
-  onContinue: () => void;
+  onCancel: () => void;
   action: string;
 }
 
 export function GuestWarning({
   onSignUp,
-  onContinue,
+  onCancel,
   action,
 }: GuestWarningProps) {
   return (
@@ -24,23 +24,25 @@ export function GuestWarning({
               <AlertTriangle className="h-6 w-6 text-orange-600" />
             </div>
 
-            <h3 className="text-lg font-semibold">Guest Mode Limitation</h3>
+            <h3 className="text-lg font-semibold">Account Required</h3>
 
             <p className="text-sm text-gray-600">
-              You're about to <strong>{action}</strong> in guest mode. Your
-              progress won't be saved and will be lost if you leave the app.
+              You need to create an account or sign in to{" "}
+              <strong>{action}</strong>. Guest mode is for browsing only.
             </p>
 
-            <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3">
               <div className="flex items-start gap-2">
-                <AlertTriangle className="h-4 w-4 text-amber-600 mt-0.5" />
-                <div className="text-xs text-amber-800">
-                  <strong>Warning:</strong> Guest data is temporary and will be
-                  lost when you:
+                <AlertTriangle className="h-4 w-4 text-red-600 mt-0.5" />
+                <div className="text-xs text-red-800">
+                  <strong>Investment Protection:</strong> To keep your money
+                  safe, we require a verified account before you can invest.
+                  This helps us:
                   <ul className="list-disc list-inside mt-1 space-y-1">
-                    <li>Close the browser tab</li>
-                    <li>Refresh the page</li>
-                    <li>Navigate away from the app</li>
+                    <li>Verify your identity</li>
+                    <li>Protect your investments</li>
+                    <li>Provide customer support</li>
+                    <li>Meet regulatory requirements</li>
                   </ul>
                 </div>
               </div>
@@ -48,12 +50,12 @@ export function GuestWarning({
 
             <div className="space-y-3 pt-2">
               <Button onClick={onSignUp} className="w-full">
-                Create Account (Recommended)
+                Create Account / Sign In
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
 
-              <Button variant="outline" onClick={onContinue} className="w-full">
-                Continue Anyway
+              <Button variant="outline" onClick={onCancel} className="w-full">
+                Cancel
               </Button>
             </div>
           </div>

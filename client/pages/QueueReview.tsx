@@ -415,9 +415,8 @@ export default function QueueReview() {
               setShowGuestWarning(false);
               navigate("/");
             }}
-            onContinue={() => {
+            onCancel={() => {
               setShowGuestWarning(false);
-              navigate("/optimize");
             }}
           />
         )}
@@ -433,7 +432,7 @@ export default function QueueReview() {
                     Guest Mode:
                   </span>
                   <span className="text-sm text-amber-800 ml-1">
-                    Your queue won't be saved if you leave the app
+                    Create an account to invest • Queue won't be saved
                   </span>
                 </div>
               </div>
