@@ -541,17 +541,6 @@ export default function Index() {
                 variant="outline"
                 size="sm"
                 onClick={() => {
-                  localStorage.removeItem("onboarding_completed");
-                  window.location.reload();
-                }}
-                className="text-xs"
-              >
-                Dev: Onboarding
-              </Button>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
                   // Clear all auth data and return to landing
                   localStorage.clear();
                   sessionStorage.clear();
