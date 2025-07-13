@@ -302,22 +302,6 @@ export default function OptimizationReview() {
             </CardContent>
           </Card>
 
-          {/* Encouraging Message */}
-          <Card className="border-0 bg-gradient-to-r from-green-100 to-blue-100 shadow-lg">
-            <CardContent className="p-6 text-center">
-              <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-green-800 mb-2">
-                Great job building your portfolio! 🎉
-              </h3>
-              <p className="text-sm text-green-700">
-                Our AI has carefully analyzed your selections and created an
-                optimized allocation that balances your confidence levels with
-                smart risk management. You're making thoughtful investment
-                choices!
-              </p>
-            </CardContent>
-          </Card>
-
           {/* Confirmation */}
           {!confirmed && (
             <Button
