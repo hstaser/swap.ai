@@ -186,6 +186,12 @@ export default function Banking() {
                   <span>Automated transfers</span>
                 </div>
               </div>
+              <Button
+                className="w-full mt-6 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
+                size="lg"
+              >
+                Get Started - Connect Banking
+              </Button>
             </div>
           </div>
         ) : (
