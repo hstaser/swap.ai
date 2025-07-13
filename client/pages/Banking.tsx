@@ -151,6 +151,13 @@ export default function Banking() {
                   Skip for Now (Dev)
                 </Button>
               )}
+              <Button
+                variant={showBankingFeatures ? "default" : "outline"}
+                onClick={() => setShowBankingFeatures(!showBankingFeatures)}
+                className="text-sm"
+              >
+                {showBankingFeatures ? "Hide Banking" : "Add Banking"} (Dev)
+              </Button>
               <Button variant="outline" size="icon">
                 <Settings className="h-4 w-4" />
               </Button>
