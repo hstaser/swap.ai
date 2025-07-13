@@ -110,15 +110,10 @@ const mockTransactions: Transaction[] = [
 
 export default function Banking() {
   const navigate = useNavigate();
-  const [showSkipOption, setShowSkipOption] = useState(true);
   const [selectedAccount, setSelectedAccount] = useState<string | null>(null);
   const [transferAmount, setTransferAmount] = useState("");
   const [showBalances, setShowBalances] = useState(true);
   const [showBankingFeatures, setShowBankingFeatures] = useState(false);
-
-  const handleSkipForNow = () => {
-    setShowSkipOption(false);
-  };
 
   const totalBalance = mockAccounts.reduce((sum, acc) => sum + acc.balance, 0);
   const monthlyGrowth = 12.4;
