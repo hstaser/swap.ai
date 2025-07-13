@@ -31,6 +31,7 @@ import {
   X,
   AlertTriangle,
   Clock,
+  Info,
   Eye,
   EyeOff,
   BarChart3,
@@ -60,7 +61,8 @@ interface TransferOption {
   available: boolean;
 }
 
-const mockAccounts: BankAccount[] = [
+// Base mock accounts for normal mode
+const baseMockAccounts: BankAccount[] = [
   {
     id: "1",
     bankName: "Chase Bank",
@@ -78,6 +80,37 @@ const mockAccounts: BankAccount[] = [
     balance: 45920.15,
     isLinked: false,
     isVerified: false,
+  },
+];
+
+// Enhanced mock accounts for skipped/demo mode
+const filledMockAccounts: BankAccount[] = [
+  {
+    id: "1",
+    bankName: "Chase Bank",
+    accountType: "checking",
+    accountNumber: "****4521",
+    balance: 12847.32,
+    isLinked: true,
+    isVerified: true,
+  },
+  {
+    id: "2",
+    bankName: "Wells Fargo",
+    accountType: "savings",
+    accountNumber: "****7891",
+    balance: 45920.15,
+    isLinked: true,
+    isVerified: true,
+  },
+  {
+    id: "3",
+    bankName: "Bank of America",
+    accountType: "checking",
+    accountNumber: "****9876",
+    balance: 8650.0,
+    isLinked: true,
+    isVerified: true,
   },
 ];
 
@@ -151,6 +184,7 @@ export default function Banking() {
   const [selectedTransferMethod, setSelectedTransferMethod] = useState("");
   const [transferAmount, setTransferAmount] = useState("");
   const [showSkipOption, setShowSkipOption] = useState(true);
+  const [isSkippedMode, setIsSkippedMode] = useState(false);
   const [isLinkingAccount, setIsLinkingAccount] = useState(false);
   const [newAccount, setNewAccount] = useState({
     bankName: "",
@@ -168,7 +202,8 @@ export default function Banking() {
   };
 
   const handleSkipForNow = () => {
-    navigate("/");
+    setIsSkippedMode(true);
+    setShowSkipOption(false);
   };
 
   const handleLinkAccount = () => {
@@ -196,6 +231,8 @@ export default function Banking() {
     alert(`Transfer of $${transferAmount} initiated successfully!`);
   };
 
+  const mockAccounts = isSkippedMode ? filledMockAccounts : baseMockAccounts;
+
   const totalBalance = mockAccounts
     .filter((acc) => acc.isLinked)
     .reduce((sum, acc) => sum + acc.balance, 0);
@@ -219,6 +256,21 @@ export default function Banking() {
               <Button variant="outline" onClick={handleSkipForNow}>
                 Skip for Now (Development)
               </Button>
+            )}
+            {isSkippedMode && (
+              <div className="flex items-center gap-2">
+                <Badge variant="secondary">Demo Mode</Badge>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => {
+                    setIsSkippedMode(false);
+                    setShowSkipOption(true);
+                  }}
+                >
+                  Exit Demo
+                </Button>
+              </div>
             )}
           </div>
         </div>
@@ -244,10 +296,12 @@ export default function Banking() {
               </CardHeader>
               <CardContent>
                 <div className="text-3xl font-bold mb-2">
-                  ${totalBalance.toLocaleString()}
+                  ${(isSkippedMode ? 25000 : totalBalance).toLocaleString()}
                 </div>
                 <p className="text-muted-foreground">
-                  Available for investing • FDIC insured up to $250,000
+                  {isSkippedMode
+                    ? "Demo cash balance • Ready for trading"
+                    : "Available for investing • FDIC insured up to $250,000"}
                 </p>
               </CardContent>
             </Card>
@@ -314,6 +368,25 @@ export default function Banking() {
           </TabsContent>
 
           <TabsContent value="funding" className="space-y-6">
+            {isSkippedMode && (
+              <Card className="border-blue-200 bg-blue-50">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-3">
+                    <Info className="h-5 w-5 text-blue-600" />
+                    <div>
+                      <h4 className="font-semibold text-blue-900">
+                        Demo Mode Active
+                      </h4>
+                      <p className="text-sm text-blue-700">
+                        This shows how funding would work. In production, real
+                        bank connections and transfers would be processed.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
             <Card>
               <CardHeader>
                 <CardTitle>Add Funds</CardTitle>
