@@ -300,7 +300,21 @@ export function KYCOnboarding({ onComplete, onSkip }: KYCOnboardingProps) {
                       <SelectItem value="TX">Texas</SelectItem>
                       <SelectItem value="FL">Florida</SelectItem>
                       <SelectItem value="WA">Washington</SelectItem>
-                      {/* Add more states as needed */}
+                      <SelectItem value="IL">Illinois</SelectItem>
+                      <SelectItem value="PA">Pennsylvania</SelectItem>
+                      <SelectItem value="OH">Ohio</SelectItem>
+                      <SelectItem value="GA">Georgia</SelectItem>
+                      <SelectItem value="NC">North Carolina</SelectItem>
+                      <SelectItem value="MI">Michigan</SelectItem>
+                      <SelectItem value="NJ">New Jersey</SelectItem>
+                      <SelectItem value="VA">Virginia</SelectItem>
+                      <SelectItem value="TN">Tennessee</SelectItem>
+                      <SelectItem value="AZ">Arizona</SelectItem>
+                      <SelectItem value="MA">Massachusetts</SelectItem>
+                      <SelectItem value="IN">Indiana</SelectItem>
+                      <SelectItem value="MO">Missouri</SelectItem>
+                      <SelectItem value="MD">Maryland</SelectItem>
+                      <SelectItem value="WI">Wisconsin</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
