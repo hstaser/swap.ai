@@ -288,10 +288,46 @@ export default function OptimizationReview() {
           {/* Portfolio Allocation */}
           <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <BarChart3 className="h-5 w-5 text-purple-600" />
-                Optimized Allocation
-              </CardTitle>
+              <div className="flex items-center justify-between">
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="h-5 w-5 text-purple-600" />
+                  {isManualMode ? "Manual Allocation" : "Optimized Allocation"}
+                </CardTitle>
+                {!confirmed && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={toggleManualMode}
+                    className="text-xs"
+                  >
+                    {isManualMode ? "Use AI Allocation" : "Edit Manually"}
+                  </Button>
+                )}
+              </div>
+              {isManualMode && (
+                <div className="mt-2 p-3 bg-blue-50 rounded-lg border border-blue-200">
+                  <div className="text-sm text-blue-800 font-medium mb-1">
+                    Manual Editing Mode
+                  </div>
+                  <div className="text-xs text-blue-700">
+                    Adjust allocations below.{" "}
+                    {isOverAllocated ? (
+                      <span className="text-red-600 font-medium">
+                        ⚠️ Over-allocated by{" "}
+                        {(getTotalAllocation() - 100).toFixed(1)}%
+                      </span>
+                    ) : remainingAmount > 0 ? (
+                      <span className="text-green-600 font-medium">
+                        💰 {formatCurrency(remainingAmount)} remaining
+                      </span>
+                    ) : (
+                      <span className="text-green-600 font-medium">
+                        ✓ Fully allocated
+                      </span>
+                    )}
+                  </div>
+                </div>
+              )}
             </CardHeader>
             <CardContent className="space-y-4">
               {optimizedPortfolio.map((stock) => (
