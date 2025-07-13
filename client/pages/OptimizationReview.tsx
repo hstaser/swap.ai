@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useQueue } from "@/hooks/use-queue";
 
 interface OptimizedAllocation {
   symbol: string;
