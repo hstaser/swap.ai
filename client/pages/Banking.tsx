@@ -161,11 +161,12 @@ export default function Banking() {
                 <Building className="h-10 w-10 text-white" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-4">
-                Banking Features Coming Soon
+                Connect Your Banking
               </h2>
               <p className="text-gray-600 mb-6">
-                Connect your bank accounts to manage deposits, withdrawals, and
-                track your financial growth alongside your investments.
+                Link your bank accounts to seamlessly manage deposits,
+                withdrawals, and track your financial growth alongside your
+                investments.
               </p>
               <div className="space-y-3 text-left">
                 <div className="flex items-center gap-3 text-gray-700">
