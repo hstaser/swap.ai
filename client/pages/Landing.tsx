@@ -325,27 +325,32 @@ export default function Landing() {
               </div>
             </div>
 
+            <Button
+              variant="ghost"
+              onClick={handleGuestMode}
+              className="w-full"
+            >
+              <Users className="h-4 w-4 mr-2" />
+              Continue as Guest
+            </Button>
+
             <div className="grid grid-cols-2 gap-3">
+              <Button
+                variant="ghost"
+                onClick={() => setMode("landing")}
+                className="w-full"
+              >
+                ← Back to Home
+              </Button>
+
               <Button
                 variant="outline"
                 onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+                className="w-full"
               >
                 {mode === "signin" ? "Sign Up" : "Sign In"}
               </Button>
-
-              <Button variant="ghost" onClick={handleGuestMode}>
-                <Users className="h-4 w-4 mr-2" />
-                Guest Mode
-              </Button>
             </div>
-
-            <Button
-              variant="ghost"
-              onClick={() => setMode("landing")}
-              className="w-full"
-            >
-              ← Back
-            </Button>
           </div>
         </CardContent>
       </Card>
