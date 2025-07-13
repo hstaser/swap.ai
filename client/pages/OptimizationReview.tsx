@@ -327,10 +327,27 @@ export default function OptimizationReview() {
             <Card className="border-0 bg-gradient-to-r from-green-100 to-blue-100 shadow-lg">
               <CardContent className="p-6 text-center">
                 <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-green-800 mb-2">
-                  Portfolio Successfully Created!
+                <h3 className="text-lg font-semibold text-green-800 mb-4">
+                  You're all done! 🎉
                 </h3>
-                <p className="text-sm text-green-700">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+                  <Button
+                    onClick={() => navigate("/portfolio")}
+                    className="h-12 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
+                  >
+                    <PieChart className="h-4 w-4 mr-2" />
+                    View Portfolio
+                  </Button>
+                  <Button
+                    onClick={() => navigate("/")}
+                    variant="outline"
+                    className="h-12 border-green-200 text-green-700 hover:bg-green-50"
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Return Home
+                  </Button>
+                </div>
+                <p className="text-sm text-green-700 mt-4">
                   Your optimized portfolio has been created and trades have been
                   executed. Redirecting to your portfolio...
                 </p>
