@@ -60,6 +60,13 @@ export default function Research() {
   const [searchParams] = useSearchParams();
   const symbolParam = searchParams.get("symbol");
 
+  // Store the referring page when component mounts
+  useEffect(() => {
+    if (document.referrer && !sessionStorage.getItem("research_referrer")) {
+      sessionStorage.setItem("research_referrer", document.referrer);
+    }
+  }, []);
+
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
       id: "1",
