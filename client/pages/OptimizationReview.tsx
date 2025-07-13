@@ -41,6 +41,10 @@ export default function OptimizationReview() {
   const optimizationType = searchParams.get("type") || "new";
   const [isConfirming, setIsConfirming] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
+  const [isManualMode, setIsManualMode] = useState(false);
+  const [manualAllocations, setManualAllocations] = useState<
+    OptimizedAllocation[]
+  >([]);
 
   // Mock existing portfolio for rebalancing
   const existingHoldings = [
