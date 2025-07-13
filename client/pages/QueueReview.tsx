@@ -34,6 +34,8 @@ export default function QueueReview() {
   const { queue, removeFromQueue, clearQueue } = useQueue();
   const { authStatus } = useAuth();
   const [showGuestWarning, setShowGuestWarning] = useState(false);
+  const { authStatus } = useAuth();
+  const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [viewMode, setViewMode] = useState<"marginal" | "net">("marginal");
 
   // Mock existing portfolio
