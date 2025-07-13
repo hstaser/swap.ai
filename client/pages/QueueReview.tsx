@@ -35,7 +35,7 @@ interface QueuedStock {
 export default function QueueReview() {
   const navigate = useNavigate();
   const { queue, removeFromQueue, clearQueue } = useQueue();
-  const { authStatus } = useAuth();
+  const { authStatus, saveGuestDataAndSignOut } = useAuth();
   const [showGuestWarning, setShowGuestWarning] = useState(false);
   const [viewMode, setViewMode] = useState<"marginal" | "net">("marginal");
 
@@ -413,7 +413,8 @@ export default function QueueReview() {
             action="invest your money"
             onSignUp={() => {
               setShowGuestWarning(false);
-              navigate("/");
+              // Save queue and sign out guest to show landing page
+              saveGuestDataAndSignOut();
             }}
             onCancel={() => {
               setShowGuestWarning(false);

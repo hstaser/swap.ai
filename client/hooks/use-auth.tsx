@@ -22,6 +22,7 @@ interface AuthContextType {
   signUp: (name: string, email: string, password: string) => Promise<void>;
   continueAsGuest: () => void;
   signOut: () => void;
+  saveGuestDataAndSignOut: () => void;
   requireAuth: () => boolean;
 }
 
@@ -72,6 +73,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setAuthStatus("authenticated");
     localStorage.setItem("auth_status", "authenticated");
     localStorage.setItem("user_data", JSON.stringify(mockUser));
+
+    // Restore guest queue if it exists
+    restoreGuestQueue();
+  };
+
+  const restoreGuestQueue = () => {
+    const guestQueue = localStorage.getItem("guest_queue_backup");
+    if (guestQueue) {
+      localStorage.setItem("queue", guestQueue);
+      localStorage.removeItem("guest_queue_backup");
+    }
   };
 
   const signUp = async (name: string, email: string, password: string) => {
@@ -90,6 +102,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setAuthStatus("authenticated");
     localStorage.setItem("auth_status", "authenticated");
     localStorage.setItem("user_data", JSON.stringify(newUser));
+
+    // Restore guest queue if it exists
+    restoreGuestQueue();
   };
 
   const continueAsGuest = () => {
@@ -103,6 +118,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(guestUser);
     setAuthStatus("guest");
     localStorage.setItem("auth_status", "guest");
+  };
+
+  const saveGuestDataAndSignOut = () => {
+    // Save guest queue data before signing out
+    const guestQueue = localStorage.getItem("queue") || "[]";
+    if (guestQueue !== "[]") {
+      localStorage.setItem("guest_queue_backup", guestQueue);
+    }
+
+    // Sign out guest user to show landing page
+    setUser(null);
+    setAuthStatus("unauthenticated");
+    localStorage.removeItem("auth_status");
+    localStorage.removeItem("user_data");
   };
 
   const signOut = () => {
@@ -128,6 +157,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signUp,
         continueAsGuest,
         signOut,
+        saveGuestDataAndSignOut,
         requireAuth,
       }}
     >
