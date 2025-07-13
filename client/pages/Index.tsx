@@ -548,6 +548,19 @@ export default function Index() {
               >
                 Dev: Onboarding
               </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => {
+                  // Clear all auth data and return to landing
+                  localStorage.clear();
+                  sessionStorage.clear();
+                  window.location.href = "/";
+                }}
+                className="text-xs bg-red-50 border-red-200 text-red-700 hover:bg-red-100"
+              >
+                Dev: Sign Out
+              </Button>
               <Button variant="ghost" size="icon" asChild>
                 <Link to="/settings">
                   <Settings className="h-4 w-4" />
