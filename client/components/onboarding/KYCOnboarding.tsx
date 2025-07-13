@@ -132,6 +132,76 @@ export function KYCOnboarding({ onComplete, onSkip }: KYCOnboardingProps) {
     }
   };
 
+  const skipStep = () => {
+    // Auto-fill current step with default data
+    switch (currentStep) {
+      case 1:
+        setData((prev) => ({
+          ...prev,
+          firstName: "John",
+          lastName: "Developer",
+          dateOfBirth: "1990-01-01",
+          ssn: "123-45-6789",
+        }));
+        break;
+      case 2:
+        setData((prev) => ({
+          ...prev,
+          streetAddress: "123 Main St",
+          city: "San Francisco",
+          state: "CA",
+          zipCode: "94102",
+        }));
+        break;
+      case 3:
+        setData((prev) => ({
+          ...prev,
+          phoneNumber: "(555) 123-4567",
+          email: "dev@example.com",
+        }));
+        break;
+      case 4:
+        setData((prev) => ({
+          ...prev,
+          employmentStatus: "employed",
+          employer: "Tech Company",
+          jobTitle: "Software Engineer",
+          annualIncome: "100k-150k",
+          netWorth: "100k-250k",
+          liquidNetWorth: "50k-100k",
+        }));
+        break;
+      case 5:
+        setData((prev) => ({
+          ...prev,
+          photoIdUploaded: true,
+        }));
+        break;
+      case 6:
+        setData((prev) => ({
+          ...prev,
+          riskTolerance: "moderate",
+          investmentGoal: "growth",
+          timeHorizon: "long",
+        }));
+        break;
+      case 7:
+        // Investment amounts already have defaults
+        break;
+      case 8:
+        setData((prev) => ({
+          ...prev,
+          termsAccepted: true,
+          privacyAccepted: true,
+          disclosuresAccepted: true,
+        }));
+        break;
+    }
+
+    // Move to next step
+    nextStep();
+  };
+
   const skipWithDefaults = () => {
     const defaultData: KYCData = {
       ...data,
@@ -911,19 +981,29 @@ export function KYCOnboarding({ onComplete, onSkip }: KYCOnboardingProps) {
               Back
             </Button>
 
-            <Button onClick={nextStep} disabled={!canProceed()}>
-              {currentStep === totalSteps ? (
-                <>
-                  <CheckCircle className="h-4 w-4 mr-2" />
-                  Complete Setup
-                </>
-              ) : (
-                <>
-                  Next
-                  <ChevronRight className="h-4 w-4 ml-2" />
-                </>
-              )}
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                variant="ghost"
+                onClick={skipStep}
+                className="text-xs text-muted-foreground"
+              >
+                Skip Step (Dev)
+              </Button>
+
+              <Button onClick={nextStep} disabled={!canProceed()}>
+                {currentStep === totalSteps ? (
+                  <>
+                    <CheckCircle className="h-4 w-4 mr-2" />
+                    Complete Setup
+                  </>
+                ) : (
+                  <>
+                    Next
+                    <ChevronRight className="h-4 w-4 ml-2" />
+                  </>
+                )}
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>
