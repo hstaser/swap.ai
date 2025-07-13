@@ -129,10 +129,8 @@ export default function OptimizationReview() {
     setIsConfirming(false);
     setConfirmed(true);
 
-    // Navigate to portfolio after success
-    setTimeout(() => {
-      navigate("/portfolio?optimized=true");
-    }, 2000);
+    // Clear the queue after successful investment
+    clearQueue();
   };
 
   return (
