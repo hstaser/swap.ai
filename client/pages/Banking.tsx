@@ -114,6 +114,7 @@ export default function Banking() {
   const [selectedAccount, setSelectedAccount] = useState<string | null>(null);
   const [transferAmount, setTransferAmount] = useState("");
   const [showBalances, setShowBalances] = useState(true);
+  const [showBankingFeatures, setShowBankingFeatures] = useState(false);
 
   const handleSkipForNow = () => {
     setShowSkipOption(false);
