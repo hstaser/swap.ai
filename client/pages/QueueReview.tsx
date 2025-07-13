@@ -18,7 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
 import { useAuth } from "@/hooks/use-auth";
-import { GuestWarning } from "@/components/ui/guest-warning";
+import { AuthModal } from "@/components/ui/auth-modal";
 
 interface QueuedStock {
   symbol: string;
@@ -36,7 +36,7 @@ export default function QueueReview() {
   const navigate = useNavigate();
   const { queue, removeFromQueue, clearQueue } = useQueue();
   const { authStatus, saveGuestDataAndSignOut } = useAuth();
-  const [showGuestWarning, setShowGuestWarning] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [viewMode, setViewMode] = useState<"marginal" | "net">("marginal");
 
   // Cleanup function to prevent state updates after unmount
@@ -380,7 +380,7 @@ export default function QueueReview() {
               <Button
                 onClick={() => {
                   if (authStatus === "guest") {
-                    setShowGuestWarning(true);
+                    setShowAuthModal(true);
                   } else {
                     navigate("/optimize");
                   }
@@ -414,21 +414,12 @@ export default function QueueReview() {
           </div>
         </div>
 
-        {/* Guest Warning Modal */}
-        {showGuestWarning && (
-          <GuestWarning
-            action="invest your money"
-            onSignUp={() => {
-              // Close modal first to prevent React errors during transition
-              setShowGuestWarning(false);
-              // Use setTimeout to ensure modal is closed before auth state change
-              setTimeout(() => {
-                saveGuestDataAndSignOut();
-              }, 100);
-            }}
-            onCancel={() => {
-              setShowGuestWarning(false);
-            }}
+        {/* Auth Modal */}
+        {showAuthModal && (
+          <AuthModal
+            title="Sign in to Invest"
+            subtitle="Create an account or sign in to proceed with your investment"
+            onClose={() => setShowAuthModal(false)}
           />
         )}
 
