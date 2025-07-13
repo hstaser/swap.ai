@@ -27,6 +27,7 @@ import {
   PieChart,
   AlertTriangle,
   CheckCircle,
+  LogOut,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -668,6 +669,30 @@ export default function Settings() {
                       </SelectItem>
                     </SelectContent>
                   </Select>
+                </div>
+
+                <div className="pt-4 border-t">
+                  <div className="space-y-3">
+                    <Label className="text-sm font-medium">
+                      Account Actions
+                    </Label>
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        if (confirm("Are you sure you want to sign out?")) {
+                          // Clear all user data
+                          localStorage.clear();
+                          sessionStorage.clear();
+                          // Redirect to landing page
+                          window.location.href = "/";
+                        }
+                      }}
+                      className="w-full justify-start"
+                    >
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sign Out
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
