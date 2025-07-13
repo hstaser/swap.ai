@@ -191,6 +191,70 @@ const mockDetailedStocks: { [key: string]: DetailedStock } = {
       priceTarget: "$250.00",
     },
   },
+  COIN: {
+    symbol: "COIN",
+    name: "Coinbase Global, Inc.",
+    price: 156.78,
+    change: 4.23,
+    changePercent: 2.77,
+    sector: "Financial Services",
+    marketCap: "37.8B",
+    volume: "12.3M",
+    pe: 51.2,
+    dividendYield: null,
+    week52High: 429.54,
+    week52Low: 31.55,
+    avgVolume: "18.7M",
+    beta: 3.51,
+    eps: 3.06,
+    revenue: "7.4B",
+    employees: "4,948",
+    founded: "2012",
+    headquarters: "San Francisco, CA",
+    description:
+      "Coinbase Global, Inc. operates a cryptocurrency exchange platform that allows users to buy, sell, and store cryptocurrencies. The company provides institutional trading, custody, and other services to professional investors.",
+    news: [
+      {
+        title: "Coinbase announces new institutional custody services",
+        source: "CoinDesk",
+        time: "3h ago",
+        summary:
+          "The crypto exchange expands its institutional offerings with enhanced custody solutions for large investors.",
+      },
+      {
+        title: "SEC approves Bitcoin ETF applications",
+        source: "Reuters",
+        time: "5h ago",
+        summary:
+          "Regulatory approval for Bitcoin ETFs could drive increased trading volume on Coinbase's platform.",
+      },
+      {
+        title: "Coinbase reports strong Q4 trading volumes",
+        source: "Bloomberg",
+        time: "1d ago",
+        summary:
+          "Cryptocurrency trading activity surged in the fourth quarter, boosting revenue expectations.",
+      },
+    ],
+    financials: {
+      revenue: "7.4B",
+      netIncome: "1.6B",
+      grossMargin: "85.2%",
+      operatingMargin: "21.8%",
+      profitMargin: "21.6%",
+      roe: "8.9%",
+      roa: "6.1%",
+      debtToEquity: "0.09",
+    },
+    keyStats: {
+      sharesOutstanding: "241M",
+      floatShares: "189M",
+      institutionalOwnership: "58.3%",
+      shortInterest: "12.4%",
+      analystRating: "Hold",
+      priceTarget: "$170.00",
+    },
+  },
 };
 
 export default function StockDetail() {
