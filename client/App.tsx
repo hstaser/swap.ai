@@ -8,7 +8,9 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueueProvider } from "@/hooks/use-queue";
+import { AuthProvider, useAuth } from "@/hooks/use-auth";
 import { OnboardingFlow } from "@/components/onboarding/OnboardingFlow";
+import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import Markets from "./pages/Markets";
 import Research from "./pages/Research";
@@ -27,10 +29,12 @@ import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
-const App = () => {
+function AppContent() {
+  const { authStatus } = useAuth();
   const [showOnboarding, setShowOnboarding] = useState(
-    // Show onboarding for new users (in real app, check user settings)
-    localStorage.getItem("onboarding_completed") !== "true",
+    // Show onboarding for authenticated users only
+    authStatus === "authenticated" &&
+      localStorage.getItem("onboarding_completed") !== "true",
   );
 
   const handleOnboardingComplete = (data: any) => {
@@ -43,41 +47,56 @@ const App = () => {
     setShowOnboarding(false);
   };
 
+  // Show landing page if not authenticated and not guest
+  if (authStatus === "unauthenticated") {
+    return <Landing />;
+  }
+
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Index />} />
+        <Route path="/markets" element={<Markets />} />
+        <Route path="/research" element={<Research />} />
+        <Route path="/banking" element={<Banking />} />
+        <Route path="/transactions" element={<Transactions />} />
+        <Route path="/watchlist" element={<Watchlist />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/queue/add/:symbol" element={<QueueAdd />} />
+        <Route path="/queue/review" element={<QueueReview />} />
+        <Route path="/optimize" element={<PortfolioOptimize />} />
+        <Route path="/optimize/review" element={<OptimizationReview />} />
+        <Route path="/stock/:symbol" element={<StockDetail />} />
+        <Route path="/stock/:symbol/news" element={<StockNews />} />
+        <Route path="/settings" element={<Settings />} />
+        {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
+      {/* Onboarding Flow - only for authenticated users */}
+      {showOnboarding && authStatus === "authenticated" && (
+        <OnboardingFlow
+          onComplete={handleOnboardingComplete}
+          onSkip={handleOnboardingSkip}
+        />
+      )}
+    </>
+  );
+}
+
+const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <QueueProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Routes>
-              <Route path="/" element={<Index />} />
-              <Route path="/markets" element={<Markets />} />
-              <Route path="/research" element={<Research />} />
-              <Route path="/banking" element={<Banking />} />
-              <Route path="/transactions" element={<Transactions />} />
-              <Route path="/watchlist" element={<Watchlist />} />
-              <Route path="/portfolio" element={<Portfolio />} />
-              <Route path="/queue/add/:symbol" element={<QueueAdd />} />
-              <Route path="/queue/review" element={<QueueReview />} />
-              <Route path="/optimize" element={<PortfolioOptimize />} />
-              <Route path="/optimize/review" element={<OptimizationReview />} />
-              <Route path="/stock/:symbol" element={<StockDetail />} />
-              <Route path="/stock/:symbol/news" element={<StockNews />} />
-              <Route path="/settings" element={<Settings />} />
-              {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-
-            {/* Onboarding Flow */}
-            {showOnboarding && (
-              <OnboardingFlow
-                onComplete={handleOnboardingComplete}
-                onSkip={handleOnboardingSkip}
-              />
-            )}
-          </BrowserRouter>
-        </QueueProvider>
+        <AuthProvider>
+          <QueueProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <AppContent />
+            </BrowserRouter>
+          </QueueProvider>
+        </AuthProvider>
       </TooltipProvider>
     </QueryClientProvider>
   );
