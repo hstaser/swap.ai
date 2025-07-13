@@ -137,15 +137,6 @@ export default function Banking() {
             </div>
 
             <div className="flex items-center gap-3">
-              {showSkipOption && (
-                <Button
-                  variant="outline"
-                  onClick={handleSkipForNow}
-                  className="text-sm"
-                >
-                  Skip for Now (Dev)
-                </Button>
-              )}
               <Button
                 variant={showBankingFeatures ? "default" : "outline"}
                 onClick={() => setShowBankingFeatures(!showBankingFeatures)}
