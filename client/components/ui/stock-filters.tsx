@@ -256,7 +256,7 @@ export function StockFilters({
             variant="ghost"
             size="sm"
             onClick={onClearFilters}
-            className="h-8 px-2 lg:px-3"
+            className="h-10 sm:h-8 px-3 text-sm touch-manipulation"
           >
             Clear filters
             <X className="ml-2 h-4 w-4" />
