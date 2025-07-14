@@ -254,23 +254,6 @@ export default function Research() {
                 </h1>
               </div>
             </div>
-
-            <div className="flex items-center gap-2">
-              <Badge
-                variant="outline"
-                className="bg-white/50 flex items-center gap-1"
-              >
-                <Bot className="h-3 w-3" />
-                AI Assistant Active
-              </Badge>
-              <Badge
-                variant="outline"
-                className="bg-green-50 text-green-700 border-green-200"
-              >
-                <Lightbulb className="h-3 w-3 mr-1" />
-                Educational Only
-              </Badge>
-            </div>
           </div>
         </div>
       </header>
