@@ -141,7 +141,7 @@ export function StockFilters({
           value={filters.sector}
           onValueChange={(value) => updateFilter("sector", value)}
         >
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-full lg:w-[140px] h-11">
             <SelectValue placeholder="Sectors">
               {filters.sector === "All" ? "All Sectors" : filters.sector}
             </SelectValue>
