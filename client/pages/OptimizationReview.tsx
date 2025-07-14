@@ -21,6 +21,7 @@ import {
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
+import { BottomNav } from "@/components/ui/bottom-nav";
 
 interface OptimizedAllocation {
   symbol: string;
