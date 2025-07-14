@@ -639,7 +639,7 @@ export default function Banking() {
 
               {/* Withdrawals Tab */}
               <TabsContent value="withdrawals" className="space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="space-y-6">
                   <Card className="bg-gradient-to-br from-red-500 to-red-700 text-white border-0 shadow-lg">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
