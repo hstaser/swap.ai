@@ -672,39 +672,124 @@ export default function Banking() {
                     </CardContent>
                   </Card>
 
-                  <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
-                    <CardHeader>
-                      <CardTitle>Withdrawal Limits</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-4">
-                        <div>
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm">Daily Limit</span>
-                            <span className="text-sm font-semibold">
-                              $2,500
-                            </span>
+                  {/* Withdrawal Method Selection */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <Card
+                      className={cn(
+                        "cursor-pointer transition-all border-2",
+                        selectedWithdrawMethod === "bank"
+                          ? "border-red-500 bg-red-50"
+                          : "border-gray-200 hover:border-red-300",
+                      )}
+                    >
+                      <CardContent
+                        onClick={() => setSelectedWithdrawMethod("bank")}
+                        className="p-4"
+                      >
+                        <div className="flex items-center gap-3">
+                          <Building className="h-6 w-6 text-red-600" />
+                          <div>
+                            <p className="font-semibold">Bank Transfer</p>
+                            <p className="text-sm text-gray-500">
+                              1-3 business days • Free
+                            </p>
                           </div>
-                          <Progress value={32} className="h-2" />
-                          <p className="text-xs text-gray-500 mt-1">
-                            $800 used today
-                          </p>
+                          {selectedWithdrawMethod === "bank" && (
+                            <CheckCircle className="h-5 w-5 text-red-600 ml-auto" />
+                          )}
                         </div>
-                        <div>
-                          <div className="flex justify-between items-center mb-2">
-                            <span className="text-sm">Monthly Limit</span>
-                            <span className="text-sm font-semibold">
-                              $50,000
-                            </span>
+                      </CardContent>
+                    </Card>
+
+                    <Card
+                      className={cn(
+                        "cursor-pointer transition-all border-2",
+                        selectedWithdrawMethod === "instant"
+                          ? "border-orange-500 bg-orange-50"
+                          : "border-gray-200 hover:border-orange-300",
+                      )}
+                    >
+                      <CardContent
+                        onClick={() => setSelectedWithdrawMethod("instant")}
+                        className="p-4"
+                      >
+                        <div className="flex items-center gap-3">
+                          <Zap className="h-6 w-6 text-orange-600" />
+                          <div>
+                            <p className="font-semibold">Instant Transfer</p>
+                            <p className="text-sm text-gray-500">
+                              Instant • $1.50 fee
+                            </p>
                           </div>
-                          <Progress value={18} className="h-2" />
-                          <p className="text-xs text-gray-500 mt-1">
-                            $9,200 used this month
+                          {selectedWithdrawMethod === "instant" && (
+                            <CheckCircle className="h-5 w-5 text-orange-600 ml-auto" />
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Limits Information */}
+                  <Card className="bg-yellow-50 border-yellow-200">
+                    <CardContent className="p-4">
+                      <div className="flex items-start gap-3">
+                        <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
+                        <div>
+                          <p className="text-sm font-medium text-yellow-800">
+                            Daily Limit: $2,500 • Monthly Limit: $50,000
+                          </p>
+                          <p className="text-xs text-yellow-700 mt-1">
+                            $800 used today • $9,200 used this month
                           </p>
                         </div>
                       </div>
                     </CardContent>
                   </Card>
+
+                  {/* Confirm Button */}
+                  <div className="flex justify-center">
+                    <Button
+                      onClick={() => {
+                        if (!withdrawAmount) {
+                          setConfirmationMessage(
+                            "Please enter a withdrawal amount.",
+                          );
+                          setShowConfirmation(true);
+                          return;
+                        }
+                        if (!selectedWithdrawMethod) {
+                          setConfirmationMessage(
+                            "Please select a withdrawal method.",
+                          );
+                          setShowConfirmation(true);
+                          return;
+                        }
+                        const amount = parseFloat(withdrawAmount);
+                        if (amount > 2500) {
+                          setConfirmationMessage(
+                            "Withdrawal amount exceeds daily limit of $2,500.",
+                          );
+                          setShowConfirmation(true);
+                          return;
+                        }
+                        const methodName =
+                          selectedWithdrawMethod === "bank"
+                            ? "Bank Transfer"
+                            : "Instant Transfer";
+                        setConfirmationMessage(
+                          `Successfully withdrew $${withdrawAmount} from ${withdrawAccount} account via ${methodName}!`,
+                        );
+                        setShowConfirmation(true);
+                        setWithdrawAmount("");
+                        setSelectedWithdrawMethod("");
+                      }}
+                      disabled={!withdrawAmount || !selectedWithdrawMethod}
+                      className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-lg disabled:opacity-50"
+                    >
+                      <CheckCircle className="h-5 w-5 mr-2" />
+                      Confirm Withdrawal
+                    </Button>
+                  </div>
                 </div>
               </TabsContent>
 
