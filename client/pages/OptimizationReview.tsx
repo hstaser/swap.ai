@@ -197,13 +197,14 @@ export default function OptimizationReview() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center gap-4">
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
+          <div className="flex items-center gap-2 sm:gap-4">
             <Button
               variant="ghost"
               size="icon"
               asChild
               disabled={isConfirming || confirmed}
+              className="h-10 w-10 sm:h-9 sm:w-9"
             >
               <Link to="/optimize">
                 <ArrowLeft className="h-4 w-4" />
@@ -213,7 +214,7 @@ export default function OptimizationReview() {
               <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                 <Brain className="h-5 w-5 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-foreground">
+              <h1 className="text-lg sm:text-xl font-bold text-foreground">
                 Review Investment
               </h1>
             </div>
