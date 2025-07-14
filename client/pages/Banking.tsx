@@ -669,34 +669,6 @@ export default function Banking() {
                           <option value="savings">Savings ****7891</option>
                         </select>
                       </div>
-                      <Button
-                        onClick={() => {
-                          if (withdrawAmount) {
-                            const amount = parseFloat(withdrawAmount);
-                            if (amount > 2500) {
-                              setConfirmationMessage(
-                                "Withdrawal amount exceeds daily limit of $2,500.",
-                              );
-                              setShowConfirmation(true);
-                            } else {
-                              setConfirmationMessage(
-                                `Successfully withdrew $${withdrawAmount} from ${withdrawAccount} account!`,
-                              );
-                              setShowConfirmation(true);
-                              setWithdrawAmount("");
-                            }
-                          } else {
-                            setConfirmationMessage(
-                              "Please enter a withdrawal amount.",
-                            );
-                            setShowConfirmation(true);
-                          }
-                        }}
-                        className="w-full bg-white text-red-700 hover:bg-white/90"
-                      >
-                        <CheckCircle className="h-4 w-4 mr-2" />
-                        Confirm Withdrawal
-                      </Button>
                     </CardContent>
                   </Card>
 
