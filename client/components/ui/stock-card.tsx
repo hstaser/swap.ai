@@ -249,10 +249,13 @@ export function StockCard({
           <Button
             variant="outline"
             onClick={() => navigate(`/research?symbol=${stock.symbol}`)}
-            className="w-full h-12 text-sm font-medium border-blue-200 text-blue-700 hover:bg-blue-50"
+            className="w-full h-12 sm:h-14 text-sm sm:text-base font-medium border-blue-200 text-blue-700 hover:bg-blue-50"
           >
             <MessageCircle className="h-4 w-4 mr-2" />
-            Need help? Ask AI about {stock.symbol}
+            <span className="hidden sm:inline">
+              Need help? Ask AI about {stock.symbol}
+            </span>
+            <span className="sm:hidden">Ask AI about {stock.symbol}</span>
           </Button>
         </div>
 
@@ -262,14 +265,14 @@ export function StockCard({
         <div className="space-y-4">
           <Button
             onClick={() => navigate(`/queue/add/${stock.symbol}`)}
-            className="w-full h-12 text-sm font-semibold bg-blue-600 hover:bg-blue-700 text-white"
+            className="w-full h-12 sm:h-14 text-sm sm:text-base font-semibold bg-blue-600 hover:bg-blue-700 text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
             Add to Queue
           </Button>
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <Button
               variant="ghost"
               onClick={() => {
