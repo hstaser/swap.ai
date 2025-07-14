@@ -132,14 +132,23 @@ export default function Banking() {
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-6">
-              <Link to="/" className="flex items-center gap-2">
+              <Link
+                to="/"
+                className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              >
+                <ArrowLeft className="h-5 w-5 text-gray-600" />
+                <span className="text-sm font-medium text-gray-600">
+                  Back to Home
+                </span>
+              </Link>
+              <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-gradient-to-r from-green-600 to-blue-600 rounded-lg flex items-center justify-center">
                   <Wallet className="h-5 w-5 text-white" />
                 </div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
                   swap.ai Banking
                 </h1>
-              </Link>
+              </div>
             </div>
 
             <div className="flex items-center gap-3">
