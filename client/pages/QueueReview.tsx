@@ -141,10 +141,15 @@ export default function QueueReview() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between w-full">
-            <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" asChild>
+            <div className="flex items-center gap-2 sm:gap-4">
+              <Button
+                variant="ghost"
+                size="icon"
+                asChild
+                className="h-10 w-10 sm:h-9 sm:w-9"
+              >
                 <Link to="/">
                   <ArrowLeft className="h-4 w-4" />
                 </Link>
@@ -153,25 +158,29 @@ export default function QueueReview() {
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                   <BarChart3 className="h-5 w-5 text-white" />
                 </div>
-                <h1 className="text-xl font-bold text-foreground">
+                <h1 className="text-lg sm:text-xl font-bold text-foreground">
                   Review Your Queue
                 </h1>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1 sm:gap-2">
               <Button
                 variant={viewMode === "marginal" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("marginal")}
+                className="text-xs sm:text-sm px-2 sm:px-3"
               >
-                Queue Only
+                <span className="hidden sm:inline">Queue Only</span>
+                <span className="sm:hidden">Queue</span>
               </Button>
               <Button
                 variant={viewMode === "net" ? "default" : "outline"}
                 size="sm"
                 onClick={() => setViewMode("net")}
+                className="text-xs sm:text-sm px-2 sm:px-3"
               >
-                Net Portfolio
+                <span className="hidden sm:inline">Net Portfolio</span>
+                <span className="sm:hidden">Net</span>
               </Button>
             </div>
           </div>
