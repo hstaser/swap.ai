@@ -647,7 +647,7 @@ export default function Index() {
                     onClick={() => navigate("/queue/review")}
                     className="h-12 px-8 text-sm font-medium border-orange-200 text-orange-700 hover:bg-orange-50"
                   >
-                    Build My Portfolio ({queue.length}{" "}
+                    Review & Invest ({queue.length}{" "}
                     {queue.length === 1 ? "stock" : "stocks"})
                   </Button>
                 </div>
