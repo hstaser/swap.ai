@@ -136,7 +136,7 @@ export function StockFilters({
 
   return (
     <div className={className}>
-      <div className="flex flex-wrap gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:flex lg:flex-wrap gap-2">
         <Select
           value={filters.sector}
           onValueChange={(value) => updateFilter("sector", value)}
