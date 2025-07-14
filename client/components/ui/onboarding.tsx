@@ -103,7 +103,7 @@ export function Onboarding({ onComplete, onSkip }: OnboardingProps) {
 
   const steps = [
     {
-      title: "Welcome to swap.ai",
+      title: "Welcome to swipr.ai",
       subtitle: "Let's personalize your investment experience",
       icon: Sparkles,
       content: (
