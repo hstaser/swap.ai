@@ -139,7 +139,7 @@ export function AuthModal({
             <div className="w-7 h-7 sm:w-8 sm:h-8 bg-primary rounded-lg flex items-center justify-center">
               <BarChart3 className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
             </div>
-            <span className="text-lg sm:text-xl font-bold">swap.ai</span>
+            <span className="text-lg sm:text-xl font-bold">swipr.ai</span>
           </div>
           <CardTitle className="text-center text-lg sm:text-xl">
             {mode === "signin" ? "Welcome Back" : "Create Account"}
