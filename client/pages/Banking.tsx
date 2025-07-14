@@ -551,7 +551,15 @@ export default function Banking() {
                     </CardHeader>
                     <CardContent>
                       <div className="space-y-3">
-                        <div className="p-3 border border-green-200 rounded-lg hover:bg-green-50 cursor-pointer">
+                        <div
+                          onClick={() => {
+                            setConfirmationMessage(
+                              "Bank Transfer selected! This is the recommended method for large deposits.",
+                            );
+                            setShowConfirmation(true);
+                          }}
+                          className="p-3 border border-green-200 rounded-lg hover:bg-green-50 cursor-pointer transition-colors"
+                        >
                           <div className="flex items-center gap-3">
                             <Building className="h-5 w-5 text-green-600" />
                             <div>
@@ -562,7 +570,15 @@ export default function Banking() {
                             </div>
                           </div>
                         </div>
-                        <div className="p-3 border border-blue-200 rounded-lg hover:bg-blue-50 cursor-pointer">
+                        <div
+                          onClick={() => {
+                            setConfirmationMessage(
+                              "Debit Card selected! Instant deposit with 2.9% fee.",
+                            );
+                            setShowConfirmation(true);
+                          }}
+                          className="p-3 border border-blue-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors"
+                        >
                           <div className="flex items-center gap-3">
                             <CreditCard className="h-5 w-5 text-blue-600" />
                             <div>
