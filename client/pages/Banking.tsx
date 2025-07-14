@@ -508,7 +508,7 @@ export default function Banking() {
 
               {/* Deposits Tab */}
               <TabsContent value="deposits" className="space-y-6">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="space-y-6">
                   <Card className="bg-gradient-to-br from-green-500 to-green-700 text-white border-0 shadow-lg">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
