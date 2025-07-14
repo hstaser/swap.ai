@@ -177,7 +177,7 @@ export function StockFilters({
           value={filters.marketCap}
           onValueChange={(value) => updateFilter("marketCap", value)}
         >
-          <SelectTrigger className="w-[140px]">
+          <SelectTrigger className="w-full lg:w-[140px] h-11">
             <SelectValue placeholder="Market Cap">
               {filters.marketCap === "All" ? "All Sizes" : filters.marketCap}
             </SelectValue>
