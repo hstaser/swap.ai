@@ -538,26 +538,6 @@ export default function Banking() {
                           <option value="savings">Savings ****7891</option>
                         </select>
                       </div>
-                      <Button
-                        onClick={() => {
-                          if (depositAmount) {
-                            setConfirmationMessage(
-                              `Successfully deposited $${depositAmount} to ${depositAccount} account!`,
-                            );
-                            setShowConfirmation(true);
-                            setDepositAmount("");
-                          } else {
-                            setConfirmationMessage(
-                              "Please enter a deposit amount.",
-                            );
-                            setShowConfirmation(true);
-                          }
-                        }}
-                        className="w-full bg-white text-green-700 hover:bg-white/90"
-                      >
-                        <CheckCircle className="h-4 w-4 mr-2" />
-                        Confirm Deposit
-                      </Button>
                     </CardContent>
                   </Card>
 
