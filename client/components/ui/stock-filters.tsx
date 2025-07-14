@@ -213,7 +213,7 @@ export function StockFilters({
           value={filters.dividendYield}
           onValueChange={(value) => updateFilter("dividendYield", value)}
         >
-          <SelectTrigger className="w-[130px]">
+          <SelectTrigger className="w-full lg:w-[130px] h-11">
             <SelectValue placeholder="Dividends">
               {filters.dividendYield === "All"
                 ? "All Dividends"
