@@ -93,7 +93,7 @@ export default function PortfolioOptimize() {
                 <Brain className="h-5 w-5 text-white" />
               </div>
               <h1 className="text-xl font-bold text-foreground">
-                Optimize & Invest
+                Set Investment Amount
               </h1>
             </div>
           </div>
