@@ -159,7 +159,7 @@ export function StockFilters({
           value={filters.exchange}
           onValueChange={(value) => updateFilter("exchange", value)}
         >
-          <SelectTrigger className="w-[120px]">
+          <SelectTrigger className="w-full lg:w-[120px] h-11">
             <SelectValue placeholder="Markets">
               {filters.exchange === "All" ? "All Markets" : filters.exchange}
             </SelectValue>
