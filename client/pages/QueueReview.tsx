@@ -452,6 +452,9 @@ export default function QueueReview() {
           </div>
         )}
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <BottomNav />
     </div>
   );
 }
