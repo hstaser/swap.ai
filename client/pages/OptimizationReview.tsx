@@ -295,12 +295,17 @@ export default function OptimizationReview() {
                 </CardTitle>
                 {!confirmed && (
                   <Button
-                    variant="outline"
+                    variant={isManualMode ? "default" : "outline"}
                     size="sm"
                     onClick={toggleManualMode}
-                    className="text-xs"
+                    className={cn(
+                      "text-sm font-semibold border-2 shadow-md transition-all duration-200",
+                      isManualMode
+                        ? "bg-blue-600 hover:bg-blue-700 text-white border-blue-600"
+                        : "border-blue-500 text-blue-700 hover:bg-blue-50 hover:border-blue-600 bg-white",
+                    )}
                   >
-                    {isManualMode ? "Use AI Allocation" : "Edit Manually"}
+                    {isManualMode ? "✨ Use AI Allocation" : "✏️ Edit Manually"}
                   </Button>
                 )}
               </div>
