@@ -541,53 +541,99 @@ export default function Banking() {
                     </CardContent>
                   </Card>
 
-                  <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
-                    <CardHeader>
-                      <CardTitle>Deposit Methods</CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-3">
-                        <div
-                          onClick={() => {
-                            setConfirmationMessage(
-                              "Bank Transfer selected! This is the recommended method for large deposits.",
-                            );
-                            setShowConfirmation(true);
-                          }}
-                          className="p-3 border border-green-200 rounded-lg hover:bg-green-50 cursor-pointer transition-colors"
-                        >
-                          <div className="flex items-center gap-3">
-                            <Building className="h-5 w-5 text-green-600" />
-                            <div>
-                              <p className="font-semibold">Bank Transfer</p>
-                              <p className="text-sm text-gray-500">
-                                1-3 business days • Free
-                              </p>
-                            </div>
+                  {/* Payment Method Selection */}
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <Card
+                      className={cn(
+                        "cursor-pointer transition-all border-2",
+                        selectedDepositMethod === "bank"
+                          ? "border-green-500 bg-green-50"
+                          : "border-gray-200 hover:border-green-300",
+                      )}
+                    >
+                      <CardContent
+                        onClick={() => setSelectedDepositMethod("bank")}
+                        className="p-4"
+                      >
+                        <div className="flex items-center gap-3">
+                          <Building className="h-6 w-6 text-green-600" />
+                          <div>
+                            <p className="font-semibold">Bank Transfer</p>
+                            <p className="text-sm text-gray-500">
+                              1-3 business days • Free
+                            </p>
                           </div>
+                          {selectedDepositMethod === "bank" && (
+                            <CheckCircle className="h-5 w-5 text-green-600 ml-auto" />
+                          )}
                         </div>
-                        <div
-                          onClick={() => {
-                            setConfirmationMessage(
-                              "Debit Card selected! Instant deposit with 2.9% fee.",
-                            );
-                            setShowConfirmation(true);
-                          }}
-                          className="p-3 border border-blue-200 rounded-lg hover:bg-blue-50 cursor-pointer transition-colors"
-                        >
-                          <div className="flex items-center gap-3">
-                            <CreditCard className="h-5 w-5 text-blue-600" />
-                            <div>
-                              <p className="font-semibold">Debit Card</p>
-                              <p className="text-sm text-gray-500">
-                                Instant • 2.9% fee
-                              </p>
-                            </div>
+                      </CardContent>
+                    </Card>
+
+                    <Card
+                      className={cn(
+                        "cursor-pointer transition-all border-2",
+                        selectedDepositMethod === "card"
+                          ? "border-blue-500 bg-blue-50"
+                          : "border-gray-200 hover:border-blue-300",
+                      )}
+                    >
+                      <CardContent
+                        onClick={() => setSelectedDepositMethod("card")}
+                        className="p-4"
+                      >
+                        <div className="flex items-center gap-3">
+                          <CreditCard className="h-6 w-6 text-blue-600" />
+                          <div>
+                            <p className="font-semibold">Debit Card</p>
+                            <p className="text-sm text-gray-500">
+                              Instant • 2.9% fee
+                            </p>
                           </div>
+                          {selectedDepositMethod === "card" && (
+                            <CheckCircle className="h-5 w-5 text-blue-600 ml-auto" />
+                          )}
                         </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </div>
+
+                  {/* Confirm Button */}
+                  <div className="flex justify-center">
+                    <Button
+                      onClick={() => {
+                        if (!depositAmount) {
+                          setConfirmationMessage(
+                            "Please enter a deposit amount.",
+                          );
+                          setShowConfirmation(true);
+                          return;
+                        }
+                        if (!selectedDepositMethod) {
+                          setConfirmationMessage(
+                            "Please select a deposit method.",
+                          );
+                          setShowConfirmation(true);
+                          return;
+                        }
+                        const methodName =
+                          selectedDepositMethod === "bank"
+                            ? "Bank Transfer"
+                            : "Debit Card";
+                        setConfirmationMessage(
+                          `Successfully deposited $${depositAmount} to ${depositAccount} account via ${methodName}!`,
+                        );
+                        setShowConfirmation(true);
+                        setDepositAmount("");
+                        setSelectedDepositMethod("");
+                      }}
+                      disabled={!depositAmount || !selectedDepositMethod}
+                      className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg disabled:opacity-50"
+                    >
+                      <CheckCircle className="h-5 w-5 mr-2" />
+                      Confirm Deposit
+                    </Button>
+                  </div>
                 </div>
               </TabsContent>
 
