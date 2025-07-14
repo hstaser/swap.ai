@@ -486,14 +486,16 @@ export default function Index() {
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 sm:gap-6">
               <div className="flex items-center gap-2">
                 <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
                   <BarChart3 className="h-5 w-5 text-white" />
                 </div>
-                <h1 className="text-xl font-bold text-foreground">swap.ai</h1>
+                <h1 className="text-lg sm:text-xl font-bold text-foreground">
+                  swap.ai
+                </h1>
               </div>
               <nav className="hidden md:flex items-center gap-4">
                 <Button variant="ghost" size="sm" asChild>
@@ -514,7 +516,7 @@ export default function Index() {
               </nav>
             </div>
             <div className="flex items-center gap-2">
-              <Link to="/queue/review">
+              <Link to="/queue/review" className="hidden md:block">
                 <Badge
                   variant="outline"
                   className="bg-white/50 cursor-pointer hover:bg-white/70 transition-colors"
