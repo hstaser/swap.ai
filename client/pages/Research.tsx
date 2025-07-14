@@ -287,8 +287,8 @@ export default function Research() {
                 </h3>
                 <p className="text-sm text-yellow-700">
                   This AI assistant provides educational information about
-                  companies and markets to help you make informed investment
-                  decisions.
+                  companies and markets. It does not provide investment advice,
+                  price predictions, or buy/sell recommendations.
                 </p>
               </div>
             </div>
