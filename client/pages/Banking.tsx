@@ -513,7 +513,7 @@ export default function Banking() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <ArrowUpRight className="h-5 w-5" />
-                        Make a Deposit
+                        Deposit Details
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
