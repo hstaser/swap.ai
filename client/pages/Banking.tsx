@@ -789,6 +789,32 @@ export default function Banking() {
           </>
         )}
       </div>
+
+      {/* Confirmation Modal */}
+      {showConfirmation && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <Card className="w-full max-w-md bg-white shadow-xl">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <CheckCircle className="h-5 w-5 text-green-600" />
+                Banking Action
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-gray-700 mb-4">{confirmationMessage}</p>
+              <Button
+                onClick={() => {
+                  setShowConfirmation(false);
+                  setConfirmationMessage("");
+                }}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+              >
+                OK
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }
