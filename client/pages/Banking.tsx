@@ -283,11 +283,10 @@ export default function Banking() {
 
             {/* Main Banking Dashboard */}
             <Tabs defaultValue="overview" className="space-y-6">
-              <TabsList className="grid w-full grid-cols-4 bg-white/80">
+              <TabsList className="grid w-full grid-cols-3 bg-white/80">
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="deposits">Deposits</TabsTrigger>
                 <TabsTrigger value="withdrawals">Withdrawals</TabsTrigger>
-                <TabsTrigger value="analytics">Analytics</TabsTrigger>
               </TabsList>
 
               {/* Overview Tab */}
