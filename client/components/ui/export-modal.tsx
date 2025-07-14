@@ -64,7 +64,7 @@ export function ExportModal({
     return `
       <html>
         <head>
-          <title>swap.ai Portfolio Report</title>
+          <title>swipr.ai Portfolio Report</title>
           <style>
             body { font-family: Arial, sans-serif; margin: 40px; line-height: 1.6; }
             .header { text-align: center; border-bottom: 2px solid #3b82f6; padding-bottom: 20px; margin-bottom: 30px; }
