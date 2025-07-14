@@ -611,17 +611,47 @@ export default function Banking() {
                         <Input
                           type="number"
                           placeholder="Enter amount"
+                          value={withdrawAmount}
+                          onChange={(e) => setWithdrawAmount(e.target.value)}
                           className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
                         />
                       </div>
                       <div>
                         <Label className="text-white/90">From Account</Label>
-                        <select className="w-full p-2 rounded-md bg-white/20 border-white/30 text-white">
-                          <option>Checking ****4521</option>
-                          <option>Savings ****7891</option>
+                        <select
+                          value={withdrawAccount}
+                          onChange={(e) => setWithdrawAccount(e.target.value)}
+                          className="w-full p-2 rounded-md bg-white/20 border-white/30 text-white"
+                        >
+                          <option value="checking">Checking ****4521</option>
+                          <option value="savings">Savings ****7891</option>
                         </select>
                       </div>
-                      <Button className="w-full bg-white text-red-700 hover:bg-white/90">
+                      <Button
+                        onClick={() => {
+                          if (withdrawAmount) {
+                            const amount = parseFloat(withdrawAmount);
+                            if (amount > 2500) {
+                              setConfirmationMessage(
+                                "Withdrawal amount exceeds daily limit of $2,500.",
+                              );
+                              setShowConfirmation(true);
+                            } else {
+                              setConfirmationMessage(
+                                `Successfully withdrew $${withdrawAmount} from ${withdrawAccount} account!`,
+                              );
+                              setShowConfirmation(true);
+                              setWithdrawAmount("");
+                            }
+                          } else {
+                            setConfirmationMessage(
+                              "Please enter a withdrawal amount.",
+                            );
+                            setShowConfirmation(true);
+                          }
+                        }}
+                        className="w-full bg-white text-red-700 hover:bg-white/90"
+                      >
                         <CheckCircle className="h-4 w-4 mr-2" />
                         Confirm Withdrawal
                       </Button>
