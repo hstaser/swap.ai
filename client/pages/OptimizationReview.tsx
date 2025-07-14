@@ -307,7 +307,9 @@ export default function OptimizationReview() {
                         : "border-blue-500 text-blue-700 hover:bg-blue-50 hover:border-blue-600 bg-white",
                     )}
                   >
-                    {isManualMode ? "✨ Use AI Allocation" : "✏️ Edit Manually"}
+                    {isManualMode
+                      ? "✨ Use AI Allocation"
+                      : "✏️ Edit Allocation"}
                   </Button>
                 )}
               </div>
