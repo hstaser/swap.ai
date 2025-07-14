@@ -289,8 +289,8 @@ export default function PortfolioOptimize() {
           >
             <Zap className="h-4 w-4 mr-2" />
             {optimizationType === "new"
-              ? "Optimize & Invest"
-              : "Rebalance & Invest"}
+              ? "Create Smart Portfolio"
+              : "Rebalance Portfolio"}
           </Button>
 
           {optimizationType === "new" &&
