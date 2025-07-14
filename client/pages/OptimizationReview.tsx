@@ -222,8 +222,8 @@ export default function OptimizationReview() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-2xl mx-auto space-y-6">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-8 pb-20 md:pb-8">
+        <div className="max-w-2xl mx-auto space-y-4 sm:space-y-6">
           {/* Investment Summary */}
           <Card className="border-0 bg-white/90 backdrop-blur-sm shadow-lg">
             <CardHeader>
