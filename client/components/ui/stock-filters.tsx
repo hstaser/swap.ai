@@ -232,7 +232,7 @@ export function StockFilters({
           value={filters.performance}
           onValueChange={(value) => updateFilter("performance", value)}
         >
-          <SelectTrigger className="w-[150px]">
+          <SelectTrigger className="w-full lg:w-[150px] h-11">
             <SelectValue placeholder="Performance">
               {filters.performance === "All"
                 ? "All Performance"
