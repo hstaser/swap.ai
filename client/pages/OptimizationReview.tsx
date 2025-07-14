@@ -498,6 +498,9 @@ export default function OptimizationReview() {
           )}
         </div>
       </div>
+
+      {/* Mobile Bottom Navigation */}
+      <BottomNav />
     </div>
   );
 }
