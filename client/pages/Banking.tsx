@@ -506,17 +506,39 @@ export default function Banking() {
                         <Input
                           type="number"
                           placeholder="Enter amount"
+                          value={depositAmount}
+                          onChange={(e) => setDepositAmount(e.target.value)}
                           className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
                         />
                       </div>
                       <div>
                         <Label className="text-white/90">To Account</Label>
-                        <select className="w-full p-2 rounded-md bg-white/20 border-white/30 text-white">
-                          <option>Checking ****4521</option>
-                          <option>Savings ****7891</option>
+                        <select
+                          value={depositAccount}
+                          onChange={(e) => setDepositAccount(e.target.value)}
+                          className="w-full p-2 rounded-md bg-white/20 border-white/30 text-white"
+                        >
+                          <option value="checking">Checking ****4521</option>
+                          <option value="savings">Savings ****7891</option>
                         </select>
                       </div>
-                      <Button className="w-full bg-white text-green-700 hover:bg-white/90">
+                      <Button
+                        onClick={() => {
+                          if (depositAmount) {
+                            setConfirmationMessage(
+                              `Successfully deposited $${depositAmount} to ${depositAccount} account!`,
+                            );
+                            setShowConfirmation(true);
+                            setDepositAmount("");
+                          } else {
+                            setConfirmationMessage(
+                              "Please enter a deposit amount.",
+                            );
+                            setShowConfirmation(true);
+                          }
+                        }}
+                        className="w-full bg-white text-green-700 hover:bg-white/90"
+                      >
                         <CheckCircle className="h-4 w-4 mr-2" />
                         Confirm Deposit
                       </Button>
