@@ -7,6 +7,7 @@ import { useQueue } from "@/hooks/use-queue";
 
 import { HelpSystem } from "@/components/ui/help-system";
 import { NotificationSystem } from "@/components/ui/notifications";
+import { BottomNav } from "@/components/ui/bottom-nav";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
