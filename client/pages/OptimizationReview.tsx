@@ -394,15 +394,8 @@ export default function OptimizationReview() {
                     <Progress value={stock.percentage} className="h-2" />
                   )}
 
-                  <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">
-                      {stock.shares} shares @ ${stock.price.toFixed(2)}
-                    </span>
-                    {!isManualMode && (
-                      <span className="text-blue-600 font-medium">
-                        {stock.reasoning}
-                      </span>
-                    )}
+                  <div className="text-sm text-muted-foreground">
+                    {stock.shares} shares @ ${stock.price.toFixed(2)}
                   </div>
                 </div>
               ))}
