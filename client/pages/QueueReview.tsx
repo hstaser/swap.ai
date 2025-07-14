@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { BottomNav } from "@/components/ui/bottom-nav";
 import { useQueue } from "@/hooks/use-queue";
 import { useAuth } from "@/hooks/use-auth";
 import { AuthModal } from "@/components/ui/auth-modal";
