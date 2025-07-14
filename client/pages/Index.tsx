@@ -692,6 +692,9 @@ export default function Index() {
           </div>
         </div>
       )}
+
+      {/* Mobile Bottom Navigation */}
+      <BottomNav />
     </div>
   );
 }
