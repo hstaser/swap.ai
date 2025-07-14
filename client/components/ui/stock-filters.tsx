@@ -195,7 +195,7 @@ export function StockFilters({
           value={filters.peRange}
           onValueChange={(value) => updateFilter("peRange", value)}
         >
-          <SelectTrigger className="w-[120px]">
+          <SelectTrigger className="w-full lg:w-[120px] h-11">
             <SelectValue placeholder="P/E Ratio">
               {filters.peRange === "All" ? "All P/E" : filters.peRange}
             </SelectValue>
