@@ -193,6 +193,7 @@ export default function Banking() {
                 </div>
               </div>
               <Button
+                onClick={() => setShowBankingFeatures(true)}
                 className="w-full mt-6 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
                 size="lg"
               >
