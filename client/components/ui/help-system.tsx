@@ -91,7 +91,7 @@ const faqItems: FAQItem[] = [
 const tutorials: Tutorial[] = [
   {
     id: "getting-started",
-    title: "Getting Started with swap.ai",
+    title: "Getting Started with swipr.ai",
     description:
       "Learn the basics: Browse stocks, use filters, and navigate the app",
     duration: "5 min",
