@@ -569,10 +569,10 @@ export default function Index() {
         </div>
       </header>
 
-      <div className="container mx-auto px-4 py-6">
+      <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-20 md:pb-6">
         {/* Enhanced Search */}
-        <div className="mb-6">
-          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-4">
+        <div className="mb-4 sm:mb-6">
+          <div className="bg-white/60 backdrop-blur-sm rounded-lg p-3 sm:p-4">
             <StockSearch onFilterOverride={handleFilterOverride} />
           </div>
         </div>
