@@ -350,11 +350,27 @@ export default function Banking() {
                     </CardHeader>
                     <CardContent>
                       <div className="grid grid-cols-2 gap-3">
-                        <Button className="h-12 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800">
+                        <Button
+                          onClick={() => {
+                            // Navigate to deposits tab
+                            const depositsTab = document.querySelector(
+                              '[value="deposits"]',
+                            ) as HTMLElement;
+                            depositsTab?.click();
+                          }}
+                          className="h-12 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800"
+                        >
                           <ArrowUpRight className="h-4 w-4 mr-2" />
                           Deposit
                         </Button>
                         <Button
+                          onClick={() => {
+                            // Navigate to withdrawals tab
+                            const withdrawalsTab = document.querySelector(
+                              '[value="withdrawals"]',
+                            ) as HTMLElement;
+                            withdrawalsTab?.click();
+                          }}
                           variant="outline"
                           className="h-12 border-blue-200 text-blue-700 hover:bg-blue-50"
                         >
@@ -362,6 +378,12 @@ export default function Banking() {
                           Withdraw
                         </Button>
                         <Button
+                          onClick={() => {
+                            setConfirmationMessage(
+                              "Transfer functionality coming soon! Use the deposits/withdrawals tabs for now.",
+                            );
+                            setShowConfirmation(true);
+                          }}
                           variant="outline"
                           className="h-12 border-purple-200 text-purple-700 hover:bg-purple-50"
                         >
@@ -369,6 +391,7 @@ export default function Banking() {
                           Transfer
                         </Button>
                         <Button
+                          onClick={() => navigate("/")}
                           variant="outline"
                           className="h-12 border-orange-200 text-orange-700 hover:bg-orange-50"
                         >
