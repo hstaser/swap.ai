@@ -202,7 +202,12 @@ export default function Banking() {
                 </div>
               </div>
               <Button
-                onClick={() => setShowBankingFeatures(true)}
+                onClick={() => {
+                  setConfirmationMessage(
+                    "Welcome to Banking! Let's set up your first account. This process typically takes 2-3 minutes and includes identity verification and account linking.",
+                  );
+                  setShowConfirmation(true);
+                }}
                 className="w-full mt-6 bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
                 size="lg"
               >
