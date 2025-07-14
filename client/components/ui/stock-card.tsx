@@ -76,7 +76,7 @@ export function StockCard({
         className,
       )}
     >
-      <CardContent className="p-6 space-y-6">
+      <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="relative text-center space-y-3">
           {/* Earnings Alert Icon */}
