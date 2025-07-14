@@ -224,22 +224,7 @@ export default function Research() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => {
-                  const referrer = sessionStorage.getItem("research_referrer");
-                  sessionStorage.removeItem("research_referrer");
-
-                  if (referrer && referrer.includes("/stock/")) {
-                    // Extract the stock symbol from the referrer URL
-                    const match = referrer.match(/\/stock\/([^\/\?]+)/);
-                    if (match) {
-                      navigate(`/stock/${match[1]}`);
-                      return;
-                    }
-                  }
-
-                  // Fallback to browser back
-                  navigate(-1);
-                }}
+                onClick={() => navigate(-1)}
                 className="flex items-center gap-2"
               >
                 <ArrowLeft className="h-4 w-4" />
