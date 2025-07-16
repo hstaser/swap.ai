@@ -124,6 +124,7 @@ export default function Banking() {
   const [confirmationMessage, setConfirmationMessage] = useState("");
   const [selectedDepositMethod, setSelectedDepositMethod] = useState("");
   const [selectedWithdrawMethod, setSelectedWithdrawMethod] = useState("");
+  const [showBankingOnboarding, setShowBankingOnboarding] = useState(false);
 
   const totalBalance = mockAccounts.reduce((sum, acc) => sum + acc.balance, 0);
   const monthlyGrowth = 12.4;
