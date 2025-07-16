@@ -169,11 +169,11 @@ export default function Landing() {
 
               <Button
                 variant="ghost"
-                onClick={handleGuestMode}
+                onClick={() => {}}
                 className="w-full h-12 text-lg border-dashed border-2"
               >
                 <Eye className="h-5 w-5 mr-2" />
-                Continue as Guest
+                Get Started
               </Button>
 
               <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
