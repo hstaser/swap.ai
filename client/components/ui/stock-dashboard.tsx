@@ -410,14 +410,14 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
       </div>
 
       {/* Stock List */}
-      <div className="space-y-3">
+      <div className="space-y-1">
         {filteredStocks.map((stock) => {
           const isPositive = stock.changePercent >= 0;
 
           return (
             <Card
               key={stock.symbol}
-              className="bg-white/90 backdrop-blur-sm border-0 border-t-0 shadow-sm hover:shadow-md transition-all cursor-pointer"
+              className="bg-white/90 backdrop-blur-sm border-0 shadow-sm hover:shadow-md transition-all cursor-pointer rounded-none first:rounded-t-lg last:rounded-b-lg"
               onClick={() => handleStockClick(stock.symbol)}
             >
               <CardContent className="p-4">
