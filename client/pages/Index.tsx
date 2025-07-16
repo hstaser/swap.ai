@@ -337,11 +337,7 @@ export default function Index() {
   const [portfolio, setPortfolio] = useState<string[]>([]);
   const [watchlist, setWatchlist] = useState<string[]>([]);
   const [watchlistNotes, setWatchlistNotes] = useState<{
-    [symbol: string]: {
-      note: string;
-      priority: "low" | "medium" | "high";
-      addedAt: Date;
-    };
+    [symbol: string]: { note: string; addedAt: Date };
   }>({});
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
@@ -434,17 +430,13 @@ export default function Index() {
     }
   };
 
-  const addToWatchlistWithNote = (
-    symbol: string,
-    note: string,
-    priority: "low" | "medium" | "high",
-  ) => {
+  const addToWatchlistWithNote = (symbol: string, note: string) => {
     if (!watchlist.includes(symbol)) {
       setWatchlist([...watchlist, symbol]);
     }
     setWatchlistNotes((prev) => ({
       ...prev,
-      [symbol]: { note, priority, addedAt: new Date() },
+      [symbol]: { note, addedAt: new Date() },
     }));
   };
 

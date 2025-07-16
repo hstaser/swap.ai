@@ -34,7 +34,6 @@ interface WatchlistStock {
   marketCap: string;
   volume: string;
   note?: string;
-  priority?: "low" | "medium" | "high";
   addedAt?: Date;
 }
 
@@ -49,7 +48,6 @@ const mockWatchlistStocks: WatchlistStock[] = [
     marketCap: "2.85T",
     volume: "52.4M",
     note: "Strong earnings expected this quarter. iPhone 15 sales looking good.",
-    priority: "high",
     addedAt: new Date("2024-01-15"),
   },
   {
@@ -62,7 +60,6 @@ const mockWatchlistStocks: WatchlistStock[] = [
     marketCap: "759.8B",
     volume: "89.7M",
     note: "Waiting for dip below $200 to buy more",
-    priority: "medium",
     addedAt: new Date("2024-01-12"),
   },
   {
@@ -75,7 +72,6 @@ const mockWatchlistStocks: WatchlistStock[] = [
     marketCap: "2.81T",
     volume: "28.1M",
     note: "Azure growth continues strong. Long-term hold.",
-    priority: "low",
     addedAt: new Date("2024-01-10"),
   },
   {
@@ -88,7 +84,6 @@ const mockWatchlistStocks: WatchlistStock[] = [
     marketCap: "1.78T",
     volume: "67.8M",
     note: "AI boom continues. Monitor for any pullbacks.",
-    priority: "high",
     addedAt: new Date("2024-01-08"),
   },
   {
@@ -100,7 +95,6 @@ const mockWatchlistStocks: WatchlistStock[] = [
     sector: "Communication Services",
     marketCap: "1.75T",
     volume: "31.2M",
-    priority: "medium",
     addedAt: new Date("2024-01-05"),
   },
   {
@@ -113,7 +107,6 @@ const mockWatchlistStocks: WatchlistStock[] = [
     marketCap: "832.1B",
     volume: "18.3M",
     note: "VR/AR pivot showing promise. Cost cutting helping margins.",
-    priority: "medium",
     addedAt: new Date("2024-01-03"),
   },
   {
@@ -125,7 +118,6 @@ const mockWatchlistStocks: WatchlistStock[] = [
     sector: "Technology",
     marketCap: "165.2B",
     volume: "45.7M",
-    priority: "low",
     addedAt: new Date("2024-01-01"),
   },
 ];
@@ -256,33 +248,15 @@ export default function Watchlist() {
                         </div>
                       </div>
 
-                      {/* Note and Priority Display */}
-                      {(stock.note || stock.priority) && (
+                      {/* Note Display */}
+                      {(stock.note || stock.addedAt) && (
                         <div className="mt-3 pt-3 border-t space-y-2">
-                          <div className="flex items-center gap-2">
-                            {stock.priority && (
-                              <Badge
-                                className={cn(
-                                  "text-xs",
-                                  stock.priority === "high" &&
-                                    "bg-red-100 text-red-700 border-red-300",
-                                  stock.priority === "medium" &&
-                                    "bg-yellow-100 text-yellow-700 border-yellow-300",
-                                  stock.priority === "low" &&
-                                    "bg-gray-100 text-gray-700 border-gray-300",
-                                )}
-                              >
-                                <Star className="h-3 w-3 mr-1" />
-                                {stock.priority} priority
-                              </Badge>
-                            )}
-                            {stock.addedAt && (
-                              <Badge variant="outline" className="text-xs">
-                                <Clock className="h-3 w-3 mr-1" />
-                                {stock.addedAt.toLocaleDateString()}
-                              </Badge>
-                            )}
-                          </div>
+                          {stock.addedAt && (
+                            <Badge variant="outline" className="text-xs">
+                              <Clock className="h-3 w-3 mr-1" />
+                              Added {stock.addedAt.toLocaleDateString()}
+                            </Badge>
+                          )}
                           {stock.note && (
                             <div className="bg-blue-50 rounded-lg p-3">
                               <div className="flex items-start gap-2">
