@@ -209,22 +209,6 @@ export default function Landing() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
-            {mode === "signup" && (
-              <div>
-                <Label htmlFor="name">Full Name</Label>
-                <Input
-                  id="name"
-                  type="text"
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  required
-                  placeholder="Enter your full name"
-                />
-              </div>
-            )}
-
             <div>
               <Label htmlFor="email">Email</Label>
               <Input
