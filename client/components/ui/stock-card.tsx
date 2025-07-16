@@ -90,22 +90,15 @@ export function StockCard({
       <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
         {/* Header */}
         <div className="relative text-center space-y-3">
-          {/* Earnings Alert Icon */}
-          {stock.earningsDate && (
-            <div className="absolute top-0 right-0">
-              <div className="group relative">
-                <AlertCircle className="h-5 w-5 text-yellow-600 animate-pulse cursor-pointer" />
-                <div className="absolute right-0 top-6 invisible group-hover:visible bg-black text-white text-xs rounded-lg p-2 w-48 z-10">
-                  <div className="font-semibold">
-                    📅 Earnings: {stock.earningsDate}
-                  </div>
-                  <div className="text-xs opacity-90">
-                    Less than 2 weeks away
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
+          {/* Share Button - Top Right */}
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setShowShareModal(true)}
+            className="absolute top-0 right-0 h-6 w-6 text-muted-foreground hover:text-blue-600"
+          >
+            <Share2 className="h-3 w-3" />
+          </Button>
 
           <div className="flex items-center justify-center gap-3">
             <h3 className="font-bold text-foreground text-4xl">
@@ -136,6 +129,16 @@ export function StockCard({
           <p className="text-lg text-muted-foreground font-medium">
             {stock.name}
           </p>
+
+          {/* Earnings Alert - Moved below name */}
+          {stock.earningsDate && (
+            <div className="flex items-center justify-center gap-1 text-yellow-600">
+              <AlertCircle className="h-3 w-3 animate-pulse" />
+              <span className="text-xs font-medium">
+                📅 Earnings: {stock.earningsDate}
+              </span>
+            </div>
+          )}
         </div>
 
         {/* Price and Change */}
