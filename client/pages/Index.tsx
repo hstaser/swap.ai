@@ -637,7 +637,20 @@ export default function Index() {
         {viewMode === "dashboard" ? (
           <div className="max-w-4xl mx-auto">
             <StockDashboard
-              onStockSelect={(symbol) => navigate(`/stock/${symbol}`)}
+              onStockSelect={(symbol) => {
+                // Switch to swipe view and navigate to specific stock
+                setViewMode("swipe");
+                // Find the stock index and set it
+                const stockIndex = filteredStocks.findIndex(
+                  (stock) => stock.symbol === symbol,
+                );
+                if (stockIndex !== -1) {
+                  setCurrentStockIndex(stockIndex);
+                } else {
+                  // If not in filtered stocks, navigate with URL param
+                  navigate(`/?symbol=${symbol}`);
+                }
+              }}
             />
 
             {/* Queue Button for Dashboard View */}
