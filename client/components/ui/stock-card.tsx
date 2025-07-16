@@ -66,6 +66,7 @@ interface StockCardProps {
 export function StockCard({
   stock,
   onToggleWatchlist,
+  onAddToWatchlistWithNote,
   isInWatchlist,
   className,
   onSkip,
@@ -73,6 +74,7 @@ export function StockCard({
   const isPositive = stock.change >= 0;
   const [showChart, setShowChart] = useState(false);
   const [showNews, setShowNews] = useState(false);
+  const [showNoteModal, setShowNoteModal] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -305,10 +307,10 @@ export function StockCard({
             <Button
               variant="ghost"
               onClick={() => {
-                onToggleWatchlist(stock.symbol);
-                // Auto-advance to next stock after adding to watchlist
-                if (!isInWatchlist && onSkip) {
-                  setTimeout(() => onSkip(), 200); // Small delay for visual feedback
+                if (isInWatchlist) {
+                  onToggleWatchlist(stock.symbol);
+                } else {
+                  setShowNoteModal(true);
                 }
               }}
               className="h-12 text-sm font-medium text-muted-foreground"
