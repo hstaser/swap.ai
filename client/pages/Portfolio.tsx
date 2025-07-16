@@ -190,6 +190,7 @@ export default function Portfolio() {
   const [showAIRebalancing, setShowAIRebalancing] = useState(false);
   const [showAIReview, setShowAIReview] = useState(false);
   const [optimizationData, setOptimizationData] = useState<any>(null);
+  const [showRebalanceComparison, setShowRebalanceComparison] = useState(false);
   const [comparisonTimeframe, setComparisonTimeframe] = useState<
     "1M" | "6M" | "1Y"
   >("1Y");
