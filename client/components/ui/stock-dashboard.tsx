@@ -417,7 +417,7 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
           return (
             <Card
               key={stock.symbol}
-              className="bg-white/90 backdrop-blur-sm border-0 shadow-sm hover:shadow-md transition-all cursor-pointer"
+              className="bg-white/90 backdrop-blur-sm border-0 border-t-0 shadow-sm hover:shadow-md transition-all cursor-pointer"
               onClick={() => handleStockClick(stock.symbol)}
             >
               <CardContent className="p-4">
