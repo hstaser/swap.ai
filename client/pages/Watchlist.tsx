@@ -256,6 +256,51 @@ export default function Watchlist() {
                         </div>
                       </div>
 
+                      {/* Note and Priority Display */}
+                      {(stock.note || stock.priority) && (
+                        <div className="mt-3 pt-3 border-t space-y-2">
+                          <div className="flex items-center gap-2">
+                            {stock.priority && (
+                              <Badge
+                                className={cn(
+                                  "text-xs",
+                                  stock.priority === "high" &&
+                                    "bg-red-100 text-red-700 border-red-300",
+                                  stock.priority === "medium" &&
+                                    "bg-yellow-100 text-yellow-700 border-yellow-300",
+                                  stock.priority === "low" &&
+                                    "bg-gray-100 text-gray-700 border-gray-300",
+                                )}
+                              >
+                                <Star className="h-3 w-3 mr-1" />
+                                {stock.priority} priority
+                              </Badge>
+                            )}
+                            {stock.addedAt && (
+                              <Badge variant="outline" className="text-xs">
+                                <Clock className="h-3 w-3 mr-1" />
+                                {stock.addedAt.toLocaleDateString()}
+                              </Badge>
+                            )}
+                          </div>
+                          {stock.note && (
+                            <div className="bg-blue-50 rounded-lg p-3">
+                              <div className="flex items-start gap-2">
+                                <FileText className="h-4 w-4 text-blue-600 mt-0.5" />
+                                <div>
+                                  <div className="text-xs font-medium text-blue-800 mb-1">
+                                    Personal Note
+                                  </div>
+                                  <div className="text-sm text-blue-700">
+                                    {stock.note}
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      )}
+
                       {isEditing && (
                         <div className="mt-4 pt-3 border-t">
                           <div className="flex gap-2">
