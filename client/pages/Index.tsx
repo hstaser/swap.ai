@@ -336,6 +336,13 @@ export default function Index() {
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [portfolio, setPortfolio] = useState<string[]>([]);
   const [watchlist, setWatchlist] = useState<string[]>([]);
+  const [watchlistNotes, setWatchlistNotes] = useState<{
+    [symbol: string]: {
+      note: string;
+      priority: "low" | "medium" | "high";
+      addedAt: Date;
+    };
+  }>({});
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
@@ -416,9 +423,29 @@ export default function Index() {
   const toggleWatchlist = (symbol: string) => {
     if (watchlist.includes(symbol)) {
       setWatchlist(watchlist.filter((s) => s !== symbol));
+      // Remove note when removing from watchlist
+      setWatchlistNotes((prev) => {
+        const newNotes = { ...prev };
+        delete newNotes[symbol];
+        return newNotes;
+      });
     } else {
       setWatchlist([...watchlist, symbol]);
     }
+  };
+
+  const addToWatchlistWithNote = (
+    symbol: string,
+    note: string,
+    priority: "low" | "medium" | "high",
+  ) => {
+    if (!watchlist.includes(symbol)) {
+      setWatchlist([...watchlist, symbol]);
+    }
+    setWatchlistNotes((prev) => ({
+      ...prev,
+      [symbol]: { note, priority, addedAt: new Date() },
+    }));
   };
 
   const handleSkip = () => {
@@ -706,6 +733,7 @@ export default function Index() {
               <StockCard
                 stock={filteredStocks[currentStockIndex]}
                 onToggleWatchlist={toggleWatchlist}
+                onAddToWatchlistWithNote={addToWatchlistWithNote}
                 isInWatchlist={watchlist.includes(
                   filteredStocks[currentStockIndex].symbol,
                 )}
