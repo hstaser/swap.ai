@@ -107,8 +107,7 @@ export function WatchlistNoteModal({
           {/* Note Input */}
           <div>
             <Label htmlFor="note" className="text-sm font-medium mb-2 block">
-              Why are you watching this stock?{" "}
-              <span className="text-gray-400">(Optional)</span>
+              Note <span className="text-gray-400">(Optional)</span>
             </Label>
             <Textarea
               id="note"

@@ -541,26 +541,6 @@ export default function Index() {
               </nav>
             </div>
             <div className="flex items-center gap-2">
-              {/* View Mode Toggle */}
-              <div className="hidden md:flex items-center gap-1 bg-white/50 rounded-lg p-1">
-                <Button
-                  variant={viewMode === "swipe" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setViewMode("swipe")}
-                  className="text-xs px-3"
-                >
-                  Swipe
-                </Button>
-                <Button
-                  variant={viewMode === "dashboard" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setViewMode("dashboard")}
-                  className="text-xs px-3"
-                >
-                  Dashboard
-                </Button>
-              </div>
-
               <Link to="/queue/review" className="hidden md:block">
                 <Badge
                   variant="outline"
@@ -621,24 +601,24 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Mobile View Toggle */}
-        <div className="md:hidden mb-4">
-          <div className="flex items-center justify-center gap-1 bg-white/60 backdrop-blur-sm rounded-lg p-1">
+        {/* View Mode Toggle */}
+        <div className="mb-4">
+          <div className="flex items-center justify-center gap-1 bg-white/60 backdrop-blur-sm rounded-lg p-1 max-w-xs mx-auto">
             <Button
               variant={viewMode === "swipe" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("swipe")}
-              className="text-xs px-4 flex-1"
+              className="text-sm px-6 flex-1"
             >
-              Swipe View
+              Swipe
             </Button>
             <Button
               variant={viewMode === "dashboard" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("dashboard")}
-              className="text-xs px-4 flex-1"
+              className="text-sm px-6 flex-1"
             >
-              List View
+              Dashboard
             </Button>
           </div>
         </div>
