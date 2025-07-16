@@ -64,17 +64,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setAuthStatus("authenticated");
     localStorage.setItem("auth_status", "authenticated");
     localStorage.setItem("user_data", JSON.stringify(mockUser));
-
-    // Restore guest queue if it exists
-    restoreGuestQueue();
-  };
-
-  const restoreGuestQueue = () => {
-    const guestQueue = localStorage.getItem("guest_queue_backup");
-    if (guestQueue) {
-      localStorage.setItem("queue", guestQueue);
-      localStorage.removeItem("guest_queue_backup");
-    }
   };
 
   const signUp = async (email: string, password: string) => {
@@ -95,27 +84,27 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("user_data", JSON.stringify(newUser));
   };
 
-    // Use setTimeout to ensure state transition happens after current render cycle
-    setTimeout(() => {
-      setUser(null);
-      setAuthStatus("unauthenticated");
-      localStorage.removeItem("auth_status");
-      localStorage.removeItem("user_data");
-    }, 0);
-  };
-
   const signOut = () => {
     setUser(null);
     setAuthStatus("unauthenticated");
     localStorage.removeItem("auth_status");
     localStorage.removeItem("user_data");
     localStorage.removeItem("onboarding_completed");
-    // Clear queue and other guest data
-    localStorage.removeItem("guest_queue");
   };
 
-  const requireAuth = () => {
-    return authStatus === "authenticated";
+  const completeKYC = async (kycData: any) => {
+    // Simulate API call to complete KYC
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    if (user) {
+      const updatedUser = { ...user, kycCompleted: true };
+      setUser(updatedUser);
+      localStorage.setItem("user_data", JSON.stringify(updatedUser));
+    }
+  };
+
+  const requiresKYC = () => {
+    return authStatus === "authenticated" && user && !user.kycCompleted;
   };
 
   return (
@@ -125,10 +114,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         authStatus,
         signIn,
         signUp,
-        continueAsGuest,
         signOut,
-        saveGuestDataAndSignOut,
-        requireAuth,
+        completeKYC,
+        requiresKYC,
       }}
     >
       {children}
