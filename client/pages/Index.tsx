@@ -491,11 +491,11 @@ export default function Index() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 sm:gap-6">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                <div className="w-8 h-8 bg-gradient-to-r from-green-600 to-blue-600 rounded-lg flex items-center justify-center">
                   <BarChart3 className="h-5 w-5 text-white" />
                 </div>
                 <h1 className="text-lg sm:text-xl font-bold text-foreground">
-                  swap.ai
+                  swipr.ai
                 </h1>
               </div>
               <nav className="hidden md:flex items-center gap-4">
