@@ -77,46 +77,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const signUp = async (name: string, email: string, password: string) => {
+  const signUp = async (email: string, password: string) => {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Mock registration - in real app, create account via backend
     const newUser: User = {
       id: "user_" + Date.now(),
-      name,
+      name: email.split("@")[0], // Use email prefix as temporary name
       email,
-      isGuest: false,
+      kycCompleted: false,
     };
 
     setUser(newUser);
     setAuthStatus("authenticated");
     localStorage.setItem("auth_status", "authenticated");
     localStorage.setItem("user_data", JSON.stringify(newUser));
-
-    // Restore guest queue if it exists
-    restoreGuestQueue();
   };
-
-  const continueAsGuest = () => {
-    const guestUser: User = {
-      id: "guest",
-      name: "Guest User",
-      email: "",
-      isGuest: true,
-    };
-
-    setUser(guestUser);
-    setAuthStatus("guest");
-    localStorage.setItem("auth_status", "guest");
-  };
-
-  const saveGuestDataAndSignOut = () => {
-    // Save guest queue data before signing out
-    const guestQueue = localStorage.getItem("queue") || "[]";
-    if (guestQueue !== "[]") {
-      localStorage.setItem("guest_queue_backup", guestQueue);
-    }
 
     // Use setTimeout to ensure state transition happens after current render cycle
     setTimeout(() => {
