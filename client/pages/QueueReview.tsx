@@ -432,25 +432,6 @@ export default function QueueReview() {
             onClose={() => setShowAuthModal(false)}
           />
         )}
-
-        {/* Guest Mode Banner */}
-        {authStatus === "guest" && (
-          <div className="fixed bottom-4 left-4 right-4 z-40">
-            <div className="bg-amber-100 border border-amber-300 rounded-lg p-3 shadow-lg">
-              <div className="flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4 text-amber-600" />
-                <div className="flex-1">
-                  <span className="text-sm font-medium text-amber-900">
-                    Guest Mode:
-                  </span>
-                  <span className="text-sm text-amber-800 ml-1">
-                    Create an account to invest • Queue won't be saved
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
       </div>
 
       {/* Mobile Bottom Navigation */}
