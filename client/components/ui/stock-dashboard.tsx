@@ -455,13 +455,13 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
                   </div>
 
                   {/* Price and Change */}
-                  <div className="text-right min-w-[120px]">
-                    <div className="font-bold text-lg text-gray-900 tabular-nums">
+                  <div className="text-right w-[140px] flex flex-col items-end">
+                    <div className="font-bold text-lg text-gray-900 tabular-nums w-[100px] text-right">
                       ${stock.price.toFixed(2)}
                     </div>
                     <Badge
                       className={cn(
-                        "mt-1 font-medium tabular-nums min-w-[70px] justify-center",
+                        "mt-1 font-medium tabular-nums w-[80px] justify-center text-center",
                         isPositive
                           ? "bg-green-100 text-green-700 hover:bg-green-100"
                           : "bg-red-100 text-red-700 hover:bg-red-100",
