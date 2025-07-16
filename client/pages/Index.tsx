@@ -628,80 +628,77 @@ export default function Index() {
               </div>
             )}
           </div>
-        ) : (
-          /* Swipe View */
-          filteredStocks.length > 0 && filteredStocks[currentStockIndex] ? (
-            <div className="space-y-4">
-              {/* Navigation */}
-              <div className="flex items-center justify-between">
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() =>
-                    setCurrentStockIndex(Math.max(0, currentStockIndex - 1))
-                  }
-                  disabled={currentStockIndex === 0}
-                >
-                  <ChevronLeft className="h-4 w-4" />
-                </Button>
+        ) : /* Swipe View */
+        filteredStocks.length > 0 && filteredStocks[currentStockIndex] ? (
+          <div className="space-y-4">
+            {/* Navigation */}
+            <div className="flex items-center justify-between">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() =>
+                  setCurrentStockIndex(Math.max(0, currentStockIndex - 1))
+                }
+                disabled={currentStockIndex === 0}
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </Button>
 
-                <div className="text-center">
-                  <p className="text-sm text-muted-foreground">
-                    {currentStockIndex + 1} of {filteredStocks.length}
-                  </p>
-                </div>
-
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={() =>
-                    setCurrentStockIndex(
-                      Math.min(filteredStocks.length - 1, currentStockIndex + 1),
-                    )
-                  }
-                  disabled={currentStockIndex === filteredStocks.length - 1}
-                >
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
+              <div className="text-center">
+                <p className="text-sm text-muted-foreground">
+                  {currentStockIndex + 1} of {filteredStocks.length}
+                </p>
               </div>
 
-              {/* Current Stock */}
-              <div className="max-w-lg mx-auto space-y-4">
-                <StockCard
-                  stock={filteredStocks[currentStockIndex]}
-                  onToggleWatchlist={toggleWatchlist}
-                  isInWatchlist={watchlist.includes(
-                    filteredStocks[currentStockIndex].symbol,
-                  )}
-                  onSkip={handleSkip}
-                  className={cn(
-                    "w-full",
-                    isInQueue(filteredStocks[currentStockIndex].symbol) &&
-                      "ring-2 ring-blue-400 bg-blue-50",
-                  )}
-                />
-
-                {/* End Session Button */}
-                {queue.length > 0 && (
-                  <div className="text-center">
-                    <Button
-                      variant="outline"
-                      onClick={() => navigate("/queue/review")}
-                      className="h-12 px-8 text-sm font-medium bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white border-0"
-                    >
-                      Review & Invest ({queue.length}{" "}
-                      {queue.length === 1 ? "stock" : "stocks"})
-                    </Button>
-                  </div>
-                )}
-              </div>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={() =>
+                  setCurrentStockIndex(
+                    Math.min(filteredStocks.length - 1, currentStockIndex + 1),
+                  )
+                }
+                disabled={currentStockIndex === filteredStocks.length - 1}
+              >
+                <ChevronRight className="h-4 w-4" />
+              </Button>
             </div>
-          ) : null
-        )}
 
-        {/* No Stocks Found - applies to both views */}
+            {/* Current Stock */}
+            <div className="max-w-lg mx-auto space-y-4">
+              <StockCard
+                stock={filteredStocks[currentStockIndex]}
+                onToggleWatchlist={toggleWatchlist}
+                isInWatchlist={watchlist.includes(
+                  filteredStocks[currentStockIndex].symbol,
+                )}
+                onSkip={handleSkip}
+                className={cn(
+                  "w-full",
+                  isInQueue(filteredStocks[currentStockIndex].symbol) &&
+                    "ring-2 ring-blue-400 bg-blue-50",
+                )}
+              />
+
+              {/* End Session Button */}
+              {queue.length > 0 && (
+                <div className="text-center">
+                  <Button
+                    variant="outline"
+                    onClick={() => navigate("/queue/review")}
+                    className="h-12 px-8 text-sm font-medium bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white border-0"
+                  >
+                    Review & Invest ({queue.length}{" "}
+                    {queue.length === 1 ? "stock" : "stocks"})
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        ) : null}
+
+        {/* No Stocks Found - for swipe view only (dashboard handles its own) */}
         {filteredStocks.length === 0 && viewMode === "swipe" && (
-        ) : (
           <div className="text-center py-12">
             <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">
