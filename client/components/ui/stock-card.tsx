@@ -339,7 +339,7 @@ export function StockCard({
           </Button>
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-2 gap-3 sm:gap-4">
+          <div className="grid grid-cols-3 gap-2 sm:gap-3">
             <Button
               variant="ghost"
               onClick={() => {
@@ -349,26 +349,40 @@ export function StockCard({
                   setShowNoteModal(true);
                 }
               }}
-              className="h-12 text-sm font-medium text-muted-foreground"
+              className="h-12 text-xs sm:text-sm font-medium text-muted-foreground"
             >
               {isInWatchlist ? (
                 <>
-                  <EyeOff className="h-4 w-4 mr-2" />
-                  Remove from List
+                  <EyeOff className="h-4 w-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Remove</span>
+                  <span className="sm:hidden">Remove</span>
                 </>
               ) : (
                 <>
-                  <Eye className="h-4 w-4 mr-2" />
-                  Save for Later
+                  <Eye className="h-4 w-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Save</span>
+                  <span className="sm:hidden">Save</span>
                 </>
               )}
             </Button>
+
+            <Button
+              variant="outline"
+              onClick={() => setShowShareModal(true)}
+              className="h-12 text-xs sm:text-sm font-medium"
+            >
+              <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Share</span>
+              <span className="sm:hidden">Share</span>
+            </Button>
+
             <Button
               variant="ghost"
               onClick={() => onSkip && onSkip()}
-              className="h-12 text-sm font-medium text-muted-foreground hover:text-orange-600"
+              className="h-12 text-xs sm:text-sm font-medium text-muted-foreground hover:text-orange-600"
             >
-              Skip
+              <span className="hidden sm:inline">Skip</span>
+              <span className="sm:hidden">Skip</span>
             </Button>
           </div>
         </div>
