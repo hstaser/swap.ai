@@ -599,15 +599,39 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Mobile Filters */}
-        <div className="mb-4">
-          <StockFilters
-            filters={filters}
-            onFiltersChange={setFilters}
-            onClearFilters={() => setFilters(defaultFilters)}
-            className="bg-white/60 backdrop-blur-sm rounded-lg p-3"
-          />
+        {/* Mobile View Toggle */}
+        <div className="md:hidden mb-4">
+          <div className="flex items-center justify-center gap-1 bg-white/60 backdrop-blur-sm rounded-lg p-1">
+            <Button
+              variant={viewMode === "swipe" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setViewMode("swipe")}
+              className="text-xs px-4 flex-1"
+            >
+              Swipe View
+            </Button>
+            <Button
+              variant={viewMode === "dashboard" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setViewMode("dashboard")}
+              className="text-xs px-4 flex-1"
+            >
+              List View
+            </Button>
+          </div>
         </div>
+
+        {/* Mobile Filters - only show for swipe mode */}
+        {viewMode === "swipe" && (
+          <div className="mb-4">
+            <StockFilters
+              filters={filters}
+              onFiltersChange={setFilters}
+              onClearFilters={() => setFilters(defaultFilters)}
+              className="bg-white/60 backdrop-blur-sm rounded-lg p-3"
+            />
+          </div>
+        )}
 
         {/* Content Display */}
         {viewMode === "dashboard" ? (
