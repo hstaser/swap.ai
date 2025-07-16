@@ -6,6 +6,7 @@ import { Separator } from "@/components/ui/separator";
 import { StockChart } from "./stock-chart";
 import { CommunitySentiment } from "./community-sentiment";
 import { WatchlistNoteModal } from "./watchlist-note-modal";
+import { StockShareModal } from "./stock-share-modal";
 import {
   TrendingUp,
   TrendingDown,
@@ -16,6 +17,7 @@ import {
   Clock,
   AlertCircle,
   MessageCircle,
+  Share2,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
@@ -75,6 +77,7 @@ export function StockCard({
   const [showChart, setShowChart] = useState(false);
   const [showNews, setShowNews] = useState(false);
   const [showNoteModal, setShowNoteModal] = useState(false);
+  const [showShareModal, setShowShareModal] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -260,15 +263,48 @@ export function StockCard({
           isOpen={showNoteModal}
           stock={stock}
           onClose={() => setShowNoteModal(false)}
-          onSave={(symbol, note, priority) => {
+          onSave={(symbol, note) => {
             if (onAddToWatchlistWithNote) {
-              onAddToWatchlistWithNote(symbol, note, priority);
+              onAddToWatchlistWithNote(symbol, note);
             } else {
               onToggleWatchlist(symbol);
             }
             // Auto-advance to next stock after adding to watchlist
             if (onSkip) {
               setTimeout(() => onSkip(), 200);
+            }
+          }}
+        />
+
+        {/* Stock Share Modal */}
+        <StockShareModal
+          isOpen={showShareModal}
+          stock={stock}
+          onClose={() => setShowShareModal(false)}
+          onShareInternal={(friendIds, message) => {
+            console.log("Sharing with friends:", friendIds, message);
+            // Navigate to swipe view with this stock
+            navigate(`/?symbol=${stock.symbol}`);
+          }}
+          onShareExternal={(platform, message) => {
+            console.log("External share:", platform, message);
+            if (platform === "copy") {
+              navigator.clipboard.writeText(
+                `Check out ${stock.symbol} on swipr.ai - ${message}`,
+              );
+            } else {
+              // Open social media sharing
+              const url = `https://swipr.ai/stock/${stock.symbol}`;
+              const text = encodeURIComponent(message);
+              if (platform === "twitter") {
+                window.open(
+                  `https://twitter.com/intent/tweet?text=${text}&url=${url}`,
+                );
+              } else if (platform === "linkedin") {
+                window.open(
+                  `https://linkedin.com/sharing/share-offsite/?url=${url}`,
+                );
+              }
             }
           }}
         />
