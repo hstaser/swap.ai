@@ -6,24 +6,23 @@ import {
   ReactNode,
 } from "react";
 
-type AuthStatus = "authenticated" | "guest" | "unauthenticated";
+type AuthStatus = "authenticated" | "unauthenticated";
 
 interface User {
   id: string;
   name: string;
   email: string;
-  isGuest: boolean;
+  kycCompleted: boolean;
 }
 
 interface AuthContextType {
   user: User | null;
   authStatus: AuthStatus;
   signIn: (email: string, password: string) => Promise<void>;
-  signUp: (name: string, email: string, password: string) => Promise<void>;
-  continueAsGuest: () => void;
+  signUp: (email: string, password: string) => Promise<void>;
   signOut: () => void;
-  saveGuestDataAndSignOut: () => void;
-  requireAuth: () => boolean;
+  completeKYC: (kycData: any) => Promise<void>;
+  requiresKYC: () => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -46,14 +45,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         localStorage.removeItem("auth_status");
         localStorage.removeItem("user_data");
       }
-    } else if (authData === "guest") {
-      setUser({
-        id: "guest",
-        name: "Guest User",
-        email: "",
-        isGuest: true,
-      });
-      setAuthStatus("guest");
     }
   }, []);
 
@@ -66,7 +57,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       id: "user_123",
       name: email.split("@")[0],
       email,
-      isGuest: false,
+      kycCompleted: false,
     };
 
     setUser(mockUser);
