@@ -34,7 +34,7 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
   const [aiSearchQuery, setAiSearchQuery] = useState("");
-  const [showAiSearch, setShowAiSearch] = useState(false);
+  const [showAiSearch, setShowAiSearch] = useState(true);
   const [selectedSector, setSelectedSector] = useState<string>("all");
   const [selectedPerformance, setSelectedPerformance] = useState<string>("all");
   const [selectedMarketCap, setSelectedMarketCap] = useState<string>("all");
@@ -289,7 +289,7 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
 
   return (
     <div className="space-y-4">
-      {/* Search Bar */}
+      {/* Search Options */}
       <div className="space-y-3">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -297,42 +297,54 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
             placeholder="Search Stocks..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-12 h-12 text-lg bg-white/90 backdrop-blur-sm border-0 shadow-sm"
+            className="pl-10 h-12 text-lg bg-white/90 backdrop-blur-sm border-0 shadow-sm"
+          />
+        </div>
+
+        {/* OR Divider */}
+        <div className="relative">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-gray-200" />
+          </div>
+          <div className="relative flex justify-center text-xs uppercase">
+            <span className="bg-white px-2 text-gray-500 font-medium">OR</span>
+          </div>
+        </div>
+
+        {/* AI Search Bar */}
+        <div className="relative">
+          <Sparkles className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-blue-500" />
+          <Input
+            placeholder="Describe what you're looking for... (e.g., 'electric car companies', 'AI and machine learning stocks')"
+            value={aiSearchQuery}
+            onChange={(e) => setAiSearchQuery(e.target.value)}
+            className="pl-10 pr-12 h-12 text-sm bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 shadow-sm"
           />
           <Button
             variant="ghost"
             size="icon"
-            onClick={() => setShowAiSearch(!showAiSearch)}
-            className={cn(
-              "absolute right-1 top-1/2 transform -translate-y-1/2 h-10 w-10",
-              showAiSearch && "bg-blue-100 text-blue-600",
-            )}
+            onClick={() => {
+              setShowAiSearch(false);
+              setAiSearchQuery("");
+            }}
+            className="absolute right-1 top-1/2 transform -translate-y-1/2 h-10 w-10 text-gray-400 hover:text-gray-600"
+            title="Close AI search"
           >
-            <Sparkles className="h-4 w-4" />
+            <X className="h-4 w-4" />
           </Button>
         </div>
 
-        {/* AI Search Bar */}
-        {showAiSearch && (
-          <div className="relative">
-            <Sparkles className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-blue-500" />
-            <Input
-              placeholder="Describe what you're looking for... (e.g., 'electric car companies', 'AI and machine learning stocks')"
-              value={aiSearchQuery}
-              onChange={(e) => setAiSearchQuery(e.target.value)}
-              className="pl-10 pr-12 h-12 text-sm bg-gradient-to-r from-blue-50 to-purple-50 border-blue-200 shadow-sm"
-            />
-            {aiSearchQuery && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setAiSearchQuery("")}
-                className="absolute right-1 top-1/2 transform -translate-y-1/2 h-10 w-10"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            )}
-          </div>
+        {/* Option to reopen AI search if closed */}
+        {!showAiSearch && (
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setShowAiSearch(true)}
+            className="w-full text-blue-600 border-blue-200 hover:bg-blue-50"
+          >
+            <Sparkles className="h-4 w-4 mr-2" />
+            Use AI Search Instead
+          </Button>
         )}
       </div>
 
@@ -443,13 +455,13 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
                   </div>
 
                   {/* Price and Change */}
-                  <div className="text-right">
-                    <div className="font-bold text-lg text-gray-900">
+                  <div className="text-right min-w-[120px]">
+                    <div className="font-bold text-lg text-gray-900 tabular-nums">
                       ${stock.price.toFixed(2)}
                     </div>
                     <Badge
                       className={cn(
-                        "mt-1 font-medium",
+                        "mt-1 font-medium tabular-nums min-w-[70px] justify-center",
                         isPositive
                           ? "bg-green-100 text-green-700 hover:bg-green-100"
                           : "bg-red-100 text-red-700 hover:bg-red-100",
