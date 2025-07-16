@@ -645,7 +645,7 @@ export default function Index() {
                   <Button
                     variant="outline"
                     onClick={() => navigate("/queue/review")}
-                    className="h-12 px-8 text-sm font-medium border-orange-200 text-orange-700 hover:bg-orange-50"
+                    className="h-12 px-8 text-sm font-medium bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white border-0"
                   >
                     Review & Invest ({queue.length}{" "}
                     {queue.length === 1 ? "stock" : "stocks"})
