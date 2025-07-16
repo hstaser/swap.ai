@@ -93,7 +93,7 @@ export default function Landing() {
               <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
                 <BarChart3 className="h-7 w-7 text-white" />
               </div>
-              <h1 className="text-4xl font-bold text-foreground">swap.ai</h1>
+              <h1 className="text-4xl font-bold text-foreground">swipr.ai</h1>
             </div>
             <h2 className="text-2xl font-semibold text-gray-800 mb-4">
               Swipe. Invest. Grow.
