@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { BankingOnboarding } from "@/components/banking/BankingOnboarding";
 
 interface AccountBalance {
   type: "checking" | "savings" | "investment";
