@@ -29,13 +29,8 @@ interface WatchlistNoteModalProps {
   isOpen: boolean;
   stock: Stock;
   onClose: () => void;
-  onSave: (
-    symbol: string,
-    note: string,
-    priority: "low" | "medium" | "high",
-  ) => void;
+  onSave: (symbol: string, note: string) => void;
   existingNote?: string;
-  existingPriority?: "low" | "medium" | "high";
 }
 
 export function WatchlistNoteModal({
@@ -44,20 +39,16 @@ export function WatchlistNoteModal({
   onClose,
   onSave,
   existingNote = "",
-  existingPriority = "medium",
 }: WatchlistNoteModalProps) {
   const [note, setNote] = useState(existingNote);
-  const [priority, setPriority] = useState<"low" | "medium" | "high">(
-    existingPriority,
-  );
 
   const handleSave = () => {
-    onSave(stock.symbol, note, priority);
+    onSave(stock.symbol, note);
     onClose();
   };
 
   const handleSkip = () => {
-    onSave(stock.symbol, "", "medium"); // Save without note
+    onSave(stock.symbol, ""); // Save without note
     onClose();
   };
 
@@ -113,52 +104,11 @@ export function WatchlistNoteModal({
             </div>
           </div>
 
-          {/* Priority Selection */}
-          <div>
-            <Label className="text-sm font-medium mb-2 block">
-              Priority Level
-            </Label>
-            <div className="flex gap-2">
-              <Button
-                variant={priority === "low" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setPriority("low")}
-                className={cn(
-                  "flex-1",
-                  priority === "low" && "bg-gray-500 hover:bg-gray-600",
-                )}
-              >
-                Low
-              </Button>
-              <Button
-                variant={priority === "medium" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setPriority("medium")}
-                className={cn(
-                  "flex-1",
-                  priority === "medium" && "bg-yellow-500 hover:bg-yellow-600",
-                )}
-              >
-                Medium
-              </Button>
-              <Button
-                variant={priority === "high" ? "default" : "outline"}
-                size="sm"
-                onClick={() => setPriority("high")}
-                className={cn(
-                  "flex-1",
-                  priority === "high" && "bg-red-500 hover:bg-red-600",
-                )}
-              >
-                High
-              </Button>
-            </div>
-          </div>
-
           {/* Note Input */}
           <div>
             <Label htmlFor="note" className="text-sm font-medium mb-2 block">
-              Personal Note <span className="text-gray-400">(Optional)</span>
+              Why are you watching this stock?{" "}
+              <span className="text-gray-400">(Optional)</span>
             </Label>
             <Textarea
               id="note"
