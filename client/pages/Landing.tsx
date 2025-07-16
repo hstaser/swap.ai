@@ -18,12 +18,11 @@ import {
 import { useAuth } from "@/hooks/use-auth";
 
 export default function Landing() {
-  const { signIn, signUp, continueAsGuest } = useAuth();
+  const { signIn, signUp } = useAuth();
   const [mode, setMode] = useState<"landing" | "signin" | "signup">("landing");
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
-    name: "",
     email: "",
     password: "",
   });
@@ -36,7 +35,7 @@ export default function Landing() {
       if (mode === "signin") {
         await signIn(formData.email, formData.password);
       } else if (mode === "signup") {
-        await signUp(formData.name, formData.email, formData.password);
+        await signUp(formData.email, formData.password);
       }
     } catch (error) {
       console.error("Auth error:", error);
@@ -54,7 +53,7 @@ export default function Landing() {
         await signIn("developer@test.com", "testpassword");
       } else if (mode === "signup") {
         // Auto-fill and submit with test signup data
-        await signUp("Test Developer", "developer@test.com", "testpassword");
+        await signUp("developer@test.com", "testpassword");
       }
     } catch (error) {
       console.error("Auth error:", error);
@@ -66,13 +65,11 @@ export default function Landing() {
   const fillTestData = () => {
     if (mode === "signin") {
       setFormData({
-        name: "",
         email: "developer@test.com",
         password: "testpassword",
       });
     } else if (mode === "signup") {
       setFormData({
-        name: "Test Developer",
         email: "developer@test.com",
         password: "testpassword",
       });
