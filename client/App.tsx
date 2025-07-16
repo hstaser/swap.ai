@@ -47,7 +47,7 @@ function AppContent() {
     setShowOnboarding(false);
   };
 
-  // Show landing page if not authenticated and not guest
+  // Show landing page if not authenticated
   if (authStatus === "unauthenticated") {
     return <Landing />;
   }
