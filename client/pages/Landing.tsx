@@ -318,15 +318,6 @@ export default function Landing() {
               </div>
             </div>
 
-            <Button
-              variant="ghost"
-              onClick={handleGuestMode}
-              className="w-full"
-            >
-              <Users className="h-4 w-4 mr-2" />
-              Continue as Guest
-            </Button>
-
             <div className="grid grid-cols-2 gap-3">
               <Button
                 variant="ghost"
