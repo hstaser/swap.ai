@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { StockChart } from "./stock-chart";
 import { CommunitySentiment } from "./community-sentiment";
+import { WatchlistNoteModal } from "./watchlist-note-modal";
 import {
   TrendingUp,
   TrendingDown,
@@ -52,6 +53,11 @@ export interface Stock {
 interface StockCardProps {
   stock: Stock;
   onToggleWatchlist: (symbol: string) => void;
+  onAddToWatchlistWithNote?: (
+    symbol: string,
+    note: string,
+    priority: "low" | "medium" | "high",
+  ) => void;
   isInWatchlist: boolean;
   className?: string;
   onSkip?: () => void;
@@ -246,6 +252,24 @@ export function StockCard({
             />
           </div>
         )}
+
+        {/* Watchlist Note Modal */}
+        <WatchlistNoteModal
+          isOpen={showNoteModal}
+          stock={stock}
+          onClose={() => setShowNoteModal(false)}
+          onSave={(symbol, note, priority) => {
+            if (onAddToWatchlistWithNote) {
+              onAddToWatchlistWithNote(symbol, note, priority);
+            } else {
+              onToggleWatchlist(symbol);
+            }
+            // Auto-advance to next stock after adding to watchlist
+            if (onSkip) {
+              setTimeout(() => onSkip(), 200);
+            }
+          }}
+        />
 
         <Separator />
 
