@@ -27,8 +27,7 @@ export function GuestWarning({
             <h3 className="text-lg font-semibold">Account Required</h3>
 
             <p className="text-sm text-gray-600">
-              You need to create an account or sign in to{" "}
-              <strong>{action}</strong>. Guest mode is for browsing only.
+              You need to be signed in to <strong>{action}</strong>.
             </p>
 
             <div className="bg-red-50 border border-red-200 rounded-lg p-3">

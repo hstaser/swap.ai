@@ -175,17 +175,6 @@ export default function Landing() {
                 <Eye className="h-5 w-5 mr-2" />
                 Get Started
               </Button>
-
-              <div className="bg-amber-50 border border-amber-200 rounded-lg p-3">
-                <div className="flex items-start gap-2">
-                  <AlertTriangle className="h-4 w-4 text-amber-600 mt-0.5" />
-                  <div className="text-xs text-amber-800">
-                    <strong>Guest Mode:</strong> You can explore and build a
-                    portfolio, but your data won't be saved. Sign up to keep
-                    your investments secure.
-                  </div>
-                </div>
-              </div>
             </CardContent>
           </Card>
         </div>
