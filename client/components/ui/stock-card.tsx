@@ -149,6 +149,11 @@ export function StockCard({
               {stock.changePercent.toFixed(2)}%)
             </span>
           </div>
+          <div className="text-center">
+            <Badge variant="outline" className="text-xs text-muted-foreground">
+              Today
+            </Badge>
+          </div>
         </div>
 
         {/* Key Metrics */}
