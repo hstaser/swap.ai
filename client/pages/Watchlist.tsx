@@ -16,6 +16,9 @@ import {
   Search,
   ArrowLeft,
   MoreVertical,
+  FileText,
+  Star,
+  Clock,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
@@ -30,6 +33,9 @@ interface WatchlistStock {
   sector: string;
   marketCap: string;
   volume: string;
+  note?: string;
+  priority?: "low" | "medium" | "high";
+  addedAt?: Date;
 }
 
 const mockWatchlistStocks: WatchlistStock[] = [
@@ -42,6 +48,9 @@ const mockWatchlistStocks: WatchlistStock[] = [
     sector: "Technology",
     marketCap: "2.85T",
     volume: "52.4M",
+    note: "Strong earnings expected this quarter. iPhone 15 sales looking good.",
+    priority: "high",
+    addedAt: new Date("2024-01-15"),
   },
   {
     symbol: "TSLA",
@@ -52,6 +61,9 @@ const mockWatchlistStocks: WatchlistStock[] = [
     sector: "Consumer Discretionary",
     marketCap: "759.8B",
     volume: "89.7M",
+    note: "Waiting for dip below $200 to buy more",
+    priority: "medium",
+    addedAt: new Date("2024-01-12"),
   },
   {
     symbol: "MSFT",
@@ -62,6 +74,9 @@ const mockWatchlistStocks: WatchlistStock[] = [
     sector: "Technology",
     marketCap: "2.81T",
     volume: "28.1M",
+    note: "Azure growth continues strong. Long-term hold.",
+    priority: "low",
+    addedAt: new Date("2024-01-10"),
   },
   {
     symbol: "NVDA",
@@ -72,6 +87,9 @@ const mockWatchlistStocks: WatchlistStock[] = [
     sector: "Technology",
     marketCap: "1.78T",
     volume: "67.8M",
+    note: "AI boom continues. Monitor for any pullbacks.",
+    priority: "high",
+    addedAt: new Date("2024-01-08"),
   },
   {
     symbol: "GOOGL",
@@ -82,6 +100,8 @@ const mockWatchlistStocks: WatchlistStock[] = [
     sector: "Communication Services",
     marketCap: "1.75T",
     volume: "31.2M",
+    priority: "medium",
+    addedAt: new Date("2024-01-05"),
   },
   {
     symbol: "META",
@@ -92,6 +112,9 @@ const mockWatchlistStocks: WatchlistStock[] = [
     sector: "Communication Services",
     marketCap: "832.1B",
     volume: "18.3M",
+    note: "VR/AR pivot showing promise. Cost cutting helping margins.",
+    priority: "medium",
+    addedAt: new Date("2024-01-03"),
   },
   {
     symbol: "AMD",
@@ -102,6 +125,8 @@ const mockWatchlistStocks: WatchlistStock[] = [
     sector: "Technology",
     marketCap: "165.2B",
     volume: "45.7M",
+    priority: "low",
+    addedAt: new Date("2024-01-01"),
   },
 ];
 
