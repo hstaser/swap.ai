@@ -415,68 +415,66 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
           const isPositive = stock.changePercent >= 0;
 
           return (
-            <Card
+            <div
               key={stock.symbol}
-              className="bg-white/90 backdrop-blur-sm border-0 shadow-sm hover:shadow-md transition-all cursor-pointer rounded-none first:rounded-t-lg last:rounded-b-lg"
+              className="bg-white/90 backdrop-blur-sm border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-all cursor-pointer p-4"
               onClick={() => handleStockClick(stock.symbol)}
             >
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    {/* Logo */}
-                    <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
-                      <img
-                        src={stock.logo}
-                        alt={`${stock.name} logo`}
-                        className="w-8 h-8 object-contain"
-                        onError={(e) => {
-                          // Fallback to first letter if image fails to load
-                          const target = e.target as HTMLImageElement;
-                          target.style.display = "none";
-                          target.parentElement!.innerHTML = `<div class="w-8 h-8 bg-blue-600 rounded text-white flex items-center justify-center text-sm font-bold">${stock.symbol[0]}</div>`;
-                        }}
-                      />
-                    </div>
-
-                    {/* Stock Info */}
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="font-bold text-gray-900">
-                          {stock.symbol}
-                        </span>
-                        <span className="text-gray-900 font-medium">
-                          {stock.name}
-                        </span>
-                      </div>
-                      <div className="text-sm text-gray-500 uppercase tracking-wide mt-1">
-                        {stock.sector}
-                      </div>
-                    </div>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  {/* Logo */}
+                  <div className="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center overflow-hidden">
+                    <img
+                      src={stock.logo}
+                      alt={`${stock.name} logo`}
+                      className="w-8 h-8 object-contain"
+                      onError={(e) => {
+                        // Fallback to first letter if image fails to load
+                        const target = e.target as HTMLImageElement;
+                        target.style.display = "none";
+                        target.parentElement!.innerHTML = `<div class="w-8 h-8 bg-blue-600 rounded text-white flex items-center justify-center text-sm font-bold">${stock.symbol[0]}</div>`;
+                      }}
+                    />
                   </div>
 
-                  {/* Price and Change */}
-                  <div className="text-right w-[140px] flex flex-col items-end">
-                    <div className="font-bold text-lg text-gray-900 tabular-nums w-[100px] text-right">
-                      ${stock.price.toFixed(2)}
+                  {/* Stock Info */}
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="font-bold text-gray-900">
+                        {stock.symbol}
+                      </span>
+                      <span className="text-gray-900 font-medium">
+                        {stock.name}
+                      </span>
                     </div>
-                    <Badge
-                      className={cn(
-                        "mt-1 font-medium tabular-nums w-[80px] justify-center text-center",
-                        isPositive
-                          ? "bg-green-100 text-green-700 hover:bg-green-100"
-                          : "bg-red-100 text-red-700 hover:bg-red-100",
-                      )}
-                    >
-                      {isPositive ? "+" : ""}
-                      {stock.changePercent.toFixed(2)}%
-                    </Badge>
+                    <div className="text-sm text-gray-500 uppercase tracking-wide mt-1">
+                      {stock.sector}
+                    </div>
                   </div>
-
-                  {/* Chevron */}
-                  <ChevronRight className="h-5 w-5 text-gray-400 ml-2" />
                 </div>
-              </CardContent>
-            </Card>
+
+                {/* Price and Change */}
+                <div className="text-right w-[140px] flex flex-col items-end">
+                  <div className="font-bold text-lg text-gray-900 tabular-nums w-[100px] text-right">
+                    ${stock.price.toFixed(2)}
+                  </div>
+                  <Badge
+                    className={cn(
+                      "mt-1 font-medium tabular-nums w-[80px] justify-center text-center",
+                      isPositive
+                        ? "bg-green-100 text-green-700 hover:bg-green-100"
+                        : "bg-red-100 text-red-700 hover:bg-red-100",
+                    )}
+                  >
+                    {isPositive ? "+" : ""}
+                    {stock.changePercent.toFixed(2)}%
+                  </Badge>
+                </div>
+
+                {/* Chevron */}
+                <ChevronRight className="h-5 w-5 text-gray-400 ml-2" />
+              </div>
+            </div>
           );
         })}
       </div>
