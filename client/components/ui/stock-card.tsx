@@ -342,7 +342,7 @@ export function StockCard({
           </Button>
 
           {/* Action Buttons */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-3">
+          <div className="grid grid-cols-2 gap-2 sm:gap-3">
             <Button
               variant="ghost"
               onClick={() => {
@@ -367,16 +367,6 @@ export function StockCard({
                   <span className="sm:hidden">Save</span>
                 </>
               )}
-            </Button>
-
-            <Button
-              variant="outline"
-              onClick={() => setShowShareModal(true)}
-              className="h-12 text-xs sm:text-sm font-medium"
-            >
-              <Share2 className="h-4 w-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Share</span>
-              <span className="sm:hidden">Share</span>
             </Button>
 
             <Button
