@@ -3,6 +3,7 @@ import { StockCard, type Stock } from "@/components/ui/stock-card";
 import { StockFilters, type FilterState } from "@/components/ui/stock-filters";
 import { StockSearch } from "@/components/ui/stock-search";
 import { MarketSentiment } from "@/components/ui/market-sentiment";
+import { StockDashboard } from "@/components/ui/stock-dashboard";
 import { useQueue } from "@/hooks/use-queue";
 
 import { HelpSystem } from "@/components/ui/help-system";
