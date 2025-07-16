@@ -903,6 +903,18 @@ export default function Banking() {
           </Card>
         </div>
       )}
+
+      {/* Banking Onboarding Modal */}
+      <BankingOnboarding
+        onComplete={() => {
+          setShowBankingOnboarding(false);
+          setConfirmationMessage(
+            "Banking account setup complete! Your account is being verified and will be ready for use within 1-2 business days.",
+          );
+          setShowConfirmation(true);
+        }}
+        onCancel={() => setShowBankingOnboarding(false)}
+      />
     </div>
   );
 }
