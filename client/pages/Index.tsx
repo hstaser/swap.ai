@@ -339,6 +339,7 @@ export default function Index() {
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [viewMode, setViewMode] = useState<"swipe" | "dashboard">("swipe");
 
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
