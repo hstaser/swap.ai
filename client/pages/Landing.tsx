@@ -80,33 +80,18 @@ export default function Landing() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-green-100 flex items-center justify-center p-4">
         <div className="w-full max-w-4xl">
-          {/* Clean Logo Only - Perfect for Screenshot */}
-          <div className="flex items-center justify-center min-h-[50vh]">
-            <div className="relative">
-              {/* Main Logo Icon */}
-              <div className="w-32 h-32 bg-gradient-to-br from-blue-500 via-purple-600 to-cyan-500 rounded-3xl flex items-center justify-center shadow-2xl">
-                <div className="w-28 h-28 bg-gradient-to-tr from-white/20 to-white/5 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                  <TrendingUp className="h-16 w-16 text-white drop-shadow-lg" />
-                </div>
-              </div>
-
-              {/* Glow effect */}
-              <div className="absolute inset-0 w-32 h-32 bg-gradient-to-br from-blue-400 via-purple-500 to-cyan-400 rounded-3xl blur-2xl opacity-40 -z-10 animate-pulse"></div>
-
-              {/* Outer ring */}
-              <div className="absolute -inset-4 border-2 border-gradient-to-r from-blue-300 via-purple-300 to-cyan-300 rounded-full opacity-30"></div>
-            </div>
-          </div>
-
-          {/* Hero Content */}
+          {/* Hero Section */}
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-semibold text-gray-800 mb-4 tracking-wide">
-              Swipe. Invest.{" "}
-              <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
-                Grow.
-              </span>
+            <div className="flex items-center justify-center gap-3 mb-6">
+              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
+                <BarChart3 className="h-7 w-7 text-white" />
+              </div>
+              <h1 className="text-4xl font-bold text-foreground">swipr.ai</h1>
+            </div>
+            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
+              Swipe. Invest. Grow.
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               The first AI-powered investment platform that makes stock
               selection as easy as swiping. Build your portfolio with confidence
               using smart recommendations.
