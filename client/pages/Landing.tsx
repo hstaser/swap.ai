@@ -80,56 +80,26 @@ export default function Landing() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-green-100 flex items-center justify-center p-4">
         <div className="w-full max-w-4xl">
-          {/* Hero Section with Futuristic Logo */}
-          <div className="text-center mb-12">
-            {/* Clean Futuristic Logo */}
-            <div className="relative mb-8">
-              <div className="flex items-center justify-center gap-4 mb-2">
-                {/* Futuristic Icon */}
-                <div className="relative">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 via-purple-600 to-cyan-500 rounded-2xl flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
-                    <div className="w-16 h-16 bg-gradient-to-tr from-white/20 to-white/5 rounded-xl flex items-center justify-center backdrop-blur-sm">
-                      <TrendingUp className="h-10 w-10 text-white drop-shadow-lg" />
-                    </div>
-                  </div>
-                  {/* Glow effect */}
-                  <div className="absolute inset-0 w-20 h-20 bg-gradient-to-br from-blue-400 via-purple-500 to-cyan-400 rounded-2xl blur-xl opacity-30 -z-10 animate-pulse"></div>
-                </div>
-
-                {/* Company Name */}
-                <div className="relative">
-                  <h1 className="text-6xl font-black bg-gradient-to-r from-gray-800 via-blue-700 to-purple-700 bg-clip-text text-transparent tracking-tight">
-                    swipr
-                  </h1>
-                  <span className="text-4xl font-light text-blue-500 ml-1">
-                    .ai
-                  </span>
-                  {/* Subtle underline */}
-                  <div className="w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-2 opacity-60"></div>
+          {/* Clean Logo Only - Perfect for Screenshot */}
+          <div className="flex items-center justify-center min-h-[50vh]">
+            <div className="relative">
+              {/* Main Logo Icon */}
+              <div className="w-32 h-32 bg-gradient-to-br from-blue-500 via-purple-600 to-cyan-500 rounded-3xl flex items-center justify-center shadow-2xl">
+                <div className="w-28 h-28 bg-gradient-to-tr from-white/20 to-white/5 rounded-2xl flex items-center justify-center backdrop-blur-sm">
+                  <TrendingUp className="h-16 w-16 text-white drop-shadow-lg" />
                 </div>
               </div>
 
-              {/* Floating particles effect */}
-              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full pointer-events-none">
-                <div
-                  className="absolute top-4 left-1/4 w-2 h-2 bg-blue-400 rounded-full opacity-60 animate-bounce"
-                  style={{ animationDelay: "0s" }}
-                ></div>
-                <div
-                  className="absolute top-8 right-1/4 w-1 h-1 bg-purple-500 rounded-full opacity-40 animate-bounce"
-                  style={{ animationDelay: "1s" }}
-                ></div>
-                <div
-                  className="absolute top-2 left-1/3 w-1.5 h-1.5 bg-cyan-400 rounded-full opacity-50 animate-bounce"
-                  style={{ animationDelay: "2s" }}
-                ></div>
-                <div
-                  className="absolute top-6 right-1/3 w-1 h-1 bg-blue-300 rounded-full opacity-30 animate-bounce"
-                  style={{ animationDelay: "1.5s" }}
-                ></div>
-              </div>
+              {/* Glow effect */}
+              <div className="absolute inset-0 w-32 h-32 bg-gradient-to-br from-blue-400 via-purple-500 to-cyan-400 rounded-3xl blur-2xl opacity-40 -z-10 animate-pulse"></div>
+
+              {/* Outer ring */}
+              <div className="absolute -inset-4 border-2 border-gradient-to-r from-blue-300 via-purple-300 to-cyan-300 rounded-full opacity-30"></div>
             </div>
+          </div>
 
+          {/* Hero Content */}
+          <div className="text-center mb-12">
             <h2 className="text-3xl font-semibold text-gray-800 mb-4 tracking-wide">
               Swipe. Invest.{" "}
               <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
