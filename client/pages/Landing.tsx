@@ -80,18 +80,63 @@ export default function Landing() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-green-100 flex items-center justify-center p-4">
         <div className="w-full max-w-4xl">
-          {/* Hero Section */}
+          {/* Hero Section with Futuristic Logo */}
           <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-6">
-              <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center">
-                <BarChart3 className="h-7 w-7 text-white" />
+            {/* Clean Futuristic Logo */}
+            <div className="relative mb-8">
+              <div className="flex items-center justify-center gap-4 mb-2">
+                {/* Futuristic Icon */}
+                <div className="relative">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 via-purple-600 to-cyan-500 rounded-2xl flex items-center justify-center shadow-2xl transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                    <div className="w-16 h-16 bg-gradient-to-tr from-white/20 to-white/5 rounded-xl flex items-center justify-center backdrop-blur-sm">
+                      <TrendingUp className="h-10 w-10 text-white drop-shadow-lg" />
+                    </div>
+                  </div>
+                  {/* Glow effect */}
+                  <div className="absolute inset-0 w-20 h-20 bg-gradient-to-br from-blue-400 via-purple-500 to-cyan-400 rounded-2xl blur-xl opacity-30 -z-10 animate-pulse"></div>
+                </div>
+
+                {/* Company Name */}
+                <div className="relative">
+                  <h1 className="text-6xl font-black bg-gradient-to-r from-gray-800 via-blue-700 to-purple-700 bg-clip-text text-transparent tracking-tight">
+                    swipr
+                  </h1>
+                  <span className="text-4xl font-light text-blue-500 ml-1">
+                    .ai
+                  </span>
+                  {/* Subtle underline */}
+                  <div className="w-full h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mt-2 opacity-60"></div>
+                </div>
               </div>
-              <h1 className="text-4xl font-bold text-foreground">swipr.ai</h1>
+
+              {/* Floating particles effect */}
+              <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-full h-full pointer-events-none">
+                <div
+                  className="absolute top-4 left-1/4 w-2 h-2 bg-blue-400 rounded-full opacity-60 animate-bounce"
+                  style={{ animationDelay: "0s" }}
+                ></div>
+                <div
+                  className="absolute top-8 right-1/4 w-1 h-1 bg-purple-500 rounded-full opacity-40 animate-bounce"
+                  style={{ animationDelay: "1s" }}
+                ></div>
+                <div
+                  className="absolute top-2 left-1/3 w-1.5 h-1.5 bg-cyan-400 rounded-full opacity-50 animate-bounce"
+                  style={{ animationDelay: "2s" }}
+                ></div>
+                <div
+                  className="absolute top-6 right-1/3 w-1 h-1 bg-blue-300 rounded-full opacity-30 animate-bounce"
+                  style={{ animationDelay: "1.5s" }}
+                ></div>
+              </div>
             </div>
-            <h2 className="text-2xl font-semibold text-gray-800 mb-4">
-              Swipe. Invest. Grow.
+
+            <h2 className="text-3xl font-semibold text-gray-800 mb-4 tracking-wide">
+              Swipe. Invest.{" "}
+              <span className="text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text">
+                Grow.
+              </span>
             </h2>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
               The first AI-powered investment platform that makes stock
               selection as easy as swiping. Build your portfolio with confidence
               using smart recommendations.
