@@ -130,10 +130,29 @@ const mockWatchlistStocks: WatchlistStock[] = [
   },
 ];
 
+// Top gainer/loser data for dashboard cards
+const topPerformers = {
+  gainer: {
+    symbol: "U",
+    change: 7.6,
+    chartData: [45, 48, 52, 49, 55, 58, 52, 56, 61, 59, 63],
+  },
+  loser: {
+    symbol: "FICO",
+    change: -0.75,
+    chartData: [180, 178, 175, 172, 169, 167, 165, 162, 160, 158, 179],
+  },
+};
+
 export default function Watchlist() {
   const [watchlistStocks, setWatchlistStocks] = useState(mockWatchlistStocks);
   const [isEditing, setIsEditing] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [isPublic, setIsPublic] = useState(false);
+  const [showChart, setShowChart] = useState(false);
+  const [selectedStock, setSelectedStock] = useState<string | null>(null);
+  const [showFriends, setShowFriends] = useState(false);
+  const [showComparables, setShowComparables] = useState(false);
   const navigate = useNavigate();
 
   const removeFromWatchlist = (symbol: string) => {
