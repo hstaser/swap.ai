@@ -207,13 +207,6 @@ export default function Watchlist() {
               >
                 {isEditing ? "Done" : "Edit"}
               </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setShowFriends(!showFriends)}
-              >
-                <Users className="h-4 w-4" />
-              </Button>
               <Button variant="ghost" size="icon">
                 <Search className="h-4 w-4" />
               </Button>
