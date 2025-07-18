@@ -724,6 +724,21 @@ export default function StockDetail() {
             </Card>
           </TabsContent>
 
+          <TabsContent value="similar" className="space-y-4">
+            <ComparableCompanies
+              targetSymbol={stock.symbol}
+              targetSector={stock.sector}
+              onStockSelect={(symbol) => {
+                navigate(`/stock/${symbol}`);
+              }}
+              onAddToWatchlist={(symbol) => {
+                console.log(`Adding ${symbol} to watchlist`);
+                // Could add toast notification here
+              }}
+              className="bg-white/90 backdrop-blur-sm border-0"
+            />
+          </TabsContent>
+
           <TabsContent value="news" className="space-y-4">
             {stock.news.map((newsItem, index) => (
               <Card
