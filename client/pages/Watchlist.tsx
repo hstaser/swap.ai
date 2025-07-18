@@ -223,6 +223,149 @@ export default function Watchlist() {
       </header>
 
       <div className="container mx-auto px-4 py-6 space-y-6">
+        {/* Top Gainer/Loser Cards - Like your image */}
+        <div className="grid grid-cols-2 gap-4">
+          {/* Top Gainer Card */}
+          <Card
+            className="cursor-pointer hover:shadow-md transition-shadow bg-gradient-to-br from-green-50 to-emerald-50 border-green-200"
+            onClick={() => {
+              setSelectedStock("U");
+              setShowChart(true);
+            }}
+          >
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-green-800">
+                  Top Gainer
+                </span>
+                <TrendingUp className="h-4 w-4 text-green-600" />
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xl font-bold text-green-900">
+                    {topPerformers.gainer.symbol}
+                  </span>
+                  <span className="text-lg font-semibold text-green-600">
+                    ^{topPerformers.gainer.change.toFixed(2)}%
+                  </span>
+                </div>
+
+                {/* Mini Chart */}
+                <div className="h-12">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 100 30"
+                    className="overflow-visible"
+                  >
+                    <path
+                      d={topPerformers.gainer.chartData
+                        .map((point, index) => {
+                          const x =
+                            (index /
+                              (topPerformers.gainer.chartData.length - 1)) *
+                            100;
+                          const y =
+                            30 -
+                            ((point -
+                              Math.min(...topPerformers.gainer.chartData)) /
+                              (Math.max(...topPerformers.gainer.chartData) -
+                                Math.min(...topPerformers.gainer.chartData))) *
+                              25;
+                          return `${index === 0 ? "M" : "L"} ${x} ${y}`;
+                        })
+                        .join(" ")}
+                      fill="none"
+                      stroke="#22c55e"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                </div>
+
+                <p className="text-xs text-green-700">in Saved Stocks</p>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Top Loser Card */}
+          <Card
+            className="cursor-pointer hover:shadow-md transition-shadow bg-gradient-to-br from-red-50 to-rose-50 border-red-200"
+            onClick={() => {
+              setSelectedStock("FICO");
+              setShowChart(true);
+            }}
+          >
+            <CardContent className="p-4">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-sm font-medium text-red-800">
+                  Top Loser
+                </span>
+                <TrendingDown className="h-4 w-4 text-red-600" />
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <span className="text-xl font-bold text-red-900">
+                    {topPerformers.loser.symbol}
+                  </span>
+                  <span className="text-lg font-semibold text-red-600">
+                    v{topPerformers.loser.change.toFixed(2)}%
+                  </span>
+                </div>
+
+                {/* Mini Chart */}
+                <div className="h-12">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 100 30"
+                    className="overflow-visible"
+                  >
+                    <path
+                      d={topPerformers.loser.chartData
+                        .map((point, index) => {
+                          const x =
+                            (index /
+                              (topPerformers.loser.chartData.length - 1)) *
+                            100;
+                          const y =
+                            30 -
+                            ((point -
+                              Math.min(...topPerformers.loser.chartData)) /
+                              (Math.max(...topPerformers.loser.chartData) -
+                                Math.min(...topPerformers.loser.chartData))) *
+                              25;
+                          return `${index === 0 ? "M" : "L"} ${x} ${y}`;
+                        })
+                        .join(" ")}
+                      fill="none"
+                      stroke="#ef4444"
+                      strokeWidth="1.5"
+                    />
+                  </svg>
+                </div>
+
+                <p className="text-xs text-red-700">in Saved Stocks</p>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Friends Interface */}
+        {showFriends && (
+          <FriendsInterface
+            onSendMessage={(friendId) =>
+              navigate(`/messages?friend=${friendId}`)
+            }
+            onViewProfile={(friendId) => navigate(`/profile/${friendId}`)}
+            onShareStock={(friendId) => {
+              // Handle sharing logic
+              console.log(`Sharing with friend: ${friendId}`);
+            }}
+          />
+        )}
+
         {/* Add Stock Button */}
         <Button asChild className="w-full h-12 text-lg font-semibold">
           <Link to="/">
