@@ -708,16 +708,81 @@ export default function StockDetail() {
           <TabsContent value="stats" className="space-y-4">
             <Card className="bg-white/90 backdrop-blur-sm border-0">
               <CardContent className="p-6">
-                <h4 className="font-bold text-lg mb-4">Key Statistics</h4>
+                <h4 className="font-bold text-lg mb-4">Financial Statistics</h4>
                 <div className="grid grid-cols-2 gap-4">
-                  {Object.entries(stock.keyStats).map(([key, value]) => (
-                    <div key={key} className="space-y-1">
-                      <span className="text-sm text-muted-foreground capitalize">
-                        {key.replace(/([A-Z])/g, " $1").trim()}
-                      </span>
-                      <div className="font-semibold">{value}</div>
+                  {/* Financial Metrics */}
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">
+                      Revenue
+                    </span>
+                    <div className="font-semibold">
+                      {stock.financials.revenue}
                     </div>
-                  ))}
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">
+                      Net Income
+                    </span>
+                    <div className="font-semibold">
+                      {stock.financials.netIncome}
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">
+                      Gross Margin
+                    </span>
+                    <div className="font-semibold">
+                      {stock.financials.grossMargin}
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">
+                      Profit Margin
+                    </span>
+                    <div className="font-semibold">
+                      {stock.financials.profitMargin}
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">ROE</span>
+                    <div className="font-semibold">{stock.financials.roe}</div>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">
+                      Debt to Equity
+                    </span>
+                    <div className="font-semibold">
+                      {stock.financials.debtToEquity}
+                    </div>
+                  </div>
+
+                  {/* Basic Stock Stats */}
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">
+                      Shares Outstanding
+                    </span>
+                    <div className="font-semibold">
+                      {stock.keyStats.sharesOutstanding}
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">
+                      Average Volume
+                    </span>
+                    <div className="font-semibold">{stock.avgVolume}</div>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">
+                      Institutional Ownership
+                    </span>
+                    <div className="font-semibold">
+                      {stock.keyStats.institutionalOwnership}
+                    </div>
+                  </div>
+                  <div className="space-y-1">
+                    <span className="text-sm text-muted-foreground">Beta</span>
+                    <div className="font-semibold">{stock.beta.toFixed(2)}</div>
+                  </div>
                 </div>
               </CardContent>
             </Card>
