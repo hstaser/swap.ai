@@ -4,6 +4,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { StockChart } from "./stock-chart";
+import { InteractiveChart } from "./interactive-chart";
+import { ComparableCompanies } from "./comparable-companies";
 import { CommunitySentiment } from "./community-sentiment";
 import { WatchlistNoteModal } from "./watchlist-note-modal";
 import { StockShareModal } from "./stock-share-modal";
