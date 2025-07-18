@@ -182,13 +182,37 @@ export default function Watchlist() {
                 </p>
               </div>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
+              {/* Privacy Toggle */}
+              <div className="flex items-center gap-2">
+                {isPublic ? (
+                  <Unlock className="h-4 w-4 text-green-600" />
+                ) : (
+                  <Lock className="h-4 w-4 text-gray-600" />
+                )}
+                <Switch
+                  checked={isPublic}
+                  onCheckedChange={setIsPublic}
+                  className="scale-75"
+                />
+                <span className="text-xs text-muted-foreground">
+                  {isPublic ? "Public" : "Private"}
+                </span>
+              </div>
+
               <Button
                 variant={isEditing ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setIsEditing(!isEditing)}
               >
                 {isEditing ? "Done" : "Edit"}
+              </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setShowFriends(!showFriends)}
+              >
+                <Users className="h-4 w-4" />
               </Button>
               <Button variant="ghost" size="icon">
                 <Search className="h-4 w-4" />
