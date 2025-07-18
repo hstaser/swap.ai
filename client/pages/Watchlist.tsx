@@ -345,20 +345,6 @@ export default function Watchlist() {
           </Card>
         </div>
 
-        {/* Friends Interface */}
-        {showFriends && (
-          <FriendsInterface
-            onSendMessage={(friendId) =>
-              navigate(`/messages?friend=${friendId}`)
-            }
-            onViewProfile={(friendId) => navigate(`/profile/${friendId}`)}
-            onShareStock={(friendId) => {
-              // Handle sharing logic
-              console.log(`Sharing with friend: ${friendId}`);
-            }}
-          />
-        )}
-
         {/* Add Stock Button */}
         <Button asChild className="w-full h-12 text-lg font-semibold">
           <Link to="/">
