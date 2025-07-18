@@ -146,27 +146,9 @@ export function FriendsInterface({
           />
         </div>
 
-        {/* Tabs */}
-        <div className="flex gap-1 p-1 bg-gray-100 rounded-lg">
-          <Button
-            variant={activeTab === "friends" ? "default" : "ghost"}
-            size="sm"
-            onClick={() => setActiveTab("friends")}
-            className="flex-1 h-8"
-          >
-            <Users className="h-3 w-3 mr-1" />
-            Friends ({mockFriends.length})
-          </Button>
-          <Button
-            variant={activeTab === "leaderboard" ? "default" : "ghost"}
-            size="sm"
-            onClick={() => setActiveTab("leaderboard")}
-            className="flex-1 h-8"
-          >
-            <Crown className="h-3 w-3 mr-1" />
-            Leaderboard
-          </Button>
-        </div>
+        <p className="text-sm text-muted-foreground">
+          Connect with friends and share stock ideas
+        </p>
       </CardHeader>
 
       <CardContent className="space-y-4 max-h-96 overflow-y-auto">
