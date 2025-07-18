@@ -271,36 +271,6 @@ export function StockCard({
           />
         )}
 
-        {/* Comparable Companies Modal */}
-        {showComparables && (
-          <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-            <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto">
-              <ComparableCompanies
-                targetSymbol={stock.symbol}
-                targetSector={stock.sector}
-                onStockSelect={(symbol) => {
-                  navigate(`/?symbol=${symbol}`);
-                  setShowComparables(false);
-                }}
-                onAddToWatchlist={(symbol) => {
-                  onToggleWatchlist(symbol);
-                  setShowComparables(false);
-                }}
-                className="bg-white"
-              />
-              <div className="mt-4 text-center">
-                <Button
-                  variant="outline"
-                  onClick={() => setShowComparables(false)}
-                  className="bg-white"
-                >
-                  Close
-                </Button>
-              </div>
-            </div>
-          </div>
-        )}
-
         {/* Watchlist Note Modal */}
         <WatchlistNoteModal
           isOpen={showNoteModal}
