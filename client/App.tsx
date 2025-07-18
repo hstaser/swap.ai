@@ -18,6 +18,7 @@ import Banking from "./pages/Banking";
 import Transactions from "./pages/Transactions";
 import Watchlist from "./pages/Watchlist";
 import Portfolio from "./pages/Portfolio";
+import Friends from "./pages/Friends";
 import QueueAdd from "./pages/QueueAdd";
 import QueueReview from "./pages/QueueReview";
 import PortfolioOptimize from "./pages/PortfolioOptimize";
