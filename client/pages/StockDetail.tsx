@@ -687,24 +687,6 @@ export default function StockDetail() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="financials" className="space-y-4">
-            <Card className="bg-white/90 backdrop-blur-sm border-0">
-              <CardContent className="p-6">
-                <h4 className="font-bold text-lg mb-4">Financial Metrics</h4>
-                <div className="grid grid-cols-2 gap-4">
-                  {Object.entries(stock.financials).map(([key, value]) => (
-                    <div key={key} className="space-y-1">
-                      <span className="text-sm text-muted-foreground capitalize">
-                        {key.replace(/([A-Z])/g, " $1").trim()}
-                      </span>
-                      <div className="font-semibold">{value}</div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
           <TabsContent value="stats" className="space-y-4">
             <Card className="bg-white/90 backdrop-blur-sm border-0">
               <CardContent className="p-6">
