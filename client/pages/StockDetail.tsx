@@ -237,11 +237,7 @@ const mockDetailedStocks: { [key: string]: DetailedStock } = {
     },
     keyStats: {
       sharesOutstanding: "241M",
-      floatShares: "189M",
       institutionalOwnership: "58.3%",
-      shortInterest: "12.4%",
-      analystRating: "Hold",
-      priceTarget: "$170.00",
     },
   },
   AMD: {
