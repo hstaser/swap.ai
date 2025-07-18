@@ -569,6 +569,47 @@ export default function Watchlist() {
         )}
       </div>
 
+      {/* Interactive Chart Modal */}
+      {showChart && selectedStock && (
+        <InteractiveChart
+          symbol={selectedStock}
+          onClose={() => {
+            setShowChart(false);
+            setSelectedStock(null);
+          }}
+        />
+      )}
+
+      {/* Comparable Companies */}
+      {showComparables && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="w-full max-w-lg max-h-[90vh] overflow-y-auto">
+            <ComparableCompanies
+              targetSymbol="AAPL"
+              targetSector="Technology"
+              onStockSelect={(symbol) => {
+                navigate(`/stock/${symbol}`);
+                setShowComparables(false);
+              }}
+              onAddToWatchlist={(symbol) => {
+                console.log(`Adding ${symbol} to watchlist`);
+                setShowComparables(false);
+              }}
+              className="bg-white"
+            />
+            <div className="mt-4 text-center">
+              <Button
+                variant="outline"
+                onClick={() => setShowComparables(false)}
+                className="bg-white"
+              >
+                Close
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Notifications */}
       {showNotifications && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
