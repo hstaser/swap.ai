@@ -197,14 +197,24 @@ export function StockCard({
               <div className="text-sm text-muted-foreground">
                 Recent Returns
               </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => setShowChart(true)}
-                className="h-6 px-2 text-xs"
-              >
-                Chart
-              </Button>
+              <div className="flex gap-1">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowInteractiveChart(true)}
+                  className="h-6 px-2 text-xs"
+                >
+                  Chart
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowComparables(true)}
+                  className="h-6 px-2 text-xs text-blue-600"
+                >
+                  Similar
+                </Button>
+              </div>
             </div>
             <div className="flex gap-2">
               {[
