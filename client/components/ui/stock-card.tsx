@@ -77,6 +77,8 @@ export function StockCard({
 }: StockCardProps) {
   const isPositive = stock.change >= 0;
   const [showChart, setShowChart] = useState(false);
+  const [showInteractiveChart, setShowInteractiveChart] = useState(false);
+  const [showComparables, setShowComparables] = useState(false);
   const [showNews, setShowNews] = useState(false);
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
