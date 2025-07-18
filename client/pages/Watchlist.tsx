@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
+import { FriendsInterface } from "@/components/ui/friends-interface";
+import { ComparableCompanies } from "@/components/ui/comparable-companies";
+import { InteractiveChart } from "@/components/ui/interactive-chart";
 import {
   BarChart3,
   Bell,
@@ -19,6 +23,10 @@ import {
   FileText,
   Star,
   Clock,
+  Lock,
+  Unlock,
+  Users,
+  Crown,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
