@@ -124,11 +124,7 @@ const mockDetailedStocks: { [key: string]: DetailedStock } = {
     },
     keyStats: {
       sharesOutstanding: "15.6B",
-      floatShares: "15.6B",
       institutionalOwnership: "59.8%",
-      shortInterest: "0.9%",
-      analystRating: "Buy",
-      priceTarget: "$195.00",
     },
   },
   TSLA: {
