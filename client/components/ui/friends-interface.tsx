@@ -152,155 +152,94 @@ export function FriendsInterface({
       </CardHeader>
 
       <CardContent className="space-y-4 max-h-96 overflow-y-auto">
-        {activeTab === "friends" ? (
-          <>
-            {filteredFriends.map((friend, index) => (
-              <div key={friend.id} className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="relative">
-                    <Avatar className="w-10 h-10">
-                      <AvatarImage src={friend.avatar} />
-                      <AvatarFallback className="bg-blue-100 text-blue-700">
-                        {getInitials(friend.name)}
-                      </AvatarFallback>
-                    </Avatar>
-                    {friend.isOnline && (
-                      <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-                    )}
-                  </div>
-
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-sm">{friend.name}</h4>
-                      {friend.isFollowing && (
-                        <Star className="h-3 w-3 text-yellow-500" />
-                      )}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      @{friend.username}
-                    </p>
-                    <div className="flex items-center gap-3 text-xs text-muted-foreground mt-1">
-                      <span>{friend.mutualFriends} mutual friends</span>
-                      <span>•</span>
-                      <span>Top pick: {friend.topStock}</span>
-                    </div>
-                  </div>
-
-                  <div className="text-right">
-                    <div className="text-sm font-semibold">
-                      ${(friend.portfolioValue / 1000).toFixed(0)}k
-                    </div>
-                    <div
-                      className={cn(
-                        "text-xs flex items-center gap-1",
-                        friend.portfolioChange >= 0
-                          ? "text-green-600"
-                          : "text-red-600",
-                      )}
-                    >
-                      <TrendingUp
-                        className={cn(
-                          "h-3 w-3",
-                          friend.portfolioChange < 0 && "rotate-180",
-                        )}
-                      />
-                      {friend.portfolioChange >= 0 ? "+" : ""}
-                      {friend.portfolioChange.toFixed(1)}%
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-2 ml-13">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => onSendMessage?.(friend.id)}
-                    className="h-7 text-xs"
-                  >
-                    <MessageCircle className="h-3 w-3 mr-1" />
-                    Message
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => onViewProfile?.(friend.id)}
-                    className="h-7 text-xs text-blue-600"
-                  >
-                    <Eye className="h-3 w-3 mr-1" />
-                    Profile
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => onShareStock?.(friend.id)}
-                    className="h-7 text-xs text-green-600"
-                  >
-                    <Share2 className="h-3 w-3 mr-1" />
-                    Share
-                  </Button>
-                </div>
-
-                {index < filteredFriends.length - 1 && <Separator />}
+        {filteredFriends.map((friend, index) => (
+          <div key={friend.id} className="space-y-3">
+            <div className="flex items-center gap-3">
+              <div className="relative">
+                <Avatar className="w-10 h-10">
+                  <AvatarImage src={friend.avatar} />
+                  <AvatarFallback className="bg-blue-100 text-blue-700">
+                    {getInitials(friend.name)}
+                  </AvatarFallback>
+                </Avatar>
+                {friend.isOnline && (
+                  <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
+                )}
               </div>
-            ))}
 
-            {filteredFriends.length === 0 && (
-              <div className="text-center py-8 text-muted-foreground">
-                <Users className="h-12 w-12 mx-auto mb-2 opacity-50" />
-                <p>No friends found</p>
-              </div>
-            )}
-          </>
-        ) : (
-          <>
-            {leaderboardFriends.map((friend, index) => (
-              <div key={friend.id} className="space-y-3">
-                <div className="flex items-center gap-3">
-                  <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 text-white font-bold text-sm">
-                    {friend.rank}
-                  </div>
-
-                  <Avatar className="w-10 h-10">
-                    <AvatarImage src={friend.avatar} />
-                    <AvatarFallback className="bg-blue-100 text-blue-700">
-                      {getInitials(friend.name)}
-                    </AvatarFallback>
-                  </Avatar>
-
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-sm">{friend.name}</h4>
-                      {index === 0 && (
-                        <Crown className="h-4 w-4 text-yellow-500" />
-                      )}
-                    </div>
-                    <p className="text-xs text-muted-foreground">
-                      @{friend.username}
-                    </p>
-                  </div>
-
-                  <div className="text-right">
-                    <div className="text-lg font-bold text-green-600">
-                      ${(friend.portfolioValue / 1000).toFixed(0)}k
-                    </div>
-                    <div
-                      className={cn(
-                        "text-xs",
-                        friend.portfolioChange >= 0
-                          ? "text-green-600"
-                          : "text-red-600",
-                      )}
-                    >
-                      {friend.portfolioChange >= 0 ? "+" : ""}
-                      {friend.portfolioChange.toFixed(1)}%
-                    </div>
-                  </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2">
+                  <h4 className="font-semibold text-sm">{friend.name}</h4>
+                  {friend.isFollowing && (
+                    <Star className="h-3 w-3 text-yellow-500" />
+                  )}
+                  {friend.watchlistPublic ? (
+                    <Unlock className="h-3 w-3 text-green-600" />
+                  ) : (
+                    <Lock className="h-3 w-3 text-gray-400" />
+                  )}
                 </div>
-
-                {index < leaderboardFriends.length - 1 && <Separator />}
+                <p className="text-xs text-muted-foreground">
+                  @{friend.username}
+                </p>
+                <div className="text-xs text-muted-foreground mt-1">
+                  {friend.recentActivity}
+                </div>
               </div>
-            ))}
-          </>
+
+              <div className="text-right">
+                <div className="text-sm font-semibold">
+                  {friend.watchlistCount} stocks
+                </div>
+                <div className="text-xs text-muted-foreground">
+                  watching {friend.topWatchedStock}
+                </div>
+                <div className="text-xs text-blue-600 mt-1">
+                  {friend.watchlistPublic ? "Public watchlist" : "Private"}
+                </div>
+              </div>
+            </div>
+
+            <div className="flex gap-2 ml-13">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => onSendMessage?.(friend.id)}
+                className="h-7 text-xs"
+              >
+                <MessageCircle className="h-3 w-3 mr-1" />
+                Message
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onViewWatchlist?.(friend.id)}
+                disabled={!friend.watchlistPublic}
+                className="h-7 text-xs text-blue-600 disabled:opacity-50"
+              >
+                <Eye className="h-3 w-3 mr-1" />
+                Watchlist
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => onShareStock?.(friend.id)}
+                className="h-7 text-xs text-green-600"
+              >
+                <Share2 className="h-3 w-3 mr-1" />
+                Share
+              </Button>
+            </div>
+
+            {index < filteredFriends.length - 1 && <Separator />}
+          </div>
+        ))}
+
+        {filteredFriends.length === 0 && (
+          <div className="text-center py-8 text-muted-foreground">
+            <Users className="h-12 w-12 mx-auto mb-2 opacity-50" />
+            <p>No friends found</p>
+          </div>
         )}
       </CardContent>
     </Card>
