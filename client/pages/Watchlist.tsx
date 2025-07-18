@@ -150,7 +150,6 @@ export default function Watchlist() {
   const [isPublic, setIsPublic] = useState(false);
   const [showChart, setShowChart] = useState(false);
   const [selectedStock, setSelectedStock] = useState<string | null>(null);
-  const [showFriends, setShowFriends] = useState(false);
   const [showComparables, setShowComparables] = useState(false);
   const navigate = useNavigate();
 
