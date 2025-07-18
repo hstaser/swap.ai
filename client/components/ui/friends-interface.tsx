@@ -35,7 +35,7 @@ interface Friend {
 
 interface FriendsInterfaceProps {
   onSendMessage?: (friendId: string) => void;
-  onViewProfile?: (friendId: string) => void;
+  onViewWatchlist?: (friendId: string) => void;
   onShareStock?: (friendId: string) => void;
   className?: string;
 }
