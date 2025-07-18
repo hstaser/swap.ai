@@ -471,7 +471,7 @@ export default function Watchlist() {
 
                       {isEditing && (
                         <div className="mt-4 pt-3 border-t">
-                          <div className="flex gap-2">
+                          <div className="grid grid-cols-2 gap-2">
                             <Button
                               variant="outline"
                               size="sm"
@@ -479,7 +479,7 @@ export default function Watchlist() {
                                 e.stopPropagation();
                                 removeFromWatchlist(stock.symbol);
                               }}
-                              className="flex-1 text-destructive border-destructive hover:bg-destructive hover:text-white"
+                              className="text-destructive border-destructive hover:bg-destructive hover:text-white"
                             >
                               <EyeOff className="h-4 w-4 mr-2" />
                               Remove
@@ -488,10 +488,34 @@ export default function Watchlist() {
                               variant="outline"
                               size="sm"
                               onClick={(e) => e.stopPropagation()}
-                              className="flex-1"
                             >
                               <Plus className="h-4 w-4 mr-2" />
                               Add to Portfolio
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setSelectedStock(stock.symbol);
+                                setShowChart(true);
+                              }}
+                              className="col-span-1"
+                            >
+                              <BarChart3 className="h-4 w-4 mr-2" />
+                              Chart
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setShowComparables(!showComparables);
+                              }}
+                              className="col-span-1"
+                            >
+                              <Star className="h-4 w-4 mr-2" />
+                              Similar
                             </Button>
                           </div>
                         </div>
