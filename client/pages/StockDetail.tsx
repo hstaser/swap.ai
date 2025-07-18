@@ -62,11 +62,7 @@ interface DetailedStock {
   };
   keyStats: {
     sharesOutstanding: string;
-    floatShares: string;
     institutionalOwnership: string;
-    shortInterest: string;
-    analystRating: string;
-    priceTarget: string;
   };
 }
 
