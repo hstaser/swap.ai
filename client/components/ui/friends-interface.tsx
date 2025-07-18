@@ -24,13 +24,13 @@ interface Friend {
   username: string;
   avatar?: string;
   isOnline: boolean;
-  portfolioValue: number;
-  portfolioChange: number;
-  topStock: string;
+  watchlistPublic: boolean;
+  watchlistCount: number;
+  topWatchedStock: string;
   friendshipDate: Date;
   isFollowing: boolean;
   mutualFriends: number;
-  rank?: number;
+  recentActivity: string;
 }
 
 interface FriendsInterfaceProps {
