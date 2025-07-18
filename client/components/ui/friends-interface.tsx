@@ -101,24 +101,17 @@ const mockFriends: Friend[] = [
 
 export function FriendsInterface({
   onSendMessage,
-  onViewProfile,
+  onViewWatchlist,
   onShareStock,
   className,
 }: FriendsInterfaceProps) {
   const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState<"friends" | "leaderboard">(
-    "friends",
-  );
 
   const filteredFriends = mockFriends.filter(
     (friend) =>
       friend.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       friend.username.toLowerCase().includes(searchQuery.toLowerCase()),
   );
-
-  const leaderboardFriends = [...mockFriends]
-    .filter((friend) => friend.rank)
-    .sort((a, b) => (a.rank || 0) - (b.rank || 0));
 
   const getInitials = (name: string) => {
     return name
