@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
-import { FriendsInterface } from "@/components/ui/friends-interface";
 import { ComparableCompanies } from "@/components/ui/comparable-companies";
 import { InteractiveChart } from "@/components/ui/interactive-chart";
 import {
