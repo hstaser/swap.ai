@@ -560,9 +560,8 @@ export default function StockDetail() {
 
         {/* Detailed Information Tabs */}
         <Tabs defaultValue="overview" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-5">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="financials">Financials</TabsTrigger>
             <TabsTrigger value="stats">Stats</TabsTrigger>
             <TabsTrigger value="similar">Similar</TabsTrigger>
             <TabsTrigger value="news">News</TabsTrigger>
