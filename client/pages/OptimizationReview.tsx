@@ -457,18 +457,29 @@ export default function OptimizationReview() {
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">
-                        Processing & Platform Fee
+                        Platform Fee (1.0%)
                       </span>
                       <span className="font-medium">
-                        ${(investmentAmount * 0.005).toFixed(2)}
+                        ${(investmentAmount * 0.01).toFixed(2)}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">
+                        Regulatory Fees
+                      </span>
+                      <span className="font-medium">
+                        ${(investmentAmount * 0.0005).toFixed(2)}
                       </span>
                     </div>
                     <Separator className="my-2" />
                     <div className="flex justify-between items-center font-semibold">
                       <span>Total from Account</span>
                       <span>
-                        ${(investmentAmount * 1.005).toLocaleString()}
+                        ${(investmentAmount * 1.0105).toLocaleString()}
                       </span>
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-2 text-center">
+                      *Tax implications handled at year-end
                     </div>
                   </div>
                 </CardContent>
