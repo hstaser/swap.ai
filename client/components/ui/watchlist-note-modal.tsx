@@ -149,7 +149,7 @@ export function WatchlistNoteModal({
           <div className="pt-2">
             <Button onClick={handleSave} className="w-full">
               <Eye className="h-4 w-4 mr-2" />
-              Save for Later
+              Save to Watchlist
             </Button>
           </div>
         </CardContent>
