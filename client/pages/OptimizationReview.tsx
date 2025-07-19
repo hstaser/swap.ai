@@ -442,6 +442,38 @@ export default function OptimizationReview() {
                   </div>
                 </div>
               )}
+
+              {/* Investment Summary with Fees */}
+              <Card className="border-0 bg-gray-50/80 backdrop-blur-sm">
+                <CardContent className="p-4">
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">
+                        Investment Amount
+                      </span>
+                      <span className="font-medium">
+                        ${investmentAmount.toLocaleString()}
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="text-muted-foreground">
+                        Processing & Platform Fee
+                      </span>
+                      <span className="font-medium">
+                        ${(investmentAmount * 0.005).toFixed(2)}
+                      </span>
+                    </div>
+                    <Separator className="my-2" />
+                    <div className="flex justify-between items-center font-semibold">
+                      <span>Total from Account</span>
+                      <span>
+                        ${(investmentAmount * 1.005).toLocaleString()}
+                      </span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
               <Button
                 onClick={handleConfirmPortfolio}
                 disabled={isConfirming || (isManualMode && isOverAllocated)}
