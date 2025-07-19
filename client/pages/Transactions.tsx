@@ -329,7 +329,6 @@ export default function Transactions() {
                   <SelectItem value="BUY">Buy Orders</SelectItem>
                   <SelectItem value="SELL">Sell Orders</SelectItem>
                   <SelectItem value="DIVIDEND">Dividends</SelectItem>
-                  <SelectItem value="FEE">Fees</SelectItem>
                 </SelectContent>
               </Select>
 
