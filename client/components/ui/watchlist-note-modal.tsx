@@ -117,34 +117,6 @@ export function WatchlistNoteModal({
             </div>
           </div>
 
-          {/* Sample Note Suggestions */}
-          {!note && (
-            <div className="space-y-2">
-              <div className="text-xs font-medium text-gray-600">
-                Quick note ideas:
-              </div>
-              <div className="flex flex-wrap gap-1">
-                {[
-                  "Strong earnings expected",
-                  "Waiting for dip to buy",
-                  "Long-term hold candidate",
-                  "Monitor for news",
-                  "Technical breakout potential",
-                ].map((suggestion) => (
-                  <Button
-                    key={suggestion}
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setNote(suggestion)}
-                    className="text-xs h-6 px-2 text-blue-600 hover:bg-blue-50"
-                  >
-                    {suggestion}
-                  </Button>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Action Button */}
           <div className="pt-2">
             <Button onClick={handleSave} className="w-full">
