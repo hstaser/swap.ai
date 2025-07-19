@@ -361,6 +361,15 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
 
       {/* Filters */}
       <div className="flex gap-2 overflow-x-auto pb-2">
+        <Button
+          variant={showRecentlyViewed ? "default" : "outline"}
+          size="sm"
+          onClick={() => setShowRecentlyViewed(!showRecentlyViewed)}
+          className="px-3 py-2 text-sm font-medium min-w-fit whitespace-nowrap"
+        >
+          Recently Viewed
+        </Button>
+
         <select
           value={selectedSector}
           onChange={(e) => setSelectedSector(e.target.value)}
