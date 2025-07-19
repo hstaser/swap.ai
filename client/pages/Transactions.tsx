@@ -289,18 +289,6 @@ export default function Transactions() {
             <CardContent className="p-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm text-muted-foreground">Total Fees</p>
-                  <p className="text-2xl font-bold">${totalFees.toFixed(2)}</p>
-                </div>
-                <FileText className="h-8 w-8 text-gray-600" />
-              </div>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div>
                   <p className="text-sm text-muted-foreground">
                     Total Transactions
                   </p>
