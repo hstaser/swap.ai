@@ -47,11 +47,6 @@ export function WatchlistNoteModal({
     onClose();
   };
 
-  const handleSkip = () => {
-    onSave(stock.symbol, ""); // Save without note
-    onClose();
-  };
-
   if (!isOpen) return null;
 
   const isPositive = stock.change >= 0;
