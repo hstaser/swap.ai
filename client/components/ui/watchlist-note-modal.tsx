@@ -111,7 +111,7 @@ export function WatchlistNoteModal({
             </Label>
             <Textarea
               id="note"
-              placeholder="Why are you interested in this stock? What's your strategy? Any key points to remember..."
+              placeholder="Add a note about this stock..."
               value={note}
               onChange={(e) => setNote(e.target.value)}
               className="min-h-[100px] resize-none"
