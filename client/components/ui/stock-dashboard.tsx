@@ -255,6 +255,13 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
       baseStocks = processAiSearch(aiSearchQuery);
     }
 
+    // If showing recently viewed, filter to only recently viewed stocks
+    if (showRecentlyViewed) {
+      baseStocks = baseStocks.filter((stock) =>
+        recentlyViewedStocks.includes(stock.symbol),
+      );
+    }
+
     return baseStocks.filter((stock) => {
       const matchesSearch =
         !searchQuery ||
@@ -286,6 +293,8 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
     selectedSector,
     selectedPerformance,
     selectedMarketCap,
+    showRecentlyViewed,
+    recentlyViewedStocks,
     stocks,
   ]);
 
