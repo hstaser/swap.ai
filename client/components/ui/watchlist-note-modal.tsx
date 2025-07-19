@@ -150,14 +150,11 @@ export function WatchlistNoteModal({
             </div>
           )}
 
-          {/* Action Buttons */}
-          <div className="flex gap-3 pt-2">
-            <Button variant="outline" onClick={handleSkip} className="flex-1">
-              Skip Note
-            </Button>
-            <Button onClick={handleSave} className="flex-1">
-              <Save className="h-4 w-4 mr-2" />
-              Save to Watchlist
+          {/* Action Button */}
+          <div className="pt-2">
+            <Button onClick={handleSave} className="w-full">
+              <Eye className="h-4 w-4 mr-2" />
+              Save for Later
             </Button>
           </div>
         </CardContent>
