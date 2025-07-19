@@ -373,8 +373,8 @@ export function StockCard({
               ) : (
                 <>
                   <Eye className="h-4 w-4 mr-1 sm:mr-2" />
-                  <span className="hidden sm:inline">Save</span>
-                  <span className="sm:hidden">Save</span>
+                  <span className="hidden sm:inline">Save for Later</span>
+                  <span className="sm:hidden">Save for Later</span>
                 </>
               )}
             </Button>
