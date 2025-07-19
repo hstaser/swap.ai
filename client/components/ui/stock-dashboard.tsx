@@ -40,6 +40,16 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
   const [selectedMarketCap, setSelectedMarketCap] = useState<string>("all");
   const [showRecentlyViewed, setShowRecentlyViewed] = useState(false);
 
+  // Mock recently viewed stocks (in real app, this would come from localStorage or API)
+  const recentlyViewedStocks = [
+    "AAPL",
+    "TSLA",
+    "NVDA",
+    "MSFT",
+    "GOOGL",
+    "META",
+  ];
+
   // Function to get company logo URL
   const getLogoUrl = (symbol: string) => {
     return `https://logo.clearbit.com/${getCompanyDomain(symbol)}`;
