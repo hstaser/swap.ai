@@ -416,11 +416,13 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
       {/* Results Header */}
       <div className="pt-2">
         <h2 className="text-xl font-bold text-gray-900 mb-4">
-          {aiSearchQuery
-            ? `AI Search Results (${filteredStocks.length})`
-            : searchQuery
-              ? `Search Results (${filteredStocks.length})`
-              : "Suggested"}
+          {showRecentlyViewed
+            ? `Recently Viewed (${filteredStocks.length})`
+            : aiSearchQuery
+              ? `AI Search Results (${filteredStocks.length})`
+              : searchQuery
+                ? `Search Results (${filteredStocks.length})`
+                : "Suggested"}
         </h2>
         {aiSearchQuery && (
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
