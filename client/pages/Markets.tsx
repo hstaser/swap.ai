@@ -316,7 +316,7 @@ export default function Markets() {
 
         {/* Markets Tabs */}
         <Tabs defaultValue="sectors" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="sectors">Sectors</TabsTrigger>
             <TabsTrigger value="global">Global</TabsTrigger>
             <TabsTrigger value="news">News</TabsTrigger>
