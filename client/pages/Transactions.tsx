@@ -405,11 +405,6 @@ export default function Transactions() {
                     <div className="text-sm text-muted-foreground">
                       {transaction.quantity} shares @ ${transaction.price}
                     </div>
-                    {transaction.fees > 0 && (
-                      <div className="text-xs text-muted-foreground">
-                        Fee: ${transaction.fees}
-                      </div>
-                    )}
                   </div>
 
                   <Badge
