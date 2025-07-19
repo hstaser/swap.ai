@@ -38,6 +38,7 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
   const [selectedSector, setSelectedSector] = useState<string>("all");
   const [selectedPerformance, setSelectedPerformance] = useState<string>("all");
   const [selectedMarketCap, setSelectedMarketCap] = useState<string>("all");
+  const [showRecentlyViewed, setShowRecentlyViewed] = useState(false);
 
   // Function to get company logo URL
   const getLogoUrl = (symbol: string) => {
