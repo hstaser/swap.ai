@@ -384,6 +384,54 @@ export default function QueueReview() {
             </Card>
           )}
 
+          {/* Investment Summary */}
+          {queuedStocks.length > 0 && (
+            <Card className="border-0 bg-gray-50/80 backdrop-blur-sm">
+              <CardContent className="p-4">
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">
+                      Est. Investment
+                    </span>
+                    <span className="font-medium">
+                      $
+                      {queuedStocks
+                        .reduce((sum, stock) => sum + stock.price * 10, 0)
+                        .toLocaleString()}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">
+                      Processing & Platform
+                    </span>
+                    <span className="font-medium">
+                      $
+                      {(
+                        queuedStocks.reduce(
+                          (sum, stock) => sum + stock.price * 10,
+                          0,
+                        ) * 0.005
+                      ).toFixed(2)}
+                    </span>
+                  </div>
+                  <Separator className="my-2" />
+                  <div className="flex justify-between items-center font-semibold">
+                    <span>Total</span>
+                    <span>
+                      $
+                      {(
+                        queuedStocks.reduce(
+                          (sum, stock) => sum + stock.price * 10,
+                          0,
+                        ) * 1.005
+                      ).toLocaleString()}
+                    </span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Action Buttons */}
           <div className="space-y-3">
             {queuedStocks.length > 0 && (
