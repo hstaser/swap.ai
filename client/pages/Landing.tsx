@@ -187,11 +187,12 @@ export default function Landing() {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-green-100 flex items-center justify-center p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <BarChart3 className="h-5 w-5 text-white" />
-            </div>
-            <span className="text-xl font-bold">swap.ai</span>
+          <div className="flex items-center justify-center mb-4">
+            <img
+              src="https://cdn.builder.io/api/v1/image/assets%2F8274926fadf9406c8e2d75b7a56de814%2F11112bd742824e529296e1b2cd55c201?format=webp&width=800"
+              alt="swipr.ai logo"
+              className="h-10 w-auto"
+            />
           </div>
           <CardTitle className="text-center">
             {mode === "signin" ? "Welcome Back" : "Create Account"}
