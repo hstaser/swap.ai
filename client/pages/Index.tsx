@@ -510,13 +510,12 @@ export default function Index() {
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 sm:gap-6">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-green-600 to-blue-600 rounded-lg flex items-center justify-center">
-                  <BarChart3 className="h-5 w-5 text-white" />
-                </div>
-                <h1 className="text-lg sm:text-xl font-bold text-foreground">
-                  swipr.ai
-                </h1>
+              <div className="flex items-center gap-3">
+                <img
+                  src="https://cdn.builder.io/api/v1/image/assets%2F8274926fadf9406c8e2d75b7a56de814%2F11112bd742824e529296e1b2cd55c201?format=webp&width=800"
+                  alt="swipr.ai logo"
+                  className="h-8 w-auto"
+                />
               </div>
               <nav className="hidden md:flex items-center gap-4">
                 <Button variant="ghost" size="sm" asChild>
