@@ -190,11 +190,13 @@ export default function Landing() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <div className="flex items-center justify-center mb-4">
-            <img
-              src="https://cdn.builder.io/api/v1/image/assets%2F8274926fadf9406c8e2d75b7a56de814%2F11112bd742824e529296e1b2cd55c201?format=webp&width=800"
-              alt="swipr.ai logo"
-              className="h-10 w-auto"
-            />
+            <div className="bg-white/95 backdrop-blur-sm rounded-xl p-3 shadow-sm border border-gray-100">
+              <img
+                src="https://cdn.builder.io/api/v1/image/assets%2F8274926fadf9406c8e2d75b7a56de814%2F11112bd742824e529296e1b2cd55c201?format=webp&width=800"
+                alt="swipr.ai logo"
+                className="h-12 w-auto"
+              />
+            </div>
           </div>
           <CardTitle className="text-center">
             {mode === "signin" ? "Welcome Back" : "Create Account"}
