@@ -442,11 +442,13 @@ export default function Rewards() {
                 <h3 className="font-semibold mb-3">Invite Rewards Timeline:</h3>
                 <div className="space-y-3">
                   {[
-                    { friends: 1, reward: "Both get $5 stock credit" },
-                    { friends: 3, reward: "Unlock premium AI search" },
-                    { friends: 5, reward: "Early access to new features" },
-                    { friends: 10, reward: "AI portfolio optimization" },
-                    { friends: 15, reward: "Debit card with rewards" },
+                    { friends: 1, reward: "Both get $5 stock credit + portfolio themes" },
+                    { friends: 2, reward: "Advanced filters + premium themes" },
+                    { friends: 3, reward: "Unlimited AI search + friend sharing" },
+                    { friends: 4, reward: "AI portfolio optimization + early access" },
+                    { friends: 5, reward: "AI market insights + advanced charts" },
+                    { friends: 6, reward: "AI portfolio audit + tax tools" },
+                    { friends: 7, reward: "Debit card + 1-on-1 advisor calls" },
                   ].map((milestone, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <div className={cn(
