@@ -133,14 +133,14 @@ export default function Rewards() {
 
   const unlockedFeatures = [
     { name: "AI Stock Search", icon: <Sparkles className="h-4 w-4" />, tier: 1 },
-    { name: "Portfolio Themes", icon: <BarChart3 className="h-4 w-4" />, tier: 3 },
-    { name: "Advanced Filters", icon: <Target className="h-4 w-4" />, tier: 3 },
+    { name: "Enhanced Dashboards", icon: <BarChart3 className="h-4 w-4" />, tier: 2 },
+    { name: "Advanced Filters", icon: <Target className="h-4 w-4" />, tier: 2 },
   ];
 
   const lockedFeatures = [
-    { name: "AI Portfolio Optimization", icon: <Brain className="h-4 w-4" />, tier: 5 },
-    { name: "AI Market Insights", icon: <TrendingUp className="h-4 w-4" />, tier: 7 },
-    { name: "Tax Optimization", icon: <DollarSign className="h-4 w-4" />, tier: 10 },
+    { name: "1-on-1 Quant Calls", icon: <Users className="h-4 w-4" />, tier: 3 },
+    { name: "AI Portfolio Optimization", icon: <Brain className="h-4 w-4" />, tier: 4 },
+    { name: "AI Market Insights", icon: <TrendingUp className="h-4 w-4" />, tier: 5 },
   ];
 
   const handleShareInvite = () => {
