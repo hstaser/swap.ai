@@ -28,6 +28,8 @@ import {
   Activity,
   Download,
   Bell,
+  Calendar,
+  FileText,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { cn } from "@/lib/utils";
