@@ -533,9 +533,6 @@ export default function Index() {
                   <Link to="/rewards">Rewards</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
-                  <Link to="/research">AI assistance</Link>
-                </Button>
-                <Button variant="ghost" size="sm" asChild>
                   <Link to="/transactions">Transactions</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
