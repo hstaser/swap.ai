@@ -50,6 +50,19 @@ interface PortfolioStock {
   risk: "Low" | "Medium" | "High";
 }
 
+interface Transaction {
+  id: string;
+  date: string;
+  type: "BUY" | "SELL" | "DIVIDEND";
+  symbol: string;
+  companyName: string;
+  quantity: number;
+  price: number;
+  totalAmount: number;
+  status: "COMPLETED" | "PENDING" | "CANCELLED";
+  orderId: string;
+}
+
 interface PortfolioMetrics {
   totalValue: number;
   totalReturn: number;
