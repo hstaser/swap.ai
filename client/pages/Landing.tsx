@@ -83,7 +83,7 @@ export default function Landing() {
           {/* Hero Section */}
           <div className="text-center mb-12">
             <div className="flex items-center justify-center mb-6">
-              <div className="bg-white/95 backdrop-blur-md rounded-2xl p-4 shadow-lg border border-gray-200">
+              <div className="bg-white rounded-2xl p-4 shadow-lg border border-gray-200">
                 <img
                   src="https://cdn.builder.io/api/v1/image/assets%2F8274926fadf9406c8e2d75b7a56de814%2F11112bd742824e529296e1b2cd55c201?format=webp&width=800"
                   alt="swipr.ai logo"
