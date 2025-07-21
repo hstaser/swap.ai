@@ -170,9 +170,11 @@ export default function Messages() {
                 </p>
               </div>
             </div>
-            <Button variant="outline" size="sm">
-              <Users className="h-4 w-4 mr-2" />
-              Find Friends
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/friends">
+                <Users className="h-4 w-4 mr-2" />
+                Find Friends
+              </Link>
             </Button>
           </div>
         </div>
