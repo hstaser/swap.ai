@@ -757,6 +757,78 @@ export default function Portfolio() {
             <PerformanceChart />
           </TabsContent>
 
+          <TabsContent value="transactions" className="space-y-4">
+            <Card className="bg-white/90 backdrop-blur-sm border-0">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Recent Transactions
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                {mockTransactions.map((transaction) => {
+                  const isPositive = transaction.type === "DIVIDEND" || transaction.type === "SELL";
+
+                  return (
+                    <div key={transaction.id} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                      <div className="flex items-center gap-3">
+                        <div className={cn(
+                          "w-10 h-10 rounded-lg flex items-center justify-center",
+                          transaction.type === "BUY" && "bg-blue-100 text-blue-600",
+                          transaction.type === "SELL" && "bg-red-100 text-red-600",
+                          transaction.type === "DIVIDEND" && "bg-green-100 text-green-600"
+                        )}>
+                          {transaction.type === "BUY" && <TrendingUp className="h-5 w-5" />}
+                          {transaction.type === "SELL" && <TrendingDown className="h-5 w-5" />}
+                          {transaction.type === "DIVIDEND" && <DollarSign className="h-5 w-5" />}
+                        </div>
+
+                        <div>
+                          <div className="font-semibold text-sm">
+                            {transaction.type} {transaction.symbol}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {transaction.companyName}
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            {new Date(transaction.date).toLocaleDateString()} • {transaction.quantity} shares
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="text-right">
+                        <div className="font-semibold">
+                          ${transaction.totalAmount.toLocaleString()}
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          ${transaction.price.toFixed(2)}/share
+                        </div>
+                        <Badge
+                          variant="outline"
+                          className={cn(
+                            "text-xs mt-1",
+                            transaction.status === "COMPLETED" && "bg-green-100 text-green-700",
+                            transaction.status === "PENDING" && "bg-yellow-100 text-yellow-700",
+                            transaction.status === "CANCELLED" && "bg-red-100 text-red-700"
+                          )}
+                        >
+                          {transaction.status}
+                        </Badge>
+                      </div>
+                    </div>
+                  );
+                })}
+
+                <div className="text-center pt-4">
+                  <Button variant="outline" className="w-full">
+                    <Download className="h-4 w-4 mr-2" />
+                    Export All Transactions
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           <TabsContent value="risk" className="space-y-4">
             <Card className="bg-white/90 backdrop-blur-sm border-0">
               <CardHeader>
