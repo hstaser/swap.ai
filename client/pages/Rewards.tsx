@@ -70,51 +70,61 @@ export default function Rewards() {
       unlocked: true,
     },
     {
-      tier: 3,
-      title: "Social Trader",
-      description: "Build your network",
-      icon: <Users className="h-5 w-5" />,
-      requirements: ["Invite 3 friends OR $500 AUM", "7-day login streak"],
-      rewards: ["Premium AI search (unlimited)", "Portfolio themes", "Advanced stock filters"],
+      tier: 2,
+      title: "First Steps",
+      description: "Start building your portfolio",
+      icon: <Target className="h-5 w-5" />,
+      requirements: ["Invite 1 friend OR $250 AUM", "3-day login streak"],
+      rewards: ["Advanced stock filters", "Portfolio themes"],
       unlocked: true,
       progress: 100,
     },
     {
-      tier: 5,
-      title: "Growth Accelerator",
-      description: "Serious about investing",
-      icon: <TrendingUp className="h-5 w-5" />,
-      requirements: ["Invite 5 friends OR $1,000 AUM", "Complete 5 trades"],
-      rewards: ["Early access to new features", "AI portfolio optimization", "Premium themes"],
+      tier: 3,
+      title: "Social Trader",
+      description: "Build your network",
+      icon: <Users className="h-5 w-5" />,
+      requirements: ["Invite 3 friends OR $500 AUM", "Complete 3 trades"],
+      rewards: ["Premium AI search (unlimited)", "Portfolio sharing", "Friend leaderboards"],
       unlocked: false,
       progress: 80,
     },
     {
-      tier: 7,
+      tier: 4,
+      title: "Growth Accelerator",
+      description: "Serious about investing",
+      icon: <TrendingUp className="h-5 w-5" />,
+      requirements: ["Invite 4 friends OR $1,000 AUM", "7-day activity streak"],
+      rewards: ["Early access to new features", "AI portfolio optimization", "Premium themes"],
+      unlocked: false,
+      progress: 60,
+    },
+    {
+      tier: 5,
       title: "Market Insider",
       description: "Advanced trading features",
       icon: <Brain className="h-5 w-5" />,
-      requirements: ["Invite 7 friends OR $2,500 AUM", "15-day activity streak"],
-      rewards: ["AI market insights", "Advanced charting tools", "Priority customer support"],
+      requirements: ["Invite 5 friends OR $2,500 AUM", "Complete 10 trades"],
+      rewards: ["AI market insights", "Advanced charting tools", "Priority support"],
       unlocked: false,
-      progress: 45,
+      progress: 40,
     },
     {
-      tier: 10,
+      tier: 6,
       title: "Portfolio Master",
       description: "Professional-grade tools",
       icon: <Crown className="h-5 w-5" />,
-      requirements: ["Invite 10 friends OR $5,000 AUM", "Complete 25 trades"],
-      rewards: ["AI portfolio audit", "Tax optimization tools", "Institutional research"],
+      requirements: ["Invite 6 friends OR $5,000 AUM", "15-day login streak"],
+      rewards: ["AI portfolio audit", "Tax optimization tools", "Research reports"],
       unlocked: false,
-      progress: 25,
+      progress: 20,
     },
     {
-      tier: 15,
+      tier: 7,
       title: "Investment Elite",
       description: "Exclusive privileges",
       icon: <Trophy className="h-5 w-5" />,
-      requirements: ["Invite 15 friends OR $10,000 AUM", "30-day login streak"],
+      requirements: ["Invite 7 friends OR $10,000 AUM", "30-day activity streak"],
       rewards: ["Debit card with cashback", "1-on-1 advisor calls", "Exclusive events"],
       unlocked: false,
       progress: 10,
@@ -183,7 +193,7 @@ export default function Rewards() {
                 Unlock features as friends join ({userStats.friendsInvited}/5)
               </p>
             </div>
-            
+
             {/* Feature Preview Icons */}
             <div className="flex justify-center gap-4 mb-6">
               {[
@@ -196,8 +206,8 @@ export default function Rewards() {
                 <div key={index} className="text-center">
                   <div className={cn(
                     "w-12 h-12 rounded-xl flex items-center justify-center mb-2",
-                    feature.unlocked 
-                      ? "bg-green-100 text-green-600" 
+                    feature.unlocked
+                      ? "bg-green-100 text-green-600"
                       : "bg-gray-100 text-gray-400"
                   )}>
                     {feature.unlocked ? feature.icon : <Lock className="h-6 w-6" />}
@@ -223,7 +233,7 @@ export default function Rewards() {
               <div className="text-sm text-muted-foreground">Friends Invited</div>
             </CardContent>
           </Card>
-          
+
           <Card className="border-0 bg-white/90 backdrop-blur-sm">
             <CardContent className="p-4 text-center">
               <DollarSign className="h-8 w-8 text-green-600 mx-auto mb-2" />
@@ -333,30 +343,30 @@ export default function Rewards() {
             {rewardTiers.map((tier, index) => (
               <Card key={tier.tier} className={cn(
                 "border-0 shadow-sm transition-all",
-                tier.unlocked 
-                  ? "bg-green-50 border-green-200" 
+                tier.unlocked
+                  ? "bg-green-50 border-green-200"
                   : "bg-white/90 backdrop-blur-sm"
               )}>
                 <CardContent className="p-6">
                   <div className="flex items-start gap-4">
                     <div className={cn(
                       "w-12 h-12 rounded-xl flex items-center justify-center",
-                      tier.unlocked 
-                        ? "bg-green-100 text-green-600" 
+                      tier.unlocked
+                        ? "bg-green-100 text-green-600"
                         : "bg-gray-100 text-gray-400"
                     )}>
                       {tier.unlocked ? tier.icon : <Lock className="h-5 w-5" />}
                     </div>
-                    
+
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-2">
                         <h3 className="text-lg font-semibold">Tier {tier.tier}</h3>
                         <span className="text-lg font-bold">{tier.title}</span>
                         {tier.unlocked && <CheckCircle className="h-5 w-5 text-green-600" />}
                       </div>
-                      
+
                       <p className="text-sm text-muted-foreground mb-4">{tier.description}</p>
-                      
+
                       <div className="grid md:grid-cols-2 gap-4">
                         <div>
                           <h4 className="font-medium text-sm mb-2">Requirements:</h4>
@@ -369,7 +379,7 @@ export default function Rewards() {
                             ))}
                           </ul>
                         </div>
-                        
+
                         <div>
                           <h4 className="font-medium text-sm mb-2">Rewards:</h4>
                           <ul className="text-sm space-y-1">
@@ -388,7 +398,7 @@ export default function Rewards() {
                           </ul>
                         </div>
                       </div>
-                      
+
                       {tier.progress !== undefined && !tier.unlocked && (
                         <div className="mt-4">
                           <div className="flex items-center justify-between text-sm mb-2">
@@ -419,7 +429,7 @@ export default function Rewards() {
                 <Share2 className="h-5 w-5 mr-2" />
                 Share your invite link
               </Button>
-              
+
               <div className="text-center">
                 <div className="text-4xl font-bold text-blue-600 mb-2">
                   swipr.ai/invite/abc123
