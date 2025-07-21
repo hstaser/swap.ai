@@ -198,8 +198,8 @@ export default function Rewards() {
             <div className="grid grid-cols-5 gap-4 mb-6">
               {[
                 { icon: <Sparkles className="h-5 w-5" />, name: "AI Search", unlocked: true },
-                { icon: <BarChart3 className="h-5 w-5" />, name: "Portfolio Themes", unlocked: true },
-                { icon: <Users className="h-5 w-5" />, name: "Friend Sharing", unlocked: false },
+                { icon: <BarChart3 className="h-5 w-5" />, name: "Enhanced Dashboards", unlocked: true },
+                { icon: <Users className="h-5 w-5" />, name: "Quant Calls", unlocked: false },
                 { icon: <Brain className="h-5 w-5" />, name: "AI Insights", unlocked: false },
                 { icon: <Crown className="h-5 w-5" />, name: "Premium Tools", unlocked: false },
               ].map((feature, index) => (
