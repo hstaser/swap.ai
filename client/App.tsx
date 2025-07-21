@@ -65,6 +65,7 @@ function AppContent() {
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/friends" element={<Friends />} />
+        <Route path="/rewards" element={<Rewards />} />
         <Route path="/queue/add/:symbol" element={<QueueAdd />} />
         <Route path="/queue/review" element={<QueueReview />} />
         <Route path="/optimize" element={<PortfolioOptimize />} />
