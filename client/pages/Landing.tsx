@@ -89,7 +89,7 @@ export default function Landing() {
       <div className="min-h-screen bg-gradient-to-b from-blue-600 via-blue-700 to-blue-800 text-white relative overflow-hidden">
         {/* Background Elements */}
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iYSIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVHJhbnNmb3JtPSJyb3RhdGUoNDUpIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIGZpbGw9Im5vbmUiLz48Y2lyY2xlIGN4PSIyMCIgY3k9IjIwIiByPSIxIiBmaWxsPSJyZ2JhKDI1NSwyNTUsMjU1LDAuMSkiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjYSkiLz48L3N2Zz4=')] opacity-30" />
-        
+
         <div className="relative z-10 flex flex-col min-h-screen">
           {/* Header */}
           <header className="safe-area-top px-4 pt-6 pb-4">
@@ -107,15 +107,18 @@ export default function Landing() {
             <div className="mb-12">
               <div className="mb-6">
                 <h2 className="text-4xl sm:text-5xl font-bold leading-tight mb-4">
-                  Swipe.<br />
-                  Invest.<br />
+                  Swipe.
+                  <br />
+                  Invest.
+                  <br />
                   <span className="text-blue-200">Grow.</span>
                 </h2>
                 <p className="text-xl text-blue-100 leading-relaxed max-w-sm mx-auto">
-                  The first AI-powered investment app that makes stock selection as easy as dating apps
+                  The first AI-powered investment app that makes stock selection
+                  as easy as dating apps
                 </p>
               </div>
-              
+
               {/* App Preview Mockup */}
               <div className="relative mx-auto w-56 h-96 mb-8">
                 <div className="absolute inset-0 bg-black rounded-[2.5rem] p-2">
@@ -126,21 +129,31 @@ export default function Landing() {
                         <div className="w-8 h-8 bg-blue-600 rounded-lg mx-auto mb-2 flex items-center justify-center">
                           <BarChart3 className="h-5 w-5 text-white" />
                         </div>
-                        <div className="text-xs font-semibold text-gray-800 mb-4">swap.ai</div>
-                        
+                        <div className="text-xs font-semibold text-gray-800 mb-4">
+                          swap.ai
+                        </div>
+
                         {/* Mock Stock Card */}
                         <div className="bg-white rounded-2xl shadow-lg p-4 mb-4 border border-gray-100">
                           <div className="flex justify-between items-start mb-3">
                             <div className="text-left">
-                              <div className="text-sm font-bold text-gray-800">AAPL</div>
-                              <div className="text-xs text-gray-600">Apple Inc.</div>
+                              <div className="text-sm font-bold text-gray-800">
+                                AAPL
+                              </div>
+                              <div className="text-xs text-gray-600">
+                                Apple Inc.
+                              </div>
                             </div>
                             <div className="text-right">
-                              <div className="text-sm font-bold text-gray-800">$182.52</div>
-                              <div className="text-xs text-green-600">+1.28%</div>
+                              <div className="text-sm font-bold text-gray-800">
+                                $182.52
+                              </div>
+                              <div className="text-xs text-green-600">
+                                +1.28%
+                              </div>
                             </div>
                           </div>
-                          
+
                           {/* Swipe Indicators */}
                           <div className="flex justify-center gap-8 mt-6">
                             <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
@@ -151,11 +164,13 @@ export default function Landing() {
                             </div>
                           </div>
                         </div>
-                        
-                        <div className="text-xs text-gray-500">Swipe right to invest ➜</div>
+
+                        <div className="text-xs text-gray-500">
+                          Swipe right to invest ➜
+                        </div>
                       </div>
                     </div>
-                    
+
                     {/* Phone Notch */}
                     <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-6 bg-black rounded-b-2xl" />
                   </div>
@@ -172,7 +187,10 @@ export default function Landing() {
                   </div>
                   <div>
                     <h3 className="font-semibold text-lg">Swipe to Invest</h3>
-                    <p className="text-sm text-blue-100">Tinder for stocks - discover investments with simple swipes</p>
+                    <p className="text-sm text-blue-100">
+                      Tinder for stocks - discover investments with simple
+                      swipes
+                    </p>
                   </div>
                 </div>
               </div>
@@ -183,8 +201,12 @@ export default function Landing() {
                     <TrendingUp className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg">AI-Powered Insights</h3>
-                    <p className="text-sm text-blue-100">Get personalized recommendations based on your goals</p>
+                    <h3 className="font-semibold text-lg">
+                      AI-Powered Insights
+                    </h3>
+                    <p className="text-sm text-blue-100">
+                      Get personalized recommendations based on your goals
+                    </p>
                   </div>
                 </div>
               </div>
@@ -195,8 +217,12 @@ export default function Landing() {
                     <Shield className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="font-semibold text-lg">Bank-Level Security</h3>
-                    <p className="text-sm text-blue-100">SIPC protected with military-grade encryption</p>
+                    <h3 className="font-semibold text-lg">
+                      Bank-Level Security
+                    </h3>
+                    <p className="text-sm text-blue-100">
+                      SIPC protected with military-grade encryption
+                    </p>
                   </div>
                 </div>
               </div>
@@ -206,7 +232,10 @@ export default function Landing() {
             <div className="mb-8">
               <div className="flex justify-center gap-1 mb-2">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  <Star
+                    key={i}
+                    className="w-5 h-5 text-yellow-400 fill-current"
+                  />
                 ))}
               </div>
               <p className="text-sm text-blue-100">
@@ -263,7 +292,9 @@ export default function Landing() {
                 <div className="flex items-start gap-3">
                   <AlertTriangle className="h-5 w-5 text-amber-300 mt-0.5 flex-shrink-0" />
                   <div className="text-sm text-amber-100">
-                    <strong>Guest Mode:</strong> Explore and build a portfolio, but your data won't be saved. Sign up to secure your investments.
+                    <strong>Guest Mode:</strong> Explore and build a portfolio,
+                    but your data won't be saved. Sign up to secure your
+                    investments.
                   </div>
                 </div>
               </div>
@@ -294,12 +325,14 @@ export default function Landing() {
             {mode === "signin" ? "Welcome Back" : "Join swap.ai"}
           </CardTitle>
         </CardHeader>
-        
+
         <CardContent className="mobile-card-content">
           <form onSubmit={handleSubmit} className="space-y-6">
             {mode === "signup" && (
               <div className="space-y-2">
-                <Label htmlFor="name" className="text-sm font-medium">Full Name</Label>
+                <Label htmlFor="name" className="text-sm font-medium">
+                  Full Name
+                </Label>
                 <Input
                   id="name"
                   type="text"
@@ -315,7 +348,9 @@ export default function Landing() {
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-sm font-medium">Email</Label>
+              <Label htmlFor="email" className="text-sm font-medium">
+                Email
+              </Label>
               <Input
                 id="email"
                 type="email"
@@ -330,7 +365,9 @@ export default function Landing() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="password" className="text-sm font-medium">Password</Label>
+              <Label htmlFor="password" className="text-sm font-medium">
+                Password
+              </Label>
               <div className="relative">
                 <Input
                   id="password"
@@ -359,9 +396,9 @@ export default function Landing() {
               </div>
             </div>
 
-            <Button 
-              type="submit" 
-              className="w-full h-14 text-lg font-semibold rounded-2xl bg-blue-600 hover:bg-blue-700 touch-manipulation" 
+            <Button
+              type="submit"
+              className="w-full h-14 text-lg font-semibold rounded-2xl bg-blue-600 hover:bg-blue-700 touch-manipulation"
               disabled={isLoading}
             >
               {isLoading

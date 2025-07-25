@@ -250,7 +250,7 @@ export default function Index() {
               >
                 <Search className="h-5 w-5" />
               </Button>
-              
+
               <Button
                 variant="ghost"
                 size="icon"
@@ -258,7 +258,7 @@ export default function Index() {
                 className="h-10 w-10 rounded-2xl hover:bg-gray-100 touch-manipulation relative"
               >
                 <Filter className="h-5 w-5" />
-                {Object.values(filters).some(v => v !== "All") && (
+                {Object.values(filters).some((v) => v !== "All") && (
                   <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-600 rounded-full" />
                 )}
               </Button>
@@ -296,7 +296,7 @@ export default function Index() {
                 <span className="ml-1 font-semibold">{queue.length}</span>
               </div>
             </div>
-            
+
             {queue.length > 0 && (
               <Button
                 size="sm"
@@ -346,7 +346,7 @@ export default function Index() {
                 </Button>
                 <h2 className="text-lg font-semibold">Filter Stocks</h2>
               </div>
-              
+
               <Button
                 variant="outline"
                 size="sm"
@@ -359,14 +359,14 @@ export default function Index() {
                 Clear All
               </Button>
             </div>
-            
+
             <StockFilters
               filters={filters}
               onFiltersChange={setFilters}
               onClearFilters={() => setFilters(defaultFilters)}
               className="space-y-6"
             />
-            
+
             <div className="mt-8">
               <Button
                 onClick={() => setShowFilters(false)}

@@ -74,7 +74,7 @@ export function StockCard({
   const [showDetails, setShowDetails] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const navigate = useNavigate();
-  
+
   // Swipe handling
   const cardRef = useRef<HTMLDivElement>(null);
   const [dragX, setDragX] = useState(0);
@@ -96,7 +96,7 @@ export function StockCard({
   const handleTouchEnd = () => {
     setIsDragging(false);
     const threshold = 100;
-    
+
     if (Math.abs(dragX) > threshold) {
       if (dragX > 0) {
         // Swiped right - add to watchlist
@@ -108,7 +108,7 @@ export function StockCard({
         onSkip?.();
       }
     }
-    
+
     setDragX(0);
   };
 
@@ -116,18 +116,18 @@ export function StockCard({
     <div className="relative">
       {/* Swipe Indicators */}
       <div className="absolute inset-0 flex items-center justify-between px-8 pointer-events-none z-0">
-        <div 
+        <div
           className={cn(
             "w-16 h-16 bg-green-500 rounded-full flex items-center justify-center transition-all duration-200",
-            dragX > 50 ? "scale-110 opacity-100" : "scale-90 opacity-50"
+            dragX > 50 ? "scale-110 opacity-100" : "scale-90 opacity-50",
           )}
         >
           <Heart className="h-8 w-8 text-white fill-current" />
         </div>
-        <div 
+        <div
           className={cn(
             "w-16 h-16 bg-red-500 rounded-full flex items-center justify-center transition-all duration-200",
-            dragX < -50 ? "scale-110 opacity-100" : "scale-90 opacity-50"
+            dragX < -50 ? "scale-110 opacity-100" : "scale-90 opacity-50",
           )}
         >
           <X className="h-8 w-8 text-white" />
@@ -170,10 +170,10 @@ export function StockCard({
               <p className="text-lg text-gray-600 font-medium leading-tight">
                 {stock.name}
               </p>
-              
+
               <div className="flex items-center justify-center gap-2 flex-wrap">
-                <Badge 
-                  variant="outline" 
+                <Badge
+                  variant="outline"
                   className="text-sm px-3 py-1 rounded-full bg-blue-50 text-blue-700 border-blue-200"
                 >
                   {stock.sector}
@@ -226,7 +226,9 @@ export function StockCard({
           <div className="grid grid-cols-2 gap-4">
             <div className="bg-gray-50 rounded-2xl p-4 text-center">
               <div className="text-sm text-gray-500 mb-1">Market Cap</div>
-              <div className="font-bold text-lg text-gray-900">{stock.marketCap}</div>
+              <div className="font-bold text-lg text-gray-900">
+                {stock.marketCap}
+              </div>
             </div>
             <div className="bg-gray-50 rounded-2xl p-4 text-center">
               <div className="text-sm text-gray-500 mb-1">P/E Ratio</div>
@@ -239,7 +241,9 @@ export function StockCard({
           {/* Performance */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-600">Performance</span>
+              <span className="text-sm font-medium text-gray-600">
+                Performance
+              </span>
               <Button
                 variant="ghost"
                 size="sm"
@@ -250,7 +254,7 @@ export function StockCard({
                 Chart
               </Button>
             </div>
-            
+
             <div className="grid grid-cols-3 gap-2">
               {[
                 { label: "1M", value: stock.returns?.oneMonth || 2.4 },
@@ -280,7 +284,9 @@ export function StockCard({
 
           {/* News Summary */}
           <div className="bg-blue-50 rounded-2xl p-4">
-            <div className="text-sm font-medium text-blue-900 mb-2">Latest News</div>
+            <div className="text-sm font-medium text-blue-900 mb-2">
+              Latest News
+            </div>
             <div className="text-sm text-blue-800 leading-relaxed">
               {stock.newsSummary}
             </div>
@@ -314,12 +320,16 @@ export function StockCard({
                 <div className="grid grid-cols-2 gap-4">
                   <div className="bg-gray-50 rounded-xl p-3 text-center">
                     <div className="text-xs text-gray-500 mb-1">Volume</div>
-                    <div className="text-sm font-semibold text-gray-900">{stock.volume}</div>
+                    <div className="text-sm font-semibold text-gray-900">
+                      {stock.volume}
+                    </div>
                   </div>
                   <div className="bg-gray-50 rounded-xl p-3 text-center">
                     <div className="text-xs text-gray-500 mb-1">Dividend</div>
                     <div className="text-sm font-semibold text-gray-900">
-                      {stock.dividendYield ? `${stock.dividendYield.toFixed(2)}%` : "N/A"}
+                      {stock.dividendYield
+                        ? `${stock.dividendYield.toFixed(2)}%`
+                        : "N/A"}
                     </div>
                   </div>
                 </div>
@@ -360,9 +370,9 @@ export function StockCard({
                 }}
                 className={cn(
                   "h-12 text-sm font-medium rounded-2xl border-2 touch-manipulation",
-                  isInWatchlist 
-                    ? "border-green-300 bg-green-50 text-green-700 hover:bg-green-100" 
-                    : "border-gray-300 text-gray-600 hover:bg-gray-50"
+                  isInWatchlist
+                    ? "border-green-300 bg-green-50 text-green-700 hover:bg-green-100"
+                    : "border-gray-300 text-gray-600 hover:bg-gray-50",
                 )}
               >
                 {isInWatchlist ? (
@@ -377,7 +387,7 @@ export function StockCard({
                   </>
                 )}
               </Button>
-              
+
               <Button
                 variant="outline"
                 onClick={() => onSkip && onSkip()}

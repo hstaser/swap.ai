@@ -84,20 +84,20 @@ export function BottomNav() {
                 )}
               >
                 <div className="relative">
-                  <Icon 
+                  <Icon
                     className={cn(
                       "mb-1 transition-all duration-200",
-                      isActive ? "h-6 w-6" : "h-5 w-5"
-                    )} 
+                      isActive ? "h-6 w-6" : "h-5 w-5",
+                    )}
                   />
                   {item.href === "/" && queue.length > 0 && (
                     <div className="absolute -top-2 -right-2 w-3 h-3 bg-blue-600 rounded-full border-2 border-white" />
                   )}
                 </div>
-                <span 
+                <span
                   className={cn(
                     "text-xs font-medium transition-all duration-200",
-                    isActive ? "font-semibold" : ""
+                    isActive ? "font-semibold" : "",
                   )}
                 >
                   {item.label}
