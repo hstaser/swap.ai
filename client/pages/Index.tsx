@@ -419,7 +419,10 @@ export default function Index() {
   }, [filters, isInQueue]);
 
   const toggleWatchlist = (symbol: string) => {
-    if (watchlist.includes(symbol)) {
+    const isRemoving = watchlist.includes(symbol);
+    const currentStock = filteredStocks.find(s => s.symbol === symbol) || mockStocks.find(s => s.symbol === symbol);
+
+    if (isRemoving) {
       setWatchlist(watchlist.filter((s) => s !== symbol));
       // Remove note when removing from watchlist
       setWatchlistNotes((prev) => {
@@ -429,6 +432,14 @@ export default function Index() {
       });
     } else {
       setWatchlist([...watchlist, symbol]);
+    }
+
+    // Track behavior for AI agent
+    if (isSetup && currentStock) {
+      trackSwipe(symbol, isRemoving ? "skip" : "watchlist", {
+        sector: currentStock.sector,
+        risk: currentStock.risk || "Medium"
+      });
     }
   };
 
@@ -440,9 +451,39 @@ export default function Index() {
       ...prev,
       [symbol]: { note, addedAt: new Date() },
     }));
+
+    // Track as watchlist action for AI agent
+    const currentStock = filteredStocks.find(s => s.symbol === symbol) || mockStocks.find(s => s.symbol === symbol);
+    if (isSetup && currentStock) {
+      trackSwipe(symbol, "watchlist", {
+        sector: currentStock.sector,
+        risk: currentStock.risk || "Medium"
+      });
+    }
+  };
+
+  const handleAIInterventionAction = (intervention: any) => {
+    if (intervention.actionType === "view_suggestions") {
+      // Navigate to suggestions or show additional info
+      console.log("Showing suggestions for:", intervention.type);
+    } else if (intervention.actionType === "adjust_strategy") {
+      // Open AI chat for strategy discussion
+      setShowAIChat(true);
+    } else if (intervention.actionType === "rebalance") {
+      // Navigate to portfolio rebalancing
+      navigate("/portfolio");
+    }
   };
 
   const handleSkip = () => {
+    const currentStock = filteredStocks[currentStockIndex];
+    if (isSetup && currentStock) {
+      trackSwipe(currentStock.symbol, "skip", {
+        sector: currentStock.sector,
+        risk: currentStock.risk || "Medium"
+      });
+    }
+
     if (currentStockIndex < filteredStocks.length - 1) {
       setCurrentStockIndex(currentStockIndex + 1);
     } else {
