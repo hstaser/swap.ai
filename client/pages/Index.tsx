@@ -345,6 +345,10 @@ export default function Index() {
   const [showHelp, setShowHelp] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
   const [viewMode, setViewMode] = useState<"swipe" | "dashboard">("swipe");
+  const [showAIChat, setShowAIChat] = useState(false);
+
+  // AI Agent
+  const { isSetup, interventions, trackSwipe, dismissIntervention } = useAIAgent();
 
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
