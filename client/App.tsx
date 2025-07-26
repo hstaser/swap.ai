@@ -9,6 +9,7 @@ import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueueProvider } from "@/hooks/use-queue";
 import { AuthProvider, useAuth } from "@/hooks/use-auth";
+import { AIAgentProvider } from "@/hooks/use-ai-agent";
 import { OnboardingFlow } from "@/components/onboarding/OnboardingFlow";
 import Landing from "./pages/Landing";
 import Index from "./pages/Index";
@@ -96,11 +97,13 @@ const App = () => {
       <TooltipProvider>
         <AuthProvider>
           <QueueProvider>
-            <Toaster />
-            <Sonner />
-            <BrowserRouter>
-              <AppContent />
-            </BrowserRouter>
+            <AIAgentProvider>
+              <Toaster />
+              <Sonner />
+              <BrowserRouter>
+                <AppContent />
+              </BrowserRouter>
+            </AIAgentProvider>
           </QueueProvider>
         </AuthProvider>
       </TooltipProvider>
