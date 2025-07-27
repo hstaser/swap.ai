@@ -797,9 +797,9 @@ export default function Index() {
                 )}
               />
 
-              {/* End Session Button */}
+              {/* End Session Button with subtle optimization hints */}
               {queue.length > 0 && (
-                <div className="text-center">
+                <div className="text-center space-y-2">
                   <Button
                     variant="outline"
                     onClick={() => navigate("/queue/review")}
@@ -808,6 +808,13 @@ export default function Index() {
                     Review & Invest ({queue.length}{" "}
                     {queue.length === 1 ? "stock" : "stocks"})
                   </Button>
+
+                  {/* Subtle AI optimization hint */}
+                  {queue.length >= 3 && (
+                    <p className="text-xs text-muted-foreground">
+                      💡 AI detected optimization opportunities
+                    </p>
+                  )}
                 </div>
               )}
             </div>

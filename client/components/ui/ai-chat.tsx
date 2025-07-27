@@ -34,10 +34,10 @@ interface AIChatProps {
 const quickQuestions = [
   "What should I buy?",
   "How risky am I?",
-  "How do I hedge this?",
   "Analyze my portfolio",
-  "Suggest rebalancing",
-  "What's my strategy?",
+  "Clone Nancy Pelosi's portfolio",
+  "Create Apple competitors queue",
+  "Rebalance my holdings",
 ];
 
 export function AIChat({ isOpen, onClose }: AIChatProps) {
@@ -54,7 +54,7 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
         {
           id: "welcome",
           type: "assistant",
-          content: "Hi! I'm your AI investment assistant. I can help analyze your portfolio, suggest investments, or answer questions about your strategy. What would you like to know?",
+          content: "Hi! I'm your AI investment assistant. I can analyze your portfolio, suggest investments, create custom queues, or even clone strategies from successful investors. What would you like to explore?",
           timestamp: new Date(),
           suggestions: quickQuestions.slice(0, 3),
         },
@@ -69,31 +69,31 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
   const generateAIResponse = async (userMessage: string): Promise<string> => {
     // Mock AI responses based on user input
     const insights = getInsights();
-    
+
     if (userMessage.toLowerCase().includes("what should i buy") || userMessage.toLowerCase().includes("recommend")) {
       return `Based on your preferences for ${insights.topSectors.join(", ")} and ${insights.riskPreference} risk stocks, I'd recommend:\n\n• Looking for undervalued stocks in ${insights.topSectors[0]}\n• Consider diversifying into Consumer Staples for stability\n• Check out dividend-paying stocks for income\n\nWould you like specific stock suggestions?`;
     }
-    
+
     if (userMessage.toLowerCase().includes("risky") || userMessage.toLowerCase().includes("risk")) {
       return `Your risk profile shows:\n\n• Preference for ${insights.riskPreference} risk stocks\n• Heavy focus on ${insights.topSectors.slice(0, 2).join(" and ")}\n• ${insights.totalSwipes} total investment decisions\n\nYou're currently ${insights.riskPreference === "High" ? "aggressive" : insights.riskPreference === "Low" ? "conservative" : "moderate"} in your approach. Want to adjust?`;
     }
-    
+
     if (userMessage.toLowerCase().includes("hedge") || userMessage.toLowerCase().includes("protect")) {
       return `To hedge your current portfolio:\n\n• Consider defensive sectors like Utilities or Consumer Staples\n• Look into bonds or treasury funds\n• Add some inverse ETFs for downside protection\n• Diversify across market caps (small, mid, large)\n\nWhat specific risks are you most concerned about?`;
     }
-    
+
     if (userMessage.toLowerCase().includes("portfolio") || userMessage.toLowerCase().includes("analyze")) {
       return `Portfolio Analysis:\n\n• Sector Focus: ${insights.topSectors.join(", ")}\n• Risk Level: ${insights.riskPreference}\n• Activity: ${insights.totalSwipes} decisions made\n• Streak: ${insights.streakDays} days\n\nStrengths: Clear sector preferences\nOpportunities: Consider more diversification\n\nWant detailed recommendations?`;
     }
-    
+
     if (userMessage.toLowerCase().includes("rebalance") || userMessage.toLowerCase().includes("balance")) {
       return `Rebalancing suggestions:\n\n• Your ${insights.topSectors[0]} allocation might be high\n• Consider adding exposure to Healthcare or Financials\n• Review positions older than 6 months\n• Take profits on winners, add to underweight sectors\n\nShall I create a rebalancing plan for you?`;
     }
-    
+
     if (userMessage.toLowerCase().includes("strategy")) {
       return `Your investment strategy appears to be:\n\n• Growth-focused with ${insights.topSectors[0]} emphasis\n• ${insights.riskPreference} risk tolerance\n• Active decision making (${insights.totalSwipes} swipes)\n\nThis aligns with a ${insights.riskPreference === "High" ? "aggressive growth" : "balanced growth"} approach. Want to refine it further?`;
     }
-    
+
     return "I'd be happy to help! You can ask me about:\n\n• Investment recommendations\n• Risk analysis\n• Portfolio review\n• Hedging strategies\n• Rebalancing advice\n\nWhat specific area interests you most?";
   };
 
@@ -114,7 +114,7 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
 
     try {
       const response = await generateAIResponse(messageToSend);
-      
+
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         type: "assistant",
@@ -179,7 +179,7 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
                       <Bot className="h-4 w-4 text-blue-600" />
                     </div>
                   )}
-                  
+
                   <div
                     className={cn(
                       "max-w-[80%] rounded-lg px-4 py-2",
@@ -191,7 +191,7 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
                     <div className="whitespace-pre-wrap text-sm">
                       {message.content}
                     </div>
-                    
+
                     {message.suggestions && (
                       <div className="flex flex-wrap gap-2 mt-3">
                         {message.suggestions.map((suggestion, idx) => (
@@ -208,7 +208,7 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
                       </div>
                     )}
                   </div>
-                  
+
                   {message.type === "user" && (
                     <div className="flex-shrink-0 w-8 h-8 bg-gray-100 rounded-full flex items-center justify-center">
                       <User className="h-4 w-4 text-gray-600" />
@@ -216,7 +216,7 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
                   )}
                 </div>
               ))}
-              
+
               {isLoading && (
                 <div className="flex gap-3 justify-start">
                   <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
@@ -231,7 +231,7 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
                   </div>
                 </div>
               )}
-              
+
               <div ref={messagesEndRef} />
             </div>
           </ScrollArea>

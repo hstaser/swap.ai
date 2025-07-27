@@ -324,8 +324,8 @@ export function StockCard({
 
         <Separator />
 
-        {/* AI Assistance Button */}
-        <div className="text-center">
+        {/* AI Assistance Button with subtle suggestions */}
+        <div className="text-center space-y-2">
           <Button
             variant="outline"
             onClick={() => navigate(`/research?symbol=${stock.symbol}`)}
@@ -337,6 +337,19 @@ export function StockCard({
             </span>
             <span className="sm:hidden">Ask AI about {stock.symbol}</span>
           </Button>
+
+          {/* Subtle contextual suggestions */}
+          {stock.symbol === "AAPL" && stock.risk === "High" && (
+            <p className="text-xs text-muted-foreground italic">
+              💡 This is high-beta. AI can suggest defensive pairs
+            </p>
+          )}
+
+          {stock.changePercent > 5 && (
+            <p className="text-xs text-muted-foreground italic">
+              💡 Big mover today. AI can explain why & show related plays
+            </p>
+          )}
         </div>
 
         <Separator />
