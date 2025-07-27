@@ -69,8 +69,51 @@ export function AIChat({ isOpen, onClose }: AIChatProps) {
   const generateAIResponse = async (userMessage: string): Promise<string> => {
     // Mock AI responses based on user input
     const insights = getInsights();
+    const messageLower = userMessage.toLowerCase();
 
-    if (userMessage.toLowerCase().includes("what should i buy") || userMessage.toLowerCase().includes("recommend")) {
+    // Portfolio Cloning Responses
+    if (messageLower.includes("clone") && messageLower.includes("nancy pelosi")) {
+      return `I'll create a queue based on Nancy Pelosi's disclosed stock trades:
+
+**Portfolio Clone: Nancy Pelosi**
+• NVDA - 15% (Recent purchases)
+• AAPL - 12% (Consistent holding)
+• MSFT - 10% (Tech allocation)
+• GOOGL - 8% (Growth position)
+• CRM - 6% (Software exposure)
+
+This replicates her major disclosed positions. Should I add these to your queue?
+
+*Note: Based on publicly available congressional trading disclosures*`;
+    }
+
+    if (messageLower.includes("apple competitors") || (messageLower.includes("bearish") && messageLower.includes("apple"))) {
+      return `Creating an Apple competitors queue for your bearish thesis:
+
+**Apple Competitors Queue**
+• GOOGL - Search & mobile OS competitor
+• MSFT - Cloud & productivity rival
+• AMZN - Services & device competition
+• META - VR/AR and social platforms
+• NFLX - Content & streaming wars
+• QCOM - Chip & wireless tech
+
+These benefit if Apple loses market share. Want me to add them to your queue with weights based on competitive overlap?`;
+    }
+
+    if (messageLower.includes("clone") || (messageLower.includes("portfolio") && messageLower.includes("copy"))) {
+      return `I can clone portfolios from public sources:
+
+**Available Clones:**
+• **Politicians**: Nancy Pelosi, Ted Cruz, AOC trading disclosures
+• **Hedge Funds**: Berkshire Hathaway, ARK funds holdings
+• **Institutions**: Harvard endowment, pension funds
+• **Themes**: Clean energy, AI revolution, dividend aristocrats
+
+Which would you like me to replicate? I'll create a custom queue based on their latest filings.`;
+    }
+
+    if (messageLower.includes("what should i buy") || messageLower.includes("recommend")) {
       return `Based on your preferences for ${insights.topSectors.join(", ")} and ${insights.riskPreference} risk stocks, I'd recommend:\n\n• Looking for undervalued stocks in ${insights.topSectors[0]}\n• Consider diversifying into Consumer Staples for stability\n• Check out dividend-paying stocks for income\n\nWould you like specific stock suggestions?`;
     }
 
