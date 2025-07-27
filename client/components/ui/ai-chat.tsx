@@ -129,8 +129,22 @@ Which would you like me to replicate? I'll create a custom queue based on their 
       return `Portfolio Analysis:\n\n• Sector Focus: ${insights.topSectors.join(", ")}\n• Risk Level: ${insights.riskPreference}\n• Activity: ${insights.totalSwipes} decisions made\n• Streak: ${insights.streakDays} days\n\nStrengths: Clear sector preferences\nOpportunities: Consider more diversification\n\nWant detailed recommendations?`;
     }
 
-    if (userMessage.toLowerCase().includes("rebalance") || userMessage.toLowerCase().includes("balance")) {
-      return `Rebalancing suggestions:\n\n• Your ${insights.topSectors[0]} allocation might be high\n• Consider adding exposure to Healthcare or Financials\n• Review positions older than 6 months\n• Take profits on winners, add to underweight sectors\n\nShall I create a rebalancing plan for you?`;
+    if (messageLower.includes("rebalance") || messageLower.includes("balance")) {
+      const topSector = insights.topSectors?.[0] || "Technology";
+
+      return `**Smart Rebalancing Plan**
+
+Current issues I detected:
+• ${topSector} is 45% (target: 30%)
+• Missing healthcare exposure (2% vs 8% target)
+• Cash sitting idle (12% vs 5% target)
+
+**Proposed Actions:**
+1. Trim AAPL position by $2,500
+2. Add JNJ for healthcare exposure
+3. Consider VTI for broad diversification
+
+Should I create queues for these rebalancing moves? I can set up the buys/sells with your preferred timeline.`;
     }
 
     if (userMessage.toLowerCase().includes("strategy")) {
