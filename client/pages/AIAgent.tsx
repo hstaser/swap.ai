@@ -30,7 +30,7 @@ export default function AIAgent() {
   const navigate = useNavigate();
   const [showChat, setShowChat] = useState(false);
   const [activeTab, setActiveTab] = useState<"overview" | "insights" | "interventions" | "settings">("overview");
-  
+
   const { isSetup, interventions, dismissIntervention, getInsights } = useAIAgent();
   const { queue } = useQueue();
 
@@ -50,7 +50,14 @@ export default function AIAgent() {
             </p>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Button onClick={() => navigate("/")} className="w-full">
+            <Button
+              onClick={() => {
+                // Clear onboarding flag to force AI setup
+                localStorage.removeItem("onboarding_completed");
+                navigate("/");
+              }}
+              className="w-full"
+            >
               Complete Setup
             </Button>
             <Button variant="ghost" onClick={() => navigate("/")} className="w-full">
@@ -88,7 +95,7 @@ export default function AIAgent() {
                 Learning from your behavior and providing smart insights
               </p>
             </div>
-            <Button 
+            <Button
               onClick={() => setShowChat(true)}
               className="bg-blue-600 hover:bg-blue-700"
             >
@@ -108,7 +115,7 @@ export default function AIAgent() {
             <div className="text-sm text-muted-foreground">Decisions Made</div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardContent className="p-4 text-center">
             <Target className="h-8 w-8 mx-auto mb-2 text-green-600" />
@@ -116,7 +123,7 @@ export default function AIAgent() {
             <div className="text-sm text-muted-foreground">Stocks Queued</div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardContent className="p-4 text-center">
             <BarChart3 className="h-8 w-8 mx-auto mb-2 text-purple-600" />
@@ -124,7 +131,7 @@ export default function AIAgent() {
             <div className="text-sm text-muted-foreground">Top Sectors</div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardContent className="p-4 text-center">
             <Shield className="h-8 w-8 mx-auto mb-2 text-orange-600" />
@@ -155,17 +162,17 @@ export default function AIAgent() {
           </CardTitle>
         </CardHeader>
         <CardContent className="grid grid-cols-2 gap-4">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             onClick={() => setShowChat(true)}
             className="h-auto p-4 flex flex-col items-center gap-2"
           >
             <MessageCircle className="h-6 w-6" />
             <span>Ask AI</span>
           </Button>
-          
-          <Button 
-            variant="outline" 
+
+          <Button
+            variant="outline"
             onClick={() => navigate("/portfolio")}
             className="h-auto p-4 flex flex-col items-center gap-2"
           >
@@ -193,8 +200,8 @@ export default function AIAgent() {
                   <span className="text-sm">{sector}</span>
                   <div className="flex items-center gap-2">
                     <div className="w-20 bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-blue-600 h-2 rounded-full" 
+                      <div
+                        className="bg-blue-600 h-2 rounded-full"
                         style={{ width: `${100 - (index * 20)}%` }}
                       />
                     </div>
@@ -222,12 +229,12 @@ export default function AIAgent() {
                   <span>Current Risk Level</span>
                   <span className="font-medium">{insights.riskPreference}</span>
                 </div>
-                <Progress 
+                <Progress
                   value={
                     insights.riskPreference === "Low" ? 25 :
                     insights.riskPreference === "Medium" ? 50 :
                     insights.riskPreference === "High" ? 75 : 50
-                  } 
+                  }
                   className="h-2"
                 />
               </div>
@@ -266,7 +273,7 @@ export default function AIAgent() {
                 Consider adding exposure to defensive sectors like Healthcare or Utilities to balance your tech-heavy portfolio.
               </p>
             </div>
-            
+
             <div className="p-3 bg-green-50 rounded-lg">
               <h5 className="font-medium text-green-900">Risk Management</h5>
               <p className="text-sm text-green-800 mt-1">
@@ -325,9 +332,9 @@ export default function AIAgent() {
             </div>
             <Badge variant="secondary">Enabled</Badge>
           </div>
-          
+
           <Separator />
-          
+
           <div className="flex items-center justify-between">
             <div>
               <h4 className="font-medium">Learning Mode</h4>
@@ -337,9 +344,9 @@ export default function AIAgent() {
             </div>
             <Badge variant="secondary">Active</Badge>
           </div>
-          
+
           <Separator />
-          
+
           <div className="flex items-center justify-between">
             <div>
               <h4 className="font-medium">Chat History</h4>
@@ -349,9 +356,9 @@ export default function AIAgent() {
             </div>
             <Badge variant="secondary">Enabled</Badge>
           </div>
-          
+
           <Separator />
-          
+
           <Button variant="outline" className="w-full">
             Reset AI Learning Data
           </Button>
@@ -375,8 +382,8 @@ export default function AIAgent() {
                 <h1 className="text-xl font-bold">AI Agent</h1>
               </div>
             </div>
-            
-            <Button 
+
+            <Button
               onClick={() => setShowChat(true)}
               className="bg-blue-600 hover:bg-blue-700"
             >
