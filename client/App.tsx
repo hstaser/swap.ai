@@ -19,6 +19,7 @@ import Banking from "./pages/Banking";
 import Transactions from "./pages/Transactions";
 import Watchlist from "./pages/Watchlist";
 import Portfolio from "./pages/Portfolio";
+import AIAgent from "./pages/AIAgent";
 import Friends from "./pages/Friends";
 import Messages from "./pages/Messages";
 import Rewards from "./pages/Rewards";
@@ -67,6 +68,7 @@ function AppContent() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/ai-agent" element={<AIAgent />} />
         <Route path="/friends" element={<Friends />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/rewards" element={<Rewards />} />

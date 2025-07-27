@@ -28,22 +28,25 @@ const riskOptions = [
     id: "conservative" as const,
     label: "Conservative",
     icon: Shield,
-    description: "Prefer stability and lower risk",
+    description: "Stability-focused with lower volatility",
     color: "text-green-600",
+    recommendation: "",
   },
   {
     id: "moderate" as const,
     label: "Moderate",
     icon: TrendingUp,
-    description: "Balanced approach to risk and return",
+    description: "Maximizes expected returns over volatility (optimal Sharpe ratio)",
     color: "text-blue-600",
+    recommendation: "Recommended",
   },
   {
     id: "aggressive" as const,
-    label: "Aggressive", 
+    label: "Aggressive",
     icon: Target,
     description: "Higher risk for potential higher returns",
     color: "text-red-600",
+    recommendation: "",
   },
 ];
 
@@ -81,7 +84,7 @@ const investmentGoals = [
 
 const sectors = [
   "Technology",
-  "Healthcare", 
+  "Healthcare",
   "Financial Services",
   "Consumer Discretionary",
   "Consumer Staples",
@@ -110,7 +113,7 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
       excludedSectors: profile.excludedSectors || [],
       maxSectorConcentration: profile.maxSectorConcentration || 30,
     };
-    
+
     setupAgent(completeProfile);
     onComplete(completeProfile);
   };
@@ -169,7 +172,7 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
         {riskOptions.map((option) => {
           const IconComponent = option.icon;
           const isSelected = profile.riskTolerance === option.id;
-          
+
           return (
             <Card
               key={option.id}
@@ -183,7 +186,14 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
                 <div className="flex items-center gap-3">
                   <IconComponent className={cn("h-6 w-6", option.color)} />
                   <div className="flex-1">
-                    <h3 className="font-semibold">{option.label}</h3>
+                    <div className="flex items-center gap-2">
+                      <h3 className="font-semibold">{option.label}</h3>
+                      {option.recommendation && (
+                        <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-700">
+                          {option.recommendation}
+                        </Badge>
+                      )}
+                    </div>
                     <p className="text-sm text-muted-foreground">{option.description}</p>
                   </div>
                   {isSelected && (
@@ -203,8 +213,8 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
           <ChevronLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
-        <Button 
-          onClick={() => setStep(3)} 
+        <Button
+          onClick={() => setStep(3)}
           disabled={!profile.riskTolerance}
           className="flex-1"
         >
@@ -228,7 +238,7 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
         {timeHorizonOptions.map((option) => {
           const IconComponent = option.icon;
           const isSelected = profile.timeHorizon === option.id;
-          
+
           return (
             <Card
               key={option.id}
@@ -262,8 +272,8 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
           <ChevronLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
-        <Button 
-          onClick={() => setStep(4)} 
+        <Button
+          onClick={() => setStep(4)}
           disabled={!profile.timeHorizon}
           className="flex-1"
         >
@@ -286,7 +296,7 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
       <div className="grid grid-cols-2 gap-3">
         {investmentGoals.map((goal) => {
           const isSelected = profile.investmentGoals?.includes(goal);
-          
+
           return (
             <Card
               key={goal}
@@ -322,8 +332,8 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
           <ChevronLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
-        <Button 
-          onClick={() => setStep(5)} 
+        <Button
+          onClick={() => setStep(5)}
           disabled={!profile.investmentGoals?.length}
           className="flex-1"
         >
@@ -346,7 +356,7 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
       <div className="grid grid-cols-2 gap-2">
         {sectors.map((sector) => {
           const isSelected = profile.preferredSectors?.includes(sector);
-          
+
           return (
             <Button
               key={sector}
@@ -373,7 +383,7 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
           <ChevronLeft className="h-4 w-4 mr-2" />
           Back
         </Button>
-        <Button 
+        <Button
           onClick={handleComplete}
           disabled={!profile.preferredSectors?.length}
           className="flex-1"
@@ -395,13 +405,13 @@ export function AIAgentSetup({ onComplete, onSkip }: AIAgentSetupProps) {
             </Badge>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
+            <div
               className="bg-blue-600 h-2 rounded-full transition-all"
               style={{ width: `${(step / 5) * 100}%` }}
             />
           </div>
         </CardHeader>
-        
+
         <CardContent className="p-6">
           {step === 1 && renderStep1()}
           {step === 2 && renderStep2()}

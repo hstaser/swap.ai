@@ -485,10 +485,10 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
                 </div>
 
                 {/* Price and Change */}
-                <div className="text-right w-[120px] flex flex-col items-end">
-                  <div className="font-bold text-lg text-gray-900 tabular-nums w-full text-right">
-                    ${stock.price.toFixed(2)}
-                  </div>
+            <div className="text-right w-[140px] flex flex-col items-end">
+              <div className="font-bold text-lg text-gray-900 tabular-nums w-full text-right font-mono">
+                ${stock.price.toFixed(2)}
+              </div>
                   <Badge
                     className={cn(
                       "mt-1 font-medium tabular-nums w-[70px] justify-center text-center",
