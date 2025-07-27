@@ -713,6 +713,40 @@ export default function Index() {
         ) : /* Swipe View */
         filteredStocks.length > 0 && filteredStocks[currentStockIndex] ? (
           <div className="space-y-4">
+            {/* AI Smart Prompts */}
+            {isSetup && filteredStocks[currentStockIndex]?.symbol === "AAPL" && (
+              <div className="max-w-lg mx-auto">
+                <SmartPromptCard
+                  prompt={{
+                    id: "aapl_concentration",
+                    title: "This stock is getting heavy in your portfolio",
+                    description: "AAPL represents 15% of your holdings. Consider keeping individual stocks under 12% for better diversification.",
+                    type: "suggestion",
+                    priority: "medium",
+                    actions: [
+                      {
+                        label: "See Alternatives",
+                        action: "primary",
+                        onClick: () => console.log("Show similar stocks in different sectors"),
+                      },
+                      {
+                        label: "Add Anyway",
+                        action: "secondary",
+                        onClick: () => console.log("Add to queue"),
+                      },
+                      {
+                        label: "Got It",
+                        action: "dismiss",
+                        onClick: () => console.log("Dismiss"),
+                      },
+                    ],
+                    dismissible: true,
+                    collapsible: true,
+                  }}
+                  onDismiss={() => console.log("Dismissed AAPL prompt")}
+                />
+              </div>
+            )}
             {/* Navigation */}
             <div className="flex items-center justify-between">
               <Button
