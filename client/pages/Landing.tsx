@@ -147,16 +147,8 @@ export default function Landing() {
                 onClick={() => setMode("signup")}
                 className="w-full h-12 text-lg font-semibold"
               >
-                Sign Up
+                Get Started
                 <ArrowRight className="h-5 w-5 ml-2" />
-              </Button>
-
-              <Button
-                variant="outline"
-                onClick={() => setMode("signin")}
-                className="w-full h-12 text-lg"
-              >
-                Sign In
               </Button>
 
               <div className="relative">
@@ -165,18 +157,17 @@ export default function Landing() {
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
                   <span className="bg-white px-2 text-muted-foreground">
-                    Or
+                    Already have an account?
                   </span>
                 </div>
               </div>
 
               <Button
-                variant="ghost"
-                onClick={() => {}}
-                className="w-full h-12 text-lg border-dashed border-2"
+                variant="outline"
+                onClick={() => setMode("signin")}
+                className="w-full h-12 text-lg"
               >
-                <Eye className="h-5 w-5 mr-2" />
-                Get Started
+                Sign In
               </Button>
             </CardContent>
           </Card>
