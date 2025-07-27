@@ -3,8 +3,10 @@ import { StockCard, type Stock } from "@/components/ui/stock-card";
 import { StockFilters, type FilterState } from "@/components/ui/stock-filters";
 import { MarketSentiment } from "@/components/ui/market-sentiment";
 import { StockDashboard } from "@/components/ui/stock-dashboard";
+import { DashboardWithAssistant } from "@/components/ui/dashboard-with-assistant";
 import { AIInterventions } from "@/components/ui/ai-intervention";
 import { AIChat } from "@/components/ui/ai-chat";
+import { SmartPromptCard } from "@/components/ui/smart-prompt-card";
 import { useQueue } from "@/hooks/use-queue";
 import { useAIAgent } from "@/hooks/use-ai-agent";
 
@@ -678,8 +680,8 @@ export default function Index() {
 
         {/* Content Display */}
         {viewMode === "dashboard" ? (
-          <div className="max-w-4xl mx-auto">
-            <StockDashboard
+          <div className="max-w-7xl mx-auto">
+            <DashboardWithAssistant
               onStockSelect={(symbol) => {
                 // Switch to swipe view and navigate to specific stock
                 setViewMode("swipe");
