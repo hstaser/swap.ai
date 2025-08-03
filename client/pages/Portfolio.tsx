@@ -274,7 +274,14 @@ export default function Portfolio() {
     "1M" | "6M" | "1Y"
   >("1Y");
 
+  const [showRebalanceConfirm, setShowRebalanceConfirm] = useState(false);
+
   const runOptimization = () => {
+    setShowRebalanceConfirm(true);
+  };
+
+  const confirmRebalancing = () => {
+    setShowRebalanceConfirm(false);
     setShowAIRebalancing(true);
   };
 
