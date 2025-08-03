@@ -69,8 +69,37 @@ const stockResponses: Record<string, string> = {
     "Alphabet Inc. (Google) is primarily an advertising and technology company. Main revenue sources include Google Search advertising, YouTube advertising, Google Network (AdSense), Google Cloud, and Other Bets (experimental projects). The company dominates digital advertising through its search engine and vast data collection capabilities. Google Cloud competes in the enterprise cloud market, while Other Bets includes ventures like Waymo (autonomous vehicles).",
 };
 
+const themes = [
+  { id: "Politics", label: "Politics", icon: Crown, prompts: [
+    "Nancy Pelosi's Congressional Portfolio",
+    "Senate Voting Simulator",
+    "The Lobby List - Heavy Spenders"
+  ]},
+  { id: "Sports", label: "Sports", icon: Gamepad2, prompts: [
+    "LeBron's Brand Empire",
+    "Super Bowl Advertisers 2024",
+    "NFL's Biggest Partners"
+  ]},
+  { id: "Social Media", label: "Social Media", icon: Users, prompts: [
+    "r/WallStreetBets - Hedged",
+    "TikTok's Current Stock Crushes",
+    "Elon Musk Tweet Tracker"
+  ]},
+  { id: "Tech", label: "Tech", icon: Zap, prompts: [
+    "Apple Competitor Basket",
+    "AI Revolution Beneficiaries",
+    "Cloud Wars Winners"
+  ]},
+  { id: "ESG", label: "ESG", icon: Leaf, prompts: [
+    "Clean Energy Transition",
+    "Sustainable Investing Leaders",
+    "ESG Score Champions"
+  ]},
+];
+
 export default function Research() {
   const navigate = useNavigate();
+  const { queue, addToQueue, clearQueue } = useQueue();
   const [searchParams] = useSearchParams();
   const symbolParam = searchParams.get("symbol");
 
