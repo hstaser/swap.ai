@@ -338,11 +338,7 @@ export default function Research() {
 
     // Add stocks to queue
     template.stocks.forEach(symbol => {
-      addToQueue({
-        symbol,
-        confidence: "bullish",
-        notes: `Part of ${template.name} strategy`
-      });
+      addToQueue(symbol, "bullish");
     });
 
     setCreatedQueueName(template.name);
