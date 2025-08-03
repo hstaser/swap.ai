@@ -355,6 +355,174 @@ export default function Settings() {
             </Card>
           </TabsContent>
 
+          {/* AI Agent Tab */}
+          <TabsContent value="ai-agent" className="space-y-4">
+            <Card className="bg-white/90 backdrop-blur-sm border-0">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Bot className="h-5 w-5" />
+                  AI Agent Preferences
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* AI Agent Master Switch */}
+                <div className="flex items-center justify-between">
+                  <div>
+                    <Label className="text-base font-medium">
+                      Enable AI Agent
+                    </Label>
+                    <p className="text-sm text-muted-foreground">
+                      Turn on intelligent portfolio assistance and recommendations
+                    </p>
+                  </div>
+                  <Switch
+                    checked={settings.aiAgentEnabled}
+                    onCheckedChange={(checked) =>
+                      updateSetting("aiAgentEnabled", checked)
+                    }
+                  />
+                </div>
+
+                <Separator />
+
+                {/* AI Interaction Level */}
+                <div className="space-y-3">
+                  <Label className="text-base font-medium">
+                    AI Interaction Level
+                  </Label>
+                  <Select
+                    value={settings.aiInteractionLevel}
+                    onValueChange={(value: "full" | "moderate" | "minimal" | "off") =>
+                      updateSetting("aiInteractionLevel", value)
+                    }
+                    disabled={!settings.aiAgentEnabled}
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="full">
+                        Full - Proactive suggestions and interventions
+                      </SelectItem>
+                      <SelectItem value="moderate">
+                        Moderate - Balanced assistance (Recommended)
+                      </SelectItem>
+                      <SelectItem value="minimal">
+                        Minimal - Only critical alerts
+                      </SelectItem>
+                      <SelectItem value="off">
+                        Off - No AI suggestions
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    Controls how actively the AI agent provides suggestions and interventions
+                  </p>
+                </div>
+
+                <Separator />
+
+                {/* Specific AI Features */}
+                <div className="space-y-4">
+                  <h4 className="font-semibold">AI Agent Features</h4>
+
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label className="text-sm font-medium">
+                          Risk Interventions
+                        </Label>
+                        <p className="text-xs text-muted-foreground">
+                          Get warnings when making high-risk decisions
+                        </p>
+                      </div>
+                      <Switch
+                        checked={settings.riskInterventions}
+                        onCheckedChange={(checked) =>
+                          updateSetting("riskInterventions", checked)
+                        }
+                        disabled={!settings.aiAgentEnabled}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label className="text-sm font-medium">
+                          Portfolio Optimization Suggestions
+                        </Label>
+                        <p className="text-xs text-muted-foreground">
+                          AI-powered rebalancing and improvement recommendations
+                        </p>
+                      </div>
+                      <Switch
+                        checked={settings.portfolioOptimizationSuggestions}
+                        onCheckedChange={(checked) =>
+                          updateSetting("portfolioOptimizationSuggestions", checked)
+                        }
+                        disabled={!settings.aiAgentEnabled}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label className="text-sm font-medium">
+                          Earnings Warnings
+                        </Label>
+                        <p className="text-xs text-muted-foreground">
+                          Alerts before earnings announcements for your holdings
+                        </p>
+                      </div>
+                      <Switch
+                        checked={settings.earningsWarnings}
+                        onCheckedChange={(checked) =>
+                          updateSetting("earningsWarnings", checked)
+                        }
+                        disabled={!settings.aiAgentEnabled}
+                      />
+                    </div>
+
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Label className="text-sm font-medium">
+                          Trending Stock Notifications
+                        </Label>
+                        <p className="text-xs text-muted-foreground">
+                          Get notified about stocks gaining momentum
+                        </p>
+                      </div>
+                      <Switch
+                        checked={settings.trendingStockNotifications}
+                        onCheckedChange={(checked) =>
+                          updateSetting("trendingStockNotifications", checked)
+                        }
+                        disabled={!settings.aiAgentEnabled}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <Separator />
+
+                {/* AI Agent Info */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <div className="flex items-start gap-3">
+                    <Zap className="h-5 w-5 text-blue-600 mt-0.5" />
+                    <div className="space-y-1">
+                      <h3 className="font-semibold text-blue-800">
+                        How AI Agent Works
+                      </h3>
+                      <p className="text-sm text-blue-700">
+                        Your AI agent runs in the background, analyzing your portfolio,
+                        market conditions, and your behavior to provide personalized suggestions.
+                        It respects your preferences and never takes actions without your permission.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           {/* Portfolio Preferences Tab */}
           <TabsContent value="portfolio" className="space-y-4">
             <Card className="bg-white/90 backdrop-blur-sm border-0">
