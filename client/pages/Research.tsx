@@ -134,6 +134,7 @@ export default function Research() {
   const [isTyping, setIsTyping] = useState(false);
   const [showThemeDialog, setShowThemeDialog] = useState(false);
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
+  const [showThemePrompts, setShowThemePrompts] = useState(false);
   const [createdQueueName, setCreatedQueueName] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
