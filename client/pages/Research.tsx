@@ -136,6 +136,8 @@ export default function Research() {
   const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
   const [showThemePrompts, setShowThemePrompts] = useState(false);
   const [createdQueueName, setCreatedQueueName] = useState<string | null>(null);
+  const [deepResearchMode, setDeepResearchMode] = useState(false);
+  const [researchContext, setResearchContext] = useState<string>("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
