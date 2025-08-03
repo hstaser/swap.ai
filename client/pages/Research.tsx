@@ -405,12 +405,12 @@ export default function Research() {
               <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
               <div className="space-y-1">
                 <h3 className="font-semibold text-yellow-800">
-                  Educational Information Only
+                  Educational Research & Queue Building
                 </h3>
                 <p className="text-sm text-yellow-700">
-                  This AI assistant provides educational information about
-                  companies and markets. It does not provide investment advice,
-                  price predictions, or buy/sell recommendations.
+                  This AI assistant provides educational information and creates investment queues
+                  based on objective data sources like public filings and disclosures.
+                  It does not provide personalized investment advice or guarantee future performance.
                 </p>
               </div>
             </div>
