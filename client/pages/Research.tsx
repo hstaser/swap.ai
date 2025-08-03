@@ -532,6 +532,15 @@ export default function Research() {
           </CardContent>
         </Card>
 
+        {/* Tabs for Research and Insights */}
+        <Tabs defaultValue="research" className="space-y-4">
+          <TabsList className="grid w-full grid-cols-2">
+            <TabsTrigger value="research">Research Chat</TabsTrigger>
+            <TabsTrigger value="insights">AI Insights</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="research" className="space-y-4">
+
         {/* Chat Interface */}
         <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="border-b">
