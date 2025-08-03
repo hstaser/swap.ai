@@ -73,6 +73,7 @@ function AppContent() {
         <Route path="/friends" element={<Friends />} />
         <Route path="/social" element={<Social />} />
         <Route path="/user/:userId" element={<UserProfile />} />
+        <Route path="/add-friends" element={<AddFriends />} />
         <Route path="/rewards" element={<Rewards />} />
         <Route path="/queue/add/:symbol" element={<QueueAdd />} />
         <Route path="/queue/review" element={<QueueReview />} />
