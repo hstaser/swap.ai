@@ -575,25 +575,22 @@ export default function Index() {
                 </div>
               </div>
               <nav className="hidden md:flex items-center gap-4">
-                <Button variant="ghost" size="sm" asChild className="text-blue-200 hover:text-white hover:bg-blue-500/20">
+                <Button variant="ghost" size="sm" asChild>
                   <Link to="/markets">Markets</Link>
                 </Button>
-                <Button variant="ghost" size="sm" asChild className="text-cyan-200 hover:text-white hover:bg-cyan-500/20">
-                  <Link to="/research">AI Research</Link>
+                <Button variant="ghost" size="sm" asChild>
+                  <Link to="/research">AI Assistant</Link>
                 </Button>
-                <Button variant="ghost" size="sm" asChild className="text-purple-200 hover:text-white hover:bg-purple-500/20">
-                  <Link to="/ai-insights">AI Insights</Link>
-                </Button>
-                <Button variant="ghost" size="sm" asChild className="text-blue-200 hover:text-white hover:bg-blue-500/20">
+                <Button variant="ghost" size="sm" asChild>
                   <Link to="/watchlist">Watchlist</Link>
                 </Button>
-                <Button variant="ghost" size="sm" asChild className="text-blue-200 hover:text-white hover:bg-blue-500/20">
+                <Button variant="ghost" size="sm" asChild>
                   <Link to="/messages">Messages</Link>
                 </Button>
-                <Button variant="ghost" size="sm" asChild className="text-emerald-200 hover:text-white hover:bg-emerald-500/20">
+                <Button variant="ghost" size="sm" asChild>
                   <Link to="/rewards">Rewards</Link>
                 </Button>
-                <Button variant="ghost" size="sm" asChild className="text-blue-200 hover:text-white hover:bg-blue-500/20">
+                <Button variant="ghost" size="sm" asChild>
                   <Link to="/banking">Banking</Link>
                 </Button>
               </nav>
