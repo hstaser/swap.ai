@@ -256,25 +256,29 @@ export default function Research() {
 
     // Generate appropriate suggestions based on message content
     let suggestions: string[] | undefined;
+    let showQueueButton = false;
     const upperInput = inputValue.toUpperCase();
 
     if (upperInput.includes("PELOSI")) {
+      showQueueButton = true;
       suggestions = [
         "Show me the specific stocks in Nancy Pelosi's portfolio",
         "How do congressional trading patterns affect markets?",
-        "Create this queue for my portfolio"
+        "Explain the risks of following political portfolios"
       ];
     } else if (upperInput.includes("LEBRON")) {
+      showQueueButton = true;
       suggestions = [
         "What other athletes have successful investment portfolios?",
         "How do celebrity endorsements impact stock performance?",
-        "Build this LeBron-inspired queue"
+        "Show me more sports-themed investment strategies"
       ];
     } else if (upperInput.includes("BUFFETT")) {
+      showQueueButton = true;
       suggestions = [
         "What makes Berkshire Hathaway's strategy successful?",
         "Show me other value investing approaches",
-        "Create a Buffett-style queue"
+        "Explain Buffett's investment philosophy"
       ];
     } else if (upperInput.includes("QUEUE") || upperInput.includes("BUILD")) {
       suggestions = [
@@ -298,6 +302,7 @@ export default function Research() {
       timestamp: new Date(),
       stockMentioned: extractStockSymbol(inputValue),
       suggestions,
+      showQueueButton,
     };
 
     setIsTyping(false);
@@ -684,7 +689,7 @@ export default function Research() {
                     )
                   }
                 >
-                  • Profit Margins & Efficiency
+                  �� Profit Margins & Efficiency
                 </Button>
                 <Button
                   variant="ghost"
