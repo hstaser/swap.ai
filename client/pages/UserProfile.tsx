@@ -193,8 +193,8 @@ export default function UserProfile() {
           </CardContent>
         </Card>
 
-        {/* Overlapping Stocks */}
-        {userData.overlappingStocks && userData.overlappingStocks.length > 0 && (
+        {/* Overlapping Stocks - Only show if user has shared data and there are overlapping stocks */}
+        {userData.overlappingStocks && userData.overlappingStocks.length > 0 && userData.portfolioSharing !== "private" && (
           <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
