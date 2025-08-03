@@ -293,6 +293,14 @@ export default function Portfolio() {
     setShowAIRebalancing(true);
   };
 
+  // Auto-trigger rebalancing if URL param is present (from AI insights)
+  useEffect(() => {
+    const autoRebalance = searchParams.get("autoRebalance");
+    if (autoRebalance === "true") {
+      setShowRebalanceConfirm(true);
+    }
+  }, [searchParams]);
+
   const handleRebalancingComplete = (recommendations: any) => {
     console.log("Rebalancing recommendations:", recommendations);
     setOptimizationData(recommendations);
