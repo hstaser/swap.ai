@@ -68,8 +68,6 @@ function AppContent() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/ai-agent" element={<AIAgent />} />
-        <Route path="/alpha-prompts" element={<AlphaPrompts />} />
         <Route path="/friends" element={<Friends />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/rewards" element={<Rewards />} />
