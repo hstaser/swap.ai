@@ -45,7 +45,7 @@ interface Conversation {
   messages: Message[];
 }
 
-export default function Messages() {
+export default function Social() {
   const navigate = useNavigate();
   const [activeConversation, setActiveConversation] = useState<string | null>(
     null,
