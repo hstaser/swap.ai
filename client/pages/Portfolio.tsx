@@ -269,6 +269,7 @@ const optimizationInsights = [
 
 export default function Portfolio() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [isOptimizing, setIsOptimizing] = useState(false);
   const [showRebalanceDetails, setShowRebalanceDetails] = useState(false);
   const [showExportModal, setShowExportModal] = useState(false);
