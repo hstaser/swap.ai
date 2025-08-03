@@ -481,6 +481,19 @@ export default function Research() {
                         </div>
                       )}
 
+                      {message.showQueueButton && (
+                        <div className="mt-3">
+                          <Button
+                            onClick={() => navigate("/queue/review")}
+                            className="bg-green-600 hover:bg-green-700"
+                            size="sm"
+                          >
+                            <ExternalLink className="h-3 w-3 mr-1" />
+                            Visit Queue
+                          </Button>
+                        </div>
+                      )}
+
                       {message.suggestions && (
                         <div className="space-y-2">
                           <p className="text-xs text-muted-foreground">
