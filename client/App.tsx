@@ -15,6 +15,7 @@ import Landing from "./pages/Landing";
 import Index from "./pages/Index";
 import Markets from "./pages/Markets";
 import Research from "./pages/Research";
+import AIInsights from "./pages/AIInsights";
 import Banking from "./pages/Banking";
 import Transactions from "./pages/Transactions";
 import Watchlist from "./pages/Watchlist";
