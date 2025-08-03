@@ -290,9 +290,9 @@ export default function UserProfile() {
                             <div className="text-sm text-muted-foreground">{holding.name}</div>
                           </div>
                           <div className="text-right">
-                            <div className="font-semibold">{formatCurrency(holding.value)}</div>
+                            <div className="font-semibold text-lg">{holding.allocation}%</div>
                             <div className="text-sm text-muted-foreground">
-                              {holding.shares} shares • {holding.allocation}%
+                              of portfolio
                             </div>
                           </div>
                         </div>
