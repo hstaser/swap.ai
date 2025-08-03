@@ -164,9 +164,9 @@ export default function Social() {
                 </Link>
               </Button>
               <div>
-                <h1 className="text-2xl font-bold text-foreground">Messages</h1>
+                <h1 className="text-2xl font-bold text-foreground">Social</h1>
                 <p className="text-sm text-muted-foreground">
-                  Stock discussions with friends
+                  Connect with friends and other investors
                 </p>
               </div>
             </div>
