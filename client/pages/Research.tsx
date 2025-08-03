@@ -138,6 +138,8 @@ export default function Research() {
   const [createdQueueName, setCreatedQueueName] = useState<string | null>(null);
   const [deepResearchMode, setDeepResearchMode] = useState(false);
   const [researchContext, setResearchContext] = useState<string>("");
+  const [showAllocationDialog, setShowAllocationDialog] = useState(false);
+  const [pendingQueueType, setPendingQueueType] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
