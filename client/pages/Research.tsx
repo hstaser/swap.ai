@@ -364,39 +364,62 @@ export default function Research() {
   };
 
   const createQueue = async (queueType: string) => {
-    const queueTemplates: Record<string, {name: string, stocks: string[]}> = {
+    // Check if user has existing queue first
+    if (queue.length > 0) {
+      const confirmReplace = window.confirm(
+        "Your existing queue will be erased. Continue?"
+      );
+      if (!confirmReplace) return;
+    }
+
+    // Show allocation preference dialog
+    setPendingQueueType(queueType);
+    setShowAllocationDialog(true);
+  };
+
+  const executeQueueCreation = (queueType: string, useIdenticalAllocation: boolean) => {
+    const queueTemplates: Record<string, {name: string, stocks: string[], allocations?: number[]}> = {
       "pelosi": {
         name: "Nancy Pelosi's Portfolio",
-        stocks: ["NVDA", "AAPL", "MSFT", "GOOGL", "CRM"]
+        stocks: ["NVDA", "AAPL", "MSFT", "GOOGL", "CRM"],
+        allocations: [25, 30, 20, 15, 10] // Based on actual disclosed holdings
       },
       "lebron": {
         name: "LeBron's Brand Empire",
-        stocks: ["NKE", "PEP", "WMT", "BEATS", "NFLX"]
+        stocks: ["NKE", "PEP", "WMT", "BEATS", "NFLX"],
+        allocations: [40, 20, 15, 15, 10] // Nike is his biggest deal
       },
       "buffett": {
         name: "Buffett's Strategy",
-        stocks: ["AAPL", "BAC", "KO", "AXP", "KHC"]
+        stocks: ["AAPL", "BAC", "KO", "AXP", "KHC"],
+        allocations: [45, 20, 15, 12, 8] // Apple is Berkshire's largest holding
       }
     };
 
     const template = queueTemplates[queueType];
     if (!template) return;
 
-    // Check if user has existing queue
+    // Clear existing queue if user confirmed
     if (queue.length > 0) {
-      const confirmReplace = window.confirm(
-        "Your existing queue will be erased. Continue?"
-      );
-      if (!confirmReplace) return;
       clearQueue();
     }
 
-    // Add stocks to queue
-    template.stocks.forEach(symbol => {
+    // Add stocks to queue with allocation info
+    template.stocks.forEach((symbol, index) => {
       addToQueue(symbol, "bullish");
     });
 
+    // Store allocation preference for optimization
+    if (useIdenticalAllocation) {
+      localStorage.setItem(`queue_${template.name}_allocations`, JSON.stringify(template.allocations));
+      localStorage.setItem(`queue_${template.name}_type`, "identical");
+    } else {
+      localStorage.setItem(`queue_${template.name}_type`, "optimized");
+    }
+
     setCreatedQueueName(template.name);
+    setShowAllocationDialog(false);
+    setPendingQueueType(null);
   };
 
   const handleThemeSelection = (themeId: string) => {
