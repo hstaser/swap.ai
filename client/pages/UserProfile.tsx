@@ -100,7 +100,7 @@ const getUserData = (userId: string): UserProfileData => {
 export default function UserProfile() {
   const navigate = useNavigate();
   const { userId } = useParams();
-  const [userData] = useState<UserProfileData>(mockUserData);
+  const [userData] = useState<UserProfileData>(getUserData(userId || "alex_chen"));
 
   const canViewPortfolio = userData.portfolioSharing === "public" ||
     (userData.portfolioSharing === "friends" && userData.friendSince);
