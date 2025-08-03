@@ -443,13 +443,44 @@ export default function Portfolio() {
                       )}
                     />
                     <div className="flex-1">
-                      <h4 className="font-semibold text-sm">{insight.title}</h4>
-                      <p className="text-sm text-muted-foreground mt-1">
-                        {insight.description}
-                      </p>
-                      <p className="text-xs text-primary font-medium mt-2">
-                        {insight.impact}
-                      </p>
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h4 className="font-semibold text-sm">{insight.title}</h4>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {insight.description}
+                          </p>
+                          <p className="text-xs text-primary font-medium mt-2">
+                            {insight.impact}
+                          </p>
+                        </div>
+                        {insight.type === "rebalance" && (
+                          <Button
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              runOptimization();
+                            }}
+                            className="ml-3 bg-yellow-600 hover:bg-yellow-700"
+                          >
+                            <Zap className="h-3 w-3 mr-1" />
+                            Auto-Rebalance
+                          </Button>
+                        )}
+                        {insight.type === "diversification" && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              navigate("/markets?filter=international");
+                            }}
+                            className="ml-3"
+                          >
+                            <Target className="h-3 w-3 mr-1" />
+                            Explore ETFs
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
