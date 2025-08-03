@@ -262,19 +262,7 @@ export default function UserProfile() {
                 {canViewPortfolio && userData.portfolio ? (
                   <div className="space-y-4">
                     {/* Portfolio Summary */}
-                    <div className="grid grid-cols-3 gap-4 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-green-600">
-                          {formatCurrency(userData.portfolio.totalValue)}
-                        </div>
-                        <div className="text-sm text-muted-foreground">Total Value</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="text-2xl font-bold text-blue-600">
-                          {formatCurrency(userData.portfolio.totalReturn)}
-                        </div>
-                        <div className="text-sm text-muted-foreground">Total Return</div>
-                      </div>
+                    <div className="grid grid-cols-2 gap-4 p-4 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
                       <div className="text-center">
                         <div className={cn(
                           "text-2xl font-bold",
@@ -282,7 +270,13 @@ export default function UserProfile() {
                         )}>
                           {userData.portfolio.totalReturnPercent >= 0 ? "+" : ""}{userData.portfolio.totalReturnPercent.toFixed(1)}%
                         </div>
-                        <div className="text-sm text-muted-foreground">Return %</div>
+                        <div className="text-sm text-muted-foreground">Total Return</div>
+                      </div>
+                      <div className="text-center">
+                        <div className="text-2xl font-bold text-blue-600">
+                          {userData.portfolio.holdings.length}
+                        </div>
+                        <div className="text-sm text-muted-foreground">Holdings</div>
                       </div>
                     </div>
 
