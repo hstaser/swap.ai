@@ -21,7 +21,8 @@ import Watchlist from "./pages/Watchlist";
 import Portfolio from "./pages/Portfolio";
 
 import Friends from "./pages/Friends";
-import Messages from "./pages/Messages";
+import Social from "./pages/Messages";
+import UserProfile from "./pages/UserProfile";
 import Rewards from "./pages/Rewards";
 import QueueAdd from "./pages/QueueAdd";
 import QueueReview from "./pages/QueueReview";
