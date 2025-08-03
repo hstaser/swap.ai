@@ -568,7 +568,7 @@ export default function Index() {
               <div className="flex items-center gap-3">
                 <div className="bg-white rounded-lg p-2 shadow-sm border border-gray-100">
                   <img
-                    src="https://cdn.builder.io/api/v1/image/assets%2F8274926fadf9406c8e2d75b7a56de814%2F11112bd742824e529296e1b2cd55c201?format=webp&width=800"
+                    src="https://cdn.builder.io/api/v1/image/assets%2F8274926fadf9406c8e2d75b7a56de814%2Fb4bd10ed53bc440984088afabc0f8891?format=webp&width=800"
                     alt="swipr.ai logo"
                     className="h-10 w-auto"
                   />
