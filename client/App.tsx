@@ -19,8 +19,7 @@ import Banking from "./pages/Banking";
 import Transactions from "./pages/Transactions";
 import Watchlist from "./pages/Watchlist";
 import Portfolio from "./pages/Portfolio";
-import AIAgent from "./pages/AIAgent";
-import AlphaPrompts from "./pages/AlphaPrompts";
+
 import Friends from "./pages/Friends";
 import Messages from "./pages/Messages";
 import Rewards from "./pages/Rewards";
