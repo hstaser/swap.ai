@@ -47,6 +47,7 @@ interface Conversation {
 
 export default function Social() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [activeConversation, setActiveConversation] = useState<string | null>(
     null,
   );
