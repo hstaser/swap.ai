@@ -295,13 +295,23 @@ export default function Research() {
         "What's the difference between themes?",
         "How do you optimize queue allocations?"
       ];
+    } else if (deepResearchMode) {
+      suggestions = [
+        "Focus on fundamental analysis",
+        "Emphasize competitive positioning",
+        "Include ESG factors",
+        "Skip personalization - give me everything"
+      ];
     } else {
+      // Add deep research option to regular suggestions
+      const deepResearchSuggestion = "Start deep research mode for detailed analysis";
+      const regularSuggestions = suggestedQuestions.slice(
+        Math.floor(Math.random() * 3),
+        Math.floor(Math.random() * 3) + 2,
+      );
       suggestions = Math.random() > 0.5
-        ? suggestedQuestions.slice(
-            Math.floor(Math.random() * 3),
-            Math.floor(Math.random() * 3) + 3,
-          )
-        : undefined;
+        ? [deepResearchSuggestion, ...regularSuggestions]
+        : regularSuggestions;
     }
 
     const aiResponse: ChatMessage = {
