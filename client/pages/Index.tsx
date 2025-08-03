@@ -7,6 +7,7 @@ import { DashboardWithAssistant } from "@/components/ui/dashboard-with-assistant
 import { AIInterventions } from "@/components/ui/ai-intervention";
 import { AIChat } from "@/components/ui/ai-chat";
 import { SmartPromptCard } from "@/components/ui/smart-prompt-card";
+import { RiskInterventionSystem, generateSampleInterventions, defaultRiskSettings } from "@/components/ui/risk-intervention-system";
 import { useQueue } from "@/hooks/use-queue";
 import { useAIAgent } from "@/hooks/use-ai-agent";
 
@@ -348,9 +349,13 @@ export default function Index() {
   const [showNotifications, setShowNotifications] = useState(false);
   const [viewMode, setViewMode] = useState<"swipe" | "dashboard">("swipe");
   const [showAIChat, setShowAIChat] = useState(false);
+  const [riskSettings, setRiskSettings] = useState(defaultRiskSettings);
 
   // AI Agent
   const { isSetup, interventions, trackSwipe, dismissIntervention } = useAIAgent();
+
+  // Generate sample risk interventions
+  const riskInterventions = generateSampleInterventions([], queue);
 
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
@@ -580,6 +585,9 @@ export default function Index() {
                   <Link to="/ai-agent">AI Agent</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
+                  <Link to="/alpha-prompts">Alpha Prompts</Link>
+                </Button>
+                <Button variant="ghost" size="sm" asChild>
                   <Link to="/messages">Messages</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
@@ -713,38 +721,48 @@ export default function Index() {
         ) : /* Swipe View */
         filteredStocks.length > 0 && filteredStocks[currentStockIndex] ? (
           <div className="space-y-4">
-            {/* AI Smart Prompts */}
-            {isSetup && filteredStocks[currentStockIndex]?.symbol === "AAPL" && (
-              <div className="max-w-lg mx-auto">
-                <SmartPromptCard
-                  prompt={{
-                    id: "aapl_concentration",
-                    title: "This stock is getting heavy in your portfolio",
-                    description: "AAPL represents 15% of your holdings. Consider keeping individual stocks under 12% for better diversification.",
-                    type: "suggestion",
-                    priority: "medium",
-                    actions: [
-                      {
-                        label: "See Alternatives",
-                        action: "primary",
-                        onClick: () => console.log("Show similar stocks in different sectors"),
-                      },
-                      {
-                        label: "Add Anyway",
-                        action: "secondary",
-                        onClick: () => console.log("Add to queue"),
-                      },
-                      {
-                        label: "Got It",
-                        action: "dismiss",
-                        onClick: () => console.log("Dismiss"),
-                      },
-                    ],
-                    dismissible: true,
-                    collapsible: true,
-                  }}
-                  onDismiss={() => console.log("Dismissed AAPL prompt")}
+            {/* AI Risk Intervention System */}
+            {isSetup && riskSettings.aiAssistanceLevel !== "off" && (
+              <div className="max-w-lg mx-auto space-y-3">
+                <RiskInterventionSystem
+                  interventions={riskInterventions}
+                  onDismiss={(id) => console.log("Dismissed intervention:", id)}
+                  onUpdateSettings={setRiskSettings}
+                  userSettings={riskSettings}
                 />
+
+                {/* Legacy Smart Prompt for AAPL */}
+                {filteredStocks[currentStockIndex]?.symbol === "AAPL" && (
+                  <SmartPromptCard
+                    prompt={{
+                      id: "aapl_concentration",
+                      title: "This stock is getting heavy in your portfolio",
+                      description: "AAPL represents 15% of your holdings. Consider keeping individual stocks under 12% for better diversification.",
+                      type: "suggestion",
+                      priority: "medium",
+                      actions: [
+                        {
+                          label: "See Alternatives",
+                          action: "primary",
+                          onClick: () => console.log("Show similar stocks in different sectors"),
+                        },
+                        {
+                          label: "Add Anyway",
+                          action: "secondary",
+                          onClick: () => console.log("Add to queue"),
+                        },
+                        {
+                          label: "Got It",
+                          action: "dismiss",
+                          onClick: () => console.log("Dismiss"),
+                        },
+                      ],
+                      dismissible: true,
+                      collapsible: true,
+                    }}
+                    onDismiss={() => console.log("Dismissed AAPL prompt")}
+                  />
+                )}
               </div>
             )}
             {/* Navigation */}
