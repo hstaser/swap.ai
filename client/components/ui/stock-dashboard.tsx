@@ -173,6 +173,36 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
       logo: getLogoUrl("SPOT"),
       marketCap: "$58B",
     },
+    {
+      symbol: "JNJ",
+      name: "Johnson & Johnson",
+      price: 158.32,
+      change: 1.87,
+      changePercent: 1.19,
+      sector: "Healthcare",
+      logo: getLogoUrl("JNJ"),
+      marketCap: "$427B",
+    },
+    {
+      symbol: "PFE",
+      name: "Pfizer",
+      price: 41.23,
+      change: 0.87,
+      changePercent: 2.15,
+      sector: "Healthcare",
+      logo: getLogoUrl("PFE"),
+      marketCap: "$232B",
+    },
+    {
+      symbol: "UNH",
+      name: "UnitedHealth",
+      price: 542.18,
+      change: 4.32,
+      changePercent: 0.80,
+      sector: "Healthcare",
+      logo: getLogoUrl("UNH"),
+      marketCap: "$509B",
+    },
   ];
 
   const sectors = ["all", ...Array.from(new Set(stocks.map((s) => s.sector)))];
