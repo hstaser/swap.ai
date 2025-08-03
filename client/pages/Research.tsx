@@ -520,8 +520,8 @@ export default function Research() {
           <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-3">
-                <Globe className="h-4 w-4 text-purple-600" />
-                <h4 className="font-semibold text-sm">Industry Analysis</h4>
+                <Sparkles className="h-4 w-4 text-purple-600" />
+                <h4 className="font-semibold text-sm">Queue Construction</h4>
               </div>
               <div className="space-y-2">
                 <Button
@@ -530,11 +530,11 @@ export default function Research() {
                   className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
                   onClick={() =>
                     handleSuggestionClick(
-                      "What are the current trends in the technology sector?",
+                      "Build a queue based on Nancy Pelosi's recent stock disclosures",
                     )
                   }
                 >
-                  • Technology Sector Trends
+                  • Follow Nancy Pelosi's Portfolio
                 </Button>
                 <Button
                   variant="ghost"
@@ -542,11 +542,11 @@ export default function Research() {
                   className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
                   onClick={() =>
                     handleSuggestionClick(
-                      "Tell me about recent healthcare innovations and opportunities",
+                      "Create a queue with companies that sponsor LeBron James",
                     )
                   }
                 >
-                  • Healthcare Innovations
+                  • LeBron's Brand Empire
                 </Button>
                 <Button
                   variant="ghost"
@@ -554,11 +554,11 @@ export default function Research() {
                   className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
                   onClick={() =>
                     handleSuggestionClick(
-                      "How are financial services evolving with technology?",
+                      "Build a Warren Buffett inspired queue with Berkshire holdings",
                     )
                   }
                 >
-                  • Financial Services Evolution
+                  • Clone Buffett's Strategy
                 </Button>
               </div>
             </CardContent>
