@@ -146,6 +146,35 @@ export default function Research() {
   const [researchContext, setResearchContext] = useState<string>("");
   const [showAllocationDialog, setShowAllocationDialog] = useState(false);
   const [pendingQueueType, setPendingQueueType] = useState<string | null>(null);
+
+  // Insights data
+  const insights = [
+    {
+      id: "1",
+      type: "opportunity",
+      title: "Buy JPM for diversification",
+      description: "Your portfolio has no exposure to Financials",
+      action: "Add to Queue",
+      actionType: "add_to_queue",
+      symbol: "JPM"
+    },
+    {
+      id: "2",
+      type: "optimization",
+      title: "Reduce tech allocation",
+      description: "Technology is 45% of your portfolio (target: 30%)",
+      action: "Rebalance",
+      actionType: "rebalance"
+    },
+    {
+      id: "3",
+      type: "opportunity",
+      title: "Consider healthcare exposure",
+      description: "Defensive positioning for market uncertainty",
+      action: "Explore Options",
+      actionType: "explore"
+    }
+  ];
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
