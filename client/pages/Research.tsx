@@ -131,6 +131,9 @@ export default function Research() {
     symbolParam ? `Tell me about ${symbolParam}` : "",
   );
   const [isTyping, setIsTyping] = useState(false);
+  const [showThemeDialog, setShowThemeDialog] = useState(false);
+  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
+  const [createdQueueName, setCreatedQueueName] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
