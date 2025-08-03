@@ -146,7 +146,11 @@ export default function UserProfile() {
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Button variant="outline" size="sm">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => navigate(`/social?userId=${userData.id}`)}
+              >
                 <MessageCircle className="h-4 w-4 mr-2" />
                 Message
               </Button>
