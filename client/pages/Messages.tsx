@@ -235,6 +235,16 @@ export default function Social() {
                     </div>
                   ))}
                 </div>
+                <div className="p-4 border-t">
+                  <Button
+                    variant="outline"
+                    className="w-full"
+                    onClick={() => navigate("/add-friends")}
+                  >
+                    <Users className="h-4 w-4 mr-2" />
+                    Add Friends
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </div>
