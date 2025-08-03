@@ -321,6 +321,50 @@ const legacyMockStocks: Stock[] = [
       },
     ],
   },
+  {
+    symbol: "PFE",
+    name: "Pfizer Inc.",
+    price: 41.23,
+    change: 0.87,
+    changePercent: 2.15,
+    volume: "15.2M",
+    marketCap: "232.1B",
+    pe: 12.8,
+    dividendYield: 5.2,
+    sector: "Healthcare",
+    isGainer: true,
+    newsSummary: "Vaccine revenue stable, pipeline strong",
+    news: [
+      {
+        title: "Pfizer reports strong Q4 vaccine sales",
+        source: "Reuters",
+        time: "2h ago",
+        summary: "COVID vaccine sales remain steady while RSV vaccine shows promise.",
+      },
+    ],
+  },
+  {
+    symbol: "UNH",
+    name: "UnitedHealth Group Inc.",
+    price: 542.18,
+    change: 4.32,
+    changePercent: 0.80,
+    volume: "3.1M",
+    marketCap: "508.7B",
+    pe: 24.1,
+    dividendYield: 1.3,
+    sector: "Healthcare",
+    isGainer: true,
+    newsSummary: "Insurance enrollment up, cost controls effective",
+    news: [
+      {
+        title: "UnitedHealth beats earnings expectations",
+        source: "MarketWatch",
+        time: "1h ago",
+        summary: "Strong enrollment growth drives revenue beat in Q4 results.",
+      },
+    ],
+  },
 ];
 
 const defaultFilters: FilterState = {
