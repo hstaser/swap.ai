@@ -170,12 +170,19 @@ export default function Social() {
                 </p>
               </div>
             </div>
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/friends">
-                <Users className="h-4 w-4 mr-2" />
-                Find Friends
-              </Link>
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/settings">
+                  Privacy Settings
+                </Link>
+              </Button>
+              <Button variant="outline" size="sm" asChild>
+                <Link to="/friends">
+                  <Users className="h-4 w-4 mr-2" />
+                  Find Friends
+                </Link>
+              </Button>
+            </div>
           </div>
         </div>
       </header>
