@@ -174,10 +174,10 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
             <div className="space-y-2">
               <Button
                 onClick={() => onComplete(recommendations)}
-                className="w-full"
+                className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
               >
-                <Zap className="h-4 w-4 mr-2" />
-                Apply Changes
+                <CheckCircle className="h-4 w-4 mr-2" />
+                Done
               </Button>
               <Button
                 variant="outline"
