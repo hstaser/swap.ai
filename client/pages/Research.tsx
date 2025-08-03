@@ -152,27 +152,37 @@ export default function Research() {
     {
       id: "1",
       type: "opportunity",
-      title: "Buy JPM for diversification",
-      description: "Your portfolio has no exposure to Financials",
-      action: "Add to Queue",
-      actionType: "add_to_queue",
-      symbol: "JPM"
+      title: "Add healthcare exposure",
+      description: "Your portfolio has no exposure to Healthcare sector - consider defensive positioning",
+      action: "Explore Healthcare",
+      actionType: "explore_sector",
+      sector: "Healthcare"
     },
     {
       id: "2",
       type: "optimization",
-      title: "Reduce tech allocation",
-      description: "Technology is 45% of your portfolio (target: 30%)",
-      action: "Rebalance",
+      title: "Rebalance portfolio",
+      description: "Technology is 45% of your portfolio (target: 30%) - optimization recommended",
+      action: "Rebalance Now",
       actionType: "rebalance"
     },
     {
       id: "3",
       type: "opportunity",
-      title: "Consider healthcare exposure",
-      description: "Defensive positioning for market uncertainty",
-      action: "Explore Options",
-      actionType: "explore"
+      title: "Consider financial services ETFs",
+      description: "No exposure to Financial Services - diversify with sector ETFs",
+      action: "Explore Financials",
+      actionType: "explore_sector",
+      sector: "Financial Services"
+    },
+    {
+      id: "4",
+      type: "opportunity",
+      title: "Add international exposure",
+      description: "Portfolio is US-heavy - consider international ETFs for global diversification",
+      action: "Explore International",
+      actionType: "explore_sector",
+      sector: "International"
     }
   ];
   const messagesEndRef = useRef<HTMLDivElement>(null);
