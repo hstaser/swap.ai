@@ -937,6 +937,46 @@ export default function Portfolio() {
         </Tabs>
 
         {/* Modals */}
+        {showRebalanceConfirm && (
+          <Dialog open={showRebalanceConfirm} onOpenChange={setShowRebalanceConfirm}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle>Confirm AI Rebalancing</DialogTitle>
+                <DialogDescription>
+                  AI will analyze your portfolio and provide rebalancing recommendations. This process will take a few seconds.
+                </DialogDescription>
+              </DialogHeader>
+              <div className="space-y-4 mt-4">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 className="font-medium text-blue-800 mb-2">What happens next:</h4>
+                  <ul className="text-sm text-blue-700 space-y-1">
+                    <li>• AI analyzes your current holdings</li>
+                    <li>• Reviews market conditions and your risk profile</li>
+                    <li>• Generates optimized allocation recommendations</li>
+                    <li>• You review and approve any changes</li>
+                  </ul>
+                </div>
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowRebalanceConfirm(false)}
+                    className="flex-1"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={confirmRebalancing}
+                    className="flex-1 bg-gradient-to-r from-blue-600 to-purple-600"
+                  >
+                    <Zap className="h-4 w-4 mr-2" />
+                    Start Rebalancing
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
+
         {showExportModal && (
           <ExportModal
             onClose={() => setShowExportModal(false)}
