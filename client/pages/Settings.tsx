@@ -704,6 +704,119 @@ export default function Settings() {
             </Card>
           </TabsContent>
 
+          {/* Privacy Tab */}
+          <TabsContent value="privacy" className="space-y-4">
+            <Card className="bg-white/90 backdrop-blur-sm border-0">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Shield className="h-5 w-5" />
+                  Privacy Settings
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                {/* Profile Visibility */}
+                <div className="space-y-2">
+                  <Label className="text-base font-medium">Profile Visibility</Label>
+                  <Select
+                    value={settings.profileVisibility}
+                    onValueChange={(value: "public" | "friends" | "private") =>
+                      updateSetting("profileVisibility", value)
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="public">Public - Anyone can view</SelectItem>
+                      <SelectItem value="friends">Friends Only</SelectItem>
+                      <SelectItem value="private">Private - No one can view</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <Separator />
+
+                {/* Portfolio Sharing */}
+                <div className="space-y-2">
+                  <Label className="text-base font-medium">Portfolio Sharing</Label>
+                  <Select
+                    value={settings.portfolioSharing}
+                    onValueChange={(value: "public" | "friends" | "select_friends" | "private") =>
+                      updateSetting("portfolioSharing", value)
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="public">Public - Anyone can view</SelectItem>
+                      <SelectItem value="friends">All Friends</SelectItem>
+                      <SelectItem value="select_friends">Selected Friends Only</SelectItem>
+                      <SelectItem value="private">Private - No one can view</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    Control who can see your portfolio holdings and performance
+                  </p>
+                </div>
+
+                <Separator />
+
+                {/* Watchlist Sharing */}
+                <div className="space-y-2">
+                  <Label className="text-base font-medium">Watchlist Sharing</Label>
+                  <Select
+                    value={settings.watchlistSharing}
+                    onValueChange={(value: "public" | "friends" | "select_friends" | "private") =>
+                      updateSetting("watchlistSharing", value)
+                    }
+                  >
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="public">Public - Anyone can view</SelectItem>
+                      <SelectItem value="friends">All Friends</SelectItem>
+                      <SelectItem value="select_friends">Selected Friends Only</SelectItem>
+                      <SelectItem value="private">Private - No one can view</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <p className="text-xs text-muted-foreground">
+                    Control who can see your watchlist and stock interests
+                  </p>
+                </div>
+
+                {(settings.portfolioSharing === "select_friends" || settings.watchlistSharing === "select_friends") && (
+                  <>
+                    <Separator />
+                    <div className="space-y-3">
+                      <Label className="text-base font-medium">Selected Friends</Label>
+                      <p className="text-sm text-muted-foreground">
+                        Choose specific friends who can view your selected private content
+                      </p>
+                      <div className="p-4 border rounded-lg bg-gray-50">
+                        <p className="text-sm text-gray-600">
+                          Friend selection feature coming soon. For now, "Selected Friends" works the same as "All Friends".
+                        </p>
+                      </div>
+                    </div>
+                  </>
+                )}
+
+                {/* Privacy Tips */}
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 className="font-medium text-blue-800 mb-2">Privacy Tips</h4>
+                  <ul className="text-sm text-blue-700 space-y-1">
+                    <li>• Public settings help you connect with investors with similar interests</li>
+                    <li>• Friend-only sharing builds trust within your network</li>
+                    <li>• Private settings give you complete control over your information</li>
+                    <li>• You can change these settings anytime</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
           {/* Notifications Tab */}
           <TabsContent value="notifications" className="space-y-4">
             <Card className="bg-white/90 backdrop-blur-sm border-0">
