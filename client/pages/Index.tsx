@@ -582,12 +582,6 @@ export default function Index() {
                   <Link to="/watchlist">Watchlist</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
-                  <Link to="/ai-agent">AI Agent</Link>
-                </Button>
-                <Button variant="ghost" size="sm" asChild>
-                  <Link to="/alpha-prompts">Alpha Prompts</Link>
-                </Button>
-                <Button variant="ghost" size="sm" asChild>
                   <Link to="/messages">Messages</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
