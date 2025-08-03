@@ -28,6 +28,9 @@ import {
   AlertTriangle,
   CheckCircle,
   LogOut,
+  Bot,
+  Zap,
+  MessageCircle,
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "@/hooks/use-auth";
