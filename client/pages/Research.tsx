@@ -5,6 +5,13 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import {
   ArrowLeft,
   Send,
   Bot,
@@ -18,9 +25,16 @@ import {
   MessageCircle,
   Lightbulb,
   AlertTriangle,
+  Crown,
+  Users,
+  Gamepad2,
+  Zap,
+  Leaf,
+  ExternalLink,
 } from "lucide-react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
+import { useQueue } from "@/hooks/use-queue";
 
 interface ChatMessage {
   id: string;
