@@ -644,7 +644,7 @@ export default function Index() {
                   <Link to="/watchlist">Watchlist</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
-                  <Link to="/messages">Messages</Link>
+                  <Link to="/social">Social</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
                   <Link to="/rewards">Rewards</Link>
