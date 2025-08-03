@@ -360,11 +360,12 @@ export default function Research() {
   const handleThemeSelection = (themeId: string) => {
     setSelectedTheme(themeId);
     setShowThemeDialog(false);
+    setShowThemePrompts(true);
+  };
 
-    const theme = themes.find(t => t.id === themeId);
-    if (theme) {
-      setInputValue(`Show me Alpha Prompts for ${theme.label}: ${theme.prompts.join(", ")}`);
-    }
+  const handlePromptSelection = (prompt: string) => {
+    setShowThemePrompts(false);
+    setInputValue(prompt);
   };
 
   return (
