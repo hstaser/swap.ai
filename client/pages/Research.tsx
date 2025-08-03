@@ -460,7 +460,7 @@ export default function Research() {
                   <MessageCircle className="h-5 w-5 text-white" />
                 </div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-                  AI Research Chat
+                  AI Assistant
                 </h1>
               </div>
             </div>
