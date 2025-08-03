@@ -51,15 +51,32 @@ interface UserProfileData {
   }>;
 }
 
-const mockUserData: UserProfileData = {
-  id: "alex_chen",
-  name: "Alex Chen",
-  username: "alexc_trades",
-  joinedDate: new Date("2023-06-15"),
-  friendSince: new Date("2023-11-20"),
-  isPublicProfile: true,
-  portfolioSharing: "friends",
-  watchlistSharing: "public",
+// Create different user data based on userId
+const getUserData = (userId: string): UserProfileData => {
+  if (userId === "alex_tech") {
+    return {
+      id: "alex_tech",
+      name: "Alex Rodriguez",
+      username: "alex_tech",
+      joinedDate: new Date("2023-08-10"),
+      friendSince: new Date("2023-12-05"),
+      isPublicProfile: false,
+      portfolioSharing: "private",
+      watchlistSharing: "private",
+      // No portfolio, watchlist, or overlapping stocks due to privacy
+    };
+  }
+
+  // Default user (alex_chen)
+  return {
+    id: "alex_chen",
+    name: "Alex Chen",
+    username: "alexc_trades",
+    joinedDate: new Date("2023-06-15"),
+    friendSince: new Date("2023-11-20"),
+    isPublicProfile: true,
+    portfolioSharing: "friends",
+    watchlistSharing: "public",
   portfolio: {
     totalValue: 25640.50,
     totalReturn: 3640.50,
@@ -84,17 +101,17 @@ export default function UserProfile() {
   const { userId } = useParams();
   const [userData] = useState<UserProfileData>(mockUserData);
 
-  const canViewPortfolio = userData.portfolioSharing === "public" || 
+  const canViewPortfolio = userData.portfolioSharing === "public" ||
     (userData.portfolioSharing === "friends" && userData.friendSince);
-  
-  const canViewWatchlist = userData.watchlistSharing === "public" || 
+
+  const canViewWatchlist = userData.watchlistSharing === "public" ||
     (userData.watchlistSharing === "friends" && userData.friendSince);
 
   const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
     });
   };
 
@@ -151,7 +168,7 @@ export default function UserProfile() {
                 <div className="text-sm text-muted-foreground">Member Since</div>
                 <div className="font-semibold">{formatDate(userData.joinedDate)}</div>
               </div>
-              
+
               {userData.friendSince && (
                 <div className="text-center">
                   <Users className="h-6 w-6 text-green-600 mx-auto mb-2" />
@@ -288,8 +305,8 @@ export default function UserProfile() {
                     <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-600 mb-2">Portfolio Private</h3>
                     <p className="text-gray-500">
-                      {userData.portfolioSharing === "private" 
-                        ? "This user keeps their portfolio private" 
+                      {userData.portfolioSharing === "private"
+                        ? "This user keeps their portfolio private"
                         : "You need to be friends to view this portfolio"}
                     </p>
                   </div>
@@ -340,8 +357,8 @@ export default function UserProfile() {
                     <Shield className="h-12 w-12 text-gray-400 mx-auto mb-4" />
                     <h3 className="text-lg font-medium text-gray-600 mb-2">Watchlist Private</h3>
                     <p className="text-gray-500">
-                      {userData.watchlistSharing === "private" 
-                        ? "This user keeps their watchlist private" 
+                      {userData.watchlistSharing === "private"
+                        ? "This user keeps their watchlist private"
                         : "You need to be friends to view this watchlist"}
                     </p>
                   </div>
