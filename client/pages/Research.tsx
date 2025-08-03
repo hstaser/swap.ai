@@ -706,7 +706,9 @@ export default function Research() {
                   variant="ghost"
                   size="sm"
                   className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
-                  onClick={() => createQueue("pelosi")}
+                  onClick={() =>
+                    handleSuggestionClick("Build a queue based on Nancy Pelosi's recent stock disclosures")
+                  }
                 >
                   • Follow Nancy Pelosi's Portfolio
                 </Button>
@@ -714,7 +716,9 @@ export default function Research() {
                   variant="ghost"
                   size="sm"
                   className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
-                  onClick={() => createQueue("lebron")}
+                  onClick={() =>
+                    handleSuggestionClick("Create a queue with companies that sponsor LeBron James")
+                  }
                 >
                   • LeBron's Brand Empire
                 </Button>
@@ -722,7 +726,9 @@ export default function Research() {
                   variant="ghost"
                   size="sm"
                   className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
-                  onClick={() => createQueue("buffett")}
+                  onClick={() =>
+                    handleSuggestionClick("Build a Warren Buffett inspired queue with Berkshire holdings")
+                  }
                 >
                   • Clone Buffett's Strategy
                 </Button>
