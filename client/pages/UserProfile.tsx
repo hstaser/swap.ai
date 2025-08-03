@@ -77,23 +77,24 @@ const getUserData = (userId: string): UserProfileData => {
     isPublicProfile: true,
     portfolioSharing: "friends",
     watchlistSharing: "public",
-  portfolio: {
-    totalValue: 25640.50,
-    totalReturn: 3640.50,
-    totalReturnPercent: 16.53,
-    holdings: [
-      { symbol: "AAPL", name: "Apple Inc.", shares: 50, value: 9126.00, allocation: 35.6 },
-      { symbol: "MSFT", name: "Microsoft Corp.", shares: 25, value: 9471.25, allocation: 36.9 },
-      { symbol: "GOOGL", name: "Alphabet Inc.", shares: 15, value: 2127.00, allocation: 8.3 },
-      { symbol: "NVDA", name: "NVIDIA Corp.", shares: 8, value: 5779.84, allocation: 22.5 },
+    portfolio: {
+      totalValue: 25640.50,
+      totalReturn: 3640.50,
+      totalReturnPercent: 16.53,
+      holdings: [
+        { symbol: "AAPL", name: "Apple Inc.", shares: 50, value: 9126.00, allocation: 35.6 },
+        { symbol: "MSFT", name: "Microsoft Corp.", shares: 25, value: 9471.25, allocation: 36.9 },
+        { symbol: "GOOGL", name: "Alphabet Inc.", shares: 15, value: 2127.00, allocation: 8.3 },
+        { symbol: "NVDA", name: "NVIDIA Corp.", shares: 8, value: 5779.84, allocation: 22.5 },
+      ]
+    },
+    watchlist: ["TSLA", "AMD", "CRM", "NFLX", "META"],
+    overlappingStocks: [
+      { symbol: "AAPL", name: "Apple Inc.", yourShares: 30, theirShares: 50 },
+      { symbol: "MSFT", name: "Microsoft Corp.", yourShares: 15, theirShares: 25 },
+      { symbol: "NVDA", name: "NVIDIA Corp.", yourShares: 12, theirShares: 8 },
     ]
-  },
-  watchlist: ["TSLA", "AMD", "CRM", "NFLX", "META"],
-  overlappingStocks: [
-    { symbol: "AAPL", name: "Apple Inc.", yourShares: 30, theirShares: 50 },
-    { symbol: "MSFT", name: "Microsoft Corp.", yourShares: 15, theirShares: 25 },
-    { symbol: "NVDA", name: "NVIDIA Corp.", yourShares: 12, theirShares: 8 },
-  ]
+  };
 };
 
 export default function UserProfile() {
