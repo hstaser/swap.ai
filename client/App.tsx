@@ -23,6 +23,7 @@ import Portfolio from "./pages/Portfolio";
 import Friends from "./pages/Friends";
 import Social from "./pages/Messages";
 import UserProfile from "./pages/UserProfile";
+import AddFriends from "./pages/AddFriends";
 import Rewards from "./pages/Rewards";
 import QueueAdd from "./pages/QueueAdd";
 import QueueReview from "./pages/QueueReview";
