@@ -566,7 +566,7 @@ export default function Index() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 sm:gap-6">
               <div className="flex items-center gap-3">
-                <div className="bg-black/30 rounded-lg p-2 shadow-sm border border-cyan-400/30 backdrop-blur-md">
+                <div className="bg-white rounded-lg p-2 shadow-sm border border-gray-100">
                   <img
                     src="https://cdn.builder.io/api/v1/image/assets%2F8274926fadf9406c8e2d75b7a56de814%2Fb4bd10ed53bc440984088afabc0f8891?format=webp&width=800"
                     alt="swipr.ai logo"
