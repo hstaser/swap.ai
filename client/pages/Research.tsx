@@ -204,6 +204,12 @@ export default function Research() {
       return stockResponses.GOOGL;
     }
 
+    // Deep research mode responses
+    if (upperMessage.includes("DEEP RESEARCH") || upperMessage.includes("DETAILED ANALYSIS")) {
+      setDeepResearchMode(true);
+      return "I'll provide you with comprehensive research. To personalize this analysis, I can focus on specific aspects that matter most to you. Would you like me to emphasize: fundamental analysis, technical patterns, competitive positioning, ESG factors, or market sentiment? You can also skip this and get a general overview.";
+    }
+
     // Generic responses for different types of questions
     if (
       upperMessage.includes("FINANCIAL") ||
