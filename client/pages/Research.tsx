@@ -788,6 +788,55 @@ export default function Research() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Theme Prompts Dialog */}
+      <Dialog open={showThemePrompts} onOpenChange={setShowThemePrompts}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>
+              {selectedTheme && themes.find(t => t.id === selectedTheme)?.label} Alpha Prompts
+            </DialogTitle>
+            <DialogDescription>
+              Choose a specific investment strategy or ask a custom question.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-1 gap-3 mt-4">
+            {selectedTheme && themes.find(t => t.id === selectedTheme)?.prompts.map((prompt, index) => (
+              <Button
+                key={index}
+                variant="outline"
+                className="h-auto p-4 justify-start text-left"
+                onClick={() => handlePromptSelection(`Build a queue based on: ${prompt}`)}
+              >
+                <div className="flex-1">
+                  <div className="font-medium">{prompt}</div>
+                  <div className="text-xs text-muted-foreground">
+                    Curated investment strategy
+                  </div>
+                </div>
+              </Button>
+            ))}
+            <Separator className="my-2" />
+            <Button
+              variant="ghost"
+              className="h-auto p-4 justify-start"
+              onClick={() => {
+                setShowThemePrompts(false);
+                const theme = themes.find(t => t.id === selectedTheme);
+                setInputValue(`Create a custom ${theme?.label.toLowerCase()} investment strategy based on `);
+              }}
+            >
+              <Sparkles className="h-5 w-5 mr-3" />
+              <div className="text-left">
+                <div className="font-medium">Custom {selectedTheme && themes.find(t => t.id === selectedTheme)?.label} Strategy</div>
+                <div className="text-xs text-muted-foreground">
+                  Create your own approach
+                </div>
+              </div>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
