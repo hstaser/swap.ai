@@ -488,7 +488,7 @@ export default function Research() {
                     )
                   }
                 >
-                  �� Apple (AAPL) - Consumer Electronics
+                  • Apple (AAPL) - Consumer Electronics
                 </Button>
                 <Button
                   variant="ghost"
@@ -608,6 +608,16 @@ export default function Research() {
                 >
                   • Clone Buffett's Strategy
                 </Button>
+                <div className="pt-2 border-t border-gray-100">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full text-xs h-auto p-2"
+                    onClick={() => setInputValue("Create a custom queue based on ")}
+                  >
+                    + Add Your Own Theme
+                  </Button>
+                </div>
               </div>
             </CardContent>
           </Card>
