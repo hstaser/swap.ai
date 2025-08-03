@@ -745,6 +745,56 @@ export default function Research() {
           </Card>
         </div>
       </div>
+
+      {/* Theme Selection Dialog */}
+      <Dialog open={showThemeDialog} onOpenChange={setShowThemeDialog}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Choose Your Theme</DialogTitle>
+            <DialogDescription>
+              Select a theme to explore curated Alpha Prompts, or create your own custom strategy.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-1 gap-3 mt-4">
+            {themes.map((theme) => {
+              const IconComponent = theme.icon;
+              return (
+                <Button
+                  key={theme.id}
+                  variant="outline"
+                  className="h-auto p-4 justify-start"
+                  onClick={() => handleThemeSelection(theme.id)}
+                >
+                  <IconComponent className="h-5 w-5 mr-3" />
+                  <div className="text-left">
+                    <div className="font-medium">{theme.label}</div>
+                    <div className="text-xs text-muted-foreground">
+                      {theme.prompts.length} prompts available
+                    </div>
+                  </div>
+                </Button>
+              );
+            })}
+            <Separator className="my-2" />
+            <Button
+              variant="ghost"
+              className="h-auto p-4 justify-start"
+              onClick={() => {
+                setShowThemeDialog(false);
+                setInputValue("Create a custom investment queue based on ");
+              }}
+            >
+              <Sparkles className="h-5 w-5 mr-3" />
+              <div className="text-left">
+                <div className="font-medium">Custom Theme</div>
+                <div className="text-xs text-muted-foreground">
+                  Create your own investment strategy
+                </div>
+              </div>
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
