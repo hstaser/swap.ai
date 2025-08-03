@@ -106,6 +106,12 @@ const defaultSettings: UserSettings = {
   trendingStockNotifications: false,
   aiInteractionLevel: "moderate",
 
+  // Privacy Settings
+  profileVisibility: "friends",
+  portfolioSharing: "friends",
+  watchlistSharing: "public",
+  selectedFriends: [],
+
   // Notifications
   priceAlerts: true,
   newsNotifications: true,
