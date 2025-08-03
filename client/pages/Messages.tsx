@@ -261,7 +261,10 @@ export default function Social() {
               <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg h-[600px] flex flex-col">
                 <CardHeader className="border-b">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                    <div
+                      className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold cursor-pointer hover:ring-2 hover:ring-blue-300 transition-all"
+                      onClick={() => navigate(`/user/${activeConv.userId}`)}
+                    >
                       {activeConv.userName[0]}
                     </div>
                     <div>
