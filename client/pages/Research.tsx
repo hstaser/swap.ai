@@ -43,6 +43,7 @@ interface ChatMessage {
   timestamp: Date;
   stockMentioned?: string;
   suggestions?: string[];
+  showQueueButton?: boolean;
 }
 
 const suggestedQuestions = [
