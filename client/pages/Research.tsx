@@ -875,6 +875,48 @@ export default function Research() {
             </CardContent>
           </Card>
         </div>
+          </TabsContent>
+
+          <TabsContent value="insights" className="space-y-4">
+            <div className="space-y-4">
+              <h2 className="text-lg font-semibold">AI Insights</h2>
+              {insights.map((insight) => (
+                <Card key={insight.id} className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
+                  <CardContent className="p-4">
+                    <div className="flex items-center justify-between">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
+                          {insight.type === "opportunity" && <TrendingUp className="h-4 w-4 text-green-600" />}
+                          {insight.type === "optimization" && <Target className="h-4 w-4 text-blue-600" />}
+                          <h3 className="font-semibold">{insight.title}</h3>
+                        </div>
+                        <p className="text-sm text-muted-foreground">{insight.description}</p>
+                      </div>
+                      <div className="flex items-center gap-2 ml-4">
+                        <Button
+                          size="sm"
+                          onClick={() => handleInsightAction(insight)}
+                          className="bg-green-600 hover:bg-green-700"
+                        >
+                          <CheckCircle className="h-3 w-3 mr-1" />
+                          {insight.action}
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          onClick={() => handleInsightReject(insight.id)}
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                        >
+                          <X className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
 
       {/* Theme Selection Dialog */}
