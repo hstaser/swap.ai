@@ -582,6 +582,9 @@ export default function Index() {
                   <Link to="/research">AI Research</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
+                  <Link to="/ai-insights">AI Insights</Link>
+                </Button>
+                <Button variant="ghost" size="sm" asChild>
                   <Link to="/watchlist">Watchlist</Link>
                 </Button>
                 <Button variant="ghost" size="sm" asChild>
