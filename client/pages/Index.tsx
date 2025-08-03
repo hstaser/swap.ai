@@ -634,10 +634,12 @@ export default function Index() {
                   <Settings className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="sm" asChild>
+              <Button size="sm" asChild className="relative">
                 <Link to="/portfolio">
                   <Wallet className="h-4 w-4 mr-2" />
                   Portfolio
+                  {/* AI indicator for portfolio that needs attention */}
+                  <div className="absolute -top-1 -right-1 w-3 h-3 bg-orange-500 border-2 border-white rounded-full animate-pulse" />
                 </Link>
               </Button>
             </div>
