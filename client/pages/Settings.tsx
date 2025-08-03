@@ -89,6 +89,14 @@ const defaultSettings: UserSettings = {
   enableAutoRebalancing: true,
   rebalancingThreshold: 5,
 
+  // AI Agent Preferences
+  aiAgentEnabled: true,
+  riskInterventions: true,
+  portfolioOptimizationSuggestions: true,
+  earningsWarnings: true,
+  trendingStockNotifications: false,
+  aiInteractionLevel: "moderate",
+
   // Notifications
   priceAlerts: true,
   newsNotifications: true,
