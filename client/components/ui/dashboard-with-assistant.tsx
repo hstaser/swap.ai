@@ -26,15 +26,15 @@ export function DashboardWithAssistant({ onStockSelect }: DashboardWithAssistant
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Your Dashboard</h2>
         <div className="flex items-center gap-2">
-          <Button 
-            variant="outline" 
+          <Button
+            variant="outline"
             size="sm"
             onClick={() => setShowPortfolioReview(true)}
           >
             <BarChart3 className="h-4 w-4 mr-2" />
             Review Portfolio
           </Button>
-          <Button 
+          <Button
             size="sm"
             onClick={() => setShowExploreAgent(true)}
           >
@@ -53,40 +53,30 @@ export function DashboardWithAssistant({ onStockSelect }: DashboardWithAssistant
 
         {/* Assistant Widgets - Takes up 1/3 on large screens */}
         <div className="space-y-6">
-          {/* Top Moves Widget */}
-          <TopMovesWidget 
-            onMoveClick={(move) => {
-              console.log("Move clicked:", move);
-              if (move.symbol) {
-                onStockSelect?.(move.symbol);
-              }
-            }}
-          />
-
           {/* Quick Actions Card */}
           <Card>
             <CardHeader className="pb-3">
               <CardTitle className="text-base font-medium">Quick Actions</CardTitle>
             </CardHeader>
             <CardContent className="pt-0 space-y-3">
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full justify-start h-10"
                 onClick={() => setShowPortfolioReview(true)}
               >
                 <Eye className="h-4 w-4 mr-2" />
                 Review my portfolio
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full justify-start h-10"
                 onClick={() => setShowExploreAgent(true)}
               >
                 <MessageCircle className="h-4 w-4 mr-2" />
                 Ask a question
               </Button>
-              <Button 
-                variant="outline" 
+              <Button
+                variant="outline"
                 className="w-full justify-start h-10"
               >
                 <TrendingUp className="h-4 w-4 mr-2" />
@@ -98,12 +88,12 @@ export function DashboardWithAssistant({ onStockSelect }: DashboardWithAssistant
       </div>
 
       {/* Modals and Sidebars */}
-      <PortfolioReviewSidebar 
+      <PortfolioReviewSidebar
         isOpen={showPortfolioReview}
         onClose={() => setShowPortfolioReview(false)}
       />
-      
-      <ExploreAgentModal 
+
+      <ExploreAgentModal
         isOpen={showExploreAgent}
         onClose={() => setShowExploreAgent(false)}
       />
