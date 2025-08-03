@@ -44,7 +44,7 @@ const suggestedUsers: SuggestedUser[] = [
   {
     id: "mike_trades",
     name: "Mike Chen",
-    username: "mike_trades", 
+    username: "mike_trades",
     mutualFriends: 1,
     commonStocks: ["NVDA", "TSLA"],
     portfolioReturn: 12.8,
@@ -55,8 +55,8 @@ const suggestedUsers: SuggestedUser[] = [
     name: "Alex Rodriguez",
     username: "alex_tech",
     mutualFriends: 2,
-    commonStocks: ["AAPL", "NVDA", "AMD"],
-    portfolioReturn: 25.6,
+    commonStocks: [], // No stock info available due to privacy
+    portfolioReturn: undefined, // Private
     isPublic: false,
   },
   {
@@ -76,12 +76,12 @@ export default function AddFriends() {
   const [users, setUsers] = useState(suggestedUsers);
 
   const handleSendRequest = (userId: string) => {
-    setUsers(prev => prev.map(user => 
+    setUsers(prev => prev.map(user =>
       user.id === userId ? { ...user, isRequested: true } : user
     ));
   };
 
-  const filteredUsers = users.filter(user => 
+  const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
     user.username.toLowerCase().includes(searchQuery.toLowerCase())
   );
@@ -135,7 +135,7 @@ export default function AddFriends() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-4">
-                    <div 
+                    <div
                       className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-xl cursor-pointer hover:ring-2 hover:ring-blue-300 transition-all"
                       onClick={() => navigate(`/user/${user.id}`)}
                     >
@@ -152,7 +152,7 @@ export default function AddFriends() {
                         )}
                       </div>
                       <p className="text-muted-foreground">@{user.username}</p>
-                      
+
                       <div className="flex items-center gap-4 mt-2 text-sm text-muted-foreground">
                         {user.mutualFriends > 0 && (
                           <div className="flex items-center gap-1">
