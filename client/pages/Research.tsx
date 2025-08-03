@@ -460,9 +460,23 @@ export default function Research() {
         {/* Chat Interface */}
         <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="border-b">
-            <CardTitle className="flex items-center gap-2">
-              <MessageCircle className="h-5 w-5" />
-              Stock Research Assistant
+            <CardTitle className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <MessageCircle className="h-5 w-5" />
+                Stock Research Assistant
+              </div>
+              <div className="flex items-center gap-2">
+                {deepResearchMode && (
+                  <Badge variant="secondary" className="text-xs">
+                    Deep Research Mode
+                  </Badge>
+                )}
+                {researchContext && (
+                  <Badge variant="outline" className="text-xs">
+                    Focus: {researchContext}
+                  </Badge>
+                )}
+              </div>
             </CardTitle>
           </CardHeader>
 
