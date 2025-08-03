@@ -152,6 +152,17 @@ export default function Social() {
     navigate(`/?symbol=${stockData.symbol}`);
   };
 
+  // Auto-select conversation if coming from Message button
+  useEffect(() => {
+    const userIdParam = searchParams.get("userId");
+    if (userIdParam) {
+      const conversation = conversations.find(conv => conv.userId === userIdParam);
+      if (conversation) {
+        setActiveConversation(conversation.id);
+      }
+    }
+  }, [searchParams]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-green-100">
       {/* Header */}
