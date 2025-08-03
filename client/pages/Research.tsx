@@ -308,6 +308,56 @@ export default function Research() {
     }
   };
 
+  const createQueue = async (queueType: string) => {
+    const queueTemplates: Record<string, {name: string, stocks: string[]}> = {
+      "pelosi": {
+        name: "Nancy Pelosi's Portfolio",
+        stocks: ["NVDA", "AAPL", "MSFT", "GOOGL", "CRM"]
+      },
+      "lebron": {
+        name: "LeBron's Brand Empire",
+        stocks: ["NKE", "PEP", "WMT", "BEATS", "NFLX"]
+      },
+      "buffett": {
+        name: "Buffett's Strategy",
+        stocks: ["AAPL", "BAC", "KO", "AXP", "KHC"]
+      }
+    };
+
+    const template = queueTemplates[queueType];
+    if (!template) return;
+
+    // Check if user has existing queue
+    if (queue.length > 0) {
+      const confirmReplace = window.confirm(
+        "Your existing queue will be erased. Continue?"
+      );
+      if (!confirmReplace) return;
+      clearQueue();
+    }
+
+    // Add stocks to queue
+    template.stocks.forEach(symbol => {
+      addToQueue({
+        symbol,
+        confidence: "bullish",
+        notes: `Part of ${template.name} strategy`
+      });
+    });
+
+    setCreatedQueueName(template.name);
+  };
+
+  const handleThemeSelection = (themeId: string) => {
+    setSelectedTheme(themeId);
+    setShowThemeDialog(false);
+
+    const theme = themes.find(t => t.id === themeId);
+    if (theme) {
+      setInputValue(`Show me Alpha Prompts for ${theme.label}: ${theme.prompts.join(", ")}`);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
