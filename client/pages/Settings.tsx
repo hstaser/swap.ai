@@ -182,9 +182,10 @@ export default function Settings() {
       <div className="container mx-auto px-4 py-6 space-y-6">
         {/* Settings Tabs */}
         <Tabs defaultValue="goals" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-5">
             <TabsTrigger value="goals">Goals</TabsTrigger>
             <TabsTrigger value="portfolio">Portfolio</TabsTrigger>
+            <TabsTrigger value="ai-agent">AI Agent</TabsTrigger>
             <TabsTrigger value="notifications">Alerts</TabsTrigger>
             <TabsTrigger value="account">Account</TabsTrigger>
           </TabsList>
