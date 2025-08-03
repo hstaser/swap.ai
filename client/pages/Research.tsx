@@ -557,6 +557,24 @@ export default function Research() {
 
           <TabsContent value="research" className="space-y-4">
 
+        {/* Queue Construction Callout */}
+        <Card className="bg-gradient-to-r from-purple-600 to-blue-600 text-white mb-4">
+          <CardContent className="p-4">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-white/20 rounded-full">
+                <Sparkles className="h-6 w-6" />
+              </div>
+              <div className="flex-1">
+                <h3 className="font-bold text-lg">Try Queue Construction!</h3>
+                <p className="text-blue-100 text-sm">
+                  Build investment portfolios based on strategies from Nancy Pelosi, Warren Buffett, LeBron James, and more.
+                  Check out the suggestions below! 👇
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Chat Interface */}
         <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="border-b">
