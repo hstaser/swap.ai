@@ -182,13 +182,19 @@ export default function UserProfile() {
                 </div>
               )}
 
-              {userData.overlappingStocks && userData.overlappingStocks.length > 0 && (
+              {userData.overlappingStocks && userData.overlappingStocks.length > 0 && userData.portfolioSharing !== "private" ? (
                 <div className="text-center">
                   <BarChart3 className="h-6 w-6 text-purple-600 mx-auto mb-2" />
                   <div className="text-sm text-muted-foreground">Stocks in Common</div>
                   <div className="font-semibold">{userData.overlappingStocks.length}</div>
                 </div>
-              )}
+              ) : userData.portfolioSharing === "private" ? (
+                <div className="text-center">
+                  <Shield className="h-6 w-6 text-gray-400 mx-auto mb-2" />
+                  <div className="text-sm text-muted-foreground">Private Profile</div>
+                  <div className="font-semibold text-gray-500">Hidden</div>
+                </div>
+              ) : null}
             </div>
           </CardContent>
         </Card>
