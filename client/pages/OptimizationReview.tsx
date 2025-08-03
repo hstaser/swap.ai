@@ -54,43 +54,65 @@ export default function OptimizationReview() {
     { symbol: "QQQ", amount: 1000, toSell: 400 },
   ];
 
-  // Mock optimized allocation
-  const optimizedPortfolio: OptimizedAllocation[] = [
-    {
-      symbol: "NVDA",
-      name: "NVIDIA Corporation",
-      sector: "Technology",
-      confidence: "very-bullish",
-      percentage: 45,
-      amount: investmentAmount * 0.45,
-      shares: Math.floor((investmentAmount * 0.45) / 722.48),
-      price: 722.48,
-      reasoning:
-        "Highest confidence + strong AI growth potential. Largest allocation.",
-    },
-    {
-      symbol: "AAPL",
-      name: "Apple Inc.",
-      sector: "Technology",
-      confidence: "bullish",
-      percentage: 35,
-      amount: investmentAmount * 0.35,
-      shares: Math.floor((investmentAmount * 0.35) / 182.52),
-      price: 182.52,
-      reasoning: "Strong fundamentals with stable growth. Core holding.",
-    },
-    {
-      symbol: "MSFT",
-      name: "Microsoft Corporation",
-      sector: "Technology",
-      confidence: "conservative",
-      percentage: 20,
-      amount: investmentAmount * 0.2,
-      shares: Math.floor((investmentAmount * 0.2) / 378.85),
-      price: 378.85,
-      reasoning: "Conservative approach balances risk. Defensive position.",
-    },
-  ];
+  // Generate optimized allocation from actual queue
+  const stockData: Record<string, any> = {
+    AAPL: { name: "Apple Inc.", price: 182.52, sector: "Technology" },
+    NVDA: { name: "NVIDIA Corporation", price: 722.48, sector: "Technology" },
+    MSFT: { name: "Microsoft Corporation", price: 378.85, sector: "Technology" },
+    GOOGL: { name: "Alphabet Inc.", price: 141.80, sector: "Technology" },
+    CRM: { name: "Salesforce Inc.", price: 298.45, sector: "Technology" },
+    NKE: { name: "Nike Inc.", price: 110.25, sector: "Consumer Discretionary" },
+    PEP: { name: "PepsiCo Inc.", price: 167.89, sector: "Consumer Staples" },
+    WMT: { name: "Walmart Inc.", price: 165.34, sector: "Consumer Staples" },
+    BAC: { name: "Bank of America", price: 33.47, sector: "Financial Services" },
+    KO: { name: "Coca-Cola Co.", price: 58.92, sector: "Consumer Staples" },
+    AXP: { name: "American Express", price: 178.34, sector: "Financial Services" },
+    KHC: { name: "Kraft Heinz Co.", price: 34.78, sector: "Consumer Staples" },
+    NFLX: { name: "Netflix Inc.", price: 487.23, sector: "Technology" },
+  };
+
+  const optimizedPortfolio: OptimizedAllocation[] = queue.length > 0 ? queue.map((queueItem, index) => {
+    const stock = stockData[queueItem.symbol] || {
+      name: `${queueItem.symbol} Inc.`,
+      price: 100,
+      sector: "Technology"
+    };
+
+    // Calculate allocation based on confidence and position
+    const baseAllocation = 100 / queue.length;
+    const confidenceMultiplier = queueItem.confidence === "very-bullish" ? 1.3 :
+                                 queueItem.confidence === "bullish" ? 1.1 : 0.9;
+    let percentage = Math.round(baseAllocation * confidenceMultiplier);
+
+    // Ensure total doesn't exceed 100%
+    const totalSoFar = queue.slice(0, index).reduce((sum, item, idx) => {
+      const prevMultiplier = item.confidence === "very-bullish" ? 1.3 :
+                            item.confidence === "bullish" ? 1.1 : 0.9;
+      return sum + Math.round(baseAllocation * prevMultiplier);
+    }, 0);
+
+    if (totalSoFar + percentage > 100) {
+      percentage = 100 - totalSoFar;
+    }
+
+    const amount = investmentAmount * (percentage / 100);
+
+    return {
+      symbol: queueItem.symbol,
+      name: stock.name,
+      sector: stock.sector,
+      confidence: queueItem.confidence,
+      percentage,
+      amount,
+      shares: Math.floor(amount / stock.price),
+      price: stock.price,
+      reasoning: queueItem.confidence === "very-bullish" ?
+        "Highest confidence pick - larger allocation for growth potential." :
+        queueItem.confidence === "bullish" ?
+        "Strong conviction - solid allocation for steady returns." :
+        "Conservative pick - balanced allocation for stability."
+    };
+  }) : [];
 
   const totalAllocated = optimizedPortfolio.reduce(
     (sum, stock) => sum + stock.amount,
