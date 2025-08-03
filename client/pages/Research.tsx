@@ -101,6 +101,23 @@ export default function Research() {
   const generateResponse = (userMessage: string): string => {
     const upperMessage = userMessage.toUpperCase();
 
+    // Check for Alpha Prompts / Queue Construction queries
+    if (upperMessage.includes("NANCY PELOSI") || upperMessage.includes("PELOSI")) {
+      return "Based on congressional trading disclosures, Nancy Pelosi's portfolio has shown significant tech allocation. Key positions include NVIDIA (recent large purchases), Apple (consistent holding), Microsoft (cloud exposure), Google (growth position), and Salesforce (software exposure). This strategy focuses on technology leaders with strong government relationships and regulatory moats. Remember: Congressional trades are disclosed with delays and this is educational information only.";
+    }
+
+    if (upperMessage.includes("LEBRON") || upperMessage.includes("BRAND EMPIRE")) {
+      return "LeBron James' brand empire represents companies that benefit from his endorsements and partnerships. This includes Nike (lifetime deal), PepsiCo (Blaze Pizza investment), Walmart (SpringHill partnership), Beats by Dre (early investor), and Netflix (content deals). This strategy focuses on consumer brands that leverage celebrity endorsements and have strong brand loyalty. Celebrity-backed strategies can be volatile based on public perception.";
+    }
+
+    if (upperMessage.includes("WARREN BUFFETT") || upperMessage.includes("BUFFETT") || upperMessage.includes("BERKSHIRE")) {
+      return "Warren Buffett's Berkshire Hathaway strategy focuses on quality companies with durable competitive advantages. Top holdings include Apple (40% of portfolio - largest position), Bank of America (banking sector bet), Coca-Cola (classic consumer brand), American Express (financial services moat), and Kraft Heinz (consumer staples). This value-oriented approach emphasizes cash flow, brand strength, and long-term holding periods.";
+    }
+
+    if (upperMessage.includes("QUEUE") || upperMessage.includes("BUILD") || upperMessage.includes("CREATE")) {
+      return "I can help you build investment queues based on proven strategies! Popular options include following political disclosures (Nancy Pelosi's tech-heavy picks), celebrity brand empires (LeBron's endorsement portfolio), or legendary investor strategies (Buffett's value approach). Each queue comes with 5-7 stocks, allocation suggestions, and educational context about the investment thesis. What type of strategy interests you?";
+    }
+
     // Check for stock symbols
     for (const [symbol, info] of Object.entries(stockResponses)) {
       if (
