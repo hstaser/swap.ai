@@ -58,6 +58,12 @@ interface UserSettings {
   trendingStockNotifications: boolean;
   aiInteractionLevel: "full" | "moderate" | "minimal" | "off";
 
+  // Privacy Settings
+  profileVisibility: "public" | "friends" | "private";
+  portfolioSharing: "public" | "friends" | "select_friends" | "private";
+  watchlistSharing: "public" | "friends" | "select_friends" | "private";
+  selectedFriends: string[];
+
   // Notifications
   priceAlerts: boolean;
   newsNotifications: boolean;
