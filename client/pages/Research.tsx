@@ -840,11 +840,14 @@ export default function Research() {
             </CardContent>
           </Card>
 
-          <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
+          <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200 shadow-lg ring-1 ring-purple-200">
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="h-4 w-4 text-purple-600" />
-                <h4 className="font-semibold text-sm">Queue Construction</h4>
+                <div className="p-1 bg-purple-600 rounded-full">
+                  <Sparkles className="h-4 w-4 text-white" />
+                </div>
+                <h4 className="font-semibold text-sm text-purple-800">🚀 Queue Construction</h4>
+                <Badge className="bg-purple-600 text-white text-xs">AI Powered</Badge>
               </div>
               <div className="space-y-2">
                 <Button
