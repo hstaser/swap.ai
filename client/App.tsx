@@ -70,7 +70,8 @@ function AppContent() {
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/friends" element={<Friends />} />
-        <Route path="/messages" element={<Messages />} />
+        <Route path="/social" element={<Social />} />
+        <Route path="/user/:userId" element={<UserProfile />} />
         <Route path="/rewards" element={<Rewards />} />
         <Route path="/queue/add/:symbol" element={<QueueAdd />} />
         <Route path="/queue/review" element={<QueueReview />} />
