@@ -586,43 +586,7 @@ export default function Research() {
           </CardContent>
         </Card>
 
-        {/* Queue Creation Success */}
-        {createdQueueName && (
-          <Card className="mt-6 bg-green-50 border-green-200">
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                    <Sparkles className="h-4 w-4 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-green-800">Queue Created!</h3>
-                    <p className="text-sm text-green-700">
-                      "{createdQueueName}" has been added to your queue
-                    </p>
-                  </div>
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    size="sm"
-                    onClick={() => navigate("/queue/review")}
-                    className="bg-green-600 hover:bg-green-700"
-                  >
-                    <ExternalLink className="h-3 w-3 mr-1" />
-                    Visit Queue
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setCreatedQueueName(null)}
-                  >
-                    ×
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        )}
+
 
         {/* Popular Topics */}
         <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
