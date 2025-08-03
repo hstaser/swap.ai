@@ -672,11 +672,7 @@ export default function Research() {
                   variant="ghost"
                   size="sm"
                   className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
-                  onClick={() =>
-                    handleSuggestionClick(
-                      "Build a queue based on Nancy Pelosi's recent stock disclosures",
-                    )
-                  }
+                  onClick={() => createQueue("pelosi")}
                 >
                   • Follow Nancy Pelosi's Portfolio
                 </Button>
@@ -684,11 +680,7 @@ export default function Research() {
                   variant="ghost"
                   size="sm"
                   className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
-                  onClick={() =>
-                    handleSuggestionClick(
-                      "Create a queue with companies that sponsor LeBron James",
-                    )
-                  }
+                  onClick={() => createQueue("lebron")}
                 >
                   • LeBron's Brand Empire
                 </Button>
@@ -696,11 +688,7 @@ export default function Research() {
                   variant="ghost"
                   size="sm"
                   className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
-                  onClick={() =>
-                    handleSuggestionClick(
-                      "Build a Warren Buffett inspired queue with Berkshire holdings",
-                    )
-                  }
+                  onClick={() => createQueue("buffett")}
                 >
                   • Clone Buffett's Strategy
                 </Button>
@@ -709,7 +697,7 @@ export default function Research() {
                     variant="outline"
                     size="sm"
                     className="w-full text-xs h-auto p-2"
-                    onClick={() => setInputValue("Create a custom queue based on ")}
+                    onClick={() => setShowThemeDialog(true)}
                   >
                     + Add Your Own Theme
                   </Button>
