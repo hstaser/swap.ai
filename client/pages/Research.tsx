@@ -479,12 +479,18 @@ export default function Research() {
   };
 
   const handleInsightAction = (insight: any) => {
-    if (insight.actionType === "add_to_queue") {
-      addToQueue(insight.symbol, "bullish");
+    if (insight.actionType === "explore_sector") {
+      // Navigate to main dashboard with sector filter applied
+      const sectorMap: Record<string, string> = {
+        "Healthcare": "healthcare",
+        "Financial Services": "financials",
+        "International": "international"
+      };
+      const sectorFilter = sectorMap[insight.sector] || insight.sector.toLowerCase();
+      navigate(`/?sector=${sectorFilter}`);
     } else if (insight.actionType === "rebalance") {
-      navigate("/portfolio");
-    } else if (insight.actionType === "explore") {
-      navigate("/markets");
+      // Navigate to portfolio page and trigger rebalancing directly
+      navigate("/portfolio?autoRebalance=true");
     }
   };
 
