@@ -36,6 +36,7 @@ export default function PortfolioOptimize() {
     { label: "$500", value: "500", popular: true },
     { label: "$750", value: "750", popular: false },
     { label: "$1,000", value: "1000", popular: true },
+    { label: "$2,500", value: "2500", popular: false },
   ];
 
   const handlePresetSelect = (value: string) => {
