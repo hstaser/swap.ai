@@ -561,7 +561,7 @@ export default function Index() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-green-100">
       {/* Header */}
-      <header className="border-b border-blue-800/30 bg-black/20 backdrop-blur-xl sticky top-0 z-50">
+      <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 sm:gap-6">
