@@ -47,6 +47,14 @@ interface UserSettings {
   enableAutoRebalancing: boolean;
   rebalancingThreshold: number;
 
+  // AI Agent Preferences
+  aiAgentEnabled: boolean;
+  riskInterventions: boolean;
+  portfolioOptimizationSuggestions: boolean;
+  earningsWarnings: boolean;
+  trendingStockNotifications: boolean;
+  aiInteractionLevel: "full" | "moderate" | "minimal" | "off";
+
   // Notifications
   priceAlerts: boolean;
   newsNotifications: boolean;
