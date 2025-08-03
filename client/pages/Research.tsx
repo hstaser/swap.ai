@@ -205,9 +205,31 @@ export default function Research() {
     }
 
     // Deep research mode responses
+    // Deep research mode responses
     if (upperMessage.includes("DEEP RESEARCH") || upperMessage.includes("DETAILED ANALYSIS")) {
       setDeepResearchMode(true);
       return "I'll provide you with comprehensive research. To personalize this analysis, I can focus on specific aspects that matter most to you. Would you like me to emphasize: fundamental analysis, technical patterns, competitive positioning, ESG factors, or market sentiment? You can also skip this and get a general overview.";
+    }
+
+    // Handle deep research personalization
+    if (deepResearchMode) {
+      if (upperMessage.includes("FUNDAMENTAL")) {
+        setResearchContext("fundamental");
+        setDeepResearchMode(false);
+        return "Perfect! I'll focus on fundamental analysis. For any stock you mention, I'll dive deep into revenue growth, profit margins, debt levels, cash flow, and valuation metrics. I'll also compare these fundamentals to industry averages and historical trends. What company would you like me to analyze?";
+      } else if (upperMessage.includes("COMPETITIVE")) {
+        setResearchContext("competitive");
+        setDeepResearchMode(false);
+        return "Great choice! I'll emphasize competitive positioning analysis. I'll examine market share, competitive advantages, moats, industry dynamics, and how companies stack up against rivals. Which company or sector interests you?";
+      } else if (upperMessage.includes("ESG")) {
+        setResearchContext("esg");
+        setDeepResearchMode(false);
+        return "Excellent! I'll include ESG (Environmental, Social, Governance) factors in my analysis. I'll look at sustainability practices, social impact, governance quality, and how these factors might affect long-term performance. What company should we research?";
+      } else if (upperMessage.includes("SKIP") || upperMessage.includes("EVERYTHING")) {
+        setResearchContext("comprehensive");
+        setDeepResearchMode(false);
+        return "Got it! I'll provide comprehensive analysis covering all aspects - fundamentals, technicals, competitive position, market sentiment, and ESG factors. This gives you the complete picture. What stock or company would you like me to research?";
+      }
     }
 
     // Generic responses for different types of questions
