@@ -201,19 +201,50 @@ export default function Research() {
       setTimeout(resolve, 1000 + Math.random() * 2000),
     );
 
+    // Generate appropriate suggestions based on message content
+    let suggestions: string[] | undefined;
+    const upperInput = inputValue.toUpperCase();
+
+    if (upperInput.includes("PELOSI")) {
+      suggestions = [
+        "Show me the specific stocks in Nancy Pelosi's portfolio",
+        "How do congressional trading patterns affect markets?",
+        "Create this queue for my portfolio"
+      ];
+    } else if (upperInput.includes("LEBRON")) {
+      suggestions = [
+        "What other athletes have successful investment portfolios?",
+        "How do celebrity endorsements impact stock performance?",
+        "Build this LeBron-inspired queue"
+      ];
+    } else if (upperInput.includes("BUFFETT")) {
+      suggestions = [
+        "What makes Berkshire Hathaway's strategy successful?",
+        "Show me other value investing approaches",
+        "Create a Buffett-style queue"
+      ];
+    } else if (upperInput.includes("QUEUE") || upperInput.includes("BUILD")) {
+      suggestions = [
+        "Show me trending Alpha Prompts",
+        "What's the difference between themes?",
+        "How do you optimize queue allocations?"
+      ];
+    } else {
+      suggestions = Math.random() > 0.5
+        ? suggestedQuestions.slice(
+            Math.floor(Math.random() * 3),
+            Math.floor(Math.random() * 3) + 3,
+          )
+        : undefined;
+    }
+
     const aiResponse: ChatMessage = {
       id: (Date.now() + 1).toString(),
       type: "ai",
       content: generateResponse(inputValue),
       timestamp: new Date(),
       stockMentioned: extractStockSymbol(inputValue),
-      suggestions:
-        Math.random() > 0.5
-          ? suggestedQuestions.slice(
-              Math.floor(Math.random() * 3),
-              Math.floor(Math.random() * 3) + 3,
-            )
-          : undefined,
+      suggestions,
     };
 
     setIsTyping(false);
@@ -457,7 +488,7 @@ export default function Research() {
                     )
                   }
                 >
-                  • Apple (AAPL) - Consumer Electronics
+                  �� Apple (AAPL) - Consumer Electronics
                 </Button>
                 <Button
                   variant="ghost"
