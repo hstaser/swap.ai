@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StockDashboard } from "@/components/ui/stock-dashboard";
-import { TopMovesWidget } from "@/components/ui/top-moves-widget";
 import { PortfolioReviewSidebar } from "@/components/ui/portfolio-review-sidebar";
 import { ExploreAgentModal } from "@/components/ui/explore-agent-modal";
 import {
