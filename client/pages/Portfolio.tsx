@@ -305,7 +305,8 @@ export default function Portfolio() {
     console.log("Rebalancing recommendations:", recommendations);
     setOptimizationData(recommendations);
     setShowAIRebalancing(false);
-    setShowAIReview(true);
+    // Don't show review page - optimization is already complete
+    // setShowAIReview(true);
   };
 
   const handleApplyOptimization = () => {
@@ -935,7 +936,7 @@ export default function Portfolio() {
                         </Badge>
                       </div>
                       <div className="text-sm text-muted-foreground">
-                        β {stock.beta.toFixed(2)}
+                        �� {stock.beta.toFixed(2)}
                       </div>
                     </div>
                   ))}
