@@ -149,15 +149,21 @@ export default function Research() {
 
     // Check for Alpha Prompts / Queue Construction queries
     if (upperMessage.includes("NANCY PELOSI") || upperMessage.includes("PELOSI")) {
-      return "Based on congressional trading disclosures, Nancy Pelosi's portfolio has shown significant tech allocation. Key positions include NVIDIA (recent large purchases), Apple (consistent holding), Microsoft (cloud exposure), Google (growth position), and Salesforce (software exposure). This strategy focuses on technology leaders with strong government relationships and regulatory moats. Remember: Congressional trades are disclosed with delays and this is educational information only.";
+      // Create the queue
+      createQueue("pelosi");
+      return "Queue created! Based on congressional trading disclosures, I've built Nancy Pelosi's portfolio with NVIDIA (recent large purchases), Apple (consistent holding), Microsoft (cloud exposure), Google (growth position), and Salesforce (software exposure). This strategy focuses on technology leaders with strong government relationships and regulatory moats. Remember: Congressional trades are disclosed with delays and this is educational information only.";
     }
 
     if (upperMessage.includes("LEBRON") || upperMessage.includes("BRAND EMPIRE")) {
-      return "LeBron James' brand empire represents companies that benefit from his endorsements and partnerships. This includes Nike (lifetime deal), PepsiCo (Blaze Pizza investment), Walmart (SpringHill partnership), Beats by Dre (early investor), and Netflix (content deals). This strategy focuses on consumer brands that leverage celebrity endorsements and have strong brand loyalty. Celebrity-backed strategies can be volatile based on public perception.";
+      // Create the queue
+      createQueue("lebron");
+      return "Queue created! I've built LeBron's Brand Empire with Nike (lifetime deal), PepsiCo (Blaze Pizza investment), Walmart (SpringHill partnership), Beats by Dre (early investor), and Netflix (content deals). This strategy focuses on consumer brands that leverage celebrity endorsements and have strong brand loyalty. Celebrity-backed strategies can be volatile based on public perception.";
     }
 
     if (upperMessage.includes("WARREN BUFFETT") || upperMessage.includes("BUFFETT") || upperMessage.includes("BERKSHIRE")) {
-      return "Warren Buffett's Berkshire Hathaway strategy focuses on quality companies with durable competitive advantages. Top holdings include Apple (40% of portfolio - largest position), Bank of America (banking sector bet), Coca-Cola (classic consumer brand), American Express (financial services moat), and Kraft Heinz (consumer staples). This value-oriented approach emphasizes cash flow, brand strength, and long-term holding periods.";
+      // Create the queue
+      createQueue("buffett");
+      return "Queue created! I've built Warren Buffett's strategy with Apple (40% allocation - largest position), Bank of America (banking sector bet), Coca-Cola (classic consumer brand), American Express (financial services moat), and Kraft Heinz (consumer staples). This value-oriented approach emphasizes cash flow, brand strength, and long-term holding periods.";
     }
 
     if (upperMessage.includes("QUEUE") || upperMessage.includes("BUILD") || upperMessage.includes("CREATE")) {
