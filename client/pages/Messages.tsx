@@ -210,7 +210,13 @@ export default function Social() {
                       onClick={() => setActiveConversation(conv.id)}
                     >
                       <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                        <div
+                          className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold cursor-pointer hover:ring-2 hover:ring-blue-300 transition-all"
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            navigate(`/user/${conv.userId}`);
+                          }}
+                        >
                           {conv.userName[0]}
                         </div>
                         <div className="flex-1 min-w-0">
