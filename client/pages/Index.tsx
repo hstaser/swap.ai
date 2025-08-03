@@ -357,6 +357,21 @@ export default function Index() {
   // Generate sample risk interventions
   const riskInterventions = generateSampleInterventions([], queue);
 
+  // Handle sector filter from URL params (from AI insights)
+  useEffect(() => {
+    const sectorParam = searchParams.get("sector");
+    if (sectorParam) {
+      const sectorMap: Record<string, string> = {
+        "healthcare": "Healthcare",
+        "financials": "Financial Services",
+        "international": "International"
+      };
+      const mappedSector = sectorMap[sectorParam] || sectorParam;
+      setFilters(prev => ({ ...prev, sector: mappedSector }));
+      setViewMode("dashboard"); // Switch to dashboard view to see filters
+    }
+  }, [searchParams]);
+
   const filteredStocks = useMemo(() => {
     let filtered = mockStocks.filter((stock) => {
       // Filter out queued stocks - user shouldn't see them again
