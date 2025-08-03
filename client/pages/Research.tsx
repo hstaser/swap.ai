@@ -468,6 +468,21 @@ export default function Research() {
     setInputValue(prompt);
   };
 
+  const handleInsightAction = (insight: any) => {
+    if (insight.actionType === "add_to_queue") {
+      addToQueue(insight.symbol, "bullish");
+    } else if (insight.actionType === "rebalance") {
+      navigate("/portfolio");
+    } else if (insight.actionType === "explore") {
+      navigate("/markets");
+    }
+  };
+
+  const handleInsightReject = (insightId: string) => {
+    // Remove insight from list (in real app, would persist this)
+    console.log(`Rejected insight: ${insightId}`);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Header */}
