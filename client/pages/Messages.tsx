@@ -15,7 +15,7 @@ import {
   MoreVertical,
   Clock,
 } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface Message {
