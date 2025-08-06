@@ -411,10 +411,14 @@ export function NotificationSystem({
               <div
                 key={notification.id}
                 className={cn(
-                  "flex items-start gap-3 p-3 border rounded-lg transition-colors",
+                  "flex items-start gap-3 p-3 border rounded-lg transition-colors cursor-pointer",
                   !notification.read && "bg-blue-50 border-blue-200",
                   notification.read && "hover:bg-gray-50",
                 )}
+                onClick={() => {
+                  setSelectedNotification(notification);
+                  setShowDetails(true);
+                }}
               >
                 <div
                   className={cn(
