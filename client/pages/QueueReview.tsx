@@ -61,11 +61,11 @@ export default function QueueReview() {
     const stock = stockPrice || {
       symbol: item.symbol,
       name: `${item.symbol} Inc.`,
-      price: 100,
+      price: 75.00, // More reasonable fallback price
       change: 0,
       changePercent: 0,
       sector: "Technology",
-      marketCap: "$0B"
+      marketCap: "$15B"
     };
 
     return {
