@@ -317,7 +317,7 @@ export default function Portfolio() {
 
   const getSectorAllocation = () => {
     const sectors: { [key: string]: number } = {};
-    mockPortfolioStocks.forEach((stock) => {
+    portfolioStocks.forEach((stock) => {
       sectors[stock.sector] = (sectors[stock.sector] || 0) + stock.allocation;
     });
     return Object.entries(sectors).map(([sector, allocation]) => ({
@@ -345,7 +345,7 @@ export default function Portfolio() {
                   Portfolio
                 </h1>
                 <p className="text-sm text-muted-foreground">
-                  Auto-optimized • {mockPortfolioStocks.length} holdings
+                  Auto-optimized • {portfolioStocks.length} holdings
                 </p>
               </div>
             </div>
