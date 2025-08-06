@@ -83,7 +83,7 @@ const getNotificationDetails = (notification: Notification) => {
     case "ai_insight":
       return {
         icon: <Brain className="h-6 w-6 text-purple-600" />,
-        color: "purple", 
+        color: "purple",
         details: {
           analysis: "Market trends show increasing correlation between tech stocks, reducing portfolio diversification benefits.",
           suggestion: "Reduce tech sector weight from 45% to 35% and increase exposure to defensive sectors.",
@@ -138,6 +138,41 @@ export function NotificationDetails({
   onMarkAsRead,
 }: NotificationDetailsProps) {
   const navigate = useNavigate();
+
+  const handleAction = () => {
+    if (!notification) return;
+
+    // Handle different action types based on notification type
+    switch (notification.type) {
+      case "rebalance":
+        navigate("/portfolio/rebalance");
+        break;
+      case "news":
+        if (notification.symbol) {
+          navigate(`/stock/${notification.symbol}`);
+        } else {
+          navigate("/research");
+        }
+        break;
+      case "ai_insight":
+        navigate("/research");
+        break;
+      case "portfolio":
+        navigate("/portfolio");
+        break;
+      case "market_alert":
+        navigate("/markets");
+        break;
+      default:
+        // Fallback to actionUrl if available
+        if (notification.actionUrl) {
+          navigate(notification.actionUrl);
+        } else {
+          navigate("/");
+        }
+    }
+    onClose();
+  };
 
   if (!notification) return null;
 
