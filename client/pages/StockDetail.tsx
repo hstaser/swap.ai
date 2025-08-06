@@ -158,7 +158,7 @@ const mockDetailedStocks: { [key: string]: DetailedStock } = {
           "NHTSA investigation prompts voluntary recall affecting thousands of vehicles.",
       },
       {
-        title: "Cybertruck production delays extended to 2024",
+        title: "Cybertruck production delays extended to 2025",
         source: "Electrek",
         time: "4h ago",
         summary:
@@ -370,7 +370,7 @@ const mockDetailedStocks: { [key: string]: DetailedStock } = {
       "Rivian Automotive, Inc. designs, develops, manufactures, and sells electric vehicles and accessories. The company offers pickup trucks and delivery vans.",
     news: [
       {
-        title: "Rivian increases production guidance for 2024",
+        title: "Rivian increases production guidance for 2025",
         source: "Automotive News",
         time: "2h ago",
         summary:
@@ -435,11 +435,7 @@ export default function StockDetail() {
       <header className="border-b bg-white/80 backdrop-blur-md sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate("/watchlist")}
-            >
+            <Button variant="ghost" size="icon" onClick={() => navigate("/watchlist")}>
               <ArrowLeft className="h-5 w-5" />
             </Button>
             <div className="text-center">
