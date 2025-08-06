@@ -365,8 +365,9 @@ export function NotificationSystem({
   }
 
   return (
-    <Card className={className}>
-      <CardHeader>
+    <>
+      <Card className={className}>
+        <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="flex items-center gap-2">
             <Bell className="h-5 w-5" />
