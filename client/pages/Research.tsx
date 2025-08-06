@@ -53,7 +53,87 @@ interface ChatMessage {
   showQueueButton?: boolean;
 }
 
-const suggestedQuestions = [
+// Company-specific questions
+const companyQuestions: Record<string, string[]> = {
+  AAPL: [
+    "What is Apple's current business model?",
+    "How does Apple's ecosystem strategy create competitive advantages?",
+    "What are Apple's key revenue sources and their growth trends?",
+    "How does Apple's hardware-software integration benefit customers?",
+    "What risks does Apple face in the smartphone market?",
+    "How is Apple positioned in the AI and machine learning space?"
+  ],
+  MSFT: [
+    "Tell me about Microsoft's business model",
+    "What are Microsoft's key revenue sources?",
+    "How does Microsoft compare to competitors?",
+    "What makes Azure competitive against AWS and Google Cloud?",
+    "How has Microsoft's transition to cloud services affected profitability?",
+    "What is Microsoft's strategy in AI and productivity software?"
+  ],
+  GOOGL: [
+    "What factors affect Google's advertising revenue?",
+    "How does Google's search dominance create competitive moats?",
+    "What are Google's key business segments beyond search?",
+    "How is Google Cloud performing against competitors?",
+    "What are the regulatory risks facing Alphabet?",
+    "How is Google investing in AI and future technologies?"
+  ],
+  NVDA: [
+    "Tell me about NVIDIA's competitive advantages",
+    "What drives NVIDIA's dominance in AI chips?",
+    "How does NVIDIA's CUDA software create switching costs?",
+    "What are NVIDIA's key market segments?",
+    "How sustainable is NVIDIA's AI chip leadership?",
+    "What competitive threats does NVIDIA face?"
+  ],
+  TSLA: [
+    "How does Tesla's revenue compare to traditional automakers?",
+    "What makes Tesla's business model unique?",
+    "How does Tesla's vertical integration strategy work?",
+    "What are Tesla's growth drivers beyond vehicles?",
+    "How competitive is Tesla's autonomous driving technology?",
+    "What challenges does Tesla face in scaling production?"
+  ],
+  AMZN: [
+    "Explain Amazon's different business segments",
+    "How profitable is Amazon Web Services compared to retail?",
+    "What is Amazon's competitive advantage in cloud computing?",
+    "How does Amazon's logistics network create value?",
+    "What are Amazon's key growth investments?",
+    "How does Amazon Prime drive customer loyalty?"
+  ],
+  IBM: [
+    "What is IBM's quantum computing strategy?",
+    "How is IBM positioned in enterprise AI services?",
+    "What are IBM's key business transformation initiatives?",
+    "How does IBM's hybrid cloud strategy compete?",
+    "What role does Red Hat play in IBM's portfolio?",
+    "How is IBM investing in quantum and advanced computing?"
+  ],
+  META: [
+    "How does Meta generate revenue from social platforms?",
+    "What is Meta's metaverse strategy and investment?",
+    "How does Meta's advertising model work?",
+    "What are the key metrics for Meta's platforms?",
+    "How is Meta investing in AI and VR/AR?",
+    "What regulatory challenges does Meta face?"
+  ]
+};
+
+// Data center and market research questions
+const dataCenterQuestions = [
+  "What is driving demand for data center capacity?",
+  "Which companies dominate the data center infrastructure market?",
+  "How is AI affecting data center design and requirements?",
+  "What are the key metrics for evaluating data center REITs?",
+  "How do hyperscale data centers differ from traditional ones?",
+  "What stocks benefit most from data center growth?",
+  "How does edge computing impact the data center market?",
+  "What are the power and cooling challenges in modern data centers?"
+];
+
+const defaultSuggestedQuestions = [
   "What is Apple's current business model?",
   "Tell me about NVIDIA's competitive advantages",
   "How does Tesla's revenue compare to traditional automakers?",
@@ -61,6 +141,14 @@ const suggestedQuestions = [
   "Explain Amazon's different business segments",
   "What factors affect Google's advertising revenue?",
 ];
+
+// Helper function to get company-specific questions
+const getCompanyQuestions = (symbol?: string): string[] => {
+  if (symbol && companyQuestions[symbol]) {
+    return companyQuestions[symbol];
+  }
+  return defaultSuggestedQuestions;
+};
 
 const stockResponses: Record<string, string> = {
   AAPL: "Apple Inc. is a multinational technology company that designs, manufactures, and markets consumer electronics, computer software, and online services. Key business segments include iPhone (largest revenue driver), Mac computers, iPad, Services (App Store, iCloud, Apple Music), and Wearables (Apple Watch, AirPods). The company is known for its premium pricing strategy, strong brand loyalty, and integrated ecosystem approach. Apple generates revenue through hardware sales, digital services, and accessories.",
