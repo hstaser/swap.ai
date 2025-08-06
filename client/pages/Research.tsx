@@ -679,7 +679,7 @@ export default function Research() {
                                 key={index}
                                 variant="ghost"
                                 size="sm"
-                                className="text-xs h-auto p-2 text-left"
+                                className="text-sm h-auto p-3 text-left min-h-[36px]"
                                 onClick={() =>
                                   handleSuggestionClick(suggestion)
                                 }
