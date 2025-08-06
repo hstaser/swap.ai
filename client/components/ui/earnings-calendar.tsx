@@ -49,7 +49,7 @@ const mockEarningsEvents: EarningsEvent[] = [
   {
     symbol: "MSFT",
     company: "Microsoft Corporation",
-    date: "2024-01-24",
+    date: "2025-01-28",
     time: "After-market",
     estimate: 2.78,
     inPortfolio: true,
@@ -71,7 +71,7 @@ const mockEarningsEvents: EarningsEvent[] = [
   {
     symbol: "TSLA",
     company: "Tesla, Inc.",
-    date: "2024-01-24",
+    date: "2025-01-29",
     time: "After-market",
     estimate: 0.78,
     inPortfolio: false,
