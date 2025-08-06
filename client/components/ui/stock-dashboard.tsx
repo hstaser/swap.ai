@@ -67,6 +67,13 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
       NFLX: "netflix.com",
       CRM: "salesforce.com",
       SPOT: "spotify.com",
+      IBM: "ibm.com",
+      QCOM: "qualcomm.com",
+      IONQ: "ionq.com",
+      RGTI: "rigetti.com",
+      JNJ: "jnj.com",
+      PFE: "pfizer.com",
+      UNH: "unitedhealthgroup.com",
     };
     return domains[symbol] || `${symbol.toLowerCase()}.com`;
   };
