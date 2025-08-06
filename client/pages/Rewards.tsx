@@ -392,10 +392,10 @@ export default function Rewards() {
               </Button>
 
               <div className="text-center">
-                <div className="text-4xl font-bold text-blue-600 mb-2">
-                  swipr.ai/invite/abc123
+                <div className="text-3xl font-bold text-blue-600 mb-2">
+                  swipr.ai/invite/hstaser
                 </div>
-                <p className="text-sm text-muted-foreground">Your personal invite code</p>
+                <p className="text-sm text-muted-foreground">Your personal invite link</p>
               </div>
 
               <Separator />
