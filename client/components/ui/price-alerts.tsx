@@ -97,7 +97,7 @@ export function PriceAlerts({ onClose }: PriceAlertsProps) {
       id: Math.random().toString(36).substring(2, 15),
       symbol: formData.symbol.toUpperCase(),
       name: `${formData.symbol.toUpperCase()} Inc.`, // In real app, fetch from API
-      currentPrice: 100, // In real app, fetch current price
+      currentPrice: 75, // In real app, fetch current price
       targetPrice: Number(formData.targetPrice),
       condition: formData.condition,
       isActive: true,
