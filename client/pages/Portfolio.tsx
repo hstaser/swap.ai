@@ -281,6 +281,7 @@ export default function Portfolio() {
   const [comparisonTimeframe, setComparisonTimeframe] = useState<
     "1M" | "6M" | "1Y"
   >("1Y");
+  const [portfolioStocks, setPortfolioStocks] = useState(mockPortfolioStocks);
 
   const [showRebalanceConfirm, setShowRebalanceConfirm] = useState(false);
 
