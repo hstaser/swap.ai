@@ -1203,14 +1203,14 @@ export default function Research() {
 
       {/* Allocation Preference Dialog */}
       <Dialog open={showAllocationDialog} onOpenChange={setShowAllocationDialog}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-lg mx-4 max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Choose Allocation Method</DialogTitle>
             <DialogDescription>
               How would you like to allocate the stocks in this portfolio?
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4 mt-6">
+          <div className="space-y-4 mt-6 pb-6">
             <Button
               variant="outline"
               className="w-full h-auto p-4 justify-start min-h-[80px]"
