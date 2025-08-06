@@ -122,21 +122,18 @@ export default function QueueAdd() {
       label: "Conservative",
       description: "I'm cautiously optimistic about this stock",
       color: "border-yellow-200 text-yellow-700 hover:bg-yellow-50",
-      allocation: "Small position (2-5%)",
     },
     {
       id: "bullish",
       label: "Bullish",
       description: "I'm confident in this stock's potential",
       color: "border-green-200 text-green-700 hover:bg-green-50",
-      allocation: "Medium position (5-10%)",
     },
     {
       id: "very-bullish",
       label: "Very Bullish",
       description: "I'm very confident in this investment",
       color: "border-green-300 text-green-800 hover:bg-green-100",
-      allocation: "Large position (10-15%)",
     },
   ];
 
