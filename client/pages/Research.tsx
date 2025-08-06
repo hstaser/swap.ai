@@ -506,15 +506,30 @@ export default function Research() {
         "Skip personalization - give me everything"
       ];
     } else {
-      // Add deep research option to regular suggestions
+      // Check if user mentioned a specific stock symbol to provide relevant suggestions
+      const mentionedSymbol = extractStockSymbol(inputValue);
       const deepResearchSuggestion = "Start deep research mode for detailed analysis";
-      const regularSuggestions = suggestedQuestions.slice(
-        Math.floor(Math.random() * 3),
-        Math.floor(Math.random() * 3) + 2,
-      );
-      suggestions = Math.random() > 0.5
-        ? [deepResearchSuggestion, ...regularSuggestions]
-        : regularSuggestions;
+
+      if (mentionedSymbol) {
+        const companySpecificQuestions = getCompanyQuestions(mentionedSymbol);
+        const regularSuggestions = companySpecificQuestions.slice(1, 3); // Skip first question, get next 2
+        suggestions = Math.random() > 0.5
+          ? [deepResearchSuggestion, ...regularSuggestions]
+          : regularSuggestions;
+      } else {
+        // Data center questions if they're asking about data centers or infrastructure
+        if (upperInput.includes("DATA CENTER") || upperInput.includes("INFRASTRUCTURE") || upperInput.includes("CLOUD")) {
+          suggestions = dataCenterQuestions.slice(0, 3);
+        } else {
+          const regularSuggestions = defaultSuggestedQuestions.slice(
+            Math.floor(Math.random() * 3),
+            Math.floor(Math.random() * 3) + 2,
+          );
+          suggestions = Math.random() > 0.5
+            ? [deepResearchSuggestion, ...regularSuggestions]
+            : regularSuggestions;
+        }
+      }
     }
 
     const aiResponse: ChatMessage = {
