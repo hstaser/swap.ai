@@ -840,7 +840,7 @@ export default function Research() {
                     )
                   }
                 >
-                  �� Profit Margins & Efficiency
+                  Profit Margins & Efficiency
                 </Button>
                 <Button
                   variant="ghost"
