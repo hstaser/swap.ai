@@ -781,7 +781,7 @@ export default function Research() {
                     )
                   }
                 >
-                  • Apple (AAPL) - Consumer Electronics
+                  Apple (AAPL) - Consumer Electronics
                 </Button>
                 <Button
                   variant="ghost"
@@ -793,7 +793,7 @@ export default function Research() {
                     )
                   }
                 >
-                  • Microsoft (MSFT) - Cloud & Software
+                  Microsoft (MSFT) - Cloud & Software
                 </Button>
                 <Button
                   variant="ghost"
@@ -805,7 +805,7 @@ export default function Research() {
                     )
                   }
                 >
-                  • NVIDIA (NVDA) - AI & Graphics
+                  NVIDIA (NVDA) - AI & Graphics
                 </Button>
               </div>
             </CardContent>
@@ -828,7 +828,7 @@ export default function Research() {
                     )
                   }
                 >
-                  • Revenue & Growth Rates
+                  Revenue & Growth Rates
                 </Button>
                 <Button
                   variant="ghost"
@@ -876,7 +876,7 @@ export default function Research() {
                     handleSuggestionClick("Build a queue based on Nancy Pelosi's recent stock disclosures")
                   }
                 >
-                  • Follow Nancy Pelosi's Portfolio
+                  Follow Nancy Pelosi's Portfolio
                 </Button>
                 <Button
                   variant="ghost"
@@ -886,7 +886,7 @@ export default function Research() {
                     handleSuggestionClick("Create a queue with companies that sponsor LeBron James")
                   }
                 >
-                  • LeBron's Brand Empire
+                  LeBron's Brand Empire
                 </Button>
                 <Button
                   variant="ghost"
@@ -896,7 +896,7 @@ export default function Research() {
                     handleSuggestionClick("Build a Warren Buffett inspired queue with Berkshire holdings")
                   }
                 >
-                  • Clone Buffett's Strategy
+                  Clone Buffett's Strategy
                 </Button>
                 <div className="pt-2 border-t border-gray-100">
                   <Button
