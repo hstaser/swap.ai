@@ -22,6 +22,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
 import { BottomNav } from "@/components/ui/bottom-nav";
+import { STOCK_PRICES, getStockPrice } from "@/data/stock-prices";
 
 interface OptimizedAllocation {
   symbol: string;
@@ -54,25 +55,12 @@ export default function OptimizationReview() {
     { symbol: "QQQ", amount: 1000, toSell: 400 },
   ];
 
-  // Generate optimized allocation from actual queue
-  const stockData: Record<string, any> = {
-    AAPL: { name: "Apple Inc.", price: 182.52, sector: "Technology" },
-    NVDA: { name: "NVIDIA Corporation", price: 722.48, sector: "Technology" },
-    MSFT: { name: "Microsoft Corporation", price: 378.85, sector: "Technology" },
-    GOOGL: { name: "Alphabet Inc.", price: 141.80, sector: "Technology" },
-    CRM: { name: "Salesforce Inc.", price: 298.45, sector: "Technology" },
-    NKE: { name: "Nike Inc.", price: 110.25, sector: "Consumer Discretionary" },
-    PEP: { name: "PepsiCo Inc.", price: 167.89, sector: "Consumer Staples" },
-    WMT: { name: "Walmart Inc.", price: 165.34, sector: "Consumer Staples" },
-    BAC: { name: "Bank of America", price: 33.47, sector: "Financial Services" },
-    KO: { name: "Coca-Cola Co.", price: 58.92, sector: "Consumer Staples" },
-    AXP: { name: "American Express", price: 178.34, sector: "Financial Services" },
-    KHC: { name: "Kraft Heinz Co.", price: 34.78, sector: "Consumer Staples" },
-    NFLX: { name: "Netflix Inc.", price: 487.23, sector: "Technology" },
-  };
+  // Generate optimized allocation from actual queue using real stock prices
+  const stockData: Record<string, any> = {};
 
   const optimizedPortfolio: OptimizedAllocation[] = queue.length > 0 ? queue.map((queueItem, index) => {
-    const stock = stockData[queueItem.symbol] || {
+    const stockPrice = getStockPrice(queueItem.symbol);
+    const stock = stockPrice || {
       name: `${queueItem.symbol} Inc.`,
       price: 100,
       sector: "Technology"
