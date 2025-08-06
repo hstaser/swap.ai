@@ -395,6 +395,28 @@ export default function Research() {
       return "Google's advertising revenue ($224B, 76% of total revenue) depends on several key factors: 1) Search Query Volume - more searches = more ad opportunities, 2) Click-Through Rates - ad relevance and placement efficiency, 3) Cost Per Click (CPC) - what advertisers pay per click, currently $1-2 average, 4) Market Share - 92% search dominance globally, 5) YouTube Growth - $29B annually from video ads, growing 20%+, 6) Privacy Regulations - iOS tracking changes and cookie deprecation impacting targeting. Key risks: Competition from TikTok for attention, Apple's privacy changes reducing ad effectiveness, and potential antitrust regulation limiting market dominance.";
     }
 
+    // Additional Microsoft-specific questions
+    if (upperMessage.includes("MICROSOFT") && upperMessage.includes("BUSINESS MODEL")) {
+      return "Microsoft operates a diversified technology business model with three main segments: 1) Productivity & Business Processes ($69B revenue) - Office 365, Teams, LinkedIn with high recurring subscription revenue, 2) Intelligent Cloud ($87B) - Azure growing 27% annually, Windows Server, SQL Server providing infrastructure services, 3) More Personal Computing ($55B) - Windows licensing, Xbox gaming, Surface devices. Key strengths: 85% of revenue is recurring subscriptions, 41% operating margins, strong enterprise relationships, and cloud-first strategy positioning them against AWS and Google Cloud.";
+    }
+
+    if (upperMessage.includes("AZURE") && upperMessage.includes("COMPETITIVE")) {
+      return "Azure competes through several key advantages: 1) Hybrid Cloud Leadership - seamless integration between on-premises and cloud infrastructure, 2) Enterprise Relationships - existing Office 365 and Windows customers create natural upsell opportunities, 3) AI Integration - Copilot and OpenAI partnership embedded across services, 4) Pricing Strategy - typically 10-15% cheaper than AWS equivalents, 5) Global Infrastructure - 60+ regions worldwide matching AWS coverage, 6) Developer Tools - Visual Studio, GitHub integration attracts enterprise developers. Growing 27% vs AWS's 12%, capturing market share through bundled enterprise deals.";
+    }
+
+    if (upperMessage.includes("APPLE") && upperMessage.includes("ECOSYSTEM")) {
+      return "Apple's ecosystem strategy creates powerful competitive advantages through: 1) Hardware-Software Integration - iOS, macOS designed specifically for Apple hardware delivering superior performance, 2) Seamless Connectivity - AirDrop, Handoff, Universal Clipboard work only between Apple devices, 3) Services Lock-in - iCloud, Apple Music, App Store purchases tied to Apple ID, 4) High Switching Costs - $1000s of apps, photos, music lost when switching platforms, 5) Cross-selling - Apple Watch requires iPhone, encouraging device upgrades. Result: 92% customer retention rate, $94B annual services revenue, and ability to charge premium prices.";
+    }
+
+    // Data center market questions
+    if (upperMessage.includes("DATA CENTER") && (upperMessage.includes("DEMAND") || upperMessage.includes("DRIVING"))) {
+      return "Data center demand is driven by five major trends: 1) AI/ML Workloads - ChatGPT, image generation requiring 10x more compute than traditional apps, 2) Cloud Migration - 70% of workloads still on-premises moving to cloud, 3) Edge Computing - 5G, IoT requiring processing closer to users, 4) Digital Transformation - remote work, streaming, e-commerce accelerating data needs, 5) Regulatory Compliance - data sovereignty laws requiring local data storage. Market growing 8% annually to $500B by 2030, with hyperscale facilities (Microsoft, Google, Amazon) consuming 60% of new capacity.";
+    }
+
+    if (upperMessage.includes("DATA CENTER") && (upperMessage.includes("STOCKS") || upperMessage.includes("COMPANIES"))) {
+      return "Key data center investment opportunities: 1) REITs - Digital Realty Trust (DLR), Equinix (EQIX) own facilities and lease to tech companies, 2) Infrastructure - Nvidia (AI chips), Advanced Micro Devices (server processors), Arista Networks (networking), 3) Power/Cooling - Vertiv (cooling systems), Eaton (power management), 4) Construction - CloudFlare (edge computing), CyrusOne (hyperscale facilities). Best plays: DLR (12% dividend yield, Amazon/Microsoft tenants), NVDA (80% data center GPU market share), EQIX (global interconnection leader). AI demand creating massive capex cycle benefiting entire supply chain.";
+    }
+
     // Generic responses for different types of questions
     if (
       upperMessage.includes("FINANCIAL") ||
