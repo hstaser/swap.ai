@@ -581,7 +581,7 @@ export default function Banking() {
                           <span className="text-sm font-medium">Smart Safety Features</span>
                         </div>
                         <ul className="text-xs text-white/80 space-y-1">
-                          <li>• Only transfer if account balance > $1,000</li>
+                          <li>• Only transfer if account balance &gt; $1,000</li>
                           <li>• Pause if 3 consecutive failed attempts</li>
                           <li>• Email notifications before each transfer</li>
                         </ul>
