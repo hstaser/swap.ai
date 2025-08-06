@@ -852,7 +852,7 @@ export default function Research() {
                     )
                   }
                 >
-                  ��� Market Position & Competition
+                  Market Position & Competition
                 </Button>
               </div>
             </CardContent>
