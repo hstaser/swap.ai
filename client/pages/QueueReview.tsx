@@ -20,6 +20,7 @@ import { BottomNav } from "@/components/ui/bottom-nav";
 import { useQueue } from "@/hooks/use-queue";
 import { useAuth } from "@/hooks/use-auth";
 import { AuthModal } from "@/components/ui/auth-modal";
+import { getStockPrice } from "@/data/stock-prices";
 
 interface QueuedStock {
   symbol: string;
