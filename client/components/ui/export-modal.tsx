@@ -87,7 +87,7 @@ export function ExportModal({
           </div>
 
           <div class="section">
-            <h2>📊 Portfolio Overview</h2>
+            <h2>Portfolio Overview</h2>
             <div class="metric">
               <div>Total Portfolio Value</div>
               <div class="value">$${portfolioValue.toLocaleString()}</div>
@@ -142,7 +142,7 @@ export function ExportModal({
           </div>
 
           <div class="section">
-            <h2>🎯 AI Analysis</h2>
+            <h2>AI Analysis</h2>
             <div style="background-color: #f0f9ff; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6;">
               <h3 style="margin-top: 0; color: #1e40af;">Portfolio Strengths:</h3>
               <ul>
@@ -162,7 +162,7 @@ export function ExportModal({
           </div>
 
           <div class="section">
-            <h2>📈 Performance Summary</h2>
+            <h2>Performance Summary</h2>
             <p>Your portfolio has generated exceptional returns of <strong class="${portfolioReturn >= 0 ? "positive" : "negative"}">${portfolioReturn >= 0 ? "+" : ""}${portfolioReturn.toFixed(2)}%</strong>, significantly outperforming major market indices. The AI-optimized allocation has successfully balanced growth and risk management.</p>
 
             <div style="margin: 20px 0; padding: 15px; background-color: #f0fdf4; border-radius: 8px;">

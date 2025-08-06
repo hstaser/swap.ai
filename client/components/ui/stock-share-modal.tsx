@@ -98,8 +98,7 @@ export function StockShareModal({
 
   const generateShareText = () => {
     const isPositive = stock.change >= 0;
-    const trend = isPositive ? "📈" : "📉";
-    return `${trend} ${stock.symbol} - ${stock.name}\n$${stock.price.toFixed(2)} (${isPositive ? "+" : ""}${stock.changePercent.toFixed(2)}%)\n\n${message || "Interesting stock to watch!"}`;
+    return `${stock.symbol} - ${stock.name}\n$${stock.price.toFixed(2)} (${isPositive ? "+" : ""}${stock.changePercent.toFixed(2)}%)\n\n${message || "Interesting stock to watch!"}`;
   };
 
   if (!isOpen) return null;

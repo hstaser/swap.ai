@@ -37,7 +37,7 @@ interface EarningsCalendarProps {
 const mockEarningsEvents: EarningsEvent[] = [
   {
     symbol: "AAPL",
-    company: "Apple Inc.", 
+    company: "Apple Inc.",
     date: "2024-01-25",
     time: "After-market",
     estimate: 2.18,
@@ -58,7 +58,7 @@ const mockEarningsEvents: EarningsEvent[] = [
     alertEnabled: true,
   },
   {
-    symbol: "GOOGL", 
+    symbol: "GOOGL",
     company: "Alphabet Inc.",
     date: "2024-01-26",
     time: "After-market",
@@ -72,7 +72,7 @@ const mockEarningsEvents: EarningsEvent[] = [
     symbol: "TSLA",
     company: "Tesla, Inc.",
     date: "2024-01-24",
-    time: "After-market", 
+    time: "After-market",
     estimate: 0.78,
     inPortfolio: false,
     inWatchlist: true,
@@ -87,7 +87,7 @@ const mockEarningsEvents: EarningsEvent[] = [
     estimate: 0.85,
     inPortfolio: false,
     inWatchlist: false,
-    importance: "medium", 
+    importance: "medium",
     alertEnabled: false,
   },
 ];
@@ -100,15 +100,15 @@ const importanceColors = {
 
 const timeColors = {
   "Pre-market": "text-blue-600",
-  "After-market": "text-purple-600", 
+  "After-market": "text-purple-600",
   "During": "text-green-600",
 };
 
-export function EarningsCalendar({ 
+export function EarningsCalendar({
   events = mockEarningsEvents,
   onToggleAlert,
   onStockSelect,
-  className 
+  className
 }: EarningsCalendarProps) {
   const [currentWeek, setCurrentWeek] = useState(0);
   const [viewMode, setViewMode] = useState<"list" | "calendar">("list");
@@ -122,7 +122,7 @@ export function EarningsCalendar({
   }, {} as Record<string, EarningsEvent[]>);
 
   const sortedDates = Object.keys(eventsByDate).sort();
-  
+
   // Filter to show only upcoming events
   const today = new Date().toISOString().split('T')[0];
   const upcomingDates = sortedDates.filter(date => date >= today);
@@ -132,14 +132,14 @@ export function EarningsCalendar({
     const today = new Date();
     const tomorrow = new Date(today);
     tomorrow.setDate(tomorrow.getDate() + 1);
-    
+
     if (dateStr === today.toISOString().split('T')[0]) return "Today";
     if (dateStr === tomorrow.toISOString().split('T')[0]) return "Tomorrow";
-    
-    return date.toLocaleDateString("en-US", { 
-      weekday: "short", 
-      month: "short", 
-      day: "numeric" 
+
+    return date.toLocaleDateString("en-US", {
+      weekday: "short",
+      month: "short",
+      day: "numeric"
     });
   };
 
@@ -173,12 +173,12 @@ export function EarningsCalendar({
             </Button>
           </div>
         </div>
-        
+
         {/* Summary Stats */}
         <div className="flex gap-4 text-xs text-muted-foreground">
-          <span>📁 {portfolioEvents.length} in portfolio</span>
-          <span>👁️ {watchlistEvents.length} in watchlist</span>
-          <span>🔔 {events.filter(e => e.alertEnabled).length} alerts on</span>
+          <span>{portfolioEvents.length} in portfolio</span>
+          <span>{watchlistEvents.length} in watchlist</span>
+          <span>{events.filter(e => e.alertEnabled).length} alerts on</span>
         </div>
       </CardHeader>
 
@@ -195,7 +195,7 @@ export function EarningsCalendar({
                     {eventsByDate[date].length} companies
                   </div>
                 </div>
-                
+
                 <div className="space-y-2">
                   {eventsByDate[date]
                     .sort((a, b) => {
@@ -217,7 +217,7 @@ export function EarningsCalendar({
                 </div>
               </div>
             ))}
-            
+
             {upcomingDates.length === 0 && (
               <div className="text-center py-6 text-muted-foreground">
                 <Calendar className="h-8 w-8 mx-auto mb-2 opacity-50" />
@@ -244,11 +244,11 @@ export function EarningsCalendar({
   );
 }
 
-function EarningsEventCard({ 
-  event, 
+function EarningsEventCard({
+  event,
   onToggleAlert,
-  onStockSelect 
-}: { 
+  onStockSelect
+}: {
   event: EarningsEvent;
   onToggleAlert?: (symbol: string) => void;
   onStockSelect?: (symbol: string) => void;
@@ -256,13 +256,13 @@ function EarningsEventCard({
   return (
     <div className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
       {/* Company Info */}
-      <div 
+      <div
         className="flex-1 cursor-pointer"
         onClick={() => onStockSelect?.(event.symbol)}
       >
         <div className="flex items-center gap-2 mb-1">
           <span className="font-mono font-bold text-sm">{event.symbol}</span>
-          
+
           {/* Status Badges */}
           {event.inPortfolio && (
             <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-700">
@@ -274,19 +274,19 @@ function EarningsEventCard({
               Watchlist
             </Badge>
           )}
-          
-          <Badge 
+
+          <Badge
             className={cn("text-xs", importanceColors[event.importance])}
             variant="outline"
           >
             {event.importance}
           </Badge>
         </div>
-        
+
         <div className="text-xs text-muted-foreground mb-1">
           {event.company}
         </div>
-        
+
         <div className="flex items-center gap-3 text-xs">
           <span className={timeColors[event.time]}>
             <Clock className="h-3 w-3 inline mr-1" />
@@ -321,7 +321,7 @@ function EarningsEventCard({
 export function generateEarningsIntervention(symbol: string, date: string) {
   const isToday = date === new Date().toISOString().split('T')[0];
   const isTomorrow = date === new Date(Date.now() + 86400000).toISOString().split('T')[0];
-  
+
   if (isToday || isTomorrow) {
     return {
       id: `earnings_${symbol}`,
@@ -329,30 +329,30 @@ export function generateEarningsIntervention(symbol: string, date: string) {
       severity: "high" as const,
       title: `Earnings ${isTomorrow ? "tomorrow" : "today"}`,
       message: `${symbol} reports earnings ${isTomorrow ? "tomorrow" : "today"} — want to wait and review after that?`,
-      context: { 
-        symbol, 
-        timeframe: isTomorrow ? "tomorrow" : "today" 
+      context: {
+        symbol,
+        timeframe: isTomorrow ? "tomorrow" : "today"
       },
       actions: [
-        { 
-          label: "Wait for Earnings", 
-          type: "primary" as const, 
-          action: () => console.log("Wait for earnings") 
+        {
+          label: "Wait for Earnings",
+          type: "primary" as const,
+          action: () => console.log("Wait for earnings")
         },
-        { 
-          label: "Buy Now Anyway", 
-          type: "secondary" as const, 
-          action: () => console.log("Buy anyway") 
+        {
+          label: "Buy Now Anyway",
+          type: "secondary" as const,
+          action: () => console.log("Buy anyway")
         },
-        { 
-          label: "Set Reminder", 
-          type: "dismiss" as const, 
-          action: () => console.log("Set reminder") 
+        {
+          label: "Set Reminder",
+          type: "dismiss" as const,
+          action: () => console.log("Set reminder")
         },
       ],
       dismissible: true,
     };
   }
-  
+
   return null;
 }

@@ -315,7 +315,7 @@ export function ComparisonChart({
               variant={outperformance >= 0 ? "default" : "destructive"}
               className="text-sm px-3 py-1"
             >
-              🎯 Your portfolio is{" "}
+              Your portfolio is{" "}
               {outperformance >= 0 ? "outperforming" : "underperforming"} the
               market by {Math.abs(outperformance).toFixed(1)}% this{" "}
               {timeframe.toLowerCase()}

@@ -69,15 +69,15 @@ const severityColors = {
 
 const severityIcons = {
   low: Brain,
-  medium: AlertTriangle, 
+  medium: AlertTriangle,
   high: Shield,
 };
 
-export function RiskInterventionSystem({ 
-  interventions, 
-  onDismiss, 
+export function RiskInterventionSystem({
+  interventions,
+  onDismiss,
   onUpdateSettings,
-  userSettings 
+  userSettings
 }: RiskInterventionSystemProps) {
   const [showSettings, setShowSettings] = useState(false);
   const [localSettings, setLocalSettings] = useState(userSettings);
@@ -131,9 +131,9 @@ export function RiskInterventionSystem({
                   max="50"
                   step="5"
                   value={localSettings.sectorConcentrationLimit}
-                  onChange={(e) => setLocalSettings(prev => ({ 
-                    ...prev, 
-                    sectorConcentrationLimit: parseInt(e.target.value) 
+                  onChange={(e) => setLocalSettings(prev => ({
+                    ...prev,
+                    sectorConcentrationLimit: parseInt(e.target.value)
                   }))}
                   className="w-full"
                 />
@@ -159,7 +159,7 @@ export function RiskInterventionSystem({
                   </div>
                   <Switch
                     checked={localSettings[key as keyof RiskSettings] as boolean}
-                    onCheckedChange={(checked) => 
+                    onCheckedChange={(checked) =>
                       setLocalSettings(prev => ({ ...prev, [key]: checked }))
                     }
                   />
@@ -197,9 +197,9 @@ export function RiskInterventionSystem({
       {/* Active Interventions */}
       {activeInterventions.map((intervention) => {
         const SeverityIcon = severityIcons[intervention.severity];
-        
+
         return (
-          <RiskInterventionCard 
+          <RiskInterventionCard
             key={intervention.id}
             intervention={intervention}
             onDismiss={onDismiss}
@@ -210,10 +210,10 @@ export function RiskInterventionSystem({
   );
 }
 
-function RiskInterventionCard({ 
-  intervention, 
-  onDismiss 
-}: { 
+function RiskInterventionCard({
+  intervention,
+  onDismiss
+}: {
   intervention: RiskIntervention;
   onDismiss: (id: string) => void;
 }) {
@@ -225,14 +225,14 @@ function RiskInterventionCard({
       <CardContent className="p-4">
         <div className="flex items-start gap-3">
           <SeverityIcon className="h-5 w-5 mt-0.5 flex-shrink-0" />
-          
+
           <div className="flex-1 min-w-0">
             <div className="flex items-start justify-between gap-2 mb-2">
               <div>
                 <h4 className="font-medium text-sm leading-tight">{intervention.title}</h4>
                 <p className="text-sm mt-1">{intervention.message}</p>
               </div>
-              
+
               {intervention.dismissible && (
                 <Button
                   variant="ghost"
@@ -303,7 +303,7 @@ function RiskInterventionCard({
             {/* AI Disclaimer */}
             <div className="mt-3 pt-2 border-t border-current/20">
               <p className="text-xs opacity-75">
-                💡 AI-generated suggestion based on your goals, not personalized financial advice.
+                AI-generated suggestion based on your goals, not personalized financial advice.
               </p>
             </div>
           </div>
@@ -336,7 +336,7 @@ export function generateSampleInterventions(portfolio: any[], queue: any[]): Ris
   // Swipe Warning
   interventions.push({
     id: "risk_mismatch",
-    type: "swipe_warning", 
+    type: "swipe_warning",
     severity: "low",
     title: "Outside your usual comfort zone",
     message: "This stock moves ~3x more than the market. Great upside, but high risk.",
@@ -357,7 +357,7 @@ export function generateSampleInterventions(portfolio: any[], queue: any[]): Ris
   interventions.push({
     id: "negative_cashflow",
     type: "educational",
-    severity: "medium", 
+    severity: "medium",
     title: "Learning opportunity detected",
     message: "This company has negative free cash flow. Want to learn what this means?",
     context: { symbol: "UBER" },

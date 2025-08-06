@@ -139,7 +139,7 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2">
-                  Portfolio Optimized! 🎉
+                  Portfolio Optimized!
                 </h3>
                 <p className="text-muted-foreground">
                   Your AI-powered recommendations are ready
