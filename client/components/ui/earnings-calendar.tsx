@@ -38,7 +38,7 @@ const mockEarningsEvents: EarningsEvent[] = [
   {
     symbol: "AAPL",
     company: "Apple Inc.",
-    date: "2025-01-30",
+    date: "2025-12-19",
     time: "After-market",
     estimate: 2.18,
     inPortfolio: true,

@@ -46,7 +46,7 @@ export const extendedStockDatabase: ExtendedStock[] = [
     isGainer: true,
     newsSummary: "Strong iPhone sales, AI momentum",
     returns: { oneMonth: 3.2, sixMonth: 12.7, oneYear: 18.4 },
-    earningsDate: "Jan 30, 2025",
+    earningsDate: "Dec 19, 2025",
     beta: 1.24,
     eps: 6.13,
     bookValue: 4.25,
