@@ -928,9 +928,7 @@ export default function Research() {
                   size="sm"
                   className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
                   onClick={() =>
-                    handleSuggestionClick(
-                      "Tell me about Apple's business model and revenue sources",
-                    )
+                    handleSuggestionClick(getCompanyQuestions("AAPL")[0])
                   }
                 >
                   Apple (AAPL) - Consumer Electronics
@@ -940,9 +938,7 @@ export default function Research() {
                   size="sm"
                   className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
                   onClick={() =>
-                    handleSuggestionClick(
-                      "What makes Microsoft's cloud business competitive?",
-                    )
+                    handleSuggestionClick(getCompanyQuestions("MSFT")[3])
                   }
                 >
                   Microsoft (MSFT) - Cloud & Software
@@ -952,9 +948,7 @@ export default function Research() {
                   size="sm"
                   className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
                   onClick={() =>
-                    handleSuggestionClick(
-                      "How is NVIDIA positioned in the AI chip market?",
-                    )
+                    handleSuggestionClick(getCompanyQuestions("NVDA")[1])
                   }
                 >
                   NVIDIA (NVDA) - AI & Graphics
