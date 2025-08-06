@@ -71,6 +71,60 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
     return domains[symbol] || `${symbol.toLowerCase()}.com`;
   };
 
+  // Quantum computing stocks for search
+  const quantumStocks: DashboardStock[] = [
+    {
+      symbol: "IBM",
+      name: "IBM",
+      price: 186.42,
+      change: 3.21,
+      changePercent: 1.76,
+      sector: "Technology",
+      logo: getLogoUrl("IBM"),
+      marketCap: "$171.8B",
+    },
+    {
+      symbol: "GOOGL",
+      name: "Alphabet",
+      price: 182.97,
+      change: 4.12,
+      changePercent: 2.30,
+      sector: "Technology",
+      logo: getLogoUrl("GOOGL"),
+      marketCap: "$2.1T",
+    },
+    {
+      symbol: "QCOM",
+      name: "Qualcomm",
+      price: 173.85,
+      change: 2.15,
+      changePercent: 1.25,
+      sector: "Technology",
+      logo: getLogoUrl("QCOM"),
+      marketCap: "$195.2B",
+    },
+    {
+      symbol: "IONQ",
+      name: "IonQ Inc",
+      price: 47.89,
+      change: 1.23,
+      changePercent: 2.64,
+      sector: "Technology",
+      logo: getLogoUrl("IONQ"),
+      marketCap: "$3.8B",
+    },
+    {
+      symbol: "RGTI",
+      name: "Rigetti Computing",
+      price: 12.34,
+      change: 0.67,
+      changePercent: 5.74,
+      sector: "Technology",
+      logo: getLogoUrl("RGTI"),
+      marketCap: "$1.2B",
+    },
+  ];
+
   // Mock stock data
   const stocks: DashboardStock[] = [
     {
