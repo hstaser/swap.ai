@@ -410,7 +410,6 @@ export default function Rewards() {
                     { friends: 4, reward: "AI portfolio optimization + early access" },
                     { friends: 5, reward: "AI market insights + weekly quant calls" },
                     { friends: 6, reward: "AI portfolio audit + institutional research" },
-                    { friends: 7, reward: "Debit card + unlimited quant calls" },
                   ].map((milestone, index) => (
                     <div key={index} className="flex items-center gap-3">
                       <div className={cn(
