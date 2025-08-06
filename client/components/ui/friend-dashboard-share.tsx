@@ -92,6 +92,16 @@ const mockFriends: Friend[] = [
 // Mock pinned stocks for dashboard
 export const mockPinnedStocks: PinnedStock[] = [
   {
+    symbol: "MSFT",
+    name: "Microsoft Corporation",
+    price: 415.26,
+    change: -2.13,
+    changePercent: -0.51,
+    pinnedBy: "Sarah",
+    pinnedAt: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
+    note: "Azure growth is incredible - 27% YoY! Long-term winner with AI partnerships."
+  },
+  {
     symbol: "GOOGL",
     name: "Alphabet Inc.",
     price: 171.44,
@@ -108,7 +118,7 @@ export const mockPinnedStocks: PinnedStock[] = [
     change: 2.31,
     changePercent: 1.69,
     pinnedBy: "Sarah",
-    pinnedAt: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
+    pinnedAt: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
     note: "AI boom continues - this could be huge!"
   },
   {
