@@ -568,7 +568,7 @@ export default function Research() {
                 <h3 className="font-bold text-lg">Try Queue Construction!</h3>
                 <p className="text-blue-100 text-sm">
                   Build investment portfolios based on strategies from Nancy Pelosi, Warren Buffett, LeBron James, and more.
-                  Check out the suggestions below! 👇
+                  Check out the suggestions below!
                 </p>
               </div>
             </div>

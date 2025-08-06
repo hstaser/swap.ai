@@ -359,7 +359,7 @@ export default function OptimizationReview() {
                       </span>
                     ) : (
                       <span className="text-green-600 font-medium">
-                        ✓ Fully allocated
+                        Fully allocated
                       </span>
                     )}
                   </div>

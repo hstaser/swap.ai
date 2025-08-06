@@ -82,7 +82,7 @@ export function ExportModal({
         </head>
         <body>
           <div class="header">
-            <h1>🔄 swipr.ai Portfolio Report</h1>
+            <h1>swipr.ai Portfolio Report</h1>
             <p>AI-Powered Portfolio Analysis • Generated on ${currentDate}</p>
           </div>
 
