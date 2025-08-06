@@ -526,7 +526,7 @@ export default function Portfolio() {
           </TabsList>
 
           <TabsContent value="holdings" className="space-y-3">
-            {mockPortfolioStocks.map((stock) => (
+            {portfolioStocks.map((stock) => (
               <Card
                 key={stock.symbol}
                 className="bg-white/90 backdrop-blur-sm border-0 cursor-pointer hover:shadow-md transition-shadow"
@@ -914,7 +914,7 @@ export default function Portfolio() {
 
                 <div className="space-y-3">
                   <h4 className="font-semibold">Risk Breakdown by Holding</h4>
-                  {mockPortfolioStocks.map((stock) => (
+                  {portfolioStocks.map((stock) => (
                     <div
                       key={stock.symbol}
                       className="flex items-center justify-between"
