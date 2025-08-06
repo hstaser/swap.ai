@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { StockDashboard } from "@/components/ui/stock-dashboard";
 import { PortfolioReviewSidebar } from "@/components/ui/portfolio-review-sidebar";
 import { ExploreAgentModal } from "@/components/ui/explore-agent-modal";
+import { PinnedStocksSection } from "@/components/ui/friend-dashboard-share";
 import {
   BarChart3,
   MessageCircle,
