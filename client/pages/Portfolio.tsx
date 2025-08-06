@@ -407,7 +407,7 @@ export default function Portfolio() {
                     {portfolioMetrics.diversificationScore}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Spread Score
+                    Diversification
                   </div>
                 </div>
                 <div>
@@ -801,7 +801,7 @@ export default function Portfolio() {
                     {portfolioMetrics.diversificationScore}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Spread Score
+                    Risk Balance
                   </div>
                 </CardContent>
               </Card>
