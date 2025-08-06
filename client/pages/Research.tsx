@@ -1098,6 +1098,22 @@ export default function Research() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Sector Explorer */}
+      {showSectorExplorer && selectedSector && (
+        <SectorExplorer
+          sector={selectedSector}
+          onClose={() => {
+            setShowSectorExplorer(false);
+            setSelectedSector(null);
+          }}
+          onAddToQueue={(symbol) => {
+            addToQueue(symbol, "bullish");
+            setShowSectorExplorer(false);
+            setSelectedSector(null);
+          }}
+        />
+      )}
     </div>
   );
 }
