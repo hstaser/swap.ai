@@ -46,7 +46,7 @@ export const extendedStockDatabase: ExtendedStock[] = [
     isGainer: true,
     newsSummary: "Strong iPhone sales, AI momentum",
     returns: { oneMonth: 3.2, sixMonth: 12.7, oneYear: 18.4 },
-    earningsDate: "Jan 25, 2024",
+    earningsDate: "Jan 30, 2025",
     beta: 1.24,
     eps: 6.13,
     bookValue: 4.25,
@@ -499,32 +499,6 @@ export const extendedStockDatabase: ExtendedStock[] = [
     exchange: "NYSE",
     country: "USA",
   },
-  {
-    symbol: "SHOP",
-    name: "Shopify Inc.",
-    price: 76.42,
-    change: -2.18,
-    changePercent: -2.77,
-    volume: "14.1M",
-    marketCap: "95.8B",
-    pe: 89.3,
-    dividendYield: null,
-    sector: "Technology",
-    isGainer: false,
-    newsSummary: "Merchant growth slowing, AI tools launch",
-    returns: { oneMonth: -5.4, sixMonth: 15.7, oneYear: 32.1 },
-    beta: 1.89,
-    eps: 0.86,
-    bookValue: 23.45,
-    priceToBook: 3.26,
-    revenue: "7.1B",
-    netIncome: "0.18B",
-    employees: 12000,
-    founded: "2006",
-    exchange: "NYSE",
-    country: "Canada",
-  },
-
   // Automotive
   {
     symbol: "F",
@@ -988,6 +962,6 @@ export const sectors = [
   "Materials",
 ];
 
-export const exchanges = ["All", "NYSE", "NASDAQ", "AMEX"];
+export const exchanges = ["All", "NYSE", "NASDAQ"];
 
 export const countries = ["All", "USA", "Canada", "UK", "Germany", "Japan"];

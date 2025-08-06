@@ -84,7 +84,7 @@ const legacyMockStocks: Stock[] = [
     isGainer: true,
     newsSummary: "Strong iPhone sales, AI momentum",
     returns: { oneMonth: 3.2, sixMonth: 12.7, oneYear: 18.4 },
-    earningsDate: "Jan 25, 2024",
+    earningsDate: "Jan 30, 2025",
     news: [
       {
         title: "Apple unveils new iPhone 15 Pro with titanium design",

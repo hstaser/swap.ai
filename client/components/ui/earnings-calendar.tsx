@@ -38,7 +38,7 @@ const mockEarningsEvents: EarningsEvent[] = [
   {
     symbol: "AAPL",
     company: "Apple Inc.",
-    date: "2024-01-25",
+    date: "2025-01-30",
     time: "After-market",
     estimate: 2.18,
     inPortfolio: true,
@@ -60,7 +60,7 @@ const mockEarningsEvents: EarningsEvent[] = [
   {
     symbol: "GOOGL",
     company: "Alphabet Inc.",
-    date: "2024-01-26",
+    date: "2025-01-31",
     time: "After-market",
     estimate: 1.45,
     inPortfolio: false,
@@ -82,7 +82,7 @@ const mockEarningsEvents: EarningsEvent[] = [
   {
     symbol: "AMZN",
     company: "Amazon.com Inc.",
-    date: "2024-01-27",
+    date: "2025-02-03",
     time: "After-market",
     estimate: 0.85,
     inPortfolio: false,
