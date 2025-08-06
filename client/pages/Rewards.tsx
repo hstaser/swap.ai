@@ -182,46 +182,7 @@ export default function Rewards() {
       </header>
 
       <div className="container mx-auto px-4 py-6 space-y-6">
-        {/* Progress Banner - Beli Style */}
-        <Card className="border-0 bg-white shadow-lg rounded-2xl">
-          <CardContent className="p-6">
-            <div className="text-center mb-4">
-              <h2 className="text-2xl font-bold text-gray-900 mb-2">
-                You have {Math.max(0, 7 - userStats.friendsInvited)} invites left!
-              </h2>
-              <p className="text-gray-500">
-                Unlock features as friends join ({userStats.friendsInvited}/7)
-              </p>
-            </div>
 
-            {/* Feature Icons Grid - Like Beli */}
-            <div className="grid grid-cols-5 gap-4 mb-6">
-              {[
-                { icon: <Sparkles className="h-5 w-5" />, name: "AI Search", unlocked: true },
-                { icon: <BarChart3 className="h-5 w-5" />, name: "Enhanced Dashboards", unlocked: true },
-                { icon: <Users className="h-5 w-5" />, name: "Quant Calls", unlocked: false },
-                { icon: <Brain className="h-5 w-5" />, name: "AI Insights", unlocked: false },
-                { icon: <Crown className="h-5 w-5" />, name: "Premium Tools", unlocked: false },
-              ].map((feature, index) => (
-                <div key={index} className="text-center">
-                  <div className={cn(
-                    "w-16 h-16 rounded-2xl flex items-center justify-center mb-3 border-2",
-                    feature.unlocked
-                      ? "bg-white text-teal-600 border-teal-200"
-                      : "bg-gray-50 text-gray-300 border-gray-200"
-                  )}>
-                    {feature.unlocked ? feature.icon : <Lock className="h-5 w-5" />}
-                  </div>
-                  <span className="text-xs text-gray-600 font-medium">{feature.name}</span>
-                </div>
-              ))}
-            </div>
-
-            <Button onClick={handleShareInvite} className="w-full h-12 bg-teal-600 hover:bg-teal-700 text-white rounded-xl font-semibold">
-              Invite friends
-            </Button>
-          </CardContent>
-        </Card>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
