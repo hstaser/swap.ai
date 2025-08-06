@@ -215,12 +215,8 @@ export default function Research() {
         : "Hello! I'm your AI research assistant. I can help you understand companies, their business models, financial metrics, and market position. What would you like to learn about?",
       timestamp: new Date(),
       suggestions: symbolParam
-        ? [
-            `Tell me about ${symbolParam}'s business model`,
-            `What are ${symbolParam}'s key revenue sources?`,
-            `How does ${symbolParam} compare to competitors?`,
-          ]
-        : suggestedQuestions.slice(0, 3),
+        ? getCompanyQuestions(symbolParam).slice(0, 3)
+        : defaultSuggestedQuestions.slice(0, 3),
     },
   ]);
   const [inputValue, setInputValue] = useState(
