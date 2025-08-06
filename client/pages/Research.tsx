@@ -1057,34 +1057,34 @@ export default function Research() {
 
       {/* Allocation Preference Dialog */}
       <Dialog open={showAllocationDialog} onOpenChange={setShowAllocationDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-lg">
           <DialogHeader>
             <DialogTitle>Choose Allocation Method</DialogTitle>
             <DialogDescription>
               How would you like to allocate the stocks in this portfolio?
             </DialogDescription>
           </DialogHeader>
-          <div className="space-y-4 mt-4">
+          <div className="space-y-4 mt-6">
             <Button
               variant="outline"
-              className="w-full h-auto p-4 justify-start"
+              className="w-full h-auto p-4 justify-start min-h-[80px]"
               onClick={() => executeQueueCreation(pendingQueueType!, true)}
             >
-              <div className="text-left">
-                <div className="font-medium">Identical Clone</div>
-                <div className="text-xs text-muted-foreground">
+              <div className="text-left w-full">
+                <div className="font-medium mb-2">Identical Clone</div>
+                <div className="text-sm text-muted-foreground leading-relaxed">
                   Use the exact same allocation percentages as the original portfolio
                 </div>
               </div>
             </Button>
             <Button
               variant="outline"
-              className="w-full h-auto p-4 justify-start"
+              className="w-full h-auto p-4 justify-start min-h-[80px]"
               onClick={() => executeQueueCreation(pendingQueueType!, false)}
             >
-              <div className="text-left">
-                <div className="font-medium">AI Optimized</div>
-                <div className="text-xs text-muted-foreground">
+              <div className="text-left w-full">
+                <div className="font-medium mb-2">AI Optimized</div>
+                <div className="text-sm text-muted-foreground leading-relaxed">
                   Let AI optimize allocations based on your risk profile and market conditions
                 </div>
               </div>
