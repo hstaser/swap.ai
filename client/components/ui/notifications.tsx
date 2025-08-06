@@ -136,6 +136,8 @@ export function NotificationSystem({
     frequency: "immediate",
   });
   const [filter, setFilter] = useState<"all" | "unread" | "high">("all");
+  const [selectedNotification, setSelectedNotification] = useState<Notification | null>(null);
+  const [showDetails, setShowDetails] = useState(false);
 
   const unreadCount = notifications.filter((n) => !n.read).length;
 
