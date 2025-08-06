@@ -85,7 +85,7 @@ const themes = [
   ]},
   { id: "Sports", label: "Sports", icon: Gamepad2, prompts: [
     "LeBron's Brand Empire",
-    "Super Bowl Advertisers 2024",
+    "Super Bowl Advertisers 2025",
     "NFL's Biggest Partners"
   ]},
   { id: "Social Media", label: "Social Media", icon: Users, prompts: [

@@ -193,7 +193,7 @@ const legacyMockStocks: Stock[] = [
           "NHTSA investigation prompts voluntary recall affecting thousands of vehicles.",
       },
       {
-        title: "Cybertruck production delays extended to 2024",
+        title: "Cybertruck production delays extended to 2025",
         source: "Electrek",
         time: "4h ago",
         summary:
@@ -276,7 +276,7 @@ const legacyMockStocks: Stock[] = [
     newsSummary: "Rate concerns, lending slowdown",
     news: [
       {
-        title: "JPMorgan raises interest rate outlook for 2024",
+        title: "JPMorgan raises interest rate outlook for 2025",
         source: "Financial Times",
         time: "2h ago",
         summary:
@@ -313,7 +313,7 @@ const legacyMockStocks: Stock[] = [
           "Innovative therapy receives approval for rare blood cancer, expanding oncology portfolio.",
       },
       {
-        title: "J&J increases R&D spending for 2024",
+        title: "J&J increases R&D spending for 2025",
         source: "Pharmaceutical Executive",
         time: "7h ago",
         summary:
