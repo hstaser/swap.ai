@@ -210,14 +210,14 @@ export function PerformanceChart({ className }: PerformanceChartProps) {
         <Card className="bg-white/90 backdrop-blur-sm border-0">
           <CardContent className="p-4">
             <div className="flex items-center gap-2 mb-2">
-              <BarChart3 className="h-4 w-4 text-red-600" />
-              <span className="text-sm font-medium">Max Drawdown</span>
+              <TrendingUp className="h-4 w-4 text-green-600" />
+              <span className="text-sm font-medium">Portfolio Growth</span>
             </div>
-            <div className="text-2xl font-bold text-red-600">
-              {performanceData[4].maxDrawdown.toFixed(1)}%
+            <div className="text-2xl font-bold text-green-600">
+              +24.8%
             </div>
             <div className="text-xs text-muted-foreground">
-              Worst decline from peak
+              Total return this year
             </div>
           </CardContent>
         </Card>
@@ -249,20 +249,20 @@ export function PerformanceChart({ className }: PerformanceChartProps) {
               </div>
             </div>
             <div>
-              <div className="text-sm text-muted-foreground">Max Drawdown</div>
-              <div className="text-xl font-bold text-destructive">
-                {performanceData[4].maxDrawdown.toFixed(1)}%
+              <div className="text-sm text-muted-foreground">Sharpe Ratio</div>
+              <div className="text-xl font-bold text-primary">
+                1.8
               </div>
               <div className="text-xs text-muted-foreground">
-                Largest decline
+                Risk-adjusted return
               </div>
             </div>
             <div>
-              <div className="text-sm text-muted-foreground">Win Rate</div>
+              <div className="text-sm text-muted-foreground">Portfolio Value</div>
               <div className="text-xl font-bold text-success">
-                {performanceData[4].winRate.toFixed(1)}%
+                $47,832
               </div>
-              <div className="text-xs text-muted-foreground">Positive days</div>
+              <div className="text-xs text-muted-foreground">Total value</div>
             </div>
           </div>
 
