@@ -77,6 +77,7 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [progress, setProgress] = useState(0);
   const [isComplete, setIsComplete] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   const [steps, setSteps] = useState(rebalancingSteps);
 
   useEffect(() => {
@@ -90,7 +91,7 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
         );
 
         if (currentStep === steps.length - 1) {
-          setIsComplete(true);
+          setShowConfirmation(true);
           setProgress(100);
         } else {
           setCurrentStep(currentStep + 1);
@@ -128,45 +129,67 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
     diversificationImprovement: "22.7%",
   };
 
-  if (isComplete) {
+  if (showConfirmation && !isComplete) {
     return (
       <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-        <Card className="w-full max-w-md bg-white">
-          <CardContent className="p-6 text-center space-y-6">
-            <div className="space-y-4">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
-                <CheckCircle className="h-8 w-8 text-green-600" />
+        <Card className="w-full max-w-lg bg-white">
+          <CardContent className="p-6 space-y-6">
+            <div className="text-center space-y-4">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto">
+                <Target className="h-8 w-8 text-blue-600" />
               </div>
               <div>
                 <h3 className="text-xl font-bold mb-2">
-                  Portfolio Optimized!
+                  Review Portfolio Changes
                 </h3>
                 <p className="text-muted-foreground">
-                  Your AI-powered recommendations are ready
+                  Please review these AI recommendations before executing
                 </p>
               </div>
             </div>
 
-            <div className="space-y-3 text-left">
-              <h4 className="font-semibold">Key Improvements:</h4>
-              <div className="space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span>Reduced Asset Correlation:</span>
-                  <span className="font-semibold text-green-600">
-                    -{recommendations.correlationReduction}
-                  </span>
+            <div className="space-y-4 text-left">
+              <div>
+                <h4 className="font-semibold mb-3">Recommended Adjustments:</h4>
+                <div className="space-y-3">
+                  {recommendations.adjustments.map((adj, index) => (
+                    <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                      <div>
+                        <div className="font-medium">{adj.symbol}</div>
+                        <div className="text-sm text-muted-foreground">{adj.reason}</div>
+                      </div>
+                      <div className={cn(
+                        "font-semibold",
+                        adj.action.includes("Increase") ? "text-green-600" : "text-orange-600"
+                      )}>
+                        {adj.action}
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span>Decreased Overall Risk:</span>
-                  <span className="font-semibold text-blue-600">
-                    -{recommendations.riskReduction}
-                  </span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span>Improved Diversification:</span>
-                  <span className="font-semibold text-primary">
-                    +{recommendations.diversificationImprovement}
-                  </span>
+              </div>
+
+              <div className="p-4 bg-blue-50 rounded-lg">
+                <h4 className="font-semibold mb-2">Expected Improvements:</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span>Reduced Asset Correlation:</span>
+                    <span className="font-semibold text-green-600">
+                      -{recommendations.correlationReduction}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span>Decreased Overall Risk:</span>
+                    <span className="font-semibold text-blue-600">
+                      -{recommendations.riskReduction}
+                    </span>
+                  </div>
+                  <div className="flex justify-between text-sm">
+                    <span>Improved Diversification:</span>
+                    <span className="font-semibold text-primary">
+                      +{recommendations.diversificationImprovement}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -177,14 +200,14 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
                 className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700"
               >
                 <CheckCircle className="h-4 w-4 mr-2" />
-                Done
+                Execute Changes
               </Button>
               <Button
                 variant="outline"
-                onClick={() => onComplete(recommendations)}
+                onClick={() => setIsComplete(false)}
                 className="w-full"
               >
-                Review Details
+                Back to Optimize
               </Button>
             </div>
           </CardContent>
