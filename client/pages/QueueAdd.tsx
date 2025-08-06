@@ -14,6 +14,7 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
+import { getStockPrice } from "@/data/stock-prices";
 
 export default function QueueAdd() {
   const navigate = useNavigate();
