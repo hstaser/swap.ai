@@ -266,6 +266,11 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
     const normalizedQuery = query.toLowerCase();
     const results: DashboardStock[] = [];
 
+    // Check for quantum computing search
+    if (normalizedQuery.includes("quantum") || normalizedQuery.includes("quantum computing")) {
+      return quantumStocks;
+    }
+
     // Simple AI-like matching - in real app this would use an LLM
     stocks.forEach((stock) => {
       let score = 0;
