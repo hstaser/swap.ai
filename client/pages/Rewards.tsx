@@ -144,14 +144,15 @@ export default function Rewards() {
   ];
 
   const handleShareInvite = () => {
+    const inviteUrl = 'https://swipr.ai/invite/hstaser';
     if (navigator.share) {
       navigator.share({
         title: 'Join me on swipr.ai',
         text: 'Start investing smarter with AI-powered stock recommendations!',
-        url: 'https://swipr.ai/invite/abc123'
+        url: inviteUrl
       });
     } else {
-      navigator.clipboard.writeText('https://swipr.ai/invite/abc123');
+      navigator.clipboard.writeText(inviteUrl);
       // Show toast notification
     }
   };
