@@ -178,13 +178,6 @@ export function NotificationDetails({
 
   const details = getNotificationDetails(notification);
 
-  const handleAction = () => {
-    if (notification.actionUrl) {
-      navigate(notification.actionUrl);
-      onClose();
-    }
-  };
-
   const handleMarkAsRead = () => {
     onMarkAsRead(notification.id);
   };
