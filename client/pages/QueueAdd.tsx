@@ -233,9 +233,6 @@ export default function QueueAdd() {
                       <div className="text-sm opacity-80 mt-1">
                         {option.description}
                       </div>
-                      <div className="text-xs opacity-70 mt-1">
-                        {option.allocation}
-                      </div>
                     </div>
                     {selectedConfidence === option.id && (
                       <CheckCircle className="h-5 w-5 text-green-600 absolute top-4 right-4" />
