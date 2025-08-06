@@ -852,7 +852,7 @@ export default function Research() {
                     )
                   }
                 >
-                  • Market Position & Competition
+                  ��� Market Position & Competition
                 </Button>
               </div>
             </CardContent>
@@ -871,7 +871,7 @@ export default function Research() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-purple-50 min-h-[40px]"
                   onClick={() =>
                     handleSuggestionClick("Build a queue based on Nancy Pelosi's recent stock disclosures")
                   }
@@ -881,7 +881,7 @@ export default function Research() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-purple-50 min-h-[40px]"
                   onClick={() =>
                     handleSuggestionClick("Create a queue with companies that sponsor LeBron James")
                   }
@@ -891,7 +891,7 @@ export default function Research() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-purple-50"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-purple-50 min-h-[40px]"
                   onClick={() =>
                     handleSuggestionClick("Build a Warren Buffett inspired queue with Berkshire holdings")
                   }
@@ -902,7 +902,7 @@ export default function Research() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="w-full text-xs h-auto p-2"
+                    className="w-full text-sm h-auto p-3 min-h-[40px]"
                     onClick={() => setShowThemeDialog(true)}
                   >
                     + Add Your Own Theme
