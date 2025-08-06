@@ -500,5 +500,15 @@ export function NotificationSystem({
         </div>
       </CardContent>
     </Card>
+
+    <NotificationDetails
+      notification={selectedNotification}
+      isOpen={showDetails}
+      onClose={() => {
+        setShowDetails(false);
+        setSelectedNotification(null);
+      }}
+      onMarkAsRead={markAsRead}
+    />
   );
 }
