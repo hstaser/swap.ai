@@ -26,6 +26,7 @@ import {
   Pin,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { STOCK_PRICES } from "@/data/stock-prices";
 
 interface Friend {
   id: string;
@@ -94,9 +95,9 @@ export const mockPinnedStocks: PinnedStock[] = [
   {
     symbol: "MSFT",
     name: "Microsoft Corporation",
-    price: 415.26,
-    change: -2.13,
-    changePercent: -0.51,
+    price: STOCK_PRICES.MSFT.price,
+    change: STOCK_PRICES.MSFT.change,
+    changePercent: STOCK_PRICES.MSFT.changePercent,
     pinnedBy: "Sarah",
     pinnedAt: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
     note: "Azure growth is incredible - 27% YoY! Long-term winner with AI partnerships."
@@ -104,9 +105,9 @@ export const mockPinnedStocks: PinnedStock[] = [
   {
     symbol: "GOOGL",
     name: "Alphabet Inc.",
-    price: 171.44,
-    change: 3.22,
-    changePercent: 1.91,
+    price: STOCK_PRICES.GOOGL.price,
+    change: STOCK_PRICES.GOOGL.change,
+    changePercent: STOCK_PRICES.GOOGL.changePercent,
     pinnedBy: "Josh",
     pinnedAt: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
     note: "Search dominance + AI investment = long-term winner"
@@ -114,9 +115,9 @@ export const mockPinnedStocks: PinnedStock[] = [
   {
     symbol: "NVDA",
     name: "NVIDIA Corporation",
-    price: 138.45,
-    change: 2.31,
-    changePercent: 1.69,
+    price: STOCK_PRICES.NVDA.price,
+    change: STOCK_PRICES.NVDA.change,
+    changePercent: STOCK_PRICES.NVDA.changePercent,
     pinnedBy: "Sarah",
     pinnedAt: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
     note: "AI boom continues - this could be huge!"
@@ -124,9 +125,9 @@ export const mockPinnedStocks: PinnedStock[] = [
   {
     symbol: "TSLA",
     name: "Tesla Inc.",
-    price: 422.12,
-    change: -8.32,
-    changePercent: -1.93,
+    price: STOCK_PRICES.TSLA.price,
+    change: STOCK_PRICES.TSLA.change,
+    changePercent: STOCK_PRICES.TSLA.changePercent,
     pinnedBy: "Mike",
     pinnedAt: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
     note: "Dip might be a buying opportunity"
