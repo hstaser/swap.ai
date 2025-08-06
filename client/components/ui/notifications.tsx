@@ -417,6 +417,9 @@ export function NotificationSystem({
                   notification.read && "hover:bg-gray-50",
                 )}
                 onClick={() => {
+                  if (!notification.read) {
+                    markAsRead(notification.id);
+                  }
                   setSelectedNotification(notification);
                   setShowDetails(true);
                 }}
