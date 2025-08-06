@@ -101,7 +101,7 @@ export function ExportModal({
           </div>
 
           <div class="section">
-            <h2>💼 Key Holdings</h2>
+            <h2>Key Holdings</h2>
             <table>
               <tr>
                 <th>Symbol</th>
