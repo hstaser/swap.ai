@@ -62,7 +62,7 @@ export default function OptimizationReview() {
     const stockPrice = getStockPrice(queueItem.symbol);
     const stock = stockPrice || {
       name: `${queueItem.symbol} Inc.`,
-      price: 100,
+      price: 75.00, // More reasonable fallback price
       sector: "Technology"
     };
 
