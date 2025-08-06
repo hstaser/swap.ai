@@ -511,7 +511,7 @@ export default function Banking() {
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2">
                         <ArrowUpRight className="h-5 w-5" />
-                        Deposit Details
+                        One-Time Deposit
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="space-y-4">
@@ -526,16 +526,70 @@ export default function Banking() {
                         />
                       </div>
                       <div>
-                        <Label className="text-white/90">To Account</Label>
+                        <Label className="text-white/90">To Investment Account</Label>
                         <select
                           value={depositAccount}
                           onChange={(e) => setDepositAccount(e.target.value)}
                           className="w-full p-2 rounded-md bg-white/20 border-white/30 text-white"
                         >
-                          <option value="checking">Checking ****4521</option>
-                          <option value="savings">Savings ****7891</option>
+                          <option value="checking">From Checking ****4521</option>
+                          <option value="savings">From Savings ****7891</option>
                         </select>
                       </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Auto-Redeposit Feature */}
+                  <Card className="bg-gradient-to-br from-blue-500 to-purple-600 text-white border-0 shadow-lg">
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <Calendar className="h-5 w-5" />
+                        Auto-Redeposit Setup
+                      </CardTitle>
+                      <p className="text-white/90 text-sm">Automatically transfer funds from your checking account to investments on a schedule</p>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                          <Label className="text-white/90">Amount</Label>
+                          <Input
+                            type="number"
+                            placeholder="$500"
+                            className="bg-white/20 border-white/30 text-white placeholder:text-white/60"
+                          />
+                        </div>
+                        <div>
+                          <Label className="text-white/90">Frequency</Label>
+                          <select className="w-full p-2 rounded-md bg-white/20 border-white/30 text-white">
+                            <option value="weekly">Weekly</option>
+                            <option value="biweekly">Every 2 Weeks</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly">Quarterly</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div>
+                        <Label className="text-white/90">From Account</Label>
+                        <select className="w-full p-2 rounded-md bg-white/20 border-white/30 text-white">
+                          <option value="checking">Checking ****4521 ($12,847 available)</option>
+                          <option value="savings">Savings ****7891 ($45,920 available)</option>
+                        </select>
+                      </div>
+                      <div className="bg-white/10 rounded-lg p-3">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Shield className="h-4 w-4" />
+                          <span className="text-sm font-medium">Smart Safety Features</span>
+                        </div>
+                        <ul className="text-xs text-white/80 space-y-1">
+                          <li>• Only transfer if account balance > $1,000</li>
+                          <li>• Pause if 3 consecutive failed attempts</li>
+                          <li>• Email notifications before each transfer</li>
+                        </ul>
+                      </div>
+                      <Button className="w-full bg-white/20 hover:bg-white/30 text-white border-white/30">
+                        <Zap className="h-4 w-4 mr-2" />
+                        Enable Auto-Redeposit
+                      </Button>
                     </CardContent>
                   </Card>
 
