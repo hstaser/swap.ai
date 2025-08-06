@@ -510,5 +510,6 @@ export function NotificationSystem({
       }}
       onMarkAsRead={markAsRead}
     />
+    </>
   );
 }
