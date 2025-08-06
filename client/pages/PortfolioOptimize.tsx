@@ -212,34 +212,20 @@ export default function PortfolioOptimize() {
 
                 <Separator />
 
-                {/* Preset Amounts */}
+                {/* Cash Balance */}
                 <div className="space-y-3">
-                  <Label className="text-sm font-medium">Quick Select</Label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {presetAmounts.map((preset) => (
-                      <Button
-                        key={preset.value}
-                        variant="outline"
-                        onClick={() => handlePresetSelect(preset.value)}
-                        className={cn(
-                          "h-12 relative",
-                          selectedPreset === preset.value &&
-                            "bg-blue-50 border-blue-300 text-blue-700",
-                          preset.popular &&
-                            "ring-1 ring-green-300 border-green-300",
-                        )}
-                      >
-                        {preset.label}
-                        {preset.popular && (
-                          <Badge
-                            variant="secondary"
-                            className="absolute -top-2 -right-2 text-xs bg-green-100 text-green-700 border-green-300"
-                          >
-                            Popular
-                          </Badge>
-                        )}
-                      </Button>
-                    ))}
+                  <Label className="text-sm font-medium">Available Cash</Label>
+                  <div className="p-4 bg-green-50 border border-green-200 rounded-lg">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <div className="text-2xl font-bold text-green-700">$5,250.00</div>
+                        <div className="text-sm text-green-600">Available to invest</div>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-muted-foreground">Total Cash</div>
+                        <div className="font-semibold">$5,250.00</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardContent>
