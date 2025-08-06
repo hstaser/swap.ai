@@ -67,7 +67,7 @@ const mockFriends: Friend[] = [
     isOnline: true,
   },
   {
-    id: "2", 
+    id: "2",
     name: "Josh Martinez",
     username: "@josh",
     avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=32&h=32&fit=crop&crop=face",
@@ -84,7 +84,7 @@ const mockFriends: Friend[] = [
     id: "4",
     name: "Mike Johnson",
     username: "@mike",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face",
+    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=32&h=32&fit=crop&crop=face",
     isOnline: true,
   },
 ];
@@ -92,28 +92,28 @@ const mockFriends: Friend[] = [
 // Mock pinned stocks for dashboard
 export const mockPinnedStocks: PinnedStock[] = [
   {
+    symbol: "GOOGL",
+    name: "Alphabet Inc.",
+    price: 171.44,
+    change: 3.22,
+    changePercent: 1.91,
+    pinnedBy: "Josh",
+    pinnedAt: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
+    note: "Search dominance + AI investment = long-term winner"
+  },
+  {
     symbol: "NVDA",
     name: "NVIDIA Corporation",
     price: 138.45,
     change: 2.31,
     changePercent: 1.69,
-    pinnedBy: "Josh",
-    pinnedAt: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+    pinnedBy: "Sarah",
+    pinnedAt: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
     note: "AI boom continues - this could be huge!"
   },
   {
-    symbol: "AAPL",
-    name: "Apple Inc.",
-    price: 227.52,
-    change: 1.87,
-    changePercent: 0.83,
-    pinnedBy: "Sarah",
-    pinnedAt: new Date(Date.now() - 5 * 60 * 60 * 1000), // 5 hours ago
-    note: "Earnings next week - expecting strong iPhone sales"
-  },
-  {
     symbol: "TSLA",
-    name: "Tesla Inc.", 
+    name: "Tesla Inc.",
     price: 422.12,
     change: -8.32,
     changePercent: -1.93,
@@ -152,10 +152,10 @@ export function FriendDashboardShare({
     setIsSharing(true);
     // Simulate API call
     await new Promise(resolve => setTimeout(resolve, 1000));
-    
+
     onShare(selectedFriends, message);
     setIsSharing(false);
-    
+
     // Reset form
     setSelectedFriends([]);
     setMessage("");
@@ -230,7 +230,7 @@ export function FriendDashboardShare({
               </SelectContent>
             </Select>
             <p className="text-xs text-muted-foreground">
-              {shareType === "pin" 
+              {shareType === "pin"
                 ? "This stock will appear on your friends' dashboards with a \"pinged by you\" label"
                 : "Send this stock as a message to your friends"
               }
@@ -286,7 +286,7 @@ export function FriendDashboardShare({
             </label>
             <Textarea
               placeholder={
-                shareType === "pin" 
+                shareType === "pin"
                   ? "Add a note about why you're sharing this stock..."
                   : "Write a message to your friends..."
               }
