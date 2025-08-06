@@ -282,6 +282,31 @@ export default function Research() {
       }
     }
 
+    // Specific responses to sample questions
+    if (upperMessage.includes("APPLE") && upperMessage.includes("BUSINESS MODEL")) {
+      return "Apple's business model centers on creating premium, integrated technology products. Revenue comes from five main areas: 1) iPhone (52% of revenue) - their flagship product with high margins, 2) Services (22%) - App Store, iCloud, Apple Music with 30% commission rates, 3) Mac (10%) - Premium computers for professionals and consumers, 4) iPad (8%) - Tablet computing market leader, 5) Wearables & Accessories (8%) - Apple Watch, AirPods. Their ecosystem strategy locks customers into interconnected products, creating high switching costs and customer loyalty.";
+    }
+
+    if (upperMessage.includes("NVIDIA") && upperMessage.includes("COMPETITIVE")) {
+      return "NVIDIA's competitive advantages are substantial: 1) CUDA Software Ecosystem - 15+ years of developer tools creating massive switching costs, 2) AI Chip Leadership - 80%+ market share in AI training chips, 3) Advanced Manufacturing - Partnership with TSMC for cutting-edge 4nm/3nm processes, 4) R&D Investment - $7B+ annually vs competitors' $2-3B, 5) First-Mover Advantage - established relationships with major cloud providers (AWS, Microsoft, Google). Their moat is primarily software-based through CUDA, making it extremely difficult for competitors like AMD or Intel to replicate their ecosystem.";
+    }
+
+    if (upperMessage.includes("TESLA") && upperMessage.includes("REVENUE") && upperMessage.includes("AUTOMAKER")) {
+      return "Tesla's revenue model differs significantly from traditional automakers: Tesla generates $96B annually with 35% gross margins vs traditional automakers like GM ($157B, 15% margins). Key differences: 1) Direct Sales - No dealership markups, 2) Software Revenue - Full Self-Driving capabilities, over-the-air updates, 3) Energy Business - Solar and battery storage adding $6B annually, 4) Supercharger Network - Licensing to other manufacturers, 5) Vertical Integration - Own battery production vs buying from suppliers. Tesla's asset-light approach and software focus enables higher margins despite lower absolute revenue.";
+    }
+
+    if (upperMessage.includes("MICROSOFT") && upperMessage.includes("FINANCIAL") && upperMessage.includes("METRICS")) {
+      return "Microsoft's key financial metrics show strong fundamentals: Revenue: $211B (19% growth), Operating Margin: 41% (industry-leading), Free Cash Flow: $65B annually, Cloud Revenue (Azure): $25B+ growing 27% YoY, Return on Equity: 47%, Debt-to-Equity: 0.35 (very manageable). Key metrics to watch: 1) Azure growth rate - core growth driver, 2) Office 365 seat expansion - predictable recurring revenue, 3) Operating leverage - expenses growing slower than revenue, 4) R&D spending efficiency - $24B investment driving new products. Their subscription model provides 80%+ recurring revenue visibility.";
+    }
+
+    if (upperMessage.includes("AMAZON") && upperMessage.includes("BUSINESS SEGMENTS") || upperMessage.includes("DIFFERENT BUSINESS")) {
+      return "Amazon operates four distinct business segments: 1) North America E-commerce ($316B, 13% operating margin) - retail marketplace and fulfillment, 2) International E-commerce ($118B, -3% margin) - global expansion markets, 3) Amazon Web Services/AWS ($85B, 29% margin) - cloud computing infrastructure providing 70% of total operating income, 4) Advertising ($31B, 40%+ margin) - sponsored products and brand advertising. AWS is the profit engine subsidizing e-commerce growth. Prime membership ($139/year) provides customer stickiness across all segments with 200M+ global subscribers driving $35B+ in annual subscription revenue.";
+    }
+
+    if (upperMessage.includes("GOOGLE") && upperMessage.includes("ADVERTISING") && upperMessage.includes("REVENUE")) {
+      return "Google's advertising revenue ($224B, 76% of total revenue) depends on several key factors: 1) Search Query Volume - more searches = more ad opportunities, 2) Click-Through Rates - ad relevance and placement efficiency, 3) Cost Per Click (CPC) - what advertisers pay per click, currently $1-2 average, 4) Market Share - 92% search dominance globally, 5) YouTube Growth - $29B annually from video ads, growing 20%+, 6) Privacy Regulations - iOS tracking changes and cookie deprecation impacting targeting. Key risks: Competition from TikTok for attention, Apple's privacy changes reducing ad effectiveness, and potential antitrust regulation limiting market dominance.";
+    }
+
     // Generic responses for different types of questions
     if (
       upperMessage.includes("FINANCIAL") ||
