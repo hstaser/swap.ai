@@ -896,7 +896,7 @@ export default function Research() {
                 <span className="text-xs text-muted-foreground mr-2">
                   Quick questions:
                 </span>
-                {suggestedQuestions.slice(0, 3).map((question, index) => (
+                {getCompanyQuestions(symbolParam).slice(0, 3).map((question, index) => (
                   <Button
                     key={index}
                     variant="ghost"
