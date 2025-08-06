@@ -44,6 +44,9 @@ export function DashboardWithAssistant({ onStockSelect }: DashboardWithAssistant
         </div>
       </div>
 
+      {/* Pinned Stocks from Friends */}
+      <PinnedStocksSection />
+
       {/* Main Dashboard Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Main Dashboard - Takes up 2/3 on large screens */}
