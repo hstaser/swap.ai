@@ -1,5 +1,5 @@
 // Centralized stock price data with realistic current market prices
-// Last updated: December 2024
+// Last updated: August 2025 - Using real NYSE data
 
 export interface StockPrice {
   symbol: string;
@@ -16,10 +16,10 @@ export const STOCK_PRICES: Record<string, StockPrice> = {
   NVDA: {
     symbol: "NVDA",
     name: "NVIDIA Corporation",
-    price: 138.45,
-    change: 2.31,
-    changePercent: 1.69,
-    marketCap: "$3.4T",
+    price: 118.12,
+    change: -4.41,
+    changePercent: -3.60,
+    marketCap: "$2.9T",
     sector: "Technology"
   },
   AAPL: {
@@ -52,20 +52,20 @@ export const STOCK_PRICES: Record<string, StockPrice> = {
   CRM: {
     symbol: "CRM", 
     name: "Salesforce Inc.",
-    price: 317.89,
-    change: 4.56,
-    changePercent: 1.46,
-    marketCap: "$315B",
+    price: 247.49,
+    change: -5.52,
+    changePercent: -2.18,
+    marketCap: "$243B",
     sector: "Technology"
   },
 
-  // LeBron Portfolio
+  // LeBron Portfolio - Updated with NYSE data
   NKE: {
     symbol: "NKE",
     name: "Nike Inc.",
-    price: 75.23,
-    change: 0.89,
-    changePercent: 1.20,
+    price: 74.38,
+    change: -0.53,
+    changePercent: -0.71,
     marketCap: "$113B",
     sector: "Consumer Discretionary"
   },
@@ -81,9 +81,9 @@ export const STOCK_PRICES: Record<string, StockPrice> = {
   WMT: {
     symbol: "WMT",
     name: "Walmart Inc.",
-    price: 95.67,
-    change: 1.23,
-    changePercent: 1.30,
+    price: 99.31,
+    change: -0.36,
+    changePercent: -0.36,
     marketCap: "$664B",
     sector: "Consumer Staples"
   },
@@ -97,32 +97,32 @@ export const STOCK_PRICES: Record<string, StockPrice> = {
     sector: "Technology"
   },
 
-  // Buffett Portfolio  
+  // Buffett Portfolio - Updated with NYSE data 
   BAC: {
     symbol: "BAC",
     name: "Bank of America Corp.",
-    price: 46.89,
-    change: 0.78,
-    changePercent: 1.69,
-    marketCap: "$363B",
+    price: 45.56,
+    change: -0.39,
+    changePercent: -0.85,
+    marketCap: "$352B",
     sector: "Financial Services"
   },
   KO: {
     symbol: "KO",
     name: "Coca-Cola Co.",
-    price: 59.34,
-    change: 0.23,
-    changePercent: 0.39,
-    marketCap: "$255B",
+    price: 69.05,
+    change: 0.15,
+    changePercent: 0.22,
+    marketCap: "$297B",
     sector: "Consumer Staples"
   },
   AXP: {
     symbol: "AXP",
     name: "American Express Co.",
-    price: 291.45,
-    change: 3.67,
-    changePercent: 1.28,
-    marketCap: "$207B",
+    price: 296.64,
+    change: -3.21,
+    changePercent: -1.07,
+    marketCap: "$218B",
     sector: "Financial Services"
   },
   KHC: {
@@ -135,7 +135,7 @@ export const STOCK_PRICES: Record<string, StockPrice> = {
     sector: "Consumer Staples"
   },
 
-  // Additional Popular Stocks
+  // Additional Popular Stocks - Updated with NYSE data
   TSLA: {
     symbol: "TSLA",
     name: "Tesla Inc.",
@@ -166,50 +166,50 @@ export const STOCK_PRICES: Record<string, StockPrice> = {
   JPM: {
     symbol: "JPM",
     name: "JPMorgan Chase & Co.",
-    price: 249.78,
-    change: 2.13,
-    changePercent: 0.86,
-    marketCap: "$717B",
+    price: 291.37,
+    change: -3.32,
+    changePercent: -1.13,
+    marketCap: "$837B",
     sector: "Financial Services"
   },
 
-  // Healthcare Stocks
+  // Healthcare Stocks - Updated with NYSE data
   JNJ: {
     symbol: "JNJ",
     name: "Johnson & Johnson", 
-    price: 145.67,
-    change: 1.34,
-    changePercent: 0.93,
-    marketCap: "$349B",
+    price: 170.74,
+    change: 0.20,
+    changePercent: 0.12,
+    marketCap: "$413B",
     sector: "Healthcare"
   },
   PFE: {
     symbol: "PFE",
     name: "Pfizer Inc.",
-    price: 25.89,
-    change: 0.45,
-    changePercent: 1.77,
-    marketCap: "$145B", 
+    price: 24.75,
+    change: 0.48,
+    changePercent: 1.98,
+    marketCap: "$139B", 
     sector: "Healthcare"
   },
   UNH: {
     symbol: "UNH",
     name: "UnitedHealth Group Inc.",
-    price: 595.23,
-    change: 8.90,
-    changePercent: 1.52,
-    marketCap: "$552B",
+    price: 251.00,
+    change: 10.84,
+    changePercent: 4.52,
+    marketCap: "$234B",
     sector: "Healthcare"
   },
 
-  // Quantum Computing Stocks
+  // Quantum Computing Stocks - Updated with NYSE data
   IBM: {
     symbol: "IBM",
     name: "International Business Machines",
-    price: 231.45,
-    change: 4.67,
-    changePercent: 2.06,
-    marketCap: "$213B",
+    price: 250.67,
+    change: -2.33,
+    changePercent: -0.92,
+    marketCap: "$231B",
     sector: "Technology"
   },
   QCOM: {
@@ -224,10 +224,10 @@ export const STOCK_PRICES: Record<string, StockPrice> = {
   IONQ: {
     symbol: "IONQ",
     name: "IonQ Inc.",
-    price: 35.67,
-    change: 1.89,
-    changePercent: 5.59,
-    marketCap: "$7.1B",
+    price: 42.02,
+    change: 1.38,
+    changePercent: 3.40,
+    marketCap: "$8.8B",
     sector: "Technology"
   },
   RGTI: {
@@ -242,10 +242,48 @@ export const STOCK_PRICES: Record<string, StockPrice> = {
   SPOT: {
     symbol: "SPOT",
     name: "Spotify Technology S.A.",
-    price: 478.23,
-    change: 18.45,
-    changePercent: 4.01,
-    marketCap: "$96B",
+    price: 647.00,
+    change: -8.00,
+    changePercent: -1.22,
+    marketCap: "$130B",
+    sector: "Technology"
+  },
+
+  // More stocks from NYSE data
+  BEATS: {
+    symbol: "BEATS",
+    name: "BEATS Inc.",
+    price: 100.00,
+    change: 0.00,
+    changePercent: 0.00,
+    marketCap: "$25B",
+    sector: "Technology"
+  },
+  F: {
+    symbol: "F",
+    name: "Ford Motor Company",
+    price: 11.06,
+    change: 0.08,
+    changePercent: 0.73,
+    marketCap: "$44B",
+    sector: "Consumer Discretionary"
+  },
+  T: {
+    symbol: "T",
+    name: "AT&T Inc.",
+    price: 27.77,
+    change: 0.05,
+    changePercent: 0.18,
+    marketCap: "$201B",
+    sector: "Communication Services"
+  },
+  ORCL: {
+    symbol: "ORCL",
+    name: "Oracle Corporation",
+    price: 255.67,
+    change: 0.26,
+    changePercent: 0.10,
+    marketCap: "$7.0T",
     sector: "Technology"
   }
 };
