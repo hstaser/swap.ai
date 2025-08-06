@@ -9,6 +9,7 @@ import { CommunitySentiment } from "./community-sentiment";
 import { WatchlistNoteModal } from "./watchlist-note-modal";
 import { StockShareModal } from "./stock-share-modal";
 import { FriendDashboardShare } from "./friend-dashboard-share";
+import { PinnedStockNotification, getPinnedStockInfo } from "./pinned-stock-notification";
 import {
   TrendingUp,
   TrendingDown,
@@ -85,6 +86,9 @@ export function StockCard({
   const [showFriendShare, setShowFriendShare] = useState(false);
   const navigate = useNavigate();
 
+  // Check if this stock is pinned by friends
+  const pinnedInfo = getPinnedStockInfo(stock.symbol);
+
   return (
     <Card
       className={cn(
@@ -93,6 +97,18 @@ export function StockCard({
       )}
     >
       <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
+        {/* Pinned Stock Notification */}
+        {pinnedInfo && (
+          <PinnedStockNotification
+            symbol={stock.symbol}
+            stockName={stock.name}
+            pinnedBy={pinnedInfo.pinnedBy}
+            pinnedByAvatar={pinnedInfo.pinnedByAvatar}
+            pinnedAt={pinnedInfo.pinnedAt}
+            initialNote={pinnedInfo.note}
+          />
+        )}
+
         {/* Header */}
         <div className="relative text-center space-y-3">
           {/* Share Button - Top Right */}
