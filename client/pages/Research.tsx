@@ -774,7 +774,7 @@ export default function Research() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-green-50"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
                   onClick={() =>
                     handleSuggestionClick(
                       "Tell me about Apple's business model and revenue sources",
@@ -786,7 +786,7 @@ export default function Research() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-green-50"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
                   onClick={() =>
                     handleSuggestionClick(
                       "What makes Microsoft's cloud business competitive?",
@@ -798,7 +798,7 @@ export default function Research() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-auto p-2 text-xs text-left hover:bg-green-50"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
                   onClick={() =>
                     handleSuggestionClick(
                       "How is NVIDIA positioned in the AI chip market?",
