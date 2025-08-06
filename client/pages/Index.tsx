@@ -888,7 +888,7 @@ export default function Index() {
                   {/* Subtle AI optimization hint */}
                   {queue.length >= 3 && (
                     <p className="text-xs text-muted-foreground">
-                      💡 AI detected optimization opportunities
+                      AI detected optimization opportunities
                     </p>
                   )}
                 </div>

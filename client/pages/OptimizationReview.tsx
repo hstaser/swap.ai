@@ -330,8 +330,8 @@ export default function OptimizationReview() {
                     )}
                   >
                     {isManualMode
-                      ? "✨ Use AI Allocation"
-                      : "✏️ Edit Allocation"}
+                      ? "Use AI Allocation"
+                      : "Edit Allocation"}
                   </Button>
                 )}
               </div>
@@ -350,12 +350,12 @@ export default function OptimizationReview() {
                     Adjust allocations below.{" "}
                     {isOverAllocated ? (
                       <span className="text-red-600 font-medium">
-                        ⚠️ Over-allocated by{" "}
+                        Over-allocated by{" "}
                         {(getTotalAllocation() - 100).toFixed(1)}%
                       </span>
                     ) : remainingAmount > 0 ? (
                       <span className="text-green-600 font-medium">
-                        💰 {formatCurrency(remainingAmount)} remaining
+                        {formatCurrency(remainingAmount)} remaining
                       </span>
                     ) : (
                       <span className="text-green-600 font-medium">
@@ -456,7 +456,7 @@ export default function OptimizationReview() {
               {isManualMode && isOverAllocated && (
                 <div className="p-3 bg-red-50 rounded-lg border border-red-200">
                   <div className="text-sm text-red-800 font-medium">
-                    ⚠️ Cannot proceed: Over-allocated by{" "}
+                    Cannot proceed: Over-allocated by{" "}
                     {(getTotalAllocation() - 100).toFixed(1)}%
                   </div>
                   <div className="text-xs text-red-700 mt-1">
@@ -532,7 +532,7 @@ export default function OptimizationReview() {
               <CardContent className="p-6 text-center">
                 <CheckCircle className="h-12 w-12 text-green-600 mx-auto mb-4" />
                 <h3 className="text-lg font-semibold text-green-800 mb-4">
-                  You're all done! 🎉
+                  You're all done!
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
                   <Button

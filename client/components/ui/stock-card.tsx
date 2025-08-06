@@ -137,7 +137,7 @@ export function StockCard({
             <div className="flex items-center justify-center gap-1 text-yellow-600">
               <AlertCircle className="h-3 w-3 animate-pulse" />
               <span className="text-xs font-medium">
-                📅 Earnings: {stock.earningsDate}
+                Earnings: {stock.earningsDate}
               </span>
             </div>
           )}
@@ -341,13 +341,13 @@ export function StockCard({
           {/* Subtle contextual suggestions */}
           {stock.symbol === "AAPL" && stock.risk === "High" && (
             <p className="text-xs text-muted-foreground italic">
-              💡 This is high-beta. AI can suggest defensive pairs
+              This is high-beta. AI can suggest defensive pairs
             </p>
           )}
 
           {stock.changePercent > 5 && (
             <p className="text-xs text-muted-foreground italic">
-              💡 Big mover today. AI can explain why & show related plays
+              Big mover today. AI can explain why & show related plays
             </p>
           )}
         </div>

@@ -864,7 +864,7 @@ export default function Research() {
                 <div className="p-1 bg-purple-600 rounded-full">
                   <Sparkles className="h-4 w-4 text-white" />
                 </div>
-                <h4 className="font-semibold text-sm text-purple-800">🚀 Queue Construction</h4>
+                <h4 className="font-semibold text-sm text-purple-800">Queue Construction</h4>
                 <Badge className="bg-purple-600 text-white text-xs">AI Powered</Badge>
               </div>
               <div className="space-y-2">
