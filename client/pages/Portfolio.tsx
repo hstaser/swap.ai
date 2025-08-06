@@ -949,17 +949,17 @@ export default function Portfolio() {
         {/* Modals */}
         {showRebalanceConfirm && (
           <Dialog open={showRebalanceConfirm} onOpenChange={setShowRebalanceConfirm}>
-            <DialogContent className="max-w-md">
+            <DialogContent className="max-w-lg">
               <DialogHeader>
                 <DialogTitle>Confirm AI Rebalancing</DialogTitle>
-                <DialogDescription>
+                <DialogDescription className="leading-relaxed">
                   AI will analyze your portfolio and provide rebalancing recommendations. This process will take a few seconds.
                 </DialogDescription>
               </DialogHeader>
-              <div className="space-y-4 mt-4">
+              <div className="space-y-4 mt-6">
                 <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                  <h4 className="font-medium text-blue-800 mb-2">What happens next:</h4>
-                  <ul className="text-sm text-blue-700 space-y-1">
+                  <h4 className="font-medium text-blue-800 mb-3">What happens next:</h4>
+                  <ul className="text-sm text-blue-700 space-y-2 leading-relaxed">
                     <li>• AI analyzes your current holdings</li>
                     <li>• Reviews market conditions and your risk profile</li>
                     <li>• Generates optimized allocation recommendations</li>
