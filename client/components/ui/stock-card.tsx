@@ -8,6 +8,7 @@ import { InteractiveChart } from "./interactive-chart";
 import { CommunitySentiment } from "./community-sentiment";
 import { WatchlistNoteModal } from "./watchlist-note-modal";
 import { StockShareModal } from "./stock-share-modal";
+import { FriendDashboardShare } from "./friend-dashboard-share";
 import {
   TrendingUp,
   TrendingDown,
@@ -80,6 +81,7 @@ export function StockCard({
   const [showNews, setShowNews] = useState(false);
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
+  const [showFriendShare, setShowFriendShare] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -321,6 +323,20 @@ export function StockCard({
             }
           }}
         />
+
+        <Separator />
+
+        {/* Friend Sharing */}
+        <div className="text-center">
+          <Button
+            variant="outline"
+            onClick={() => setShowFriendShare(true)}
+            className="w-full h-12 text-sm font-medium border-purple-200 text-purple-700 hover:bg-purple-50"
+          >
+            <Users className="h-4 w-4 mr-2" />
+            Pin to Friend's Dashboard
+          </Button>
+        </div>
 
         <Separator />
 
