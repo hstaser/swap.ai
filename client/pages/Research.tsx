@@ -41,6 +41,7 @@ import {
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
+import { SectorExplorer } from "@/components/ui/sector-explorer";
 
 interface ChatMessage {
   id: string;
@@ -146,6 +147,8 @@ export default function Research() {
   const [researchContext, setResearchContext] = useState<string>("");
   const [showAllocationDialog, setShowAllocationDialog] = useState(false);
   const [pendingQueueType, setPendingQueueType] = useState<string | null>(null);
+  const [showSectorExplorer, setShowSectorExplorer] = useState(false);
+  const [selectedSector, setSelectedSector] = useState<"Healthcare" | "Financial Services" | "International" | null>(null);
 
   // Insights data
   const insights = [
@@ -480,14 +483,17 @@ export default function Research() {
 
   const handleInsightAction = (insight: any) => {
     if (insight.actionType === "explore_sector") {
-      // Navigate to main dashboard with sector filter applied
-      const sectorMap: Record<string, string> = {
-        "Healthcare": "healthcare",
-        "Financial Services": "financials",
-        "International": "international"
+      // Show sector explorer with market data
+      const sectorMap: Record<string, "Healthcare" | "Financial Services" | "International"> = {
+        "Healthcare": "Healthcare",
+        "Financial Services": "Financial Services",
+        "International": "International"
       };
-      const sectorFilter = sectorMap[insight.sector] || insight.sector.toLowerCase();
-      navigate(`/?sector=${sectorFilter}`);
+      const sector = sectorMap[insight.sector];
+      if (sector) {
+        setSelectedSector(sector);
+        setShowSectorExplorer(true);
+      }
     } else if (insight.actionType === "rebalance") {
       // Navigate to portfolio page and trigger rebalancing directly
       navigate("/portfolio?autoRebalance=true");
