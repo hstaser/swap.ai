@@ -25,6 +25,7 @@ import {
   DollarSign,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { NotificationDetails } from "./notification-details";
 
 interface Notification {
   id: string;
