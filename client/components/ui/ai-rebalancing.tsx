@@ -204,7 +204,7 @@ export function AIRebalancing({ onComplete, onClose }: AIRebalancingProps) {
               </Button>
               <Button
                 variant="outline"
-                onClick={() => setIsComplete(false)}
+                onClick={() => setShowConfirmation(false)}
                 className="w-full"
               >
                 Back to Optimize
