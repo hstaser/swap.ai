@@ -324,6 +324,21 @@ export function StockCard({
           }}
         />
 
+        {/* Friend Dashboard Share Modal */}
+        <FriendDashboardShare
+          symbol={stock.symbol}
+          stockName={stock.name}
+          price={stock.price}
+          change={stock.change}
+          changePercent={stock.changePercent}
+          isOpen={showFriendShare}
+          onClose={() => setShowFriendShare(false)}
+          onShare={(friendIds, message) => {
+            console.log("Pinned to friends:", friendIds, "Message:", message);
+            // In real app, would send API request to pin stock to friends' dashboards
+          }}
+        />
+
         <Separator />
 
         {/* Friend Sharing */}
