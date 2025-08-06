@@ -219,7 +219,11 @@ export default function Social() {
                         "p-4 cursor-pointer hover:bg-gray-50 transition-colors",
                         activeConversation === conv.id && "bg-blue-50",
                       )}
-                      onClick={() => setActiveConversation(conv.id)}
+                      onClick={() => {
+                        setActiveConversation(conv.id);
+                        // Clear unread count when entering conversation
+                        conv.unreadCount = 0;
+                      }}
                     >
                       <div className="flex items-center gap-3">
                         <div
