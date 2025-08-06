@@ -77,7 +77,7 @@ const mockFriends: Friend[] = [
     id: "3",
     name: "Sarah Chen",
     username: "@sarah",
-    avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=32&h=32&fit=crop&crop=face",
+    avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=32&h=32&fit=crop&crop=face",
     isOnline: false,
   },
   {
