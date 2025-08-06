@@ -24,70 +24,15 @@ export default function QueueAdd() {
     null,
   );
 
-  // Mock stock data - in real app this would be fetched
-  const stockData = {
-    AAPL: {
-      name: "Apple Inc.",
-      price: 182.52,
-      change: 2.31,
-      changePercent: 1.28,
-      sector: "Technology",
-    },
-    TSLA: {
-      name: "Tesla, Inc.",
-      price: 238.77,
-      change: -8.32,
-      changePercent: -3.37,
-      sector: "Consumer Discretionary",
-    },
-    NVDA: {
-      name: "NVIDIA Corporation",
-      price: 722.48,
-      change: 12.66,
-      changePercent: 1.78,
-      sector: "Technology",
-    },
-    MSFT: {
-      name: "Microsoft Corporation",
-      price: 378.85,
-      change: -1.52,
-      changePercent: -0.4,
-      sector: "Technology",
-    },
-    AMZN: {
-      name: "Amazon.com, Inc.",
-      price: 144.05,
-      change: 1.88,
-      changePercent: 1.32,
-      sector: "Consumer Discretionary",
-    },
-    GOOGL: {
-      name: "Alphabet Inc.",
-      price: 138.21,
-      change: 3.45,
-      changePercent: 2.56,
-      sector: "Communication Services",
-    },
-    COIN: {
-      name: "Coinbase Global, Inc.",
-      price: 156.78,
-      change: 8.45,
-      changePercent: 5.69,
-      sector: "Financial Services",
-    },
-    RIVN: {
-      name: "Rivian Automotive, Inc.",
-      price: 24.67,
-      change: -1.23,
-      changePercent: -4.75,
-      sector: "Consumer Discretionary",
-    },
-  };
-
-  const stock =
-    symbol && symbol in stockData
-      ? stockData[symbol as keyof typeof stockData]
-      : null;
+  // Get stock data from centralized pricing system
+  const stockPrice = symbol ? getStockPrice(symbol) : null;
+  const stock = stockPrice ? {
+    name: stockPrice.name,
+    price: stockPrice.price,
+    change: stockPrice.change,
+    changePercent: stockPrice.changePercent,
+    sector: stockPrice.sector,
+  } : null;
 
   if (!stock || !symbol) {
     return (
