@@ -54,53 +54,18 @@ export default function QueueReview() {
     { symbol: "QQQ", name: "Invesco QQQ Trust", amount: 1000, shares: 2.8 },
   ];
 
-  // Convert queue to display format with mock stock data
+  // Convert queue to display format with real stock data
   const queuedStocks = queue.map((item) => {
-    // Mock stock data - in real app this would be fetched
-    const stockData: Record<string, any> = {
-      AAPL: {
-        name: "Apple Inc.",
-        price: 182.52,
-        change: 2.31,
-        changePercent: 1.28,
-        sector: "Technology",
-      },
-      NVDA: {
-        name: "NVIDIA Corporation",
-        price: 722.48,
-        change: 12.66,
-        changePercent: 1.78,
-        sector: "Technology",
-      },
-      MSFT: {
-        name: "Microsoft Corporation",
-        price: 378.85,
-        change: -1.52,
-        changePercent: -0.4,
-        sector: "Technology",
-      },
-      RIVN: {
-        name: "Rivian Automotive, Inc.",
-        price: 24.67,
-        change: -1.23,
-        changePercent: -4.75,
-        sector: "Consumer Discretionary",
-      },
-      COIN: {
-        name: "Coinbase Global, Inc.",
-        price: 156.78,
-        change: 8.45,
-        changePercent: 5.69,
-        sector: "Financial Services",
-      },
-    };
+    const stockPrice = getStockPrice(item.symbol);
 
-    const stock = stockData[item.symbol] || {
+    const stock = stockPrice || {
+      symbol: item.symbol,
       name: `${item.symbol} Inc.`,
       price: 100,
       change: 0,
       changePercent: 0,
       sector: "Technology",
+      marketCap: "$0B"
     };
 
     return {
