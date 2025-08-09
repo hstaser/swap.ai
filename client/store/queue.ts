@@ -33,11 +33,17 @@ const normalizeSymbol = (symbol: string): string => {
 
 // Telemetry tracking with proper error monitoring
 const trackQueueEvent = (event: string, data: any) => {
-  // Serialize error objects properly
-  const serializedData = { ...data };
-  if (serializedData.error && typeof serializedData.error === 'object') {
-    serializedData.error = serializedData.error.message || String(serializedData.error);
-  }
+  // Deep serialize all objects to prevent [object Object] logging
+  const serializedData = JSON.parse(JSON.stringify(data, (key, value) => {
+    if (value instanceof Error) {
+      return {
+        message: value.message,
+        name: value.name,
+        stack: value.stack
+      };
+    }
+    return value;
+  }));
 
   const eventData = {
     event,
