@@ -143,22 +143,24 @@ export function ListEditorModal({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] flex flex-col">
         <DialogHeader>
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 flex-1">
-              <Edit3 className="h-5 w-5 text-blue-600" />
-              <div className="flex-1">
-                <Input
-                  value={editedListName}
-                  onChange={(e) => setEditedListName(e.target.value)}
-                  className="text-lg font-semibold border-none p-0 h-auto bg-transparent"
-                  placeholder="List name..."
-                />
+          <DialogTitle asChild>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 flex-1">
+                <Edit3 className="h-5 w-5 text-blue-600" />
+                <div className="flex-1">
+                  <Input
+                    value={editedListName}
+                    onChange={(e) => setEditedListName(e.target.value)}
+                    className="text-lg font-semibold border-none p-0 h-auto bg-transparent"
+                    placeholder="List name..."
+                  />
+                </div>
               </div>
+              <Badge variant="outline" className="ml-2">
+                {selectedStocks.length} stocks
+              </Badge>
             </div>
-            <Badge variant="outline" className="ml-2">
-              {selectedStocks.length} stocks
-            </Badge>
-          </div>
+          </DialogTitle>
           <DialogDescription>
             Edit your list by adding or removing stocks. Use the filters to find stocks and manage your selection.
           </DialogDescription>
@@ -394,7 +396,7 @@ export function ListEditorModal({
             <Button variant="outline" onClick={onClose}>
               Cancel
             </Button>
-            <Button 
+            <Button
               onClick={handleSave}
               className="bg-green-600 hover:bg-green-700 flex items-center gap-2"
             >
