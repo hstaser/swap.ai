@@ -50,9 +50,9 @@ export default function PelosiSection() {
       <CardContent>
         <ScrollArea className="h-[70vh]">
           <div className="space-y-3">
-            {rows.map(r => (
+            {rows.map((r, index) => (
               <div
-                key={r.stock!.id}
+                key={`${r.symbol}-${r.lastTradeDate}-${index}`}
                 className="grid grid-cols-12 gap-4 items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 {/* Stock Symbol & Name */}
