@@ -723,14 +723,6 @@ export default function Index() {
               Swipe
             </Button>
             <Button
-              variant={viewMode === "list" ? "default" : "ghost"}
-              size="sm"
-              onClick={() => setViewMode("list")}
-              className="text-sm px-4 flex-1"
-            >
-              List
-            </Button>
-            <Button
               variant={viewMode === "dashboard" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("dashboard")}
