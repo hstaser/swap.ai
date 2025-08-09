@@ -423,7 +423,7 @@ export default function Index() {
   }, [searchParams]);
 
   const filteredStocks = useMemo(() => {
-    let filtered = mockStocks.filter((stock) => {
+    let filtered = catalogStocks.filter((stock) => {
       // Filter out queued stocks - user shouldn't see them again
       if (isInQueue(stock.symbol)) {
         return false;
