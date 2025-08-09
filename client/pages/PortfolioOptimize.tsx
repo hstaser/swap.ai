@@ -53,9 +53,9 @@ export default function PortfolioOptimize() {
   const handleOptimize = () => {
     if (
       optimizationType === "new" &&
-      (!investmentAmount || Number(investmentAmount) < 100)
+      (!investmentAmount || Number(investmentAmount) <= 0)
     ) {
-      alert("Please enter a minimum investment amount of $100");
+      alert("Please enter a valid investment amount");
       return;
     }
 
