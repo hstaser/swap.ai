@@ -157,7 +157,7 @@ export function StockCard({
 
           <div className="flex items-center justify-center gap-3">
             <h3 className="font-bold text-foreground text-4xl">
-              {stock.symbol}
+              {canonicalStock.symbol}
             </h3>
             <div className="flex items-center gap-2">
               <Badge variant="outline" className="text-sm">
