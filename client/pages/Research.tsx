@@ -642,6 +642,36 @@ export default function Research() {
     setPendingQueueType(null);
   };
 
+  const handleSaveList = (listName: string, selectedStocks: string[]) => {
+    // Clear existing queue if user confirmed
+    if (queue.length > 0) {
+      clearQueue();
+    }
+
+    // Add stocks to queue
+    selectedStocks.forEach(symbol => {
+      addToQueue(symbol, "bullish");
+    });
+
+    // Store the list name for display
+    setCreatedQueueName(listName);
+
+    // Show success message
+    const successMessage = `Queue created! I've built "${listName}" with ${selectedStocks.length} stocks: ${selectedStocks.join(', ')}. You can now review and invest in this portfolio through the queue system.`;
+
+    setMessages(prev => [...prev, {
+      id: Date.now().toString(),
+      type: "ai",
+      content: successMessage,
+      timestamp: new Date(),
+      suggestions: [
+        "Review my queue",
+        "Tell me about these stocks",
+        "Add more stocks to this list"
+      ]
+    }]);
+  };
+
   const handleThemeSelection = (themeId: string) => {
     setSelectedTheme(themeId);
     setShowThemeDialog(false);
