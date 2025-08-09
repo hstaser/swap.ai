@@ -75,10 +75,27 @@ export default function QueueAdd() {
     setSelectedConfidence(confidence);
 
     if (symbol) {
-      addToQueue(
-        symbol,
-        confidence as "conservative" | "bullish" | "very-bullish",
-      );
+      // Debug logging for symbol F
+      if (symbol === 'F') {
+        console.log('QueueAdd: handleConfidenceSelect called for F with confidence:', confidence);
+      }
+
+      try {
+        addToQueue(
+          symbol,
+          confidence as "conservative" | "bullish" | "very-bullish",
+        );
+
+        // Debug logging for symbol F
+        if (symbol === 'F') {
+          console.log('QueueAdd: Successfully called addToQueue for F');
+        }
+      } catch (error) {
+        console.error('QueueAdd: Error adding to queue:', error);
+        if (symbol === 'F') {
+          console.error('QueueAdd: Failed to add F to queue:', error);
+        }
+      }
     }
   };
 
