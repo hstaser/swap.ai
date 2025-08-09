@@ -529,7 +529,7 @@ export default function Index() {
     }));
 
     // Track as watchlist action for AI agent
-    const currentStock = filteredStocks.find(s => s.symbol === symbol) || mockStocks.find(s => s.symbol === symbol);
+    const currentStock = filteredStocks.find(s => s.symbol === symbol) || catalogStocks.find(s => s.symbol === symbol);
     if (isSetup && currentStock) {
       trackSwipe(symbol, "watchlist", {
         sector: currentStock.sector,
