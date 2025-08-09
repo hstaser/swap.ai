@@ -80,12 +80,12 @@ export function StockCard({
   onSkip,
 }: StockCardProps) {
   // Validate stock against catalog before rendering
-  const catalogStock = getStock(canonicalStock.symbol);
-  const validation = validateStock(canonicalStock.symbol);
+  const catalogStock = getStock(stock.symbol);
+  const validation = validateStock(stock.symbol);
 
   // If stock is not in catalog, don't render the card
   if (!validation.isValid || !catalogStock) {
-    console.warn(`Stock ${canonicalStock.symbol} not found in catalog, hiding card`);
+    console.warn(`Stock ${stock.symbol} not found in catalog, hiding card`);
     return null;
   }
 
