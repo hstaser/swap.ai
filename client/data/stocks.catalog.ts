@@ -63,7 +63,7 @@ export const STOCKS: Record<string, Stock> = {
     employees: 164000,
     founded: "1976"
   },
-  
+
   NKE: {
     id: "stk_nke",
     symbol: "NKE",
@@ -91,7 +91,7 @@ export const STOCKS: Record<string, Stock> = {
     employees: 83700,
     founded: "1964"
   },
-  
+
   PEP: {
     id: "stk_pep",
     symbol: "PEP",
@@ -119,7 +119,7 @@ export const STOCKS: Record<string, Stock> = {
     employees: 315000,
     founded: "1965"
   },
-  
+
   MSFT: {
     id: "stk_msft",
     symbol: "MSFT",
@@ -147,7 +147,7 @@ export const STOCKS: Record<string, Stock> = {
     employees: 221000,
     founded: "1975"
   },
-  
+
   GOOGL: {
     id: "stk_googl",
     symbol: "GOOGL",
@@ -258,6 +258,34 @@ export const STOCKS: Record<string, Stock> = {
     netIncome: "33.4B",
     employees: 1541000,
     founded: "1994"
+  },
+
+  COIN: {
+    id: "stk_coin",
+    symbol: "COIN",
+    name: "Coinbase Global, Inc.",
+    exchange: "NASDAQ",
+    currency: "USD",
+    sector: "Financial Services",
+    marketCap: "41.2B",
+    price: 165.78,
+    change: 4.23,
+    changePercent: 2.62,
+    volume: "12.3M",
+    pe: null,
+    dividendYield: 0.0,
+    isGainer: true,
+    newsSummary: "Crypto trading volume surge, institutional adoption growing",
+    returns: { oneMonth: 8.7, sixMonth: 45.2, oneYear: 89.3 },
+    earningsDate: "Feb 15, 2025",
+    beta: 2.3,
+    eps: -1.25,
+    bookValue: 34.12,
+    priceToBook: 4.9,
+    revenue: "5.2B",
+    netIncome: "-541M",
+    employees: 4948,
+    founded: "2012"
   }
 };
 
@@ -284,17 +312,17 @@ export const getStocksBySymbols = (symbols: string[]): Stock[] => {
 // Validation helpers
 export const validateStock = (symbol: string): { isValid: boolean; error?: string } => {
   const trimmed = symbol.trim();
-  
+
   if (!trimmed) {
     return { isValid: false, error: "Symbol cannot be empty" };
   }
-  
+
   const normalized = trimmed.toUpperCase();
-  
+
   if (!STOCKS[normalized]) {
     return { isValid: false, error: `Unknown symbol: ${normalized}` };
   }
-  
+
   return { isValid: true };
 };
 
