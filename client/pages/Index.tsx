@@ -713,20 +713,28 @@ export default function Index() {
       <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6 pb-20 md:pb-6">
         {/* View Mode Toggle */}
         <div className="mb-4">
-          <div className="flex items-center justify-center gap-1 bg-white/60 backdrop-blur-sm rounded-lg p-1 max-w-xs mx-auto">
+          <div className="flex items-center justify-center gap-1 bg-white/60 backdrop-blur-sm rounded-lg p-1 max-w-md mx-auto">
             <Button
               variant={viewMode === "swipe" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("swipe")}
-              className="text-sm px-6 flex-1"
+              className="text-sm px-4 flex-1"
             >
               Swipe
+            </Button>
+            <Button
+              variant={viewMode === "list" ? "default" : "ghost"}
+              size="sm"
+              onClick={() => setViewMode("list")}
+              className="text-sm px-4 flex-1"
+            >
+              List
             </Button>
             <Button
               variant={viewMode === "dashboard" ? "default" : "ghost"}
               size="sm"
               onClick={() => setViewMode("dashboard")}
-              className="text-sm px-6 flex-1"
+              className="text-sm px-4 flex-1"
             >
               Dashboard
             </Button>
