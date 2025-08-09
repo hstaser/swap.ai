@@ -65,12 +65,11 @@ const catalogStocks: Stock[] = extendedStockDatabase.map(stock => ({
   sector: stock.sector,
   isGainer: stock.isGainer,
   news: [],
-    newsSummary: catalogStock.newsSummary,
-    returns: catalogStock.returns,
-    earningsDate: catalogStock.earningsDate,
-    risk: calculateRiskLevel(catalogStock),
-  };
-}).filter(Boolean); // 31 stocks total
+  newsSummary: stock.newsSummary,
+  returns: stock.returns,
+  earningsDate: stock.earningsDate,
+  risk: calculateRiskLevel(stock),
+})).filter(Boolean);
 
 // Legacy mock data for comparison
 const legacyMockStocks: Stock[] = [
