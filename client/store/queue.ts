@@ -33,12 +33,18 @@ const normalizeSymbol = (symbol: string): string => {
 
 // Telemetry tracking with proper error monitoring
 const trackQueueEvent = (event: string, data: any) => {
+  // Serialize error objects properly
+  const serializedData = { ...data };
+  if (serializedData.error && typeof serializedData.error === 'object') {
+    serializedData.error = serializedData.error.message || String(serializedData.error);
+  }
+
   const eventData = {
     event,
     timestamp: Date.now(),
     userAgent: navigator.userAgent,
     url: window.location.href,
-    ...data
+    ...serializedData
   };
 
   console.log('[Queue Telemetry]', eventData);
