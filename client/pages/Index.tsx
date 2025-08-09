@@ -918,8 +918,8 @@ export default function Index() {
           </div>
         ) : null}
 
-        {/* No Stocks Found - for swipe view only (dashboard handles its own) */}
-        {filteredStocks.length === 0 && viewMode === "swipe" && (
+        {/* No Stocks Found - for swipe and list view (dashboard handles its own) */}
+        {filteredStocks.length === 0 && (viewMode === "swipe" || viewMode === "list") && (
           <div className="text-center py-12">
             <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
             <h3 className="text-lg font-medium text-foreground mb-2">
