@@ -390,7 +390,6 @@ export default function Index() {
 
   const [filters, setFilters] = useState<FilterState>(defaultFilters);
   const [portfolio, setPortfolio] = useState<string[]>([]);
-  const [watchlist, setWatchlist] = useState<string[]>([]);
   const [watchlistNotes, setWatchlistNotes] = useState<{
     [symbol: string]: { note: string; addedAt: Date };
   }>({});
