@@ -1,5 +1,6 @@
 import { PELOSI_TRADES } from "../data/pelosi.trades";
 import { getStock } from "../data/stocks.catalog";
+import { extendedStockDatabase } from "../data/extended-stocks";
 import { addManyToQueue } from "../store/queue";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
@@ -9,17 +10,23 @@ import { Plus, Eye } from "lucide-react";
 
 export default function PelosiSection() {
   const rows = PELOSI_TRADES
-    .map(t => ({ ...t, stock: getStock(t.symbol) }))
+    .map(t => {
+      // Get stock from extended database for richer data
+      const stock = extendedStockDatabase.find(s => s.symbol === t.symbol) || getStock(t.symbol);
+      return { ...t, stock };
+    })
     .filter(r => r.stock); // only known tickers
 
   const symbols = rows.map(r => r.stock!.symbol);
 
   const handleAddAllToQueue = () => {
     addManyToQueue(symbols);
+    console.log(`Added ${symbols.length} stocks to queue:`, symbols);
   };
 
   const handleAddToQueue = (symbol: string) => {
     addManyToQueue([symbol]);
+    console.log(`Added ${symbol} to queue`);
   };
 
   return (
