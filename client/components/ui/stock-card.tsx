@@ -102,7 +102,7 @@ export function StockCard({
   const navigate = useNavigate();
 
   // Check if this stock is pinned by friends
-  const pinnedInfo = getPinnedStockInfo(stock.symbol);
+  const pinnedInfo = getPinnedStockInfo(canonicalStock.symbol);
 
   return (
     <Card
