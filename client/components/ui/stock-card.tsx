@@ -277,7 +277,7 @@ export function StockCard({
                     )}
                   >
                     {period.value >= 0 ? "+" : ""}
-                    {period.value.toFixed(1)}%
+                    {period.value?.toFixed(1) ?? "0.0"}%
                   </div>
                 </div>
               ))}
