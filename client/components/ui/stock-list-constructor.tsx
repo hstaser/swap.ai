@@ -24,19 +24,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
-
-interface Stock {
-  symbol: string;
-  name: string;
-  price: number;
-  change: number;
-  changePercent: number;
-  sector: string;
-  marketCap: string;
-  pe?: number;
-  isGainer: boolean;
-  newsSummary: string;
-}
+import { Stock } from "./stock-card";
 
 interface StockListConstructorProps {
   stocks: Stock[];
@@ -45,11 +33,11 @@ interface StockListConstructorProps {
   onClose?: () => void;
 }
 
-export function StockListConstructor({ 
-  stocks, 
-  title = "Stock List", 
+export function StockListConstructor({
+  stocks,
+  title = "Stock List",
   onAddToWatchlist,
-  onClose 
+  onClose
 }: StockListConstructorProps) {
   const { addToQueue, isInQueue } = useQueue();
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
@@ -83,8 +71,8 @@ export function StockListConstructor({
   const availableSectors = [...new Set(stocks.map(stock => stock.sector))];
 
   const handleSelectStock = (symbol: string) => {
-    setSelectedStocks(prev => 
-      prev.includes(symbol) 
+    setSelectedStocks(prev =>
+      prev.includes(symbol)
         ? prev.filter(s => s !== symbol)
         : [...prev, symbol]
     );
@@ -134,7 +122,7 @@ export function StockListConstructor({
             </Button>
           )}
         </div>
-        
+
         {/* Filters and Search */}
         <div className="space-y-3">
           <div className="flex gap-3">
@@ -284,8 +272,8 @@ export function StockListConstructor({
                         }}
                         disabled={isInQueue(stock.symbol)}
                         className={cn(
-                          isInQueue(stock.symbol) 
-                            ? "bg-purple-600 text-white" 
+                          isInQueue(stock.symbol)
+                            ? "bg-purple-600 text-white"
                             : "bg-blue-600 hover:bg-blue-700"
                         )}
                       >
