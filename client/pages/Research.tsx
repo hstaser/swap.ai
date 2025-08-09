@@ -43,6 +43,7 @@ import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
 import { SectorExplorer } from "@/components/ui/sector-explorer";
 import { ListEditorModal } from "@/components/ui/list-editor-modal";
+import { extendedStockDatabase } from "@/data/extended-stocks";
 
 interface ChatMessage {
   id: string;
