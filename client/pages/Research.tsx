@@ -198,6 +198,11 @@ export default function Research() {
   const navigate = useNavigate();
   const { queue, addToQueue, clearQueue } = useQueue();
   const [searchParams] = useSearchParams();
+
+  // List Editor Modal state
+  const [showListEditor, setShowListEditor] = useState(false);
+  const [editingListName, setEditingListName] = useState("");
+  const [editingListStocks, setEditingListStocks] = useState<string[]>([]);
   const symbolParam = searchParams.get("symbol");
 
   // Store the referring page when component mounts
