@@ -1,13 +1,28 @@
 // Integration Tests for Queue System
 // Run these tests to validate the complete queue flow works as expected
 
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { getInfluencerTickers, isInfluencerVerified } from '../data/influencer.map';
-import { getStock, validateStock, hasStock, STOCKS } from '../data/stocks.catalog';
-import { addToQueue, clearQueue, isInQueue, getQueue, validateQueueIntegrity } from '../store/queue';
+import { getStock, validateStock, getAllStocks, STOCKS } from '../data/stocks.catalog';
+import { addToQueue, clearQueue, isInQueue, getQueue } from '../store/queue';
+
+// Mock localStorage for Node.js test environment
+const localStorageMock = {
+  getItem: vi.fn(() => null),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn(),
+};
+
+Object.defineProperty(global, 'localStorage', {
+  value: localStorageMock,
+  writable: true
+});
 
 describe('Queue Integration Tests', () => {
   beforeEach(() => {
+    localStorageMock.getItem.mockReturnValue(null);
+    localStorageMock.setItem.mockClear();
     clearQueue();
   });
 
