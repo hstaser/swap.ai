@@ -38,7 +38,7 @@ import {
   Calendar,
   FileText,
 } from "lucide-react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 
 interface PortfolioStock {
