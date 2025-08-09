@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import {
   addToQueue as storeAddToQueue,
+  removeFromQueue as storeRemoveFromQueue,
   clearQueue as storeClearQueue,
   isInQueue as storeIsInQueue,
   getQueue
