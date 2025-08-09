@@ -79,7 +79,20 @@ export function StockCard({
   className,
   onSkip,
 }: StockCardProps) {
-  const isPositive = stock.change >= 0;
+  // Validate stock against catalog before rendering
+  const catalogStock = getStock(stock.symbol);
+  const validation = validateStock(stock.symbol);
+
+  // If stock is not in catalog, don't render the card
+  if (!validation.isValid || !catalogStock) {
+    console.warn(`Stock ${stock.symbol} not found in catalog, hiding card`);
+    return null;
+  }
+
+  // Use canonical stock data from catalog
+  const canonicalStock = catalogStock;
+
+  const isPositive = canonicalStock.change >= 0;
   const [showChart, setShowChart] = useState(false);
   const [showInteractiveChart, setShowInteractiveChart] = useState(false);
   const [showNews, setShowNews] = useState(false);
