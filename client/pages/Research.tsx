@@ -843,6 +843,11 @@ export default function Research() {
           </CardContent>
         </Card>
 
+        {/* LeBron James Demo Section */}
+        <div className="mb-6">
+          <InfluencerSection slug="lebron-james" />
+        </div>
+
         {/* Chat Interface */}
         <Card className="bg-white/90 backdrop-blur-sm border-0 shadow-lg">
           <CardHeader className="border-b">
