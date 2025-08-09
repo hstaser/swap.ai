@@ -282,9 +282,9 @@ export default function PortfolioOptimize() {
 
           {optimizationType === "new" &&
             Number(investmentAmount) > 0 &&
-            Number(investmentAmount) < 100 && (
+            Number(investmentAmount) <= 0 && (
               <p className="text-center text-sm text-red-600">
-                Minimum investment amount is $100
+                Please enter a valid investment amount
               </p>
             )}
         </div>
