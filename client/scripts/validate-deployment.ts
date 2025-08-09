@@ -23,7 +23,7 @@ if (STOCK_COUNT === 0) {
 }
 
 // Check required stocks exist
-const requiredStocks = ['AAPL', 'NKE', 'PEP', 'MSFT', 'GOOGL', 'NVDA', 'TSLA', 'AMZN'];
+const requiredStocks = ['AAPL', 'NKE', 'PEP', 'MSFT', 'GOOGL', 'NVDA', 'TSLA', 'AMZN', 'COIN'];
 const missingStocks: string[] = [];
 
 requiredStocks.forEach(symbol => {
@@ -161,7 +161,7 @@ if (hasErrors) {
   process.exit(1);
 } else {
   console.log('\n✅ ALL CHECKS PASSED - Safe to deploy!');
-  
+
   console.log('\n📊 Summary:');
   console.log(`- Stock Catalog: ${STOCK_COUNT} stocks`);
   console.log(`- Influencers: ${VERIFIED_INFLUENCER_COUNT}/${INFLUENCER_COUNT} verified`);
@@ -169,10 +169,10 @@ if (hasErrors) {
   console.log(`- Queue system: Functional`);
   console.log(`- Deduplication: Working`);
   console.log(`- Validation: Strict`);
-  
+
   if (VERIFIED_INFLUENCER_COUNT === 0) {
     console.log('\n⚠️  NOTE: LeBron section will be empty until influencer mappings are verified by PM/Legal');
   }
-  
+
   process.exit(0);
 }
