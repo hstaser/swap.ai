@@ -494,11 +494,13 @@ export default function Index() {
   }, [filters, isInQueue]);
 
   const toggleWatchlist = (symbol: string) => {
-    const isRemoving = watchlist.includes(symbol);
+    const isCurrentlyInWatchlist = isInWatchlist(symbol);
     const currentStock = filteredStocks.find(s => s.symbol === symbol) || catalogStocks.find(s => s.symbol === symbol);
 
-    if (isRemoving) {
-      setWatchlist(watchlist.filter((s) => s !== symbol));
+    if (isCurrentlyInWatchlist) {
+      // Remove from watchlist using store
+      const { removeFromWatchlist } = require("../store/watchlist");
+      removeFromWatchlist(symbol);
       // Remove note when removing from watchlist
       setWatchlistNotes((prev) => {
         const newNotes = { ...prev };
@@ -506,12 +508,13 @@ export default function Index() {
         return newNotes;
       });
     } else {
-      setWatchlist([...watchlist, symbol]);
+      // Add to watchlist using store
+      addToWatchlist(symbol);
     }
 
     // Track behavior for AI agent
     if (isSetup && currentStock) {
-      trackSwipe(symbol, isRemoving ? "skip" : "watchlist", {
+      trackSwipe(symbol, isCurrentlyInWatchlist ? "skip" : "watchlist", {
         sector: currentStock.sector,
         risk: currentStock.risk || "Medium"
       });
