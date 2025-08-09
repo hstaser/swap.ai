@@ -1,21 +1,23 @@
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { addToQueue, getQueue, clearQueue, addManyToQueue, isInQueue } from "../store/queue";
 
 // Mock localStorage
 const localStorageMock = {
-  getItem: jest.fn(),
-  setItem: jest.fn(),
-  removeItem: jest.fn(),
-  clear: jest.fn(),
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn(),
 };
 
 Object.defineProperty(window, 'localStorage', {
   value: localStorageMock
 });
 
-beforeEach(() => {
-  clearQueue();
-  localStorageMock.getItem.mockReturnValue(null);
-});
+describe('Queue System', () => {
+  beforeEach(() => {
+    clearQueue();
+    localStorageMock.getItem.mockReturnValue(null);
+  });
 
 it("adds the exact symbol", () => {
   addToQueue("nke");
