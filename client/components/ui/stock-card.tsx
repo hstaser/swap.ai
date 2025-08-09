@@ -115,8 +115,8 @@ export function StockCard({
         {/* Pinned Stock Notification */}
         {pinnedInfo && (
           <PinnedStockNotification
-            symbol={stock.symbol}
-            stockName={stock.name}
+            symbol={canonicalStock.symbol}
+            stockName={canonicalStock.name}
             pinnedBy={pinnedInfo.pinnedBy}
             pinnedByAvatar={pinnedInfo.pinnedByAvatar}
             pinnedAt={pinnedInfo.pinnedAt}
