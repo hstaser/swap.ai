@@ -522,8 +522,8 @@ export default function Index() {
   };
 
   const addToWatchlistWithNote = (symbol: string, note: string) => {
-    if (!watchlist.includes(symbol)) {
-      setWatchlist([...watchlist, symbol]);
+    if (!isInWatchlist(symbol)) {
+      addToWatchlist(symbol);
     }
     setWatchlistNotes((prev) => ({
       ...prev,
