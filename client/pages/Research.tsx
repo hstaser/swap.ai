@@ -572,9 +572,28 @@ export default function Research() {
       if (!confirmReplace) return;
     }
 
-    // Show allocation preference dialog
-    setPendingQueueType(queueType);
-    setShowAllocationDialog(true);
+    // Get the queue template and show the list editor modal
+    const queueTemplates: Record<string, {name: string, stocks: string[]}> = {
+      "pelosi": {
+        name: "Nancy Pelosi's Portfolio",
+        stocks: ["NVDA", "AAPL", "MSFT", "GOOGL", "CRM"]
+      },
+      "lebron": {
+        name: "LeBron's Brand Empire",
+        stocks: ["NKE", "PEP", "WMT", "NFLX"]
+      },
+      "buffett": {
+        name: "Buffett's Strategy",
+        stocks: ["AAPL", "BAC", "KO", "AXP", "KHC"]
+      }
+    };
+
+    const template = queueTemplates[queueType];
+    if (template) {
+      setEditingListName(template.name);
+      setEditingListStocks(template.stocks);
+      setShowListEditor(true);
+    }
   };
 
   const executeQueueCreation = (queueType: string, useIdenticalAllocation: boolean) => {
