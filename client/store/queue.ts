@@ -6,10 +6,10 @@ type State = { items: QueueItem[] };
 const state: State = { items: [] };
 
 const persist = () => localStorage.setItem("swipr_queue", JSON.stringify(state.items));
-const load = () => { 
-  try { 
-    state.items = JSON.parse(localStorage.getItem("swipr_queue") || "[]"); 
-  } catch {} 
+const load = () => {
+  try {
+    state.items = JSON.parse(localStorage.getItem("swipr_queue") || "[]");
+  } catch {}
 };
 load();
 
@@ -33,6 +33,13 @@ export const addManyToQueue = (raws: string[]) => {
       existing.add(sym);
     }
   }
+  persist();
+};
+
+export const removeFromQueue = (raw: string) => {
+  const sym = resolveSymbol(raw);
+  if (!sym) return;
+  state.items = state.items.filter(i => i.symbol !== sym);
   persist();
 };
 
