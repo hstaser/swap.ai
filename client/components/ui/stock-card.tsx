@@ -236,7 +236,7 @@ export function StockCard({
               <div className="text-sm text-muted-foreground">Div Yield</div>
               <div className="font-bold text-lg">
                 {canonicalStock.dividendYield
-                  ? `${canonicalStock.dividendYield.toFixed(2)}%`
+                  ? `${canonicalStock.dividendYield?.toFixed(2) ?? "0.00"}%`
                   : "N/A"}
               </div>
             </div>
