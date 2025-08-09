@@ -1,7 +1,7 @@
-// Centralized Queue Store - append + dedupe, never replace
-import { getStock, CANONICAL } from "../data/stocks.catalog";
+// Centralized Queue Store — append + dedupe, never replace
+import { getStock, resolveSymbol } from "../data/stocks.catalog";
 
-type QueueItem = { id: string; symbol: string; addedAt: number; };
+type QueueItem = { id: string; symbol: string; addedAt: number };
 type State = { items: QueueItem[] };
 const state: State = { items: [] };
 
@@ -13,32 +13,32 @@ const load = () => {
 };
 load();
 
-// normalize once
-const norm = (s: string) => s.trim().toUpperCase();
-
-export const addToQueue = (symbolRaw: string, src?: string) => {
-  const s = getStock(norm(symbolRaw));
-  if (!s) return; // silently ignore unknowns in UI paths
-  // ---- append + dedupe (no replacement) ----
-  if (!state.items.some(i => i.symbol === s.symbol)) {
+export const addToQueue = (raw: string) => {
+  const sym = resolveSymbol(raw);
+  if (!sym) return;
+  if (!state.items.some(i => i.symbol === sym)) {
+    const s = getStock(sym)!;
     state.items.push({ id: s.id, symbol: s.symbol, addedAt: Date.now() });
     persist();
   }
 };
 
-export const addManyToQueue = (symbolsRaw: string[], src?: string) => {
-  // union of existing + incoming, in order
+export const addManyToQueue = (raws: string[]) => {
   const existing = new Set(state.items.map(i => i.symbol));
-  for (const raw of symbolsRaw) {
-    const s = getStock(norm(raw));
-    if (s && !existing.has(s.symbol)) {
+  for (const r of raws) {
+    const sym = resolveSymbol(r);
+    if (sym && !existing.has(sym)) {
+      const s = getStock(sym)!;
       state.items.push({ id: s.id, symbol: s.symbol, addedAt: Date.now() });
-      existing.add(s.symbol);
+      existing.add(sym);
     }
   }
   persist();
 };
 
 export const getQueue = () => state.items.slice();
-export const clearQueue = () => { state.items = []; persist(); }; // only call via explicit user action
-export const isInQueue = (symbol: string) => state.items.some(i => i.symbol === norm(symbol));
+export const clearQueue = () => { state.items = []; persist(); }; // only on explicit user action
+export const isInQueue = (symbol: string) => {
+  const resolved = resolveSymbol(symbol);
+  return resolved ? state.items.some(i => i.symbol === resolved) : false;
+};

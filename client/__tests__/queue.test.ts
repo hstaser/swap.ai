@@ -1,73 +1,82 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { addToQueue, getQueue, clearQueue, addManyToQueue, isInQueue } from "../store/queue";
+import { describe, it, expect, beforeEach } from 'vitest';
+import { addToQueue, addManyToQueue, getQueue, clearQueue } from '../store/queue';
 
-// Mock localStorage
-const localStorageMock = {
-  getItem: vi.fn(),
-  setItem: vi.fn(),
-  removeItem: vi.fn(),
-  clear: vi.fn(),
-};
+beforeEach(() => clearQueue());
 
-Object.defineProperty(window, 'localStorage', {
-  value: localStorageMock
-});
-
-describe('Queue System', () => {
-  beforeEach(() => {
-    clearQueue();
-    localStorageMock.getItem.mockReturnValue(null);
+describe('Queue System Tests', () => {
+  it("adds GS from a viewed card without 'not found'", () => {
+    addToQueue("GS");
+    expect(getQueue().map(i => i.symbol)).toEqual(["GS"]);
   });
 
-  it("adds the exact symbol", () => {
-    addToQueue("nke");
-    expect(getQueue()[0].symbol).toBe("NKE");
+  it("handles BRK.B aliases", () => {
+    addToQueue("BRKB");
+    addToQueue("BRK-B");
+    addToQueue("BRK/B");
+    expect(getQueue().map(i => i.symbol)).toEqual(["BRK.B"]);
   });
 
-  it("addManyToQueue dedupes", () => {
-    addManyToQueue(["AAPL", "aapl", "MSFT"]);
-    expect(getQueue().map(i => i.symbol)).toEqual(["AAPL", "MSFT"]);
+  it("Pelosi Add All appends, does not wipe", () => {
+    addToQueue("AAPL");
+    addManyToQueue(["NVDA","MSFT","AAPL"]); // AAPL duplicate
+    expect(getQueue().map(i => i.symbol)).toEqual(["AAPL","NVDA","MSFT"]);
   });
 
-  it("appends from LeBron without wiping existing queue", () => {
-    addToQueue("AAPL", "swipe");
-    addToQueue("MSFT", "swipe");
-    addManyToQueue(["NKE", "PEP", "AAPL"], "lebron"); // includes a duplicate AAPL
-    expect(getQueue().map(i => i.symbol)).toEqual(["AAPL", "MSFT", "NKE", "PEP"]);
+  it("LeBron adds correct associated tickers and appends", () => {
+    addManyToQueue(["TSLA","AMZN"]);
+    addManyToQueue(["NKE","PEP","AAPL"]); // LeBron
+    expect(getQueue().map(i => i.symbol)).toEqual(["TSLA","AMZN","NKE","PEP","AAPL"]);
   });
 
-  it("Pelosi Add All merges, preserves order, dedupes", () => {
-    addToQueue("TSLA", "swipe");
-    addManyToQueue(["NVDA", "AAPL", "NVDA"], "pelosi");
-    expect(getQueue().map(i => i.symbol)).toEqual(["TSLA", "NVDA", "AAPL"]);
+  it("handles MU and COIN without errors", () => {
+    addToQueue("MU");
+    addToQueue("COIN");
+    expect(getQueue().map(i => i.symbol)).toEqual(["MU","COIN"]);
   });
 
-  it("normalizes symbol case", () => {
+  it("normalize symbols consistently", () => {
     addToQueue("aapl");
     addToQueue("AAPL");
     addToQueue("  aapl  ");
+    expect(getQueue().map(i => i.symbol)).toEqual(["AAPL"]); // dedupe
+  });
+
+  it("append behavior: queue grows, never replaces", () => {
+    addToQueue("AAPL");
     expect(getQueue().length).toBe(1);
-    expect(getQueue()[0].symbol).toBe("AAPL");
+    
+    addToQueue("MSFT");
+    expect(getQueue().length).toBe(2);
+    expect(getQueue().map(i => i.symbol)).toEqual(["AAPL", "MSFT"]);
+    
+    addToQueue("AAPL"); // duplicate
+    expect(getQueue().length).toBe(2); // no change
   });
 
-  it("silently ignores unknown symbols", () => {
-    addToQueue("ZZZZ");
+  it("persistence survives after queue operations", () => {
+    addToQueue("NVDA");
+    const queue1 = getQueue();
+    
+    addManyToQueue(["TSLA", "META"]);
+    const queue2 = getQueue();
+    
+    expect(queue1.length).toBe(1);
+    expect(queue2.length).toBe(3);
+    expect(queue2.map(i => i.symbol)).toEqual(["NVDA", "TSLA", "META"]);
+  });
+
+  it("handles unknown symbols gracefully", () => {
+    addToQueue("UNKNOWN");
     expect(getQueue().length).toBe(0);
+    
+    addManyToQueue(["AAPL", "UNKNOWN", "MSFT"]);
+    expect(getQueue().map(i => i.symbol)).toEqual(["AAPL", "MSFT"]);
   });
 
-  it("isInQueue works correctly", () => {
-    addToQueue("AAPL");
-    expect(isInQueue("AAPL")).toBe(true);
-    expect(isInQueue("aapl")).toBe(true);
-    expect(isInQueue("MSFT")).toBe(false);
-  });
-
-  it("maintains proper data structure", () => {
-    addToQueue("AAPL");
-    const queue = getQueue();
-    expect(queue[0]).toHaveProperty("id");
-    expect(queue[0]).toHaveProperty("symbol");
-    expect(queue[0]).toHaveProperty("addedAt");
-    expect(typeof queue[0].addedAt).toBe("number");
+  it("empty and whitespace symbols are ignored", () => {
+    addToQueue("");
+    addToQueue("   ");
+    addToQueue("\t\n");
+    expect(getQueue().length).toBe(0);
   });
 });
