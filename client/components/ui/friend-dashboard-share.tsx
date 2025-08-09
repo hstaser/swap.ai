@@ -178,10 +178,10 @@ export function FriendDashboardShare({
       style: "currency",
       currency: "USD",
       minimumFractionDigits: 2,
-    }).format(amount);
+    }).format(amount ?? 0);
   };
 
-  const isPositive = changePercent >= 0;
+  const isPositive = (changePercent ?? 0) >= 0;
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
