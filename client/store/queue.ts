@@ -70,14 +70,14 @@ const trackQueueEvent = (event: string, data: any) => {
 
     // Send critical errors to external monitoring (would be actual service)
     if (event.includes('error') || event.includes('failed')) {
-      const errorMessage = serializedData.error || 'Unknown error';
-      console.error(`[Queue Error] ${event}:`, {
-        ...serializedData,
-        error: errorMessage
-      });
+      const errorMessage = typeof serializedData.error === 'string'
+        ? serializedData.error
+        : serializedData.error?.message || JSON.stringify(serializedData.error) || 'Unknown error';
+
+      console.error(`[Queue Error] ${event}:`, serializedData);
 
       // In production, alert on symbol validation failures
-      if (event === 'queue_add_failed' && errorMessage.includes && errorMessage.includes('Unknown symbol')) {
+      if (event === 'queue_add_failed' && errorMessage.includes('Unknown symbol')) {
         console.error(`🚨 ALERT: Unknown symbol attempted: ${serializedData.symbol}. Catalog may be incomplete.`);
       }
     }
