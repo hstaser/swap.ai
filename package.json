@@ -17,6 +17,9 @@
     "build:server": "vite build --config vite.config.server.ts",
     "start": "node dist/server/node-build.mjs",
     "test": "vitest --run",
+    "validate": "tsx client/scripts/validate-deployment.ts",
+    "test:queue": "vitest client/store/queue.test.ts",
+    "test:integration": "vitest client/tests/queue-integration.test.ts",
     "format.fix": "prettier --write .",
     "typecheck": "tsc"
   },
