@@ -27,6 +27,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
 import { getStock, validateStock } from "@/data/stocks.catalog";
+import { addToQueue } from "@/store/queue";
 
 export interface NewsItem {
   title: string;
