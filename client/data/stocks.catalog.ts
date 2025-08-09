@@ -70,7 +70,7 @@ export const STOCKS: Record<string, Stock> = {
 
 export const CANONICAL = (s: string) => s.trim().toUpperCase();
 export const getStock = (s: string) => STOCKS[CANONICAL(s)] ?? null;
-export const ALL_SYMBOLS = Object.keys(STOCKS); // 31 tickers
+export const ALL_SYMBOLS = Object.keys(STOCKS); // 33 tickers
 
 // Additional utility functions
 export const hasStock = (symbol: string): boolean => {
