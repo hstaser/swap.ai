@@ -746,19 +746,7 @@ export default function Index() {
         )}
 
         {/* Content Display */}
-        {viewMode === "list" ? (
-          <div className="max-w-6xl mx-auto">
-            <StockListConstructor
-              stocks={filteredStocks}
-              title="Queue Construction"
-              onAddToWatchlist={(symbol) => {
-                if (!watchlist.includes(symbol)) {
-                  setWatchlist([...watchlist, symbol]);
-                }
-              }}
-            />
-          </div>
-        ) : viewMode === "dashboard" ? (
+        {viewMode === "dashboard" ? (
           <div className="max-w-7xl mx-auto">
             <DashboardWithAssistant
               onStockSelect={(symbol) => {
