@@ -296,10 +296,11 @@ export default function Portfolio() {
   // Auto-trigger rebalancing if URL param is present (from AI insights)
   useEffect(() => {
     const autoRebalance = searchParams.get("autoRebalance");
-    if (autoRebalance === "true") {
+    const isRebalanceRoute = location.pathname === "/portfolio/rebalance";
+    if (autoRebalance === "true" || isRebalanceRoute) {
       setShowRebalanceConfirm(true);
     }
-  }, [searchParams]);
+  }, [searchParams, location.pathname]);
 
   const handleRebalancingComplete = (recommendations: any) => {
     console.log("Rebalancing recommendations:", recommendations);
