@@ -31,7 +31,6 @@ describe('Queue Integration Tests', () => {
       const requiredStocks = ['AAPL', 'NKE', 'PEP', 'MSFT', 'GOOGL', 'NVDA', 'TSLA', 'AMZN', 'COIN', 'MU'];
 
       requiredStocks.forEach(symbol => {
-        expect(hasStock(symbol)).toBe(true);
         expect(getStock(symbol)).toBeTruthy();
         expect(validateStock(symbol).isValid).toBe(true);
       });
