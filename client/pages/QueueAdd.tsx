@@ -25,9 +25,21 @@ export default function QueueAdd() {
     null,
   );
 
+  // Debug logging for symbol F
+  if (symbol === 'F') {
+    console.log('QueueAdd: Processing symbol F');
+    console.log('QueueAdd: symbol param:', symbol);
+  }
+
   // Get stock data from extended database first, fallback to catalog
   const extendedStock = symbol ? extendedStockDatabase.find(s => s.symbol === symbol) : null;
   const catalogStock = symbol ? getStock(symbol) : null;
+
+  // Debug logging for symbol F
+  if (symbol === 'F') {
+    console.log('QueueAdd: extendedStock for F:', extendedStock);
+    console.log('QueueAdd: catalogStock for F:', catalogStock);
+  }
 
   const stock = extendedStock || (catalogStock ? {
     name: catalogStock.name,
@@ -36,6 +48,11 @@ export default function QueueAdd() {
     changePercent: 0,
     sector: "Unknown",
   } : null);
+
+  // Debug logging for symbol F
+  if (symbol === 'F') {
+    console.log('QueueAdd: final stock for F:', stock);
+  }
 
   if (!stock || !symbol) {
     return (
