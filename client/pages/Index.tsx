@@ -51,22 +51,20 @@ const calculateRiskLevel = (stock: any): "Low" | "Medium" | "High" => {
   return "Medium";
 };
 
-// Load all 31 stocks from catalog
-const catalogStocks: Stock[] = ALL_SYMBOLS.map(symbol => {
-  const catalogStock = getStock(symbol)!;
-  return {
-    symbol: catalogStock.symbol,
-    name: catalogStock.name,
-    price: catalogStock.price,
-    change: catalogStock.change,
-    changePercent: catalogStock.changePercent,
-    volume: catalogStock.volume,
-    marketCap: catalogStock.marketCap,
-    pe: catalogStock.pe,
-    dividendYield: catalogStock.dividendYield,
-    sector: catalogStock.sector,
-    isGainer: catalogStock.isGainer,
-    news: [],
+// Load all stocks from extended database for UI
+const catalogStocks: Stock[] = extendedStockDatabase.map(stock => ({
+  symbol: stock.symbol,
+  name: stock.name,
+  price: stock.price,
+  change: stock.change,
+  changePercent: stock.changePercent,
+  volume: stock.volume,
+  marketCap: stock.marketCap,
+  pe: stock.pe,
+  dividendYield: stock.dividendYield,
+  sector: stock.sector,
+  isGainer: stock.isGainer,
+  news: [],
     newsSummary: catalogStock.newsSummary,
     returns: catalogStock.returns,
     earningsDate: catalogStock.earningsDate,
