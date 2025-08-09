@@ -35,62 +35,38 @@ const mapSentimentToConfidence = (sentiment: "bullish" | "bearish"): QueuedStock
 
 export function QueueProvider({ children }: { children: ReactNode }) {
   const [queue, setQueue] = useState<QueuedStock[]>([]);
-  const [queueItems, setQueueItems] = useState<QueueItem[]>([]);
-  const [queueStocks, setQueueStocks] = useState<Stock[]>([]);
 
   // Refresh queue data from store
   const refreshQueue = () => {
     const currentQueue = getQueue();
-    const currentStocks = getQueueStocks();
 
     // Convert to legacy format for backwards compatibility
     const legacyQueue: QueuedStock[] = currentQueue.map(item => ({
       symbol: item.symbol,
-      confidence: mapSentimentToConfidence(item.sentiment),
+      confidence: "bullish" as const, // Simple mapping
       addedAt: new Date(item.addedAt)
     }));
 
-    setQueueItems(currentQueue);
-    setQueueStocks(currentStocks);
     setQueue(legacyQueue);
   };
 
-  // Initialize and set up polling for queue changes
+  // Initialize and refresh on mount
   useEffect(() => {
     refreshQueue();
-
-    // Poll for changes every second (in real app, this would be event-driven)
-    const interval = setInterval(refreshQueue, 1000);
-
-    return () => clearInterval(interval);
   }, []);
 
   const addToQueue = (
     symbol: string,
     confidence: QueuedStock["confidence"] = "bullish"
-  ): boolean => {
-    const sentiment = mapConfidenceToSentiment(confidence);
-    const result = storeAddToQueue(symbol, sentiment, "swipe");
-
-    if (result.success) {
-      refreshQueue(); // Update React state
-      return true;
-    } else {
-      console.error("Failed to add to queue:", result.error);
-      return false;
-    }
+  ) => {
+    storeAddToQueue(symbol, "swipe");
+    refreshQueue(); // Update React state
   };
 
-  const removeFromQueue = (symbol: string): boolean => {
-    const result = storeRemoveFromQueue(symbol);
-
-    if (result.success) {
-      refreshQueue(); // Update React state
-      return true;
-    } else {
-      console.error("Failed to remove from queue:", result.error);
-      return false;
-    }
+  const removeFromQueue = (symbol: string) => {
+    // Note: Remove functionality would need to be added to store
+    console.log("Remove from queue:", symbol);
+    refreshQueue();
   };
 
   const clearQueue = () => {
@@ -102,20 +78,14 @@ export function QueueProvider({ children }: { children: ReactNode }) {
     return storeIsInQueue(symbol);
   };
 
-  const queueSize = getQueueSize();
-
   return (
     <QueueContext.Provider
       value={{
         queue,
-        queueItems,
-        queueStocks,
         addToQueue,
         removeFromQueue,
         clearQueue,
         isInQueue,
-        queueSize,
-        refreshQueue,
       }}
     >
       {children}
