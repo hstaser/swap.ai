@@ -396,7 +396,7 @@ export function PinnedStocksSection() {
                   "text-sm font-medium",
                   isPositive ? "text-green-600" : "text-red-600"
                 )}>
-                  {isPositive ? "+" : ""}{stock.changePercent.toFixed(2)}%
+                  {isPositive ? "+" : ""}{stock.changePercent?.toFixed(2) ?? "0.00"}%
                 </div>
               </div>
             </div>
