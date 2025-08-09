@@ -14,7 +14,8 @@ import {
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
-import { getStockPrice } from "@/data/stock-prices";
+import { extendedStockDatabase } from "@/data/extended-stocks";
+import { getStock } from "@/data/stocks.catalog";
 
 export default function QueueAdd() {
   const navigate = useNavigate();
@@ -24,15 +25,17 @@ export default function QueueAdd() {
     null,
   );
 
-  // Get stock data from centralized pricing system
-  const stockPrice = symbol ? getStockPrice(symbol) : null;
-  const stock = stockPrice ? {
-    name: stockPrice.name,
-    price: stockPrice.price,
-    change: stockPrice.change,
-    changePercent: stockPrice.changePercent,
-    sector: stockPrice.sector,
-  } : null;
+  // Get stock data from extended database first, fallback to catalog
+  const extendedStock = symbol ? extendedStockDatabase.find(s => s.symbol === symbol) : null;
+  const catalogStock = symbol ? getStock(symbol) : null;
+
+  const stock = extendedStock || (catalogStock ? {
+    name: catalogStock.name,
+    price: 100, // Default price for catalog-only stocks
+    change: 0,
+    changePercent: 0,
+    sector: "Unknown",
+  } : null);
 
   if (!stock || !symbol) {
     return (
