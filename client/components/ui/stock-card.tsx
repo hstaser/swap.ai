@@ -452,7 +452,7 @@ export function StockCard({
               variant="ghost"
               onClick={() => {
                 if (isInWatchlist) {
-                  onToggleWatchlist(canonicalStock.symbol);
+                  onToggleWatchlist(stock.symbol);
                 } else {
                   setShowNoteModal(true);
                 }
