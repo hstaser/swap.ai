@@ -80,12 +80,12 @@ export function StockCard({
   onSkip,
 }: StockCardProps) {
   // Validate stock against catalog before rendering
-  const catalogStock = getStock(stock.symbol);
-  const validation = validateStock(stock.symbol);
+  const catalogStock = getStock(canonicalStock.symbol);
+  const validation = validateStock(canonicalStock.symbol);
 
   // If stock is not in catalog, don't render the card
   if (!validation.isValid || !catalogStock) {
-    console.warn(`Stock ${stock.symbol} not found in catalog, hiding card`);
+    console.warn(`Stock ${canonicalStock.symbol} not found in catalog, hiding card`);
     return null;
   }
 
@@ -161,36 +161,36 @@ export function StockCard({
             </h3>
             <div className="flex items-center gap-2">
               <Badge variant="outline" className="text-sm">
-                {stock.sector}
+                {canonicalStock.sector}
               </Badge>
-              {stock.risk && (
+              {canonicalStock.risk && (
                 <Badge
                   variant="outline"
                   className={cn(
                     "text-xs px-2 py-0.5",
-                    stock.risk === "Low" &&
+                    canonicalStock.risk === "Low" &&
                       "bg-green-100 text-green-800 border-green-300",
-                    stock.risk === "Medium" &&
+                    canonicalStock.risk === "Medium" &&
                       "bg-yellow-100 text-yellow-800 border-yellow-300",
-                    stock.risk === "High" &&
+                    canonicalStock.risk === "High" &&
                       "bg-red-100 text-red-800 border-red-300",
                   )}
                 >
-                  {stock.risk} Risk
+                  {canonicalStock.risk} Risk
                 </Badge>
               )}
             </div>
           </div>
           <p className="text-lg text-muted-foreground font-medium">
-            {stock.name}
+            {canonicalStock.name}
           </p>
 
           {/* Earnings Alert - Moved below name */}
-          {stock.earningsDate && (
+          {canonicalStock.earningsDate && (
             <div className="flex items-center justify-center gap-1 text-yellow-600">
               <AlertCircle className="h-3 w-3 animate-pulse" />
               <span className="text-xs font-medium">
-                Earnings: {stock.earningsDate}
+                Earnings: {canonicalStock.earningsDate}
               </span>
             </div>
           )}
@@ -199,7 +199,7 @@ export function StockCard({
         {/* Price and Change */}
         <div className="text-center space-y-2">
           <div className="text-5xl font-bold text-foreground">
-            ${stock.price.toFixed(2)}
+            ${canonicalStock.price.toFixed(2)}
           </div>
           <div
             className={cn(
@@ -214,8 +214,8 @@ export function StockCard({
             )}
             <span>
               {isPositive ? "+" : ""}
-              {stock.change.toFixed(2)} ({isPositive ? "+" : ""}
-              {stock.changePercent.toFixed(2)}%)
+              {canonicalStock.change.toFixed(2)} ({isPositive ? "+" : ""}
+              {canonicalStock.changePercent.toFixed(2)}%)
             </span>
           </div>
           <div className="text-center">
@@ -230,13 +230,13 @@ export function StockCard({
           <div className="grid grid-cols-2 gap-6">
             <div className="text-center space-y-1">
               <div className="text-sm text-muted-foreground">Market Cap</div>
-              <div className="font-bold text-lg">{stock.marketCap}</div>
+              <div className="font-bold text-lg">{canonicalStock.marketCap}</div>
             </div>
             <div className="text-center space-y-1">
               <div className="text-sm text-muted-foreground">Div Yield</div>
               <div className="font-bold text-lg">
-                {stock.dividendYield
-                  ? `${stock.dividendYield.toFixed(2)}%`
+                {canonicalStock.dividendYield
+                  ? `${canonicalStock.dividendYield.toFixed(2)}%`
                   : "N/A"}
               </div>
             </div>
@@ -259,9 +259,9 @@ export function StockCard({
             </div>
             <div className="flex gap-2">
               {[
-                { label: "1M", value: stock.returns?.oneMonth || 2.4 },
-                { label: "6M", value: stock.returns?.sixMonth || 8.7 },
-                { label: "1Y", value: stock.returns?.oneYear || 15.3 },
+                { label: "1M", value: canonicalStock.returns?.oneMonth || 2.4 },
+                { label: "6M", value: canonicalStock.returns?.sixMonth || 8.7 },
+                { label: "1Y", value: canonicalStock.returns?.oneYear || 15.3 },
               ].map((period) => (
                 <div
                   key={period.label}
@@ -288,12 +288,12 @@ export function StockCard({
           <div className="space-y-2">
             <div className="text-sm text-muted-foreground">News Summary</div>
             <div className="font-bold text-sm text-primary leading-tight">
-              {stock.newsSummary}
+              {canonicalStock.newsSummary}
             </div>
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate(`/stock/${stock.symbol}/news`)}
+              onClick={() => navigate(`/stock/${canonicalStock.symbol}/news`)}
               className="h-6 px-2 text-xs text-blue-600"
             >
               See More
@@ -304,13 +304,13 @@ export function StockCard({
         <Separator />
 
         {/* Community Sentiment */}
-        <CommunitySentiment symbol={stock.symbol} />
+        <CommunitySentiment symbol={canonicalStock.symbol} />
 
         {/* Chart Modal */}
         {showChart && (
           <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
             <StockChart
-              symbol={stock.symbol}
+              symbol={canonicalStock.symbol}
               onClose={() => setShowChart(false)}
             />
           </div>
@@ -319,7 +319,7 @@ export function StockCard({
         {/* Interactive Chart Modal */}
         {showInteractiveChart && (
           <InteractiveChart
-            symbol={stock.symbol}
+            symbol={canonicalStock.symbol}
             onClose={() => setShowInteractiveChart(false)}
           />
         )}
@@ -350,17 +350,17 @@ export function StockCard({
           onShareInternal={(friendIds, message) => {
             console.log("Sharing with friends:", friendIds, message);
             // Navigate to swipe view with this stock
-            navigate(`/?symbol=${stock.symbol}`);
+            navigate(`/?symbol=${canonicalStock.symbol}`);
           }}
           onShareExternal={(platform, message) => {
             console.log("External share:", platform, message);
             if (platform === "copy") {
               navigator.clipboard.writeText(
-                `Check out ${stock.symbol} on swipr.ai - ${message}`,
+                `Check out ${canonicalStock.symbol} on swipr.ai - ${message}`,
               );
             } else {
               // Open social media sharing
-              const url = `https://swipr.ai/stock/${stock.symbol}`;
+              const url = `https://swipr.ai/stock/${canonicalStock.symbol}`;
               const text = encodeURIComponent(message);
               if (platform === "twitter") {
                 window.open(
@@ -377,11 +377,11 @@ export function StockCard({
 
         {/* Friend Dashboard Share Modal */}
         <FriendDashboardShare
-          symbol={stock.symbol}
-          stockName={stock.name}
-          price={stock.price}
-          change={stock.change}
-          changePercent={stock.changePercent}
+          symbol={canonicalStock.symbol}
+          stockName={canonicalStock.name}
+          price={canonicalStock.price}
+          change={canonicalStock.change}
+          changePercent={canonicalStock.changePercent}
           isOpen={showFriendShare}
           onClose={() => setShowFriendShare(false)}
           onShare={(friendIds, message) => {
@@ -410,24 +410,24 @@ export function StockCard({
         <div className="text-center space-y-2">
           <Button
             variant="outline"
-            onClick={() => navigate(`/research?symbol=${stock.symbol}`)}
+            onClick={() => navigate(`/research?symbol=${canonicalStock.symbol}`)}
             className="w-full h-12 sm:h-14 text-sm sm:text-base font-medium border-blue-200 text-blue-700 hover:bg-blue-50"
           >
             <MessageCircle className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">
-              Need help? Ask AI about {stock.symbol}
+              Need help? Ask AI about {canonicalStock.symbol}
             </span>
-            <span className="sm:hidden">Ask AI about {stock.symbol}</span>
+            <span className="sm:hidden">Ask AI about {canonicalStock.symbol}</span>
           </Button>
 
           {/* Subtle contextual suggestions */}
-          {stock.symbol === "AAPL" && stock.risk === "High" && (
+          {canonicalStock.symbol === "AAPL" && canonicalStock.risk === "High" && (
             <p className="text-xs text-muted-foreground italic">
               This is high-beta. AI can suggest defensive pairs
             </p>
           )}
 
-          {stock.changePercent > 5 && (
+          {canonicalStock.changePercent > 5 && (
             <p className="text-xs text-muted-foreground italic">
               Big mover today. AI can explain why & show related plays
             </p>
@@ -439,7 +439,7 @@ export function StockCard({
         {/* Add to Queue Button */}
         <div className="space-y-4">
           <Button
-            onClick={() => navigate(`/queue/add/${stock.symbol}`)}
+            onClick={() => navigate(`/queue/add/${canonicalStock.symbol}`)}
             className="w-full h-12 sm:h-14 text-sm sm:text-base font-semibold bg-blue-600 hover:bg-blue-700 text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -452,7 +452,7 @@ export function StockCard({
               variant="ghost"
               onClick={() => {
                 if (isInWatchlist) {
-                  onToggleWatchlist(stock.symbol);
+                  onToggleWatchlist(canonicalStock.symbol);
                 } else {
                   setShowNoteModal(true);
                 }
