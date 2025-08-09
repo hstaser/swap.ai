@@ -23,7 +23,7 @@ if (STOCK_COUNT === 0) {
 }
 
 // Check required stocks exist
-const requiredStocks = ['AAPL', 'NKE', 'PEP', 'MSFT', 'GOOGL', 'NVDA', 'TSLA', 'AMZN', 'COIN'];
+const requiredStocks = ['AAPL', 'NKE', 'PEP', 'MSFT', 'GOOGL', 'NVDA', 'TSLA', 'AMZN', 'COIN', 'MU'];
 const missingStocks: string[] = [];
 
 requiredStocks.forEach(symbol => {
