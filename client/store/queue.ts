@@ -31,30 +31,76 @@ const normalizeSymbol = (symbol: string): string => {
   return symbol.trim().toUpperCase();
 };
 
-// Telemetry tracking
+// Telemetry tracking with proper error monitoring
 const trackQueueEvent = (event: string, data: any) => {
   const eventData = {
     event,
     timestamp: Date.now(),
+    userAgent: navigator.userAgent,
+    url: window.location.href,
     ...data
   };
-  
+
   console.log('[Queue Telemetry]', eventData);
-  
-  // Store events for monitoring (in real app, send to analytics)
+
+  // In a real app, send to analytics service
+  // For now, store locally for monitoring dashboard
   try {
     const existingEvents = JSON.parse(localStorage.getItem(QUEUE_TELEMETRY_KEY) || '[]');
     existingEvents.push(eventData);
-    
+
     // Keep only last 100 events
     if (existingEvents.length > 100) {
       existingEvents.splice(0, existingEvents.length - 100);
     }
-    
+
     localStorage.setItem(QUEUE_TELEMETRY_KEY, JSON.stringify(existingEvents));
+
+    // Send critical errors to external monitoring (would be actual service)
+    if (event.includes('error') || event.includes('failed')) {
+      console.error(`[Queue Error] ${event}:`, data);
+
+      // In production, alert on symbol validation failures
+      if (event === 'queue_add_failed' && data.error?.includes('Unknown symbol')) {
+        console.error(`🚨 ALERT: Unknown symbol attempted: ${data.symbol}. Catalog may be incomplete.`);
+      }
+    }
+
   } catch (error) {
     console.error('Failed to store telemetry:', error);
   }
+};
+
+// Monitoring dashboard data
+export const getTelemetryEvents = () => {
+  try {
+    return JSON.parse(localStorage.getItem(QUEUE_TELEMETRY_KEY) || '[]');
+  } catch {
+    return [];
+  }
+};
+
+export const getTelemetryMetrics = () => {
+  const events = getTelemetryEvents();
+
+  const totalEvents = events.length;
+  const errorEvents = events.filter((e: any) => e.event.includes('error') || e.event.includes('failed'));
+  const successEvents = events.filter((e: any) => e.event.includes('success'));
+
+  const symbolMismatches = events.filter((e: any) =>
+    e.event === 'queue_add_failed' && e.error?.includes('Unknown symbol')
+  );
+
+  return {
+    totalEvents,
+    errorEvents: errorEvents.length,
+    successEvents: successEvents.length,
+    errorRate: totalEvents > 0 ? (errorEvents.length / totalEvents * 100) : 0,
+    symbolMismatchCount: symbolMismatches.length,
+    lastHour: events.filter((e: any) =>
+      Date.now() - e.timestamp < 3600000
+    ).length
+  };
 };
 
 // Load queue from storage
@@ -63,7 +109,7 @@ const loadQueue = (): QueueState => {
     const stored = localStorage.getItem(QUEUE_STORAGE_KEY);
     if (stored) {
       const parsed = JSON.parse(stored);
-      
+
       // Validate stored items against current catalog
       const validItems = parsed.items.filter((item: any) => {
         const isValid = getStock(item.symbol) !== null;
@@ -73,7 +119,7 @@ const loadQueue = (): QueueState => {
         }
         return isValid;
       });
-      
+
       return {
         items: validItems,
         lastUpdated: parsed.lastUpdated || Date.now()
@@ -83,7 +129,7 @@ const loadQueue = (): QueueState => {
     console.error('Failed to load queue from storage:', error);
     trackQueueEvent('queue_load_error', { error: error.message });
   }
-  
+
   return { items: [], lastUpdated: Date.now() };
 };
 
@@ -94,7 +140,7 @@ const persistQueue = (items: QueueItem[]) => {
       items,
       lastUpdated: Date.now()
     };
-    
+
     localStorage.setItem(QUEUE_STORAGE_KEY, JSON.stringify(stateToSave));
     queueState.lastUpdated = stateToSave.lastUpdated;
   } catch (error) {
@@ -108,39 +154,39 @@ queueState = loadQueue();
 
 // Core queue operations
 export const addToQueue = (
-  symbolRaw: string, 
+  symbolRaw: string,
   sentiment: 'bullish' | 'bearish' = 'bullish',
   source: QueueItem['source'] = 'manual'
 ): { success: boolean; error?: string; item?: QueueItem } => {
   try {
     const symbol = normalizeSymbol(symbolRaw);
-    
+
     // Validate symbol exists in catalog
     const validation = validateStock(symbol);
     if (!validation.isValid) {
       const error = validation.error || `Unknown symbol: ${symbol}`;
-      trackQueueEvent('queue_add_failed', { 
-        symbol: symbolRaw, 
-        normalizedSymbol: symbol, 
+      trackQueueEvent('queue_add_failed', {
+        symbol: symbolRaw,
+        normalizedSymbol: symbol,
         error,
-        source 
+        source
       });
       throw new Error(error);
     }
-    
+
     const stock = getStock(symbol)!;
-    
+
     // Check for duplicates
     const existingIndex = queueState.items.findIndex(item => item.symbol === stock.symbol);
     if (existingIndex !== -1) {
-      trackQueueEvent('queue_add_duplicate', { 
-        symbol: stock.symbol, 
+      trackQueueEvent('queue_add_duplicate', {
+        symbol: stock.symbol,
         source,
         existingItem: queueState.items[existingIndex]
       });
       return { success: true, item: queueState.items[existingIndex] }; // Return existing item, no error
     }
-    
+
     // Create new queue item
     const newItem: QueueItem = {
       id: stock.id,
@@ -149,27 +195,27 @@ export const addToQueue = (
       addedAt: Date.now(),
       source
     };
-    
+
     // Add to queue
     queueState.items.push(newItem);
     persistQueue(queueState.items);
-    
-    trackQueueEvent('queue_add_success', { 
-      symbol: stock.symbol, 
+
+    trackQueueEvent('queue_add_success', {
+      symbol: stock.symbol,
       id: stock.id,
       sentiment,
       source,
       queueSize: queueState.items.length
     });
-    
+
     return { success: true, item: newItem };
-    
+
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    trackQueueEvent('queue_add_error', { 
-      symbol: symbolRaw, 
+    trackQueueEvent('queue_add_error', {
+      symbol: symbolRaw,
       error: errorMessage,
-      source 
+      source
     });
     return { success: false, error: errorMessage };
   }
@@ -179,14 +225,14 @@ export const removeFromQueue = (symbol: string): { success: boolean; error?: str
   try {
     const normalizedSymbol = normalizeSymbol(symbol);
     const initialLength = queueState.items.length;
-    
+
     queueState.items = queueState.items.filter(item => item.symbol !== normalizedSymbol);
-    
+
     if (queueState.items.length < initialLength) {
       persistQueue(queueState.items);
-      trackQueueEvent('queue_remove_success', { 
+      trackQueueEvent('queue_remove_success', {
         symbol: normalizedSymbol,
-        queueSize: queueState.items.length 
+        queueSize: queueState.items.length
       });
       return { success: true };
     } else {
@@ -204,7 +250,7 @@ export const clearQueue = (): void => {
   const previousSize = queueState.items.length;
   queueState.items = [];
   persistQueue([]);
-  
+
   trackQueueEvent('queue_clear', { previousSize });
 };
 
@@ -231,27 +277,27 @@ export const getQueueSize = (): number => {
 export const updateQueueItemSentiment = (symbol: string, sentiment: 'bullish' | 'bearish'): boolean => {
   const normalizedSymbol = normalizeSymbol(symbol);
   const item = queueState.items.find(item => item.symbol === normalizedSymbol);
-  
+
   if (item) {
     item.sentiment = sentiment;
     persistQueue(queueState.items);
     trackQueueEvent('queue_sentiment_update', { symbol: normalizedSymbol, sentiment });
     return true;
   }
-  
+
   return false;
 };
 
 export const reorderQueue = (fromIndex: number, toIndex: number): boolean => {
-  if (fromIndex < 0 || fromIndex >= queueState.items.length || 
+  if (fromIndex < 0 || fromIndex >= queueState.items.length ||
       toIndex < 0 || toIndex >= queueState.items.length) {
     return false;
   }
-  
+
   const [movedItem] = queueState.items.splice(fromIndex, 1);
   queueState.items.splice(toIndex, 0, movedItem);
   persistQueue(queueState.items);
-  
+
   trackQueueEvent('queue_reorder', { fromIndex, toIndex });
   return true;
 };
@@ -263,12 +309,12 @@ export const getQueueMetrics = () => {
     acc[source] = (acc[source] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
-  
+
   const sentimentBreakdown = queueState.items.reduce((acc, item) => {
     acc[item.sentiment] = (acc[item.sentiment] || 0) + 1;
     return acc;
   }, {} as Record<string, number>);
-  
+
   return {
     totalItems: queueState.items.length,
     sourceBreakdown,
@@ -281,34 +327,34 @@ export const getQueueMetrics = () => {
 
 export const validateQueueIntegrity = (): { isValid: boolean; errors: string[] } => {
   const errors: string[] = [];
-  
+
   queueState.items.forEach((item, index) => {
     // Check if stock exists in catalog
     if (!getStock(item.symbol)) {
       errors.push(`Queue item ${index}: Invalid symbol ${item.symbol}`);
     }
-    
+
     // Check required fields
     if (!item.id) {
       errors.push(`Queue item ${index}: Missing id`);
     }
-    
+
     if (!item.symbol) {
       errors.push(`Queue item ${index}: Missing symbol`);
     }
-    
+
     if (!item.addedAt || item.addedAt <= 0) {
       errors.push(`Queue item ${index}: Invalid addedAt timestamp`);
     }
   });
-  
+
   // Check for duplicates
   const symbols = queueState.items.map(item => item.symbol);
   const uniqueSymbols = new Set(symbols);
   if (symbols.length !== uniqueSymbols.size) {
     errors.push('Queue contains duplicate symbols');
   }
-  
+
   return {
     isValid: errors.length === 0,
     errors
