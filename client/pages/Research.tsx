@@ -575,26 +575,65 @@ export default function Research() {
       if (!confirmReplace) return;
     }
 
-    // Get the queue template and show the list editor modal
+    // Handle influencer-based queues using new mapping system
+    if (queueType === "lebron") {
+      const influencerInfo = getInfluencerInfo("lebron-james");
+
+      if (!influencerInfo) {
+        console.error("LeBron influencer mapping not found");
+        return;
+      }
+
+      if (!isInfluencerVerified("lebron-james")) {
+        console.warn("LeBron influencer mapping not verified by legal/PM");
+        // In production, show error to user
+        alert("This feature is currently under review. Please try again later.");
+        return;
+      }
+
+      const verifiedTickers = getInfluencerTickers("lebron-james");
+
+      if (verifiedTickers.length === 0) {
+        console.error("No verified tickers available for LeBron");
+        return;
+      }
+
+      setEditingListName(influencerInfo.name + "'s Brand Empire");
+      setEditingListStocks(verifiedTickers);
+      setShowListEditor(true);
+      return;
+    }
+
+    // Handle other queue templates
     const queueTemplates: Record<string, {name: string, stocks: string[]}> = {
       "pelosi": {
         name: "Nancy Pelosi's Portfolio",
-        stocks: ["NVDA", "AAPL", "MSFT", "GOOGL", "CRM"]
-      },
-      "lebron": {
-        name: "LeBron's Brand Empire",
-        stocks: ["NKE", "PEP", "WMT", "NFLX"]
+        stocks: ["NVDA", "AAPL", "MSFT", "GOOGL"] // Removed CRM as it's not in catalog
       },
       "buffett": {
         name: "Buffett's Strategy",
-        stocks: ["AAPL", "BAC", "KO", "AXP", "KHC"]
+        stocks: ["AAPL", "PEP", "MSFT", "GOOGL"] // Using only stocks in catalog
       }
     };
 
     const template = queueTemplates[queueType];
     if (template) {
+      // Validate all stocks exist in catalog
+      const validStocks = template.stocks.filter(symbol => {
+        const validation = validateStock(symbol);
+        if (!validation.isValid) {
+          console.warn(`Invalid stock in ${queueType} template: ${symbol} - ${validation.error}`);
+        }
+        return validation.isValid;
+      });
+
+      if (validStocks.length === 0) {
+        console.error(`No valid stocks available for ${queueType} template`);
+        return;
+      }
+
       setEditingListName(template.name);
-      setEditingListStocks(template.stocks);
+      setEditingListStocks(validStocks);
       setShowListEditor(true);
     }
   };
