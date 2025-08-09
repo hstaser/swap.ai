@@ -23,15 +23,7 @@ interface QueueContextType {
 
 const QueueContext = createContext<QueueContextType | undefined>(undefined);
 
-// Map confidence to sentiment for new store
-const mapConfidenceToSentiment = (confidence: QueuedStock["confidence"]): "bullish" | "bearish" => {
-  return confidence === "conservative" ? "bearish" : "bullish";
-};
 
-// Map sentiment back to confidence for legacy compatibility
-const mapSentimentToConfidence = (sentiment: "bullish" | "bearish"): QueuedStock["confidence"] => {
-  return sentiment === "bearish" ? "conservative" : "bullish";
-};
 
 export function QueueProvider({ children }: { children: ReactNode }) {
   const [queue, setQueue] = useState<QueuedStock[]>([]);
