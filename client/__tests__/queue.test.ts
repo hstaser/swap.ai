@@ -62,11 +62,12 @@ it("isInQueue works correctly", () => {
   expect(isInQueue("MSFT")).toBe(false);
 });
 
-it("maintains proper data structure", () => {
-  addToQueue("AAPL");
-  const queue = getQueue();
-  expect(queue[0]).toHaveProperty("id");
-  expect(queue[0]).toHaveProperty("symbol");
-  expect(queue[0]).toHaveProperty("addedAt");
-  expect(typeof queue[0].addedAt).toBe("number");
+  it("maintains proper data structure", () => {
+    addToQueue("AAPL");
+    const queue = getQueue();
+    expect(queue[0]).toHaveProperty("id");
+    expect(queue[0]).toHaveProperty("symbol");
+    expect(queue[0]).toHaveProperty("addedAt");
+    expect(typeof queue[0].addedAt).toBe("number");
+  });
 });
