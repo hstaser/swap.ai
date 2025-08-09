@@ -70,6 +70,7 @@ function AppContent() {
         <Route path="/transactions" element={<Transactions />} />
         <Route path="/watchlist" element={<Watchlist />} />
         <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/portfolio/rebalance" element={<Portfolio />} />
         <Route path="/friends" element={<Friends />} />
         <Route path="/social" element={<Social />} />
         <Route path="/user/:userId" element={<UserProfile />} />
