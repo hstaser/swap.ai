@@ -113,14 +113,33 @@ export function StockCard({
         {/* Header */}
         <div className="relative text-center space-y-3">
           {/* Share Button - Top Right */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setShowShareModal(true)}
-            className="absolute top-0 right-0 h-6 w-6 text-muted-foreground hover:text-blue-600"
-          >
-            <Share2 className="h-3 w-3" />
-          </Button>
+          <div className="absolute top-0 right-0 flex gap-1">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => {
+                // Download features documentation
+                const element = document.createElement('a');
+                element.href = '/FEATURES_DOCUMENTATION.md';
+                element.download = 'Swipr_Features_Documentation.md';
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+              }}
+              className="h-6 w-6 text-muted-foreground hover:text-green-600"
+              title="Download Features Documentation"
+            >
+              <Download className="h-3 w-3" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setShowShareModal(true)}
+              className="h-6 w-6 text-muted-foreground hover:text-blue-600"
+            >
+              <Share2 className="h-3 w-3" />
+            </Button>
+          </div>
 
           <div className="flex items-center justify-center gap-3">
             <h3 className="font-bold text-foreground text-4xl">
