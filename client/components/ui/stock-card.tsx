@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import { getStock, validateStock } from "@/data/stocks.catalog";
 
 export interface NewsItem {
   title: string;
