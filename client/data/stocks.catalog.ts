@@ -286,6 +286,34 @@ export const STOCKS: Record<string, Stock> = {
     netIncome: "-541M",
     employees: 4948,
     founded: "2012"
+  },
+
+  MU: {
+    id: "stk_mu",
+    symbol: "MU",
+    name: "Micron Technology, Inc.",
+    exchange: "NASDAQ",
+    currency: "USD",
+    sector: "Technology",
+    marketCap: "94.8B",
+    price: 85.42,
+    change: 2.15,
+    changePercent: 2.58,
+    volume: "18.7M",
+    pe: 15.2,
+    dividendYield: 0.0,
+    isGainer: true,
+    newsSummary: "Memory chip demand recovering, AI and data center growth driving sales",
+    returns: { oneMonth: 12.3, sixMonth: 24.1, oneYear: 67.8 },
+    earningsDate: "Jan 18, 2025",
+    beta: 1.8,
+    eps: 5.62,
+    bookValue: 28.43,
+    priceToBook: 3.0,
+    revenue: "24.9B",
+    netIncome: "7.8B",
+    employees: 48000,
+    founded: "1978"
   }
 };
 
