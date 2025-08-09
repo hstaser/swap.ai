@@ -155,7 +155,7 @@ export default function OptimizationReview() {
             ...stock,
             percentage: newPercentage,
             amount,
-            shares: Math.floor(amount / stock.price),
+            shares: amount / stock.price,
           };
         }
         return stock;
