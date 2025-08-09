@@ -1,8 +1,8 @@
 // Single Source of Truth for all stocks (31 items)
-export type Stock = { 
-  id: string; 
-  symbol: string; 
-  name: string; 
+export type Stock = {
+  id: string;
+  symbol: string;
+  name: string;
   exchange?: string;
   sector: string;
   price: number;
@@ -67,3 +67,31 @@ export const STOCKS: Record<string, Stock> = {
 export const CANONICAL = (s: string) => s.trim().toUpperCase();
 export const getStock = (s: string) => STOCKS[CANONICAL(s)] ?? null;
 export const ALL_SYMBOLS = Object.keys(STOCKS); // 31 tickers
+
+// Additional utility functions
+export const hasStock = (symbol: string): boolean => {
+  return Boolean(getStock(symbol));
+};
+
+export const getAllStocks = (): Stock[] => {
+  return Object.values(STOCKS);
+};
+
+export const validateStock = (symbol: string): { isValid: boolean; error?: string } => {
+  const trimmed = symbol.trim();
+
+  if (!trimmed) {
+    return { isValid: false, error: "Symbol cannot be empty" };
+  }
+
+  const normalized = trimmed.toUpperCase();
+
+  if (!STOCKS[normalized]) {
+    return { isValid: false, error: `Unknown symbol: ${normalized}` };
+  }
+
+  return { isValid: true };
+};
+
+// Export count for monitoring
+export const STOCK_COUNT = Object.keys(STOCKS).length;
