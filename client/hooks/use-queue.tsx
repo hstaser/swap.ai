@@ -51,7 +51,7 @@ export function QueueProvider({ children }: { children: ReactNode }) {
     symbol: string,
     confidence: QueuedStock["confidence"] = "bullish"
   ) => {
-    storeAddToQueue(symbol, "swipe");
+    storeAddToQueue(symbol);
     refreshQueue(); // Update React state
   };
 
