@@ -92,7 +92,7 @@ export default function OptimizationReview() {
       confidence: queueItem.confidence,
       percentage,
       amount,
-      shares: Math.floor(amount / stock.price),
+      shares: amount / stock.price,
       price: stock.price,
       reasoning: queueItem.confidence === "very-bullish" ?
         "Highest confidence pick - larger allocation for growth potential." :
