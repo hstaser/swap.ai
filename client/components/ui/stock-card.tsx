@@ -199,7 +199,7 @@ export function StockCard({
         {/* Price and Change */}
         <div className="text-center space-y-2">
           <div className="text-5xl font-bold text-foreground">
-            ${canonicalStock.price.toFixed(2)}
+            ${canonicalStock.price?.toFixed(2) ?? "0.00"}
           </div>
           <div
             className={cn(
@@ -214,8 +214,8 @@ export function StockCard({
             )}
             <span>
               {isPositive ? "+" : ""}
-              {canonicalStock.change.toFixed(2)} ({isPositive ? "+" : ""}
-              {canonicalStock.changePercent.toFixed(2)}%)
+              {canonicalStock.change?.toFixed(2) ?? "0.00"} ({isPositive ? "+" : ""}
+              {canonicalStock.changePercent?.toFixed(2) ?? "0.00"}%)
             </span>
           </div>
           <div className="text-center">
