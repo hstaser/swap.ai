@@ -1140,11 +1140,11 @@ export default function Research() {
                   variant="ghost"
                   size="sm"
                   className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-purple-50 min-h-[40px]"
-                  onClick={() =>
-                    handleSuggestionClick("Build a queue based on Nancy Pelosi's recent stock disclosures")
-                  }
+                  asChild
                 >
-                  Follow Nancy Pelosi's Portfolio
+                  <Link to="/pelosi">
+                    Follow Nancy Pelosi's Portfolio
+                  </Link>
                 </Button>
                 <Button
                   variant="ghost"
