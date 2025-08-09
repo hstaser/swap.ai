@@ -1,7 +1,24 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { addToQueue, addManyToQueue, getQueue, clearQueue } from '../store/queue';
 
-beforeEach(() => clearQueue());
+// Mock localStorage for Node.js test environment
+const localStorageMock = {
+  getItem: vi.fn(() => null),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn(),
+};
+
+Object.defineProperty(global, 'localStorage', {
+  value: localStorageMock,
+  writable: true
+});
+
+beforeEach(() => {
+  localStorageMock.getItem.mockReturnValue(null);
+  localStorageMock.setItem.mockClear();
+  clearQueue();
+});
 
 describe('Queue System Tests', () => {
   it("adds GS from a viewed card without 'not found'", () => {
@@ -44,11 +61,11 @@ describe('Queue System Tests', () => {
   it("append behavior: queue grows, never replaces", () => {
     addToQueue("AAPL");
     expect(getQueue().length).toBe(1);
-    
+
     addToQueue("MSFT");
     expect(getQueue().length).toBe(2);
     expect(getQueue().map(i => i.symbol)).toEqual(["AAPL", "MSFT"]);
-    
+
     addToQueue("AAPL"); // duplicate
     expect(getQueue().length).toBe(2); // no change
   });
@@ -56,10 +73,10 @@ describe('Queue System Tests', () => {
   it("persistence survives after queue operations", () => {
     addToQueue("NVDA");
     const queue1 = getQueue();
-    
+
     addManyToQueue(["TSLA", "META"]);
     const queue2 = getQueue();
-    
+
     expect(queue1.length).toBe(1);
     expect(queue2.length).toBe(3);
     expect(queue2.map(i => i.symbol)).toEqual(["NVDA", "TSLA", "META"]);
@@ -68,7 +85,7 @@ describe('Queue System Tests', () => {
   it("handles unknown symbols gracefully", () => {
     addToQueue("UNKNOWN");
     expect(getQueue().length).toBe(0);
-    
+
     addManyToQueue(["AAPL", "UNKNOWN", "MSFT"]);
     expect(getQueue().map(i => i.symbol)).toEqual(["AAPL", "MSFT"]);
   });
