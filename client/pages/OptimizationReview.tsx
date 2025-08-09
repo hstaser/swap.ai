@@ -415,7 +415,7 @@ export default function OptimizationReview() {
                   )}
 
                   <div className="text-sm text-muted-foreground">
-                    {stock.shares.toFixed(4)} shares @ ${stock.price.toFixed(2)}
+                    {stock.shares < 1 ? stock.shares.toFixed(6) : stock.shares.toFixed(3)} shares @ ${stock.price.toFixed(2)}
                   </div>
                 </div>
               ))}
