@@ -15,14 +15,10 @@ export interface QueuedStock {
 
 interface QueueContextType {
   queue: QueuedStock[];
-  queueItems: QueueItem[]; // New canonical queue items
-  queueStocks: Stock[]; // Fully populated stock objects
-  addToQueue: (symbol: string, confidence: QueuedStock["confidence"]) => boolean;
-  removeFromQueue: (symbol: string) => boolean;
+  addToQueue: (symbol: string, confidence: QueuedStock["confidence"]) => void;
+  removeFromQueue: (symbol: string) => void;
   clearQueue: () => void;
   isInQueue: (symbol: string) => boolean;
-  queueSize: number;
-  refreshQueue: () => void;
 }
 
 const QueueContext = createContext<QueueContextType | undefined>(undefined);
