@@ -496,7 +496,7 @@ export default function Index() {
 
   const toggleWatchlist = (symbol: string) => {
     const isRemoving = watchlist.includes(symbol);
-    const currentStock = filteredStocks.find(s => s.symbol === symbol) || mockStocks.find(s => s.symbol === symbol);
+    const currentStock = filteredStocks.find(s => s.symbol === symbol) || catalogStocks.find(s => s.symbol === symbol);
 
     if (isRemoving) {
       setWatchlist(watchlist.filter((s) => s !== symbol));
