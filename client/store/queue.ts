@@ -15,12 +15,13 @@ load();
 
 export const addToQueue = (raw: string) => {
   const sym = resolveSymbol(raw);
-  if (!sym) return;
+  if (!sym) return false;
   if (!state.items.some(i => i.symbol === sym)) {
     const s = getStock(sym)!;
     state.items.push({ id: s.id, symbol: s.symbol, addedAt: Date.now() });
     persist();
   }
+  return true; // Return true for successful addition or if already exists
 };
 
 export const addManyToQueue = (raws: string[]) => {
