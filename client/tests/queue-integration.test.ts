@@ -13,7 +13,7 @@ describe('Queue Integration Tests', () => {
 
   describe('Stock Catalog Integration', () => {
     it('should have all required stocks in catalog', () => {
-      const requiredStocks = ['AAPL', 'NKE', 'PEP', 'MSFT', 'GOOGL', 'NVDA', 'TSLA', 'AMZN', 'COIN'];
+      const requiredStocks = ['AAPL', 'NKE', 'PEP', 'MSFT', 'GOOGL', 'NVDA', 'TSLA', 'AMZN', 'COIN', 'MU'];
 
       requiredStocks.forEach(symbol => {
         expect(hasStock(symbol)).toBe(true);
