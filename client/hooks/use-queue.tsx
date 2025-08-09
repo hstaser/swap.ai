@@ -57,9 +57,8 @@ export function QueueProvider({ children }: { children: ReactNode }) {
   };
 
   const removeFromQueue = (symbol: string) => {
-    // Note: Remove functionality would need to be added to store
-    console.log("Remove from queue:", symbol);
-    refreshQueue();
+    storeRemoveFromQueue(symbol);
+    refreshQueue(); // Update React state
   };
 
   const clearQueue = () => {
