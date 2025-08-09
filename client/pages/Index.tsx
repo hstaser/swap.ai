@@ -53,24 +53,26 @@ const calculateRiskLevel = (stock: any): "Low" | "Medium" | "High" => {
 };
 
 // Load all stocks from extended database for UI
-const catalogStocks: Stock[] = extendedStockDatabase.map(stock => ({
-  symbol: stock.symbol,
-  name: stock.name,
-  price: stock.price,
-  change: stock.change,
-  changePercent: stock.changePercent,
-  volume: stock.volume,
-  marketCap: stock.marketCap,
-  pe: stock.pe,
-  dividendYield: stock.dividendYield,
-  sector: stock.sector,
-  isGainer: stock.isGainer,
-  news: [],
-  newsSummary: stock.newsSummary,
-  returns: stock.returns,
-  earningsDate: stock.earningsDate,
-  risk: calculateRiskLevel(stock),
-})).filter(Boolean);
+const catalogStocks: Stock[] = extendedStockDatabase
+  .filter(stock => stock.price != null && stock.change != null && stock.changePercent != null) // Only stocks with complete data
+  .map(stock => ({
+    symbol: stock.symbol,
+    name: stock.name,
+    price: stock.price,
+    change: stock.change,
+    changePercent: stock.changePercent,
+    volume: stock.volume,
+    marketCap: stock.marketCap,
+    pe: stock.pe,
+    dividendYield: stock.dividendYield,
+    sector: stock.sector,
+    isGainer: stock.isGainer,
+    news: [],
+    newsSummary: stock.newsSummary,
+    returns: stock.returns,
+    earningsDate: stock.earningsDate,
+    risk: calculateRiskLevel(stock),
+  }));
 
 // Legacy mock data for comparison
 const legacyMockStocks: Stock[] = [
