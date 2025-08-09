@@ -79,18 +79,17 @@ export function StockCard({
   className,
   onSkip,
 }: StockCardProps) {
-  // Validate stock against catalog before rendering
-  const catalogStock = getStock(stock.symbol);
+  // Validate stock against catalog for existence check only
   const validation = validateStock(stock.symbol);
 
   // If stock is not in catalog, don't render the card
-  if (!validation.isValid || !catalogStock) {
+  if (!validation.isValid) {
     console.warn(`Stock ${stock.symbol} not found in catalog, hiding card`);
     return null;
   }
 
-  // Use canonical stock data from catalog
-  const canonicalStock = catalogStock;
+  // Use the provided stock data (which should have full financial info)
+  const canonicalStock = stock;
 
   const isPositive = canonicalStock.change >= 0;
   const [showChart, setShowChart] = useState(false);
