@@ -870,7 +870,7 @@ export default function Index() {
                 stock={filteredStocks[currentStockIndex]}
                 onToggleWatchlist={toggleWatchlist}
                 onAddToWatchlistWithNote={addToWatchlistWithNote}
-                isInWatchlist={watchlist.includes(
+                isInWatchlist={isInWatchlist(
                   filteredStocks[currentStockIndex].symbol,
                 )}
                 onSkip={handleSkip}
