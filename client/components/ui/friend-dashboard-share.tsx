@@ -211,7 +211,7 @@ export function FriendDashboardShare({
                     "text-sm font-medium",
                     isPositive ? "text-green-600" : "text-red-600"
                   )}>
-                    {isPositive ? "+" : ""}{change.toFixed(2)} ({isPositive ? "+" : ""}{changePercent.toFixed(2)}%)
+                    {isPositive ? "+" : ""}{change?.toFixed(2) ?? "0.00"} ({isPositive ? "+" : ""}{changePercent?.toFixed(2) ?? "0.00"}%)
                   </div>
                 </div>
               </div>
