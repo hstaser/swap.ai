@@ -34,6 +34,7 @@ import { cn } from "@/lib/utils";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 
 import { ALL_SYMBOLS, getStock, type Stock as CatalogStock } from "../data/stocks.catalog";
+import { extendedStockDatabase } from "../data/extended-stocks";
 import { addToQueue, isInQueue } from "../store/queue";
 import { addToWatchlist, isInWatchlist } from "../store/watchlist";
 
