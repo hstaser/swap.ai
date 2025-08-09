@@ -689,16 +689,35 @@ export default function Research() {
       clearQueue();
     }
 
-    // Add stocks to queue
+    // Validate and add stocks to queue using new store
+    const successfulAdds: string[] = [];
+    const failedAdds: string[] = [];
+
     selectedStocks.forEach(symbol => {
-      addToQueue(symbol, "bullish");
+      const success = addToQueue(symbol, "bullish", "list_editor");
+      if (success) {
+        successfulAdds.push(symbol);
+      } else {
+        failedAdds.push(symbol);
+        console.error(`Failed to add ${symbol} to queue`);
+      }
     });
 
     // Store the list name for display
     setCreatedQueueName(listName);
 
-    // Show success message
-    const successMessage = `Queue created! I've built "${listName}" with ${selectedStocks.length} stocks: ${selectedStocks.join(', ')}. You can now review and invest in this portfolio through the queue system.`;
+    // Show success message with results
+    let successMessage = `Queue created! I've built "${listName}" with ${successfulAdds.length} stocks`;
+
+    if (successfulAdds.length > 0) {
+      successMessage += `: ${successfulAdds.join(', ')}`;
+    }
+
+    if (failedAdds.length > 0) {
+      successMessage += `. Note: ${failedAdds.length} stocks could not be added (${failedAdds.join(', ')})`;
+    }
+
+    successMessage += ". You can now review and invest in this portfolio through the queue system.";
 
     setMessages(prev => [...prev, {
       id: Date.now().toString(),
