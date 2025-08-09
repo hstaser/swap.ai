@@ -733,8 +733,8 @@ export default function Index() {
           </div>
         </div>
 
-        {/* Mobile Filters - show for swipe and list modes */}
-        {(viewMode === "swipe" || viewMode === "list") && (
+        {/* Mobile Filters - show for swipe mode */}
+        {viewMode === "swipe" && (
           <div className="mb-4">
             <StockFilters
               filters={filters}
