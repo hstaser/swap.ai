@@ -33,7 +33,9 @@ import {
 import { cn } from "@/lib/utils";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 
-import { extendedStockDatabase } from "../data/extended-stocks";
+import { ALL_SYMBOLS, getStock, type Stock as CatalogStock } from "../data/stocks.catalog";
+import { addToQueue, isInQueue } from "../store/queue";
+import { addToWatchlist, isInWatchlist } from "../store/watchlist";
 
 // Helper function to determine risk level based on sector and other factors
 const calculateRiskLevel = (stock: any): "Low" | "Medium" | "High" => {
