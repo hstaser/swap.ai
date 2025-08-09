@@ -51,25 +51,28 @@ const calculateRiskLevel = (stock: any): "Low" | "Medium" | "High" => {
   return "Medium";
 };
 
-// Use extended stock database
-const mockStocks: Stock[] = extendedStockDatabase.map((stock) => ({
-  symbol: stock.symbol,
-  name: stock.name,
-  price: stock.price,
-  change: stock.change,
-  changePercent: stock.changePercent,
-  volume: stock.volume,
-  marketCap: stock.marketCap,
-  pe: stock.pe,
-  dividendYield: stock.dividendYield,
-  sector: stock.sector,
-  isGainer: stock.isGainer,
-  news: [],
-  newsSummary: stock.newsSummary,
-  returns: stock.returns,
-  earningsDate: stock.earningsDate,
-  risk: calculateRiskLevel(stock),
-}));
+// Load all 31 stocks from catalog
+const catalogStocks: Stock[] = ALL_SYMBOLS.map(symbol => {
+  const catalogStock = getStock(symbol)!;
+  return {
+    symbol: catalogStock.symbol,
+    name: catalogStock.name,
+    price: catalogStock.price,
+    change: catalogStock.change,
+    changePercent: catalogStock.changePercent,
+    volume: catalogStock.volume,
+    marketCap: catalogStock.marketCap,
+    pe: catalogStock.pe,
+    dividendYield: catalogStock.dividendYield,
+    sector: catalogStock.sector,
+    isGainer: catalogStock.isGainer,
+    news: [],
+    newsSummary: catalogStock.newsSummary,
+    returns: catalogStock.returns,
+    earningsDate: catalogStock.earningsDate,
+    risk: calculateRiskLevel(catalogStock),
+  };
+}).filter(Boolean); // 31 stocks total
 
 // Legacy mock data for comparison
 const legacyMockStocks: Stock[] = [
