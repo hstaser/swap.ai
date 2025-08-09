@@ -1310,6 +1310,20 @@ export default function Research() {
           }}
         />
       )}
+
+      {/* List Editor Modal */}
+      <ListEditorModal
+        isOpen={showListEditor}
+        onClose={() => setShowListEditor(false)}
+        listName={editingListName}
+        initialStocks={editingListStocks}
+        allStocks={extendedStockDatabase}
+        onSave={handleSaveList}
+        onAddToWatchlist={(symbol) => {
+          // Add to watchlist logic if needed
+          console.log("Add to watchlist:", symbol);
+        }}
+      />
     </div>
   );
 }
