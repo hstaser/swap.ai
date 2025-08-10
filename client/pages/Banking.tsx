@@ -151,7 +151,7 @@ export default function Banking() {
                   <Wallet className="h-5 w-5 text-white" />
                 </div>
                 <h1 className="text-xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-                  swap.ai Banking
+                  swipr.ai Banking
                 </h1>
               </div>
             </div>

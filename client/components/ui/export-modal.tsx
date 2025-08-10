@@ -176,7 +176,7 @@ export function ExportModal({
           </div>
 
           <div style="margin-top: 50px; text-align: center; color: #6b7280; font-size: 12px; border-top: 1px solid #e5e7eb; padding-top: 20px;">
-            <p><strong>swap.ai</strong> - AI-Powered Portfolio Management</p>
+            <p><strong>swipr.ai</strong> - AI-Powered Portfolio Management</p>
             <p>This report was generated using advanced machine learning algorithms and real-time market data analysis.</p>
           </div>
         </body>
@@ -226,7 +226,7 @@ export function ExportModal({
   };
 
   const generateShareUrl = () => {
-    const url = `https://swap.ai/portfolio/shared/${Math.random()
+    const url = `https://swipr.ai/portfolio/shared/${Math.random()
       .toString(36)
       .substring(2, 15)}`;
     setShareUrl(url);

@@ -282,8 +282,58 @@ export default function Portfolio() {
   const [comparisonTimeframe, setComparisonTimeframe] = useState<
     "1M" | "6M" | "1Y"
   >("1Y");
+  const [portfolioStocks, setPortfolioStocks] = useState(mockPortfolioStocks);
 
   const [showRebalanceConfirm, setShowRebalanceConfirm] = useState(false);
+
+  // Sync portfolio changes from localStorage or other sources
+  useEffect(() => {
+    const syncPortfolio = () => {
+      // Check for recent portfolio updates from queue completion or trades
+      const queueData = localStorage.getItem('completedQueue');
+
+      if (queueData) {
+        try {
+          const completedStocks = JSON.parse(queueData);
+          const updatedPortfolio = [...portfolioStocks];
+
+          // Add new stocks from completed queue
+          completedStocks.forEach((queueStock: any) => {
+            const existingIndex = updatedPortfolio.findIndex(stock => stock.symbol === queueStock.symbol);
+            if (existingIndex === -1) {
+              // Add new holding
+              updatedPortfolio.push({
+                symbol: queueStock.symbol,
+                name: queueStock.name,
+                currentPrice: queueStock.price || 100,
+                shares: 10, // Default shares
+                totalValue: (queueStock.price || 100) * 10,
+                allocation: 5, // Will be recalculated
+                recommendedAllocation: 5,
+                change: queueStock.change || 0,
+                changePercent: queueStock.changePercent || 0,
+                sector: queueStock.sector || "Technology",
+                beta: 1.0,
+                expectedReturn: 10.0,
+                risk: "Medium" as const,
+              });
+            }
+          });
+
+          setPortfolioStocks(updatedPortfolio);
+          localStorage.removeItem('completedQueue'); // Clear after syncing
+        } catch (error) {
+          console.error('Error syncing portfolio:', error);
+        }
+      }
+    };
+
+    syncPortfolio();
+
+    // Listen for storage changes to sync across tabs
+    window.addEventListener('storage', syncPortfolio);
+    return () => window.removeEventListener('storage', syncPortfolio);
+  }, [portfolioStocks]);
 
   const runOptimization = () => {
     setShowRebalanceConfirm(true);
@@ -319,7 +369,7 @@ export default function Portfolio() {
 
   const getSectorAllocation = () => {
     const sectors: { [key: string]: number } = {};
-    mockPortfolioStocks.forEach((stock) => {
+    portfolioStocks.forEach((stock) => {
       sectors[stock.sector] = (sectors[stock.sector] || 0) + stock.allocation;
     });
     return Object.entries(sectors).map(([sector, allocation]) => ({
@@ -347,7 +397,7 @@ export default function Portfolio() {
                   Portfolio
                 </h1>
                 <p className="text-sm text-muted-foreground">
-                  Auto-optimized • {mockPortfolioStocks.length} holdings
+                  Auto-optimized • {portfolioStocks.length} holdings
                 </p>
               </div>
             </div>
@@ -409,7 +459,7 @@ export default function Portfolio() {
                     {portfolioMetrics.diversificationScore}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Spread Score
+                    Diversification
                   </div>
                 </div>
                 <div>
@@ -527,7 +577,7 @@ export default function Portfolio() {
           </TabsList>
 
           <TabsContent value="holdings" className="space-y-3">
-            {mockPortfolioStocks.map((stock) => (
+            {portfolioStocks.map((stock) => (
               <Card
                 key={stock.symbol}
                 className="bg-white/90 backdrop-blur-sm border-0 cursor-pointer hover:shadow-md transition-shadow"
@@ -803,7 +853,7 @@ export default function Portfolio() {
                     {portfolioMetrics.diversificationScore}
                   </div>
                   <div className="text-sm text-muted-foreground">
-                    Spread Score
+                    Risk Balance
                   </div>
                 </CardContent>
               </Card>
@@ -915,7 +965,7 @@ export default function Portfolio() {
 
                 <div className="space-y-3">
                   <h4 className="font-semibold">Risk Breakdown by Holding</h4>
-                  {mockPortfolioStocks.map((stock) => (
+                  {portfolioStocks.map((stock) => (
                     <div
                       key={stock.symbol}
                       className="flex items-center justify-between"
