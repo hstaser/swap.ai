@@ -136,6 +136,13 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
   const [editingBlock, setEditingBlock] = useState<string | null>(null);
   const [showAccountLink, setShowAccountLink] = useState(false);
   const [selectedSourceForLink, setSelectedSourceForLink] = useState<NewsSource | null>(null);
+  const [showAddFigure, setShowAddFigure] = useState(false);
+  const [showAddSource, setShowAddSource] = useState(false);
+  const [newFigureName, setNewFigureName] = useState("");
+  const [newFigureHandle, setNewFigureHandle] = useState("");
+  const [newFigurePlatform, setNewFigurePlatform] = useState<"twitter" | "linkedin" | "reddit" | "news">("twitter");
+  const [newSourceName, setNewSourceName] = useState("");
+  const [newSourceUrl, setNewSourceUrl] = useState("");
 
   // Load data from localStorage on mount
   useEffect(() => {
