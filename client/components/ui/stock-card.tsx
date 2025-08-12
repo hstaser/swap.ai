@@ -106,7 +106,7 @@ export function StockCard({
   return (
     <Card
       className={cn(
-        "border-0 bg-white/90 backdrop-blur-sm shadow-lg",
+        "border border-purple-100/50 bg-gradient-to-br from-purple-50/80 via-white/90 to-blue-50/80 backdrop-blur-sm shadow-lg",
         className,
       )}
     >
