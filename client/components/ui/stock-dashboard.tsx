@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
-import { addToQueue } from "@/store/queue";
+import { useQueue } from "@/hooks/use-queue";
 
 interface DashboardStock {
   symbol: string;
@@ -35,6 +35,7 @@ interface StockDashboardProps {
 
 export function StockDashboard({ onStockSelect }: StockDashboardProps) {
   const navigate = useNavigate();
+  const { addToQueue } = useQueue();
   const [searchQuery, setSearchQuery] = useState("");
   const [aiSearchQuery, setAiSearchQuery] = useState("");
   const [showAiSearch, setShowAiSearch] = useState(true);
@@ -618,7 +619,7 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
                     size="sm"
                     onClick={(e) => {
                       e.stopPropagation();
-                      addToQueue(stock.symbol);
+                      addToQueue(stock.symbol, "bullish");
                       console.log(`Added ${stock.symbol} to queue`);
                     }}
                     className="h-8 px-3 text-xs bg-blue-600 hover:bg-blue-700"

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { PELOSI_TRADES } from "../data/pelosi.trades";
 import { getStock } from "../data/stocks.catalog";
 import { extendedStockDatabase } from "../data/extended-stocks";
-import { addManyToQueue } from "../store/queue";
+import { useQueue } from "../hooks/use-queue";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -23,6 +23,7 @@ interface PelosiSectionProps {
 
 export default function PelosiSection({ onClose }: PelosiSectionProps) {
   const navigate = useNavigate();
+  const { addToQueue } = useQueue();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const rows = PELOSI_TRADES
@@ -36,7 +37,7 @@ export default function PelosiSection({ onClose }: PelosiSectionProps) {
   const symbols = rows.map(r => r.stock!.symbol);
 
   const handleAddAllToQueue = () => {
-    addManyToQueue(symbols);
+    symbols.forEach(symbol => addToQueue(symbol, "bullish"));
     setShowSuccessModal(true);
 
     // Close the original section if callback provided
@@ -48,7 +49,7 @@ export default function PelosiSection({ onClose }: PelosiSectionProps) {
   };
 
   const handleAddToQueue = (symbol: string) => {
-    addManyToQueue([symbol]);
+    addToQueue(symbol, "bullish");
     console.log(`Added ${symbol} to queue`);
   };
 
