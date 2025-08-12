@@ -28,12 +28,24 @@ const load = () => {
 load();
 
 export const addToQueue = (raw: string) => {
-  const sym = resolveSymbol(raw);
+  const sym = resolveSymbol(raw) || raw.toUpperCase();
+
+  // Try STOCK_LOOKUP first for the 31 main stocks
+  const stockCard = STOCK_LOOKUP[sym];
+  if (stockCard && !state.items.some(i => i.symbol === sym)) {
+    state.items.push({ id: stockCard.id, symbol: stockCard.symbol, addedAt: Date.now() });
+    persist();
+    return true;
+  }
+
+  // Fallback to catalog lookup
   if (!sym) return false;
   if (!state.items.some(i => i.symbol === sym)) {
-    const s = getStock(sym)!;
-    state.items.push({ id: s.id, symbol: s.symbol, addedAt: Date.now() });
-    persist();
+    const s = getStock(sym);
+    if (s) {
+      state.items.push({ id: s.id, symbol: s.symbol, addedAt: Date.now() });
+      persist();
+    }
   }
   return true; // Return true for successful addition or if already exists
 };
