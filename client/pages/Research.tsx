@@ -790,9 +790,9 @@ export default function Research() {
             <div className="flex items-start gap-3">
               <AlertTriangle className="h-5 w-5 text-yellow-600 mt-0.5" />
               <div className="space-y-1">
-                <h3 className="font-semibold text-yellow-800">
-                  Educational Research & Queue Building
-                </h3>
+            <h3 className="font-semibold text-yellow-800">
+              Educational Research Only
+            </h3>
                 <p className="text-sm text-yellow-700">
                   This AI assistant provides educational research and analysis based on publicly available data.
                   All information is for educational purposes only.
