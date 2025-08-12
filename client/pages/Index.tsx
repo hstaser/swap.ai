@@ -526,7 +526,6 @@ export default function Index() {
 
     if (isCurrentlyInWatchlist) {
       // Remove from watchlist using store
-      const { removeFromWatchlist } = require("../store/watchlist");
       removeFromWatchlist(symbol);
       // Remove note when removing from watchlist
       setWatchlistNotes((prev) => {
