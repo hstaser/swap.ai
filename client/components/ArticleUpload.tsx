@@ -47,15 +47,56 @@ interface UploadedArticle {
 
 export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
   const { queue } = useQueue();
-  const [uploadMethod, setUploadMethod] = useState<"file" | "url" | "text">("url");
+  const [uploadMethod, setUploadMethod] = useState<"file" | "url" | "text" | "news">("url");
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-  const [selectedAnalysis, setSelectedAnalysis] = useState<"portfolio" | string>("portfolio");
+  const [selectedAnalysis, setSelectedAnalysis] = useState<"portfolio" | "specific" | string>("portfolio");
+  const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
+  const [showStockSelector, setShowStockSelector] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [currentArticle, setCurrentArticle] = useState<UploadedArticle | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Mock news articles for drag and drop
+  const newsArticles = [
+    {
+      id: "news_1",
+      headline: "Apple Reports Record Q4 Revenue Driven by iPhone 15 Sales",
+      source: "Reuters",
+      timestamp: "2h ago",
+      category: "Earnings"
+    },
+    {
+      id: "news_2",
+      headline: "Tesla Faces Increased Competition in China EV Market",
+      source: "Bloomberg",
+      timestamp: "4h ago",
+      category: "Market"
+    },
+    {
+      id: "news_3",
+      headline: "Microsoft Azure Revenue Grows 30% Amid AI Expansion",
+      source: "CNBC",
+      timestamp: "6h ago",
+      category: "Earnings"
+    },
+    {
+      id: "news_4",
+      headline: "Fed Signals Potential Rate Cuts in 2024",
+      source: "WSJ",
+      timestamp: "8h ago",
+      category: "Economic"
+    },
+    {
+      id: "news_5",
+      headline: "NVIDIA Partners with Major Automakers for AI Chips",
+      source: "TechCrunch",
+      timestamp: "10h ago",
+      category: "Business"
+    }
+  ];
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
@@ -121,7 +162,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
 
         <CardContent className="space-y-4">
           {/* Upload Method Selector */}
-          <div className="flex gap-2">
+          <div className="grid grid-cols-2 gap-2">
             <Button
               variant={uploadMethod === "url" ? "default" : "outline"}
               size="sm"
@@ -148,6 +189,15 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
             >
               <Sparkles className="h-4 w-4 mr-2" />
               Text
+            </Button>
+            <Button
+              variant={uploadMethod === "news" ? "default" : "outline"}
+              size="sm"
+              onClick={() => setUploadMethod("news")}
+              className="flex-1"
+            >
+              <Upload className="h-4 w-4 mr-2" />
+              From News
             </Button>
           </div>
 
@@ -260,7 +310,15 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
             <label className="text-sm font-medium text-gray-700 block">
               What would you like to analyze?
             </label>
-            <Select value={selectedAnalysis} onValueChange={setSelectedAnalysis}>
+            <Select
+              value={selectedAnalysis}
+              onValueChange={(value) => {
+                setSelectedAnalysis(value);
+                if (value === "specific") {
+                  setShowStockSelector(true);
+                }
+              }}
+            >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Choose analysis target" />
               </SelectTrigger>
@@ -271,18 +329,12 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                     <span>Entire Portfolio ({queue.length} stocks)</span>
                   </div>
                 </SelectItem>
-                {queue.length > 0 && (
-                  <>
-                    {queue.map((stock) => (
-                      <SelectItem key={stock.symbol} value={stock.symbol}>
-                        <div className="flex items-center gap-2">
-                          <div className="w-2 h-2 bg-green-500 rounded-full" />
-                          <span>{stock.symbol}</span>
-                        </div>
-                      </SelectItem>
-                    ))}
-                  </>
-                )}
+                <SelectItem value="specific">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <span>Select Specific Stocks</span>
+                  </div>
+                </SelectItem>
               </SelectContent>
             </Select>
 
@@ -309,6 +361,38 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                     </Badge>
                   )}
                 </div>
+              </div>
+            ) : selectedAnalysis === "specific" ? (
+              <div className="bg-purple-50 rounded-lg p-3 border border-purple-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <CheckCircle className="h-4 w-4 text-purple-600" />
+                  <span className="text-sm font-medium text-purple-900">
+                    Selected Stocks Analysis
+                  </span>
+                </div>
+                <p className="text-xs text-purple-700 mb-2">
+                  {selectedStocks.length > 0
+                    ? `Will analyze impact on ${selectedStocks.length} selected stocks:`
+                    : "Click 'Select Specific Stocks' to choose which stocks to analyze"
+                  }
+                </p>
+                {selectedStocks.length > 0 && (
+                  <div className="flex flex-wrap gap-1">
+                    {selectedStocks.map((symbol) => (
+                      <Badge key={symbol} variant="secondary" className="text-xs">
+                        {symbol}
+                      </Badge>
+                    ))}
+                  </div>
+                )}
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowStockSelector(true)}
+                  className="mt-2 text-xs"
+                >
+                  {selectedStocks.length > 0 ? "Change Selection" : "Select Stocks"}
+                </Button>
               </div>
             ) : (
               <div className="bg-green-50 rounded-lg p-3 border border-green-200">
