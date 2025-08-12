@@ -423,10 +423,7 @@ export default function Index() {
 
   const filteredStocks = useMemo(() => {
     let filtered = catalogStocks.filter((stock) => {
-      // Filter out queued stocks - user shouldn't see them again
-      if (isInQueue(stock.symbol)) {
-        return false;
-      }
+      // Note: We'll handle queued stocks at the end to ensure we have enough stocks
 
       // Sector filter
       if (filters.sector !== "All" && stock.sector !== filters.sector) {
@@ -490,7 +487,18 @@ export default function Index() {
       return true;
     });
 
-    return filtered;
+    // Ensure we always have enough stocks for all slides
+    // Prioritize non-queued stocks but include queued ones if needed
+    const nonQueuedStocks = filtered.filter(stock => !isInQueue(stock.symbol));
+    const queuedStocks = filtered.filter(stock => isInQueue(stock.symbol));
+
+    // If we have enough non-queued stocks, use them. Otherwise, mix in queued stocks
+    // to ensure we never have empty slides that show "Review & Invest" buttons
+    if (nonQueuedStocks.length < 30) {
+      return [...nonQueuedStocks, ...queuedStocks.slice(0, 30 - nonQueuedStocks.length)];
+    }
+
+    return nonQueuedStocks;
   }, [filters, isInQueue]);
 
   const toggleWatchlist = (symbol: string) => {
