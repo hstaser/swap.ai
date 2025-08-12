@@ -5,6 +5,7 @@ import { StockDashboard } from "@/components/ui/stock-dashboard";
 import { PortfolioReviewSidebar } from "@/components/ui/portfolio-review-sidebar";
 import { ExploreAgentModal } from "@/components/ui/explore-agent-modal";
 import { PinnedStocksSection } from "@/components/ui/friend-dashboard-share";
+import NewsMonitor from "@/components/NewsMonitor";
 import {
   BarChart3,
   MessageCircle,
@@ -35,9 +36,14 @@ export function DashboardWithAssistant({ onStockSelect }: DashboardWithAssistant
         </Button>
       </div>
 
-      {/* Main Dashboard - Full Width */}
-      <div>
-        <StockDashboard onStockSelect={onStockSelect} />
+      {/* Main Dashboard - Two Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div>
+          <StockDashboard onStockSelect={onStockSelect} />
+        </div>
+        <div>
+          <NewsMonitor />
+        </div>
       </div>
 
       {/* Modals and Sidebars */}
