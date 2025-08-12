@@ -430,7 +430,7 @@ export function StockCard({
         {/* Add to Queue Button */}
         <div className="space-y-4">
           <Button
-            onClick={() => navigate(`/queue/add/${canonicalStock.symbol}`)}
+            onClick={() => navigate(`/queue/add/${canonicalStock.symbol}?index=${currentIndex}`)}
             className="w-full h-12 sm:h-14 text-sm sm:text-base font-semibold bg-blue-600 hover:bg-blue-700 text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
