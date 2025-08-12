@@ -32,6 +32,17 @@ import {
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
 
+// Mock portfolio data - in production this would come from a portfolio hook/store
+const mockPortfolioStocks = [
+  { symbol: "AAPL", name: "Apple Inc.", allocation: 28.5 },
+  { symbol: "MSFT", name: "Microsoft Corporation", allocation: 24.1 },
+  { symbol: "JNJ", name: "Johnson & Johnson", allocation: 15.3 },
+  { symbol: "GOOGL", name: "Alphabet Inc.", allocation: 12.7 },
+  { symbol: "BRK.B", name: "Berkshire Hathaway Inc.", allocation: 8.9 },
+  { symbol: "V", name: "Visa Inc.", allocation: 6.2 },
+  { symbol: "PG", name: "Procter & Gamble Co.", allocation: 4.3 }
+];
+
 interface ArticleUploadProps {
   onAnalyze?: (article: UploadedArticle) => void;
 }
@@ -47,6 +58,7 @@ interface UploadedArticle {
 
 export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
   const { queue } = useQueue();
+  const portfolio = mockPortfolioStocks; // Use portfolio instead of queue
   const [uploadMethod, setUploadMethod] = useState<"file" | "url" | "text" | "news">("url");
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
@@ -424,7 +436,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                 <SelectItem value="portfolio">
                   <div className="flex items-center gap-2">
                     <Target className="h-4 w-4 text-blue-600" />
-                    <span>Entire Portfolio ({queue.length} stocks)</span>
+                    <span>Entire Portfolio ({portfolio.length} stocks)</span>
                   </div>
                 </SelectItem>
                 <SelectItem value="specific">
@@ -445,17 +457,17 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                   </span>
                 </div>
                 <p className="text-xs text-blue-700 mb-2">
-                  Will analyze impact across your entire portfolio of {queue.length} queued stocks:
+                  Will analyze impact across your entire portfolio of {portfolio.length} stocks:
                 </p>
                 <div className="flex flex-wrap gap-1">
-                  {queue.slice(0, 8).map((stock) => (
+                  {portfolio.slice(0, 8).map((stock) => (
                     <Badge key={stock.symbol} variant="secondary" className="text-xs">
                       {stock.symbol}
                     </Badge>
                   ))}
-                  {queue.length > 8 && (
+                  {portfolio.length > 8 && (
                     <Badge variant="secondary" className="text-xs">
-                      +{queue.length - 8} more
+                      +{portfolio.length - 8} more
                     </Badge>
                   )}
                 </div>
@@ -522,7 +534,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
               <>
                 <MessageCircle className="h-4 w-4 mr-2" />
                 {selectedAnalysis === "portfolio"
-                  ? `Analyze Portfolio Impact (${queue.length} stocks)`
+                  ? `Analyze Portfolio Impact (${portfolio.length} stocks)`
                   : selectedAnalysis === "specific"
                   ? `Analyze Selected Stocks (${selectedStocks.length})`
                   : `Analyze ${selectedAnalysis} Impact`
@@ -824,7 +836,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">
-                {selectedStocks.length} of {queue.length} selected
+                {selectedStocks.length} of {portfolio.length} selected
               </span>
               <div className="flex gap-2">
                 <Button
@@ -838,7 +850,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                 <Button
                   variant="outline"
                   size="sm"
-                  onClick={() => setSelectedStocks(queue.map(s => s.symbol))}
+                  onClick={() => setSelectedStocks(portfolio.map(s => s.symbol))}
                   className="text-xs"
                 >
                   Select All
@@ -847,7 +859,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
             </div>
 
             <div className="max-h-60 overflow-y-auto space-y-2">
-              {queue.map((stock) => (
+              {portfolio.map((stock) => (
                 <div
                   key={stock.symbol}
                   className="flex items-center space-x-3 p-2 rounded hover:bg-gray-50"
