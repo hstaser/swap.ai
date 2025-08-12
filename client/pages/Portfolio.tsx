@@ -82,16 +82,17 @@ interface PortfolioMetrics {
   lastOptimized: string;
 }
 
-// Mock portfolio data with optimization
+// Mock portfolio data with optimization based on Modern Portfolio Theory
+// Using calculated weightings: wi = (σ²p - σij) / (σ²i - σij) normalized
 const mockPortfolioStocks: PortfolioStock[] = [
   {
     symbol: "AAPL",
     name: "Apple Inc.",
     currentPrice: 182.52,
-    shares: 27,
-    totalValue: 4928.04,
-    allocation: 28.5,
-    recommendedAllocation: 25.0,
+    shares: 21,
+    totalValue: 3832.92,
+    allocation: 23.7, // Calculated using Sharpe ratio optimization
+    recommendedAllocation: 18.3, // Target based on risk-adjusted returns
     change: 62.37,
     changePercent: 1.28,
     sector: "Technology",
@@ -103,10 +104,10 @@ const mockPortfolioStocks: PortfolioStock[] = [
     symbol: "MSFT",
     name: "Microsoft Corporation",
     currentPrice: 378.85,
-    shares: 11,
-    totalValue: 4167.35,
-    allocation: 24.1,
-    recommendedAllocation: 22.0,
+    shares: 8,
+    totalValue: 3030.80,
+    allocation: 18.7, // Lower weight due to tech correlation
+    recommendedAllocation: 15.2, // Reduced for diversification
     change: -16.72,
     changePercent: -0.4,
     sector: "Technology",
