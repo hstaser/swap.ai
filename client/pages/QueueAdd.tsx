@@ -224,10 +224,10 @@ export default function QueueAdd() {
                     </Button>
                     <Button
                       variant="outline"
-                      onClick={() => navigate("/")}
+                      onClick={() => navigate(`/?index=${nextIndex}`)}
                       className="w-full h-12 text-sm font-medium"
                     >
-                      Keep Swiping
+                      Next Stock ({nextIndex + 1} of {STOCKS.length})
                     </Button>
                   </div>
                 </div>
