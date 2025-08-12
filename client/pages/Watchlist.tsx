@@ -327,22 +327,7 @@ export default function Watchlist() {
                               Math.min(...topPerformers.loser.chartData)) /
                               (Math.max(...topPerformers.loser.chartData) -
                                 Math.min(...topPerformers.loser.chartData))) *
-                              25;
-                          return `${index === 0 ? "M" : "L"} ${x} ${y}`;
-                        })
-                        .join(" ")}
-                      fill="none"
-                      stroke="#ef4444"
-                      strokeWidth="1.5"
-                    />
-                  </svg>
-                </div>
 
-                <p className="text-xs text-red-700">in Saved Stocks</p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
 
         {/* Add Stock Button */}
         <Button asChild className="w-full h-12 text-lg font-semibold">
