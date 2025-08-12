@@ -59,6 +59,9 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
   const [showSuccess, setShowSuccess] = useState(false);
   const [showAnalysis, setShowAnalysis] = useState(false);
   const [currentArticle, setCurrentArticle] = useState<UploadedArticle | null>(null);
+  const [chatMessages, setChatMessages] = useState<Array<{id: string, type: 'user' | 'assistant', content: string}>>([]);
+  const [chatInput, setChatInput] = useState("");
+  const [isThinking, setIsThinking] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Mock news articles for drag and drop
@@ -138,12 +141,56 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
     }, 2000);
   };
 
+  const handleChatMessage = (message?: string) => {
+    const userMessage = message || chatInput.trim();
+    if (!userMessage) return;
+
+    // Add user message
+    const userMsg = {
+      id: `user_${Date.now()}`,
+      type: "user" as const,
+      content: userMessage
+    };
+
+    setChatMessages(prev => [...prev, userMsg]);
+    setChatInput("");
+    setIsThinking(true);
+
+    // Simulate AI response
+    setTimeout(() => {
+      let response = "";
+
+      if (userMessage.toLowerCase().includes("aapl") || userMessage.toLowerCase().includes("apple")) {
+        response = "Apple's 4.2% projected gain comes from strong iPhone 15 sales momentum and services revenue growth. The company's ecosystem continues to drive customer loyalty, and their move into AI capabilities positions them well for future growth.";
+      } else if (userMessage.toLowerCase().includes("risk")) {
+        response = "Main risks to consider: potential market volatility, interest rate changes affecting tech valuations, and competitive pressures in key markets. I'd recommend diversifying across sectors and monitoring earnings closely.";
+      } else if (userMessage.toLowerCase().includes("buy") || userMessage.toLowerCase().includes("more")) {
+        response = "I can't provide specific investment advice, but the analysis shows positive momentum. Consider your risk tolerance, current allocation, and investment timeline. Dollar-cost averaging could be a good strategy if you're bullish long-term.";
+      } else if (userMessage.toLowerCase().includes("expand")) {
+        response = "The tech sector's momentum is driven by AI adoption, cloud growth, and strong consumer demand. Microsoft's Azure gains reflect enterprise digital transformation, while NVIDIA benefits from the AI chip boom. This creates a positive feedback loop across your portfolio.";
+      } else {
+        response = "That's a great question! Based on the analysis, the overall market sentiment is positive due to strong fundamentals and growth momentum in the tech sector. The key factors driving this include consumer demand, enterprise spending, and technological innovation.";
+      }
+
+      const aiMsg = {
+        id: `ai_${Date.now()}`,
+        type: "assistant" as const,
+        content: response
+      };
+
+      setChatMessages(prev => [...prev, aiMsg]);
+      setIsThinking(false);
+    }, 1500);
+  };
+
   const resetForm = () => {
     setUrl("");
     setTitle("");
     setContent("");
     setShowSuccess(false);
     setCurrentArticle(null);
+    setChatMessages([]);
+    setChatInput("");
   };
 
   return (
@@ -494,6 +541,15 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
+                {/* Friendly Prose Introduction */}
+                <div className="bg-white rounded-lg p-4 border border-blue-200">
+                  <p className="text-gray-700 text-sm leading-relaxed">
+                    Great choice on this article! I've analyzed how <strong>"{currentArticle.title}"</strong> could impact your portfolio.
+                    The news looks quite promising for your tech-heavy holdings, especially with the current market momentum we're seeing.
+                    Here's what I found that might interest you as an investor.
+                  </p>
+                </div>
+
                 <div className="bg-white rounded-lg p-4 border">
                   <h4 className="font-semibold text-gray-900 mb-2">
                     📊 Portfolio Impact Summary
@@ -543,10 +599,123 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                   </ul>
                 </div>
 
+                {/* Conversational Interface */}
+                <div className="bg-white rounded-lg border">
+                  <div className="p-4 border-b">
+                    <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+                      <MessageCircle className="h-4 w-4 text-blue-600" />
+                      Ask me anything about this analysis
+                    </h4>
+                    <p className="text-xs text-gray-600 mt-1">
+                      Try: "Why is AAPL expected to gain 4.2%?" or "What are the risks I should consider?"
+                    </p>
+                  </div>
+
+                  {/* Chat Messages */}
+                  {chatMessages.length > 0 && (
+                    <div className="max-h-48 overflow-y-auto p-4 space-y-3">
+                      {chatMessages.map((message) => (
+                        <div key={message.id} className={cn(
+                          "flex gap-3",
+                          message.type === "user" ? "justify-end" : "justify-start"
+                        )}>
+                          {message.type === "assistant" && (
+                            <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
+                              <MessageCircle className="h-3 w-3 text-white" />
+                            </div>
+                          )}
+                          <div className={cn(
+                            "rounded-lg px-3 py-2 max-w-xs text-sm",
+                            message.type === "user"
+                              ? "bg-blue-600 text-white"
+                              : "bg-gray-100 text-gray-900"
+                          )}>
+                            {message.content}
+                          </div>
+                          {message.type === "user" && (
+                            <div className="w-6 h-6 bg-gray-400 rounded-full flex items-center justify-center flex-shrink-0">
+                              <span className="text-xs text-white font-medium">U</span>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+
+                      {isThinking && (
+                        <div className="flex gap-3">
+                          <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                            <MessageCircle className="h-3 w-3 text-white" />
+                          </div>
+                          <div className="bg-gray-100 rounded-lg px-3 py-2">
+                            <div className="flex items-center gap-1">
+                              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" />
+                              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0.1s" }} />
+                              <div className="w-2 h-2 bg-gray-500 rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
+                  {/* Chat Input */}
+                  <div className="p-4 border-t">
+                    <div className="flex gap-2">
+                      <Input
+                        value={chatInput}
+                        onChange={(e) => setChatInput(e.target.value)}
+                        placeholder="Ask about the analysis..."
+                        className="flex-1"
+                        onKeyPress={(e) => {
+                          if (e.key === "Enter" && !isThinking && chatInput.trim()) {
+                            handleChatMessage();
+                          }
+                        }}
+                        disabled={isThinking}
+                      />
+                      <Button
+                        onClick={handleChatMessage}
+                        disabled={!chatInput.trim() || isThinking}
+                        size="sm"
+                        className="px-3"
+                      >
+                        <MessageCircle className="h-4 w-4" />
+                      </Button>
+                    </div>
+
+                    {/* Quick Questions */}
+                    <div className="flex flex-wrap gap-2 mt-3">
+                      {[
+                        "Why is AAPL up 4.2%?",
+                        "What are the risks?",
+                        "Should I buy more?",
+                        "Expand on this analysis"
+                      ].map((question) => (
+                        <Button
+                          key={question}
+                          variant="outline"
+                          size="sm"
+                          onClick={() => {
+                            setChatInput(question);
+                            handleChatMessage(question);
+                          }}
+                          disabled={isThinking}
+                          className="text-xs h-7"
+                        >
+                          {question}
+                        </Button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
                 <div className="flex gap-3">
                   <Button
                     variant="outline"
-                    onClick={() => setShowAnalysis(false)}
+                    onClick={() => {
+                      setShowAnalysis(false);
+                      setChatMessages([]);
+                      setChatInput("");
+                    }}
                     className="flex-1"
                   >
                     Close Analysis
@@ -554,6 +723,8 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                   <Button
                     onClick={() => {
                       setShowAnalysis(false);
+                      setChatMessages([]);
+                      setChatInput("");
                       // Reset for new analysis
                       setTitle("");
                       setContent("");
