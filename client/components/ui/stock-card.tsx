@@ -253,7 +253,7 @@ export function StockCard({
               ].map((period) => (
                 <div
                   key={period.label}
-                  className="flex-1 p-2 bg-gray-50 rounded text-center"
+                  className="flex-1 p-2 bg-purple-50/60 rounded text-center border border-purple-100/30"
                 >
                   <div className="text-xs text-muted-foreground">
                     {period.label}
