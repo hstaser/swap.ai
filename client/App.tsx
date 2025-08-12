@@ -27,6 +27,7 @@ import UserProfile from "./pages/UserProfile";
 import AddFriends from "./pages/AddFriends";
 import Rewards from "./pages/Rewards";
 import QueueAdd from "./pages/QueueAdd";
+import NewsMonitoring from "./pages/NewsMonitoring";
 import QueueReview from "./pages/QueueReview";
 import PortfolioOptimize from "./pages/PortfolioOptimize";
 import OptimizationReview from "./pages/OptimizationReview";
