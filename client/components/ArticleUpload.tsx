@@ -116,6 +116,8 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
 
   const handleSourcesUpdate = (blocks: SourceBlock[]) => {
     setSourceBlocks(blocks);
+    // Trigger news refresh when sources are updated
+    setNewsRefreshTrigger(prev => prev + 1);
   };
 
   // Generate dynamic news articles based on active custom sources
