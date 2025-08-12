@@ -1106,7 +1106,7 @@ export default function Research() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-gray-50 min-h-[40px]"
                   onClick={() =>
                     handleSuggestionClick("What's the best dividend growth strategy for 2024?")
                   }
@@ -1116,7 +1116,7 @@ export default function Research() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-gray-50 min-h-[40px]"
                   onClick={() =>
                     handleSuggestionClick("How to build a recession-proof portfolio?")
                   }
