@@ -453,134 +453,48 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
               </div>
 
               {/* Curated News Tab */}
-              {selectedNewsTab === "curated" && (
-                <div className="border rounded-lg p-4 bg-gray-50 max-h-60 overflow-y-auto">
-                  <p className="text-xs text-gray-600 mb-3">
-                    Click on any article below to analyze its impact on your portfolio:
-                  </p>
-                  <div className="space-y-2">
-                    {newsArticles.map((article) => (
-                      <div
-                        key={article.id}
-                        onClick={() => {
-                          setTitle(article.headline);
-                          setContent(`News article from ${article.source}: ${article.headline}`);
-                          setSelectedArticleId(article.id);
-                        }}
-                        className={cn(
-                          "p-3 rounded border cursor-pointer transition-colors",
-                          selectedArticleId === article.id
-                            ? "bg-blue-100 border-blue-300"
-                            : "bg-white hover:bg-blue-50"
-                        )}
-                      >
-                        <div className="flex items-start justify-between">
-                          <div className="flex-1">
-                            <h4 className="text-sm font-medium text-gray-900 line-clamp-2 mb-1">
-                              {article.headline}
-                            </h4>
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
-                              <span>{article.source}</span>
-                              <span>•</span>
-                              <span>{article.timestamp}</span>
-                              <Badge variant="outline" className="text-xs">
-                                {article.category}
-                              </Badge>
-                            </div>
-                          </div>
-                          <Button size="sm" variant="ghost" className="text-xs px-2">
-                            Select
-                          </Button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Custom Blocks Tab */}
-              {selectedNewsTab === "blocks" && (
-                <div className="border rounded-lg p-4 bg-gray-50 max-h-60 overflow-y-auto">
-                  {sourceBlocks.filter(block => block.isActive).length === 0 ? (
-                    <div className="text-center py-8">
-                      <Filter className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                      <p className="text-sm text-gray-600 mb-2">No active source blocks</p>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setShowNewsSourceManager(true)}
-                      >
-                        Create Source Blocks
-                      </Button>
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      <p className="text-xs text-gray-600 mb-3">
-                        Latest content from your custom source blocks:
-                      </p>
-                      {sourceBlocks.filter(block => block.isActive).map((block) => (
-                        <div key={block.id} className="border border-gray-200 rounded-lg p-3 bg-white">
-                          <div className="flex items-center gap-2 mb-2">
-                            <div
-                              className="w-3 h-3 rounded-full"
-                              style={{ backgroundColor: block.color }}
-                            />
-                            <h4 className="font-medium text-sm">{block.name}</h4>
+              <div className="border rounded-lg p-4 bg-gray-50 max-h-60 overflow-y-auto">
+                <p className="text-xs text-gray-600 mb-3">
+                  Click on any article below to analyze its impact on your portfolio:
+                </p>
+                <div className="space-y-2">
+                  {newsArticles.map((article) => (
+                    <div
+                      key={article.id}
+                      onClick={() => {
+                        setTitle(article.headline);
+                        setContent(`News article from ${article.source}: ${article.headline}`);
+                        setSelectedArticleId(article.id);
+                      }}
+                      className={cn(
+                        "p-3 rounded border cursor-pointer transition-colors",
+                        selectedArticleId === article.id
+                          ? "bg-blue-100 border-blue-300"
+                          : "bg-white hover:bg-blue-50"
+                      )}
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h4 className="text-sm font-medium text-gray-900 line-clamp-2 mb-1">
+                            {article.headline}
+                          </h4>
+                          <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <span>{article.source}</span>
+                            <span>•</span>
+                            <span>{article.timestamp}</span>
                             <Badge variant="outline" className="text-xs">
-                              {block.figures.length + block.sources.length} sources
+                              {article.category}
                             </Badge>
                           </div>
-                          <p className="text-xs text-gray-600 mb-2">{block.description}</p>
-
-                          {/* Simulated content from this block */}
-                          <div className="space-y-2">
-                            {generateBlockContent(block).map((item, idx) => (
-                              <div
-                                key={idx}
-                                onClick={() => {
-                                  setTitle(item.title);
-                                  setContent(item.content);
-                                  setSelectedArticleId(`${block.id}_${idx}`);
-                                }}
-                                className={cn(
-                                  "p-2 rounded border cursor-pointer transition-colors text-xs",
-                                  selectedArticleId === `${block.id}_${idx}`
-                                    ? "bg-blue-100 border-blue-300"
-                                    : "bg-gray-50 hover:bg-blue-50"
-                                )}
-                              >
-                                <div className="font-medium line-clamp-1">{item.title}</div>
-                                <div className="text-gray-500">{item.source} • {item.time}</div>
-                              </div>
-                            ))}
-                          </div>
                         </div>
-                      ))}
+                        <Button size="sm" variant="ghost" className="text-xs px-2">
+                          Select
+                        </Button>
+                      </div>
                     </div>
-                  )}
+                  ))}
                 </div>
-              )}
-
-              {/* Public Figures Tab */}
-              {selectedNewsTab === "figures" && (
-                <div className="border rounded-lg p-4 bg-gray-50 max-h-60 overflow-y-auto">
-                  <div className="text-center py-8">
-                    <Users className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                    <p className="text-sm text-gray-600 mb-2">Track specific public figures</p>
-                    <p className="text-xs text-gray-500 mb-3">
-                      Monitor tweets, statements, and news from Elon Musk, Trump, and other influential figures
-                    </p>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setShowNewsSourceManager(true)}
-                    >
-                      <Settings className="h-3 w-3 mr-1" />
-                      Setup Figure Tracking
-                    </Button>
-                  </div>
-                </div>
-              )}
+              </div>
             </div>
           )}
 
