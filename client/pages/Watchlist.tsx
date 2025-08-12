@@ -222,11 +222,6 @@ export default function Watchlist() {
           </p>
         </div>
 
-        {/* Watchlist Content */}
-        <div className="max-w-4xl mx-auto">
-          {/* Clean watchlist interface without overwhelming charts */}
-
-
         {/* Add Stock Button */}
         <Button asChild className="w-full h-12 text-lg font-semibold">
           <Link to="/">
