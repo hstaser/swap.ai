@@ -21,6 +21,7 @@ interface InfluencerSectionProps {
 
 export default function InfluencerSection({ slug = "lebron-james", onClose }: InfluencerSectionProps) {
   const navigate = useNavigate();
+  const { addToQueue } = useQueue();
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const stocks = getInfluencerStocks(slug);
 
