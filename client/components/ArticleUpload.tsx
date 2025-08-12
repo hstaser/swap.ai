@@ -124,6 +124,25 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
     }
   };
 
+  // Load initial counts from localStorage
+  useEffect(() => {
+    const savedFigures = localStorage.getItem('customNewsFigures');
+    const savedSources = localStorage.getItem('customNewsSources');
+
+    if (savedFigures) {
+      const figures = JSON.parse(savedFigures);
+      setActiveFiguresCount(figures.filter((f: any) => f.isActive).length);
+    }
+
+    if (savedSources) {
+      const sources = JSON.parse(savedSources);
+      setActiveSourcesCount(sources.filter((s: any) => s.isActive).length);
+    } else {
+      // Default free sources are active
+      setActiveSourcesCount(3);
+    }
+  }, []);
+
   // Generate dynamic news articles based on active custom sources
   const generateDynamicNews = () => {
     const savedFigures = localStorage.getItem('customNewsFigures');
