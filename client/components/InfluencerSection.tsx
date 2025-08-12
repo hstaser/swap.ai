@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { getInfluencerStocks } from "../data/influencer.map";
-import { addToQueue, addManyToQueue } from "../store/queue";
+import { useQueue } from "../hooks/use-queue";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -26,13 +26,13 @@ export default function InfluencerSection({ slug = "lebron-james", onClose }: In
   const stocks = getInfluencerStocks(slug);
 
   const handleAddToQueue = (symbol: string) => {
-    addToQueue(symbol);
+    addToQueue(symbol, "bullish");
     console.log(`Added ${symbol} to queue`);
   };
 
   const handleAddAllToQueue = () => {
     const symbols = stocks.map(stock => stock!.symbol);
-    addManyToQueue(symbols);
+    symbols.forEach(symbol => addToQueue(symbol, "bullish"));
     setShowSuccessModal(true);
 
     // Close the original section if callback provided
