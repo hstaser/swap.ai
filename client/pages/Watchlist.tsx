@@ -224,29 +224,7 @@ export default function Watchlist() {
 
         {/* Watchlist Content */}
         <div className="max-w-4xl mx-auto">
-          {/* Skip the overwhelming charts */}
-            <CardContent className="p-4">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-green-800">
-                  Top Gainer
-                </span>
-                <TrendingUp className="h-4 w-4 text-green-600" />
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold text-green-900">
-                    {topPerformers.gainer.symbol}
-                  </span>
-                  <span className="text-lg font-semibold text-green-600">
-                    ^{topPerformers.gainer.change.toFixed(2)}%
-                  </span>
-                </div>
-
-                {/* Mini Chart */}
-                <div className="h-12">
-                  <svg
-                    width="100%"
+          {/* Clean watchlist interface without overwhelming charts */}
                     height="100%"
                     viewBox="0 0 100 30"
                     className="overflow-visible"
