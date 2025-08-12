@@ -1126,7 +1126,7 @@ export default function Research() {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-gray-50 min-h-[40px]"
                   onClick={() =>
                     handleSuggestionClick("Find undervalued stocks trading below intrinsic value using value investing principles")
                   }
