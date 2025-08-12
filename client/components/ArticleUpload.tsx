@@ -305,6 +305,52 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
             </div>
           )}
 
+          {/* News Articles Section for "From News" method */}
+          {uploadMethod === "news" && (
+            <div className="space-y-3">
+              <label className="text-sm font-medium text-gray-700 block">
+                Select a News Article
+              </label>
+              <div className="border rounded-lg p-4 bg-gray-50 max-h-60 overflow-y-auto">
+                <p className="text-xs text-gray-600 mb-3">
+                  Click on any article below to analyze its impact on your portfolio:
+                </p>
+                <div className="space-y-2">
+                  {newsArticles.map((article) => (
+                    <div
+                      key={article.id}
+                      onClick={() => {
+                        setTitle(article.headline);
+                        setContent(`News article from ${article.source}: ${article.headline}`);
+                        setUploadMethod("text"); // Switch to text mode after selection
+                      }}
+                      className="p-3 bg-white rounded border hover:bg-blue-50 cursor-pointer transition-colors"
+                    >
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h4 className="text-sm font-medium text-gray-900 line-clamp-2 mb-1">
+                            {article.headline}
+                          </h4>
+                          <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <span>{article.source}</span>
+                            <span>•</span>
+                            <span>{article.timestamp}</span>
+                            <Badge variant="outline" className="text-xs">
+                              {article.category}
+                            </Badge>
+                          </div>
+                        </div>
+                        <Button size="sm" variant="ghost" className="text-xs px-2">
+                          Select
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          )}
+
           {/* Analysis Target Selection */}
           <div className="space-y-3">
             <label className="text-sm font-medium text-gray-700 block">
@@ -495,6 +541,98 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
               </div>
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Stock Selector Modal */}
+      <Dialog open={showStockSelector} onOpenChange={setShowStockSelector}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-green-600" />
+              Select Stocks to Analyze
+            </DialogTitle>
+            <DialogDescription>
+              Choose which stocks from your portfolio to analyze
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium">
+                {selectedStocks.length} of {queue.length} selected
+              </span>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSelectedStocks([])}
+                  className="text-xs"
+                >
+                  Clear All
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setSelectedStocks(queue.map(s => s.symbol))}
+                  className="text-xs"
+                >
+                  Select All
+                </Button>
+              </div>
+            </div>
+
+            <div className="max-h-60 overflow-y-auto space-y-2">
+              {queue.map((stock) => (
+                <div
+                  key={stock.symbol}
+                  className="flex items-center space-x-3 p-2 rounded hover:bg-gray-50"
+                >
+                  <input
+                    type="checkbox"
+                    id={`stock-${stock.symbol}`}
+                    checked={selectedStocks.includes(stock.symbol)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedStocks([...selectedStocks, stock.symbol]);
+                      } else {
+                        setSelectedStocks(selectedStocks.filter(s => s !== stock.symbol));
+                      }
+                    }}
+                    className="h-4 w-4 text-blue-600 rounded border-gray-300"
+                  />
+                  <label
+                    htmlFor={`stock-${stock.symbol}`}
+                    className="flex-1 text-sm font-medium text-gray-700 cursor-pointer"
+                  >
+                    {stock.symbol}
+                  </label>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowStockSelector(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowStockSelector(false);
+                  if (selectedStocks.length === 0) {
+                    setSelectedAnalysis("portfolio");
+                  }
+                }}
+                disabled={selectedStocks.length === 0}
+                className="flex-1 bg-blue-600 hover:bg-blue-700"
+              >
+                Analyze {selectedStocks.length} Stocks
+              </Button>
+            </div>
+          </div>
         </DialogContent>
       </Dialog>
     </>
