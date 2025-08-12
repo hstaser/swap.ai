@@ -432,9 +432,9 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
 
               <div className="flex gap-1 bg-gray-100 rounded-lg p-1">
                 <Button
-                  variant={selectedNewsTab === "curated" ? "default" : "ghost"}
+                  variant="default"
                   size="sm"
-                  onClick={() => setSelectedNewsTab("curated")}
+                  disabled
                   className="flex-1 text-xs"
                 >
                   <Star className="h-3 w-3 mr-1" />
