@@ -53,11 +53,21 @@ export const addToQueue = (raw: string) => {
 export const addManyToQueue = (raws: string[]) => {
   const existing = new Set(state.items.map(i => i.symbol));
   for (const r of raws) {
-    const sym = resolveSymbol(r);
+    const sym = resolveSymbol(r) || r.toUpperCase();
     if (sym && !existing.has(sym)) {
-      const s = getStock(sym)!;
-      state.items.push({ id: s.id, symbol: s.symbol, addedAt: Date.now() });
-      existing.add(sym);
+      // Try STOCK_LOOKUP first
+      const stockCard = STOCK_LOOKUP[sym];
+      if (stockCard) {
+        state.items.push({ id: stockCard.id, symbol: stockCard.symbol, addedAt: Date.now() });
+        existing.add(sym);
+      } else {
+        // Fallback to catalog
+        const s = getStock(sym);
+        if (s) {
+          state.items.push({ id: s.id, symbol: s.symbol, addedAt: Date.now() });
+          existing.add(sym);
+        }
+      }
     }
   }
   persist();
