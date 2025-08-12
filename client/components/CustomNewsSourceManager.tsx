@@ -146,23 +146,18 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
     if (savedFigures) {
       setFigures(JSON.parse(savedFigures));
     } else {
-      // Initialize with popular figures
-      const initialFigures = POPULAR_FIGURES.map(fig => ({
-        ...fig,
-        id: `fig_${Date.now()}_${Math.random()}`,
-        isActive: false
-      }));
-      setFigures(initialFigures);
+      // Start with empty figures - user must add manually
+      setFigures([]);
     }
 
     if (savedSources) {
       setSources(JSON.parse(savedSources));
     } else {
-      // Initialize with popular sources
-      const initialSources = POPULAR_SOURCES.map(src => ({
+      // Initialize with only free sources
+      const initialSources = DEFAULT_FREE_SOURCES.map(src => ({
         ...src,
         id: `src_${Date.now()}_${Math.random()}`,
-        isActive: false
+        isActive: true // Auto-activate free sources
       }));
       setSources(initialSources);
     }
