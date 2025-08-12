@@ -883,6 +883,7 @@ export default function Index() {
                     filteredStocks[currentStockIndex].symbol,
                   )}
                   onSkip={handleSkip}
+                  currentIndex={currentStockIndex}
                   className={cn(
                     "w-full",
                     isInQueue(filteredStocks[currentStockIndex].symbol) &&
