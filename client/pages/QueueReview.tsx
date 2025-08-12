@@ -48,10 +48,13 @@ export default function QueueReview() {
     };
   }, []);
 
-  // Mock existing portfolio
+  // Mock existing portfolio - 5 stocks not shown in dashboard
   const existingPortfolio = [
-    { symbol: "SPY", name: "SPDR S&P 500 ETF", amount: 1500, shares: 3.2 },
-    { symbol: "QQQ", name: "Invesco QQQ Trust", amount: 1000, shares: 2.8 },
+    { symbol: "KO", name: "The Coca-Cola Company", amount: 2400, shares: 39.3 },
+    { symbol: "DIS", name: "The Walt Disney Company", amount: 1800, shares: 19.6 },
+    { symbol: "XOM", name: "Exxon Mobil Corporation", amount: 1600, shares: 14.2 },
+    { symbol: "UNH", name: "UnitedHealth Group Inc.", amount: 2200, shares: 4.1 },
+    { symbol: "HD", name: "The Home Depot Inc.", amount: 1900, shares: 5.4 },
   ];
 
   // Convert queue to display format with real stock data
