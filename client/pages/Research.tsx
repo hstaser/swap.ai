@@ -807,7 +807,7 @@ export default function Research() {
         <Tabs defaultValue="research" className="space-y-4">
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="research">Research Chat</TabsTrigger>
-            <TabsTrigger value="intelligence">Article Impact Analysis</TabsTrigger>
+            <TabsTrigger value="intelligence">Market Intelligence</TabsTrigger>
             <TabsTrigger value="queues">Queue Builder</TabsTrigger>
             <TabsTrigger value="insights">AI Insights</TabsTrigger>
           </TabsList>
@@ -1117,7 +1117,7 @@ export default function Research() {
 
           <TabsContent value="intelligence" className="space-y-4">
             <div className="space-y-6">
-              <h2 className="text-lg font-semibold">Article Impact Analysis</h2>
+              <h2 className="text-lg font-semibold">Market Intelligence</h2>
 
               {/* Article Upload Section */}
               <ArticleUpload />
@@ -1127,9 +1127,6 @@ export default function Research() {
           <TabsContent value="queues" className="space-y-4">
             <div className="space-y-6">
               <h2 className="text-lg font-semibold">AI Queue Builder</h2>
-              <p className="text-sm text-gray-600">
-                Create custom investment portfolios based on themes, strategies, or market insights.
-              </p>
 
               {/* Queue Building Section */}
               <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200 shadow-lg ring-1 ring-purple-200">
