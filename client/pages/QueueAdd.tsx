@@ -22,9 +22,16 @@ export default function QueueAdd() {
   const navigate = useNavigate();
   const { symbol } = useParams<{ symbol: string }>();
   const { addToQueue } = useQueue();
+  const [searchParams] = useSearchParams();
   const [selectedConfidence, setSelectedConfidence] = useState<string | null>(
     null,
   );
+
+  // Get current slide index from URL params, default to 0
+  const currentIndex = parseInt(searchParams.get('index') || '0', 10);
+
+  // Calculate next slide index
+  const nextIndex = Math.min(currentIndex + 1, STOCKS.length - 1);
 
   // Get stock data from extended database first, fallback to catalog
   const extendedStock = symbol ? extendedStockDatabase.find(s => s.symbol === symbol) : null;
