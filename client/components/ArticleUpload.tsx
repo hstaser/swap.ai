@@ -37,7 +37,7 @@ import {
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
 import { useLocation } from "react-router-dom";
-import { CustomNewsSourceManager, type SourceBlock } from "./CustomNewsSourceManager";
+import { CustomNewsSourceManager } from "./CustomNewsSourceManager";
 
 // Mock portfolio data - in production this would come from a portfolio hook/store
 const mockPortfolioStocks = [
