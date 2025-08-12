@@ -368,7 +368,17 @@ export function StockCard({
 
           {/* News Summary */}
           <div className="space-y-2">
-            <div className="text-sm text-muted-foreground">News Summary</div>
+            <div className="flex items-center justify-between">
+              <div className="text-sm text-muted-foreground">News Summary</div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setShowNewsArticles(true)}
+                className="h-6 px-2 text-xs text-purple-600 hover:text-purple-700"
+              >
+                View Articles ({newsArticles.length})
+              </Button>
+            </div>
             <div
               className="font-bold text-sm text-primary leading-tight cursor-pointer hover:text-blue-600 transition-colors"
               onClick={() => setShowNewsModal(true)}
@@ -604,7 +614,7 @@ export function StockCard({
                           <p className="text-sm text-gray-600 mb-2">{article.summary}</p>
                           <div className="flex items-center gap-2 text-xs text-gray-500">
                             <span>{article.source}</span>
-                            <span>���</span>
+                            <span>•</span>
                             <span>{article.time}</span>
                           </div>
                         </div>
