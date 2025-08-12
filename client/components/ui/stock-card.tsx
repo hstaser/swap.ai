@@ -670,6 +670,115 @@ export function StockCard({
           </div>
         </div>
       )}
+
+      {/* News Articles Modal */}
+      {showNewsArticles && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <div>
+                  <h3 className="text-xl font-semibold text-gray-900">
+                    Latest News for {canonicalStock.symbol}
+                  </h3>
+                  <p className="text-sm text-gray-600 mt-1">
+                    {newsArticles.length} articles found • Sources used for summary
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowNewsArticles(false)}
+                  className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600"
+                >
+                  ×
+                </Button>
+              </div>
+
+              {/* News Summary Reference */}
+              <div className="mb-6 p-4 bg-purple-50 rounded-lg border border-purple-100">
+                <h4 className="font-medium text-purple-900 mb-2 flex items-center gap-2">
+                  <MessageCircle className="h-4 w-4" />
+                  AI-Generated Summary
+                </h4>
+                <p className="text-purple-800 text-sm leading-relaxed">
+                  "{canonicalStock.newsSummary}"
+                </p>
+                <p className="text-xs text-purple-600 mt-2 italic">
+                  Generated from the articles below using AI analysis
+                </p>
+              </div>
+
+              {/* News Articles List */}
+              <div className="space-y-4">
+                {newsArticles.map((article, index) => (
+                  <div
+                    key={index}
+                    className="border border-gray-200 rounded-lg p-4 hover:border-purple-200 hover:bg-purple-50/30 transition-colors cursor-pointer"
+                    onClick={() => {
+                      // In a real app, this would open the full article
+                      console.log('Opening article:', article.title);
+                    }}
+                  >
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="flex-1">
+                        <h5 className="font-semibold text-gray-900 mb-2 leading-snug">
+                          {article.title}
+                        </h5>
+                        <p className="text-sm text-gray-600 leading-relaxed mb-3">
+                          {article.summary}
+                        </p>
+                        <div className="flex items-center gap-4 text-xs text-gray-500">
+                          <span className="flex items-center gap-1">
+                            <span className="font-medium text-blue-600">{article.source}</span>
+                          </span>
+                          <span className="flex items-center gap-1">
+                            <Clock className="h-3 w-3" />
+                            {article.time}
+                          </span>
+                          <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">
+                            Used in Summary
+                          </span>
+                        </div>
+                      </div>
+                      <ExternalLink className="h-4 w-4 text-gray-400 flex-shrink-0 mt-1" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Footer Actions */}
+              <div className="mt-6 pt-4 border-t border-gray-200">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-gray-500">
+                    News data refreshed every 15 minutes
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => setShowNewsArticles(false)}
+                      className="text-xs"
+                    >
+                      Close
+                    </Button>
+                    <Button
+                      size="sm"
+                      onClick={() => {
+                        setShowNewsArticles(false);
+                        navigate('/research?tab=intelligence');
+                      }}
+                      className="text-xs bg-purple-600 hover:bg-purple-700"
+                    >
+                      Research More About {canonicalStock.symbol}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </Card>
   );
 }
