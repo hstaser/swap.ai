@@ -896,22 +896,22 @@ export default function Index() {
 
             {/* Current Stock */}
             <div className="max-w-lg mx-auto space-y-4">
-              <StockCard
-                stock={filteredStocks[currentStockIndex]}
-                onToggleWatchlist={toggleWatchlist}
-                onAddToWatchlistWithNote={addToWatchlistWithNote}
-                isInWatchlist={isInWatchlist(
-                  filteredStocks[currentStockIndex].symbol,
-                )}
-                onSkip={handleSkip}
-                className={cn(
-                  "w-full",
-                  isInQueue(filteredStocks[currentStockIndex].symbol) &&
-                    "ring-2 ring-blue-400 bg-blue-50",
-                )}
-              />
-
-
+              {filteredStocks[currentStockIndex] && (
+                <StockCard
+                  stock={filteredStocks[currentStockIndex]}
+                  onToggleWatchlist={toggleWatchlist}
+                  onAddToWatchlistWithNote={addToWatchlistWithNote}
+                  isInWatchlist={isInWatchlist(
+                    filteredStocks[currentStockIndex].symbol,
+                  )}
+                  onSkip={handleSkip}
+                  className={cn(
+                    "w-full",
+                    isInQueue(filteredStocks[currentStockIndex].symbol) &&
+                      "ring-2 ring-blue-400 bg-blue-50",
+                  )}
+                />
+              )}
             </div>
           </div>
         ) : null}
