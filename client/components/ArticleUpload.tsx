@@ -151,9 +151,6 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
           <CardTitle className="flex items-center gap-2">
             <Upload className="h-5 w-5 text-blue-600" />
             Upload Article for Analysis
-            <Badge variant="outline" className="ml-auto text-xs">
-              AI-Powered
-            </Badge>
           </CardTitle>
           <p className="text-sm text-gray-600">
             Upload news articles, reports, or analysis to understand their impact on your portfolio
@@ -322,7 +319,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                       onClick={() => {
                         setTitle(article.headline);
                         setContent(`News article from ${article.source}: ${article.headline}`);
-                        setUploadMethod("text"); // Switch to text mode after selection
+                        // Keep in news mode instead of switching to text
                       }}
                       className="p-3 bg-white rounded border hover:bg-blue-50 cursor-pointer transition-colors"
                     >
