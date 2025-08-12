@@ -11,9 +11,12 @@ import {
   ChevronRight,
   Sparkles,
   X,
+  Plus,
+  Eye,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useNavigate } from "react-router-dom";
+import { addToQueue } from "@/store/queue";
 
 interface DashboardStock {
   symbol: string;
