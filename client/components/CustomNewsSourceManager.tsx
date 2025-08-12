@@ -211,6 +211,8 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
 
   const [searchTerm, setSearchTerm] = useState("");
   const [editingBlock, setEditingBlock] = useState<string | null>(null);
+  const [showAccountLink, setShowAccountLink] = useState(false);
+  const [selectedSourceForLink, setSelectedSourceForLink] = useState<NewsSource | null>(null);
 
   // Load data from localStorage on mount
   useEffect(() => {
