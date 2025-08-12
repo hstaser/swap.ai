@@ -8,6 +8,7 @@ import {
   CreditCard,
   Receipt,
   Building2,
+  Sparkles,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { useQueue } from "@/hooks/use-queue";
@@ -24,9 +25,9 @@ const navigationItems = [
     icon: BarChart3,
   },
   {
-    href: "/watchlist",
-    label: "Watch",
-    icon: Eye,
+    href: "/news",
+    label: "News",
+    icon: Sparkles,
   },
   {
     href: "/research",
