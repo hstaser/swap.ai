@@ -650,8 +650,8 @@ export default function Research() {
       },
       "lebron": {
         name: "LeBron's Brand Empire",
-        stocks: ["NKE", "PEP", "WMT", "BEATS", "NFLX"],
-        allocations: [40, 20, 15, 15, 10] // Nike is his biggest deal
+        stocks: ["NKE", "PEP", "WMT", "AAPL", "NFLX"],
+        allocations: [40, 20, 15, 15, 10] // Nike (lifetime deal), PepsiCo (Blaze Pizza), Walmart (SpringHill), Apple (Beats), Netflix (content)
       },
       "buffett": {
         name: "Buffett's Strategy",
@@ -663,12 +663,7 @@ export default function Research() {
     const template = queueTemplates[queueType];
     if (!template) return;
 
-    // Clear existing queue if user confirmed
-    if (queue.length > 0) {
-      clearQueue();
-    }
-
-    // Add stocks to queue with allocation info
+    // Add stocks to queue (append to existing, don't replace)
     template.stocks.forEach((symbol, index) => {
       addToQueue(symbol, "bullish");
     });
@@ -687,12 +682,7 @@ export default function Research() {
   };
 
   const handleSaveList = (listName: string, selectedStocks: string[]) => {
-    // Clear existing queue if user confirmed
-    if (queue.length > 0) {
-      clearQueue();
-    }
-
-    // Validate and add stocks to queue using new store
+    // Validate and add stocks to queue using new store (append to existing)
     const successfulAdds: string[] = [];
     const failedAdds: string[] = [];
 
