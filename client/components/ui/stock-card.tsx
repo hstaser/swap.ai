@@ -272,16 +272,19 @@ export function StockCard({
           {/* News Summary */}
           <div className="space-y-2">
             <div className="text-sm text-muted-foreground">News Summary</div>
-            <div className="font-bold text-sm text-primary leading-tight">
+            <div
+              className="font-bold text-sm text-primary leading-tight cursor-pointer hover:text-blue-600 transition-colors"
+              onClick={() => setShowNewsModal(true)}
+            >
               {canonicalStock.newsSummary}
             </div>
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => navigate(`/stock/${canonicalStock.symbol}/news`)}
+              onClick={() => setShowNewsModal(true)}
               className="h-6 px-2 text-xs text-blue-600"
             >
-              See More
+              How does this affect my portfolio?
             </Button>
           </div>
         </div>
