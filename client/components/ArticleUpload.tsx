@@ -580,9 +580,18 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
 
               {/* Curated News Tab */}
               <div className="border rounded-lg p-4 bg-gray-50 max-h-60 overflow-y-auto">
-                <p className="text-xs text-gray-600 mb-3">
-                  Click on any article below to analyze its impact on your portfolio:
-                </p>
+                {newsArticles.some((article: any) => article.customSource) ? (
+                  <div className="flex items-center gap-2 mb-3 p-2 bg-green-50 rounded border border-green-200">
+                    <CheckCircle className="h-4 w-4 text-green-600" />
+                    <p className="text-xs text-green-700 font-medium">
+                      Showing news from your custom sources
+                    </p>
+                  </div>
+                ) : (
+                  <p className="text-xs text-gray-600 mb-3">
+                    Click on any article below to analyze its impact on your portfolio:
+                  </p>
+                )}
                 <div className="space-y-2">
                   {newsArticles.map((article) => (
                     <div
