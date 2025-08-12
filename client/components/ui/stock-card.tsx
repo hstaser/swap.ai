@@ -474,6 +474,85 @@ export function StockCard({
           </div>
         </div>
       </CardContent>
+
+      {/* News Detail Modal */}
+      {showNewsModal && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold">News & Analysis for {canonicalStock.symbol}</h3>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowNewsModal(false)}
+                  className="h-8 w-8 p-0"
+                >
+                  ×
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                  <h4 className="font-medium text-blue-900 mb-2">Current News Summary</h4>
+                  <p className="text-blue-800 text-sm">{canonicalStock.newsSummary}</p>
+                </div>
+
+                <div className="space-y-3">
+                  <h4 className="font-medium text-gray-900">Recent Articles</h4>
+                  {canonicalStock.news?.map((article, index) => (
+                    <div key={index} className="border rounded-lg p-4 hover:bg-gray-50">
+                      <div className="flex items-start justify-between">
+                        <div className="flex-1">
+                          <h5 className="font-medium text-gray-900 mb-1">{article.title}</h5>
+                          <p className="text-sm text-gray-600 mb-2">{article.summary}</p>
+                          <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <span>{article.source}</span>
+                            <span>•</span>
+                            <span>{article.time}</span>
+                          </div>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => window.open('#', '_blank')}
+                          className="text-blue-600 hover:text-blue-700"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </div>
+                  )) || (
+                    <p className="text-gray-500 text-sm">No recent articles available.</p>
+                  )}
+                </div>
+
+                <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                  <h4 className="font-medium text-green-900 mb-2">Portfolio Impact Analysis</h4>
+                  <p className="text-green-800 text-sm">
+                    Based on this news, {canonicalStock.symbol} shows {canonicalStock.changePercent >= 0 ? 'positive' : 'negative'} momentum.
+                    {canonicalStock.changePercent >= 0
+                      ? ' This could benefit your portfolio if you have exposure to this stock or sector.'
+                      : ' Consider reviewing your position size if this stock represents a large portion of your portfolio.'
+                    }
+                  </p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => {
+                      setShowNewsModal(false);
+                      navigate('/research?tab=intelligence');
+                    }}
+                    className="mt-3 text-xs"
+                  >
+                    Analyze Impact on My Portfolio
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </Card>
   );
 }
