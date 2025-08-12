@@ -432,9 +432,13 @@ export default function Index() {
   }, [searchParams]);
 
   const filteredStocks = useMemo(() => {
-    let filtered = catalogStocks.filter((stock) => {
-      // Note: We'll handle queued stocks at the end to ensure we have enough stocks
+    // For swipe mode, always show all 31 stocks in exact order (no filtering)
+    if (viewMode === "swipe") {
+      return catalogStocks; // Exact 31 stocks in specified order
+    }
 
+    // For dashboard mode, apply filters
+    let filtered = catalogStocks.filter((stock) => {
       // Sector filter
       if (filters.sector !== "All" && stock.sector !== filters.sector) {
         return false;
@@ -497,19 +501,8 @@ export default function Index() {
       return true;
     });
 
-    // Shuffle the stocks to ensure variety across slides
-    const shuffleArray = (array: any[]) => {
-      const shuffled = [...array];
-      for (let i = shuffled.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-      }
-      return shuffled;
-    };
-
-    // Simple shuffle without forcing specific counts - let the actual data determine the size
-    return shuffleArray(filtered);
-  }, [filters, isInQueue]);
+    return filtered;
+  }, [filters, viewMode]);
 
   const toggleWatchlist = (symbol: string) => {
     const isCurrentlyInWatchlist = isInWatchlist(symbol);
