@@ -768,7 +768,7 @@ export default function Index() {
               filters={filters}
               onFiltersChange={setFilters}
               onClearFilters={() => setFilters(defaultFilters)}
-              className="bg-white/60 backdrop-blur-sm rounded-lg p-3"
+              className="bg-white/60 backdrop-blur-sm rounded-lg p-3 border border-purple-100/50"
             />
           </div>
         )}
