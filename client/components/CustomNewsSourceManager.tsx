@@ -364,9 +364,6 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
             <Settings className="h-5 w-5" />
             Custom News Sources
           </DialogTitle>
-          <DialogDescription>
-            Create custom source blocks to control what news feeds into your analysis
-          </DialogDescription>
         </DialogHeader>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden">
