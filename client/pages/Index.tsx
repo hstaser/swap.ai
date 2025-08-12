@@ -829,7 +829,10 @@ export default function Index() {
             )}
           </div>
         ) : /* Swipe View */
-        filteredStocks.length > 0 && filteredStocks[currentStockIndex] ? (
+        filteredStocks.length > 0 &&
+        currentStockIndex >= 0 &&
+        currentStockIndex < filteredStocks.length &&
+        filteredStocks[currentStockIndex] ? (
           <div className="space-y-4">
             {/* AI Risk Intervention System */}
             {isSetup && riskSettings.aiAssistanceLevel !== "off" && (
