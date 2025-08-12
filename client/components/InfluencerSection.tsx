@@ -1,21 +1,50 @@
+import { useState } from "react";
 import { getInfluencerStocks } from "../data/influencer.map";
-import { addToQueue } from "../store/queue";
+import { addToQueue, addManyToQueue } from "../store/queue";
 import { Button } from "./ui/button";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
-import { Plus, TrendingUp, TrendingDown } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
+import { Plus, TrendingUp, TrendingDown, CheckCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 interface InfluencerSectionProps {
   slug?: string;
+  onClose?: () => void;
 }
 
-export default function InfluencerSection({ slug = "lebron-james" }: InfluencerSectionProps) {
+export default function InfluencerSection({ slug = "lebron-james", onClose }: InfluencerSectionProps) {
+  const navigate = useNavigate();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
   const stocks = getInfluencerStocks(slug);
 
   const handleAddToQueue = (symbol: string) => {
     addToQueue(symbol);
-    // Optional: Show toast notification or feedback
     console.log(`Added ${symbol} to queue`);
+  };
+
+  const handleAddAllToQueue = () => {
+    const symbols = stocks.map(stock => stock!.symbol);
+    addManyToQueue(symbols);
+    setShowSuccessModal(true);
+
+    // Close the original section if callback provided
+    if (onClose) {
+      setTimeout(() => {
+        onClose();
+      }, 100);
+    }
+  };
+
+  const handleViewQueue = () => {
+    setShowSuccessModal(false);
+    navigate('/queue/review');
   };
 
   if (stocks.length === 0) {
