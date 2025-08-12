@@ -562,6 +562,8 @@ export default function Index() {
   };
 
   const handleSkip = () => {
+    if (filteredStocks.length === 0) return;
+
     const currentStock = filteredStocks[currentStockIndex];
     if (isSetup && currentStock) {
       trackSwipe(currentStock.symbol, "skip", {
