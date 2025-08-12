@@ -600,8 +600,13 @@ export default function Index() {
 
   // Reset current stock index when filtered stocks change
   useEffect(() => {
-    if (currentStockIndex >= filteredStocks.length) {
-      setCurrentStockIndex(0);
+    if (filteredStocks.length > 0) {
+      if (currentStockIndex >= filteredStocks.length) {
+        setCurrentStockIndex(filteredStocks.length - 1);
+      }
+      if (currentStockIndex < 0) {
+        setCurrentStockIndex(0);
+      }
     }
   }, [filteredStocks.length, currentStockIndex]);
 
