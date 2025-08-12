@@ -620,6 +620,11 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                             <Badge variant="outline" className="text-xs">
                               {article.category}
                             </Badge>
+                            {(article as any).customSource && (
+                              <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-700">
+                                Custom
+                              </Badge>
+                            )}
                           </div>
                         </div>
                         <Button size="sm" variant="ghost" className="text-xs px-2">
