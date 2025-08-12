@@ -191,7 +191,11 @@ export function StockCard({
   const [showNoteModal, setShowNoteModal] = useState(false);
   const [showShareModal, setShowShareModal] = useState(false);
   const [showFriendShare, setShowFriendShare] = useState(false);
+  const [showNewsArticles, setShowNewsArticles] = useState(false);
   const navigate = useNavigate();
+
+  // Generate news articles for this stock
+  const newsArticles = generateNewsArticles(canonicalStock.symbol, canonicalStock.newsSummary);
 
   return (
     <Card
@@ -600,7 +604,7 @@ export function StockCard({
                           <p className="text-sm text-gray-600 mb-2">{article.summary}</p>
                           <div className="flex items-center gap-2 text-xs text-gray-500">
                             <span>{article.source}</span>
-                            <span>•</span>
+                            <span>���</span>
                             <span>{article.time}</span>
                           </div>
                         </div>
