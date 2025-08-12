@@ -58,22 +58,23 @@ export default function PelosiSection({ onClose }: PelosiSectionProps) {
   };
 
   return (
-    <Card className="w-full max-w-6xl mx-auto">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <div>
-            <CardTitle className="text-xl font-bold">Pelosi Tracker</CardTitle>
-            <p className="text-sm text-gray-600 mt-1">(Demo - Congressional disclosure data)</p>
+    <>
+      <Card className="w-full max-w-6xl mx-auto">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="text-xl font-bold">Nancy Pelosi's Portfolio</CardTitle>
+              <p className="text-sm text-gray-600 mt-1">(Congressional disclosure data)</p>
+            </div>
+            <Button
+              onClick={handleAddAllToQueue}
+              className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2"
+            >
+              <Plus className="h-4 w-4" />
+              Add All to Queue
+            </Button>
           </div>
-          <Button
-            onClick={handleAddAllToQueue}
-            className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2"
-          >
-            <Plus className="h-4 w-4" />
-            Add All to Queue
-          </Button>
-        </div>
-      </CardHeader>
+        </CardHeader>
 
       <CardContent>
         <ScrollArea className="h-[70vh]">
