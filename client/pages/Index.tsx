@@ -37,7 +37,7 @@ import { ALL_SYMBOLS, getStock, type Stock as CatalogStock } from "../data/stock
 import { extendedStockDatabase } from "../data/extended-stocks";
 import { STOCKS, STOCK_LOOKUP, type StockCard } from "../data/stocks";
 import { addToQueue, isInQueue } from "../store/queue";
-import { addToWatchlist, isInWatchlist } from "../store/watchlist";
+import { addToWatchlist, isInWatchlist, removeFromWatchlist } from "../store/watchlist";
 
 // Helper function to determine risk level based on sector and other factors
 const calculateRiskLevel = (stock: any): "Low" | "Medium" | "High" => {
