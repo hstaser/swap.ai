@@ -5,6 +5,13 @@ import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Badge } from "./ui/badge";
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -20,6 +27,7 @@ import {
   X,
   CheckCircle,
   AlertTriangle,
+  Target,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
@@ -43,6 +51,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
   const [url, setUrl] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [selectedAnalysis, setSelectedAnalysis] = useState<"portfolio" | string>("portfolio");
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const [currentArticle, setCurrentArticle] = useState<UploadedArticle | null>(null);
@@ -246,37 +255,80 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
             </div>
           )}
 
-          {/* Portfolio Context */}
-          {queue.length > 0 && (
-            <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
-              <div className="flex items-center gap-2 mb-2">
-                <AlertTriangle className="h-4 w-4 text-blue-600" />
-                <span className="text-sm font-medium text-blue-900">
-                  Portfolio Context
-                </span>
-              </div>
-              <p className="text-xs text-blue-700 mb-2">
-                Analysis will consider impact on your {queue.length} queued stocks:
-              </p>
-              <div className="flex flex-wrap gap-1">
-                {queue.slice(0, 5).map((stock) => (
-                  <Badge key={stock.symbol} variant="secondary" className="text-xs">
-                    {stock.symbol}
-                  </Badge>
-                ))}
-                {queue.length > 5 && (
-                  <Badge variant="secondary" className="text-xs">
-                    +{queue.length - 5} more
-                  </Badge>
+          {/* Analysis Target Selection */}
+          <div className="space-y-3">
+            <label className="text-sm font-medium text-gray-700 block">
+              What would you like to analyze?
+            </label>
+            <Select value={selectedAnalysis} onValueChange={setSelectedAnalysis}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Choose analysis target" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="portfolio">
+                  <div className="flex items-center gap-2">
+                    <Target className="h-4 w-4 text-blue-600" />
+                    <span>Entire Portfolio ({queue.length} stocks)</span>
+                  </div>
+                </SelectItem>
+                {queue.length > 0 && (
+                  <>
+                    {queue.map((stock) => (
+                      <SelectItem key={stock.symbol} value={stock.symbol}>
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-green-500 rounded-full" />
+                          <span>{stock.symbol}</span>
+                        </div>
+                      </SelectItem>
+                    ))}
+                  </>
                 )}
+              </SelectContent>
+            </Select>
+
+            {selectedAnalysis === "portfolio" ? (
+              <div className="bg-blue-50 rounded-lg p-3 border border-blue-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Target className="h-4 w-4 text-blue-600" />
+                  <span className="text-sm font-medium text-blue-900">
+                    Portfolio Analysis
+                  </span>
+                </div>
+                <p className="text-xs text-blue-700 mb-2">
+                  Will analyze impact across your entire portfolio of {queue.length} queued stocks:
+                </p>
+                <div className="flex flex-wrap gap-1">
+                  {queue.slice(0, 8).map((stock) => (
+                    <Badge key={stock.symbol} variant="secondary" className="text-xs">
+                      {stock.symbol}
+                    </Badge>
+                  ))}
+                  {queue.length > 8 && (
+                    <Badge variant="secondary" className="text-xs">
+                      +{queue.length - 8} more
+                    </Badge>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            ) : (
+              <div className="bg-green-50 rounded-lg p-3 border border-green-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <div className="w-3 h-3 bg-green-500 rounded-full" />
+                  <span className="text-sm font-medium text-green-900">
+                    Single Stock Analysis
+                  </span>
+                </div>
+                <p className="text-xs text-green-700">
+                  Will analyze impact specifically on <Badge variant="secondary" className="text-xs mx-1">{selectedAnalysis}</Badge>
+                </p>
+              </div>
+            )}
+          </div>
 
           {/* Analyze Button */}
           <Button
             onClick={handleAnalyze}
-            disabled={isAnalyzing || !title || (!url && !content)}
+            disabled={isAnalyzing || !title || (!url && !content) || (selectedAnalysis !== "portfolio" && queue.length === 0)}
             className="w-full bg-blue-600 hover:bg-blue-700"
           >
             {isAnalyzing ? (
@@ -287,7 +339,10 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
             ) : (
               <>
                 <MessageCircle className="h-4 w-4 mr-2" />
-                Analyze Portfolio Impact
+                {selectedAnalysis === "portfolio"
+                  ? `Analyze Portfolio Impact (${queue.length} stocks)`
+                  : `Analyze ${selectedAnalysis} Impact`
+                }
               </>
             )}
           </Button>
@@ -329,7 +384,10 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                   AI Analysis Results
                 </div>
                 <div className="text-blue-700">
-                  Impact analysis has been generated and integrated with your market intelligence feed.
+                  {selectedAnalysis === "portfolio"
+                    ? `Portfolio-wide impact analysis completed for ${queue.length} stocks.`
+                    : `Specific impact analysis completed for ${selectedAnalysis}.`
+                  }
                 </div>
               </div>
 
