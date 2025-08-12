@@ -117,43 +117,167 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
     setSourceBlocks(blocks);
   };
 
-  const newsArticles = [
-    {
-      id: "news_1",
-      headline: "Apple Reports Record Q4 Revenue Driven by iPhone 15 Sales",
-      source: "Reuters",
-      timestamp: "2h ago",
-      category: "Earnings"
-    },
-    {
-      id: "news_2",
-      headline: "Tesla Faces Increased Competition in China EV Market",
-      source: "Bloomberg",
-      timestamp: "4h ago",
-      category: "Market"
-    },
-    {
-      id: "news_3",
-      headline: "Microsoft Azure Revenue Grows 30% Amid AI Expansion",
-      source: "CNBC",
-      timestamp: "6h ago",
-      category: "Earnings"
-    },
-    {
-      id: "news_4",
-      headline: "Fed Signals Potential Rate Cuts in 2024",
-      source: "WSJ",
-      timestamp: "8h ago",
-      category: "Economic"
-    },
-    {
-      id: "news_5",
-      headline: "NVIDIA Partners with Major Automakers for AI Chips",
-      source: "TechCrunch",
-      timestamp: "10h ago",
-      category: "Business"
+  // Generate dynamic news articles based on active custom sources
+  const generateDynamicNews = () => {
+    const savedFigures = localStorage.getItem('customNewsFigures');
+    const savedSources = localStorage.getItem('customNewsSources');
+
+    let activeFigures: any[] = [];
+    let activeSources: any[] = [];
+
+    if (savedFigures) {
+      activeFigures = JSON.parse(savedFigures).filter((f: any) => f.isActive);
     }
-  ];
+
+    if (savedSources) {
+      activeSources = JSON.parse(savedSources).filter((s: any) => s.isActive);
+    }
+
+    const dynamicArticles = [];
+
+    // Generate articles from active figures
+    activeFigures.forEach((figure, index) => {
+      const figureNews = {
+        "Elon Musk": [
+          "Elon Musk Announces Major Tesla Production Milestone, Stock Jumps 8%",
+          "Musk's Latest SpaceX Launch Success Boosts Investor Confidence",
+          "Tesla CEO Reveals AI Breakthrough That Could Transform Industry"
+        ],
+        "Donald Trump": [
+          "Trump's Economic Policy Announcement Sends Tech Stocks Higher",
+          "Former President's Trade Comments Impact Global Markets",
+          "Trump's Energy Independence Plan Affects Oil Sector Outlook"
+        ],
+        "Warren Buffett": [
+          "Berkshire Hathaway's Buffett Makes Surprise Tech Investment",
+          "Warren Buffett's Market Warning Triggers Portfolio Reassessment",
+          "Buffett's Annual Letter Reveals New Investment Strategy"
+        ],
+        "Jerome Powell": [
+          "Fed Chair Powell Signals Potential Interest Rate Adjustments",
+          "Powell's Congressional Testimony Impacts Banking Sector",
+          "Federal Reserve Updates Monetary Policy Under Powell's Leadership"
+        ],
+        "Cathie Wood": [
+          "ARK Invest's Wood Predicts Next Disruptive Technology Wave",
+          "Cathie Wood's Portfolio Reshuffling Affects Growth Stocks",
+          "Wood's Innovation ETF Strategy Drives Market Speculation"
+        ],
+        "Tim Cook": [
+          "Apple CEO Cook Unveils Next-Generation Product Roadmap",
+          "Tim Cook's Privacy Initiative Reshapes Tech Industry Standards",
+          "Cook Addresses Supply Chain Improvements in Latest Keynote"
+        ]
+      };
+
+      const headlines = figureNews[figure.name as keyof typeof figureNews] || [
+        `${figure.name} Makes Strategic Market Announcement`,
+        `${figure.name}'s Latest Move Impacts Sector Outlook`,
+        `${figure.name} Shares Insights on Economic Trends`
+      ];
+
+      if (headlines[index % headlines.length]) {
+        dynamicArticles.push({
+          id: `figure_${figure.id}_${index}`,
+          headline: headlines[index % headlines.length],
+          source: `${figure.platform === 'twitter' ? 'Social Media' : 'News Wire'}`,
+          timestamp: `${(index + 1) * 2}h ago`,
+          category: figure.category === 'business' ? 'Business' :
+                   figure.category === 'politics' ? 'Political' :
+                   figure.category === 'finance' ? 'Finance' : 'Market',
+          customSource: figure.name
+        });
+      }
+    });
+
+    // Generate articles from active news sources
+    activeSources.forEach((source, index) => {
+      const sourceNews = {
+        "Bloomberg": [
+          "Global Markets Rally on Renewed Economic Optimism",
+          "Central Bank Policies Drive Currency Fluctuations",
+          "Corporate Earnings Beat Expectations Across Sectors"
+        ],
+        "Reuters": [
+          "Breaking: Major Merger Announcement Reshapes Industry",
+          "Economic Data Suggests Continued Growth Momentum",
+          "International Trade Developments Affect Stock Prices"
+        ],
+        "TechCrunch": [
+          "Startup Funding Reaches New Quarterly High",
+          "AI Technology Breakthrough Attracts Major Investment",
+          "New Platform Launch Disrupts Traditional Market"
+        ],
+        "Wall Street Journal": [
+          "Financial Sector Analysis Shows Strong Performance",
+          "Market Volatility Creates New Investment Opportunities",
+          "Economic Policy Changes Impact Long-term Outlook"
+        ]
+      };
+
+      const headlines = sourceNews[source.name as keyof typeof sourceNews] || [
+        `${source.name} Reports: Market Conditions Show Positive Trends`,
+        `${source.name} Analysis: Sector Performance Exceeds Forecasts`,
+        `${source.name} Exclusive: Industry Leaders Share Growth Strategies`
+      ];
+
+      if (headlines[index % headlines.length]) {
+        dynamicArticles.push({
+          id: `source_${source.id}_${index}`,
+          headline: headlines[index % headlines.length],
+          source: source.name,
+          timestamp: `${(index + 3) * 2}h ago`,
+          category: source.category,
+          customSource: source.name
+        });
+      }
+    });
+
+    // If no custom sources are active, show default curated news
+    if (dynamicArticles.length === 0) {
+      return [
+        {
+          id: "news_1",
+          headline: "Apple Reports Record Q4 Revenue Driven by iPhone 15 Sales",
+          source: "Reuters",
+          timestamp: "2h ago",
+          category: "Earnings"
+        },
+        {
+          id: "news_2",
+          headline: "Tesla Faces Increased Competition in China EV Market",
+          source: "Bloomberg",
+          timestamp: "4h ago",
+          category: "Market"
+        },
+        {
+          id: "news_3",
+          headline: "Microsoft Azure Revenue Grows 30% Amid AI Expansion",
+          source: "CNBC",
+          timestamp: "6h ago",
+          category: "Earnings"
+        },
+        {
+          id: "news_4",
+          headline: "Fed Signals Potential Rate Cuts in 2024",
+          source: "WSJ",
+          timestamp: "8h ago",
+          category: "Economic"
+        },
+        {
+          id: "news_5",
+          headline: "NVIDIA Partners with Major Automakers for AI Chips",
+          source: "TechCrunch",
+          timestamp: "10h ago",
+          category: "Business"
+        }
+      ];
+    }
+
+    return dynamicArticles.slice(0, 8); // Limit to 8 articles
+  };
+
+  const newsArticles = generateDynamicNews();
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
