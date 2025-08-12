@@ -55,40 +55,62 @@ interface NotificationPreferences {
 const mockNotifications: Notification[] = [
   {
     id: "1",
-    type: "rebalance",
-    title: "Portfolio Rebalance Recommended",
+    type: "ai_insight",
+    title: "Diversification Opportunity Detected",
     message:
-      "Your portfolio has drifted from target allocation. Consider rebalancing to maintain your risk profile.",
-    timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000), // 2 hours ago
+      "Your tech allocation (52%) is above optimal range. Consider reducing by 7% to improve risk-adjusted returns.",
+    timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
     read: false,
     priority: "high",
     actionUrl: "/portfolio/rebalance",
   },
   {
     id: "2",
-    type: "news",
-    title: "AAPL Earnings Report",
+    type: "ai_insight",
+    title: "Risk Management Alert",
     message:
-      "Apple reported strong Q4 earnings, beating analyst expectations. Your position is up 3.2%.",
-    timestamp: new Date(Date.now() - 4 * 60 * 60 * 1000), // 4 hours ago
+      "Market correlation has increased 23% this week. Your portfolio beta is now 1.34 - consider defensive positioning.",
+    timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
     read: false,
+    priority: "medium",
+    actionUrl: "/portfolio/rebalance",
+  },
+  {
+    id: "3",
+    type: "ai_insight",
+    title: "Sector Rotation Opportunity",
+    message:
+      "Healthcare sector showing strength vs tech. Consider rotating 5% allocation for better performance.",
+    timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
+    read: false,
+    priority: "medium",
+    actionUrl: "/portfolio/rebalance",
+  },
+  {
+    id: "4",
+    type: "rebalance",
+    title: "Portfolio Rebalance Recommended",
+    message:
+      "Your portfolio has drifted from target allocation. AI suggests rebalancing AAPL and adding defensive positions.",
+    timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000), // 8 hours ago
+    read: true,
+    priority: "high",
+    actionUrl: "/portfolio/rebalance",
+  },
+  {
+    id: "5",
+    type: "news",
+    title: "AAPL Earnings Beat Expected",
+    message:
+      "Apple reported strong quarterly earnings. Consider adjusting your position based on positive momentum.",
+    timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
+    read: true,
     priority: "medium",
     symbol: "AAPL",
     actionUrl: "/stock/AAPL/news",
   },
   {
-    id: "3",
-    type: "ai_insight",
-    title: "AI Portfolio Insight",
-    message:
-      "Based on market trends, consider increasing your tech sector allocation by 5% for better diversification.",
-    timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
-    read: true,
-    priority: "medium",
-    actionUrl: "/research",
-  },
-  {
-    id: "4",
+    id: "6",
     type: "portfolio",
     title: "Dividend Payment Received",
     message:
@@ -97,17 +119,7 @@ const mockNotifications: Notification[] = [
     read: true,
     priority: "low",
     symbol: "JNJ",
-  },
-  {
-    id: "5",
-    type: "market_alert",
-    title: "Market Volatility Alert",
-    message:
-      "Increased market volatility detected. Review your risk tolerance and consider portfolio adjustments.",
-    timestamp: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
-    read: true,
-    priority: "high",
-    actionUrl: "/portfolio/risk",
+    actionUrl: "/portfolio",
   },
 ];
 
@@ -493,8 +505,14 @@ export function NotificationSystem({
                       variant="link"
                       size="sm"
                       className="mt-2 p-0 h-auto"
+                      onClick={() => window.location.href = notification.actionUrl!}
                     >
-                      View Details →
+                      {notification.type === "rebalance" || notification.type === "ai_insight"
+                        ? "Rebalance Portfolio →"
+                        : notification.type === "portfolio"
+                        ? "View Portfolio →"
+                        : "View Details →"
+                      }
                     </Button>
                   )}
                 </div>
