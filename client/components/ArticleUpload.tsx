@@ -442,22 +442,13 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                   Curated News
                 </Button>
                 <Button
-                  variant={selectedNewsTab === "blocks" ? "default" : "ghost"}
+                  variant="ghost"
                   size="sm"
-                  onClick={() => setSelectedNewsTab("blocks")}
+                  onClick={() => setShowNewsSourceManager(true)}
                   className="flex-1 text-xs"
                 >
-                  <Filter className="h-3 w-3 mr-1" />
-                  Custom Blocks ({sourceBlocks.filter(b => b.isActive).length})
-                </Button>
-                <Button
-                  variant={selectedNewsTab === "figures" ? "default" : "ghost"}
-                  size="sm"
-                  onClick={() => setSelectedNewsTab("figures")}
-                  className="flex-1 text-xs"
-                >
-                  <Users className="h-3 w-3 mr-1" />
-                  Public Figures
+                  <Settings className="h-3 w-3 mr-1" />
+                  Custom Sources
                 </Button>
               </div>
 
