@@ -515,10 +515,21 @@ export function StockCard({
                         <Button
                           variant="ghost"
                           size="sm"
-                          onClick={() => window.open('#', '_blank')}
+                          onClick={() => {
+                            setShowNewsModal(false);
+                            navigate('/research?tab=intelligence', {
+                              state: {
+                                prefilledArticle: {
+                                  title: article.title,
+                                  content: article.summary,
+                                  source: article.source
+                                }
+                              }
+                            });
+                          }}
                           className="text-blue-600 hover:text-blue-700"
                         >
-                          <ExternalLink className="h-4 w-4" />
+                          Analyze Impact
                         </Button>
                       </div>
                     </div>
