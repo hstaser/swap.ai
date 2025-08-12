@@ -340,11 +340,14 @@ export default function OptimizationReview() {
                   <div className="text-sm text-blue-800 font-medium mb-1">
                     Manual Editing Mode
                   </div>
-                  <div className="text-xs text-blue-700 mb-2">
+                    <div className="text-xs text-blue-700 mb-2">
                     Our AI allocation is optimized based on your confidence
                     levels and market analysis. You're welcome to adjust these
                     percentages, though we recommend staying close to our
                     suggested allocation for best results.
+                  </div>
+                  <div className="text-xs text-blue-700 bg-yellow-50 border border-yellow-200 rounded p-2">
+                    ⚠️ Allocation percentages are protected. Hover to reveal values.
                   </div>
                   <div className="text-xs text-blue-700">
                     Adjust allocations below.{" "}
