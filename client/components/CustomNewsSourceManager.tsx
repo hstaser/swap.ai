@@ -84,108 +84,31 @@ export interface SourceBlock {
   createdAt: string;
 }
 
-// Pre-defined popular figures
-const POPULAR_FIGURES: Omit<PublicFigure, 'id' | 'isActive'>[] = [
+// Default free news sources to start with
+const DEFAULT_FREE_SOURCES: Omit<NewsSource, 'id' | 'isActive'>[] = [
   {
-    name: "Elon Musk",
-    platform: "twitter",
-    handle: "@elonmusk",
-    category: "business",
-    verified: true,
-    followerCount: "164M",
-    description: "CEO of Tesla, SpaceX, and owner of X",
-    keywords: ["tesla", "spacex", "ai", "crypto", "mars"],
-    importance: "high"
-  },
-  {
-    name: "Donald Trump",
-    platform: "twitter",
-    handle: "@realdonaldtrump",
-    category: "politics",
-    verified: true,
-    followerCount: "87M",
-    description: "45th President of the United States",
-    keywords: ["politics", "election", "economy", "trade"],
-    importance: "high"
-  },
-  {
-    name: "Warren Buffett",
-    platform: "news",
-    handle: "berkshirehathaway",
-    category: "finance",
-    verified: true,
-    followerCount: "N/A",
-    description: "CEO of Berkshire Hathaway, legendary investor",
-    keywords: ["investing", "berkshire", "value", "economy"],
-    importance: "high"
-  },
-  {
-    name: "Jerome Powell",
-    platform: "news",
-    handle: "federalreserve",
-    category: "finance",
-    verified: true,
-    followerCount: "N/A",
-    description: "Chair of the Federal Reserve",
-    keywords: ["fed", "interest rates", "monetary policy", "economy"],
-    importance: "high"
-  },
-  {
-    name: "Cathie Wood",
-    platform: "twitter",
-    handle: "@cathiedwood",
-    category: "finance",
-    verified: true,
-    followerCount: "1.4M",
-    description: "CEO of ARK Invest",
-    keywords: ["innovation", "disruptive", "tesla", "ai", "genomics"],
-    importance: "medium"
-  },
-  {
-    name: "Tim Cook",
-    platform: "twitter",
-    handle: "@tim_cook",
-    category: "business",
-    verified: true,
-    followerCount: "15M",
-    description: "CEO of Apple",
-    keywords: ["apple", "iphone", "privacy", "innovation"],
-    importance: "medium"
-  }
-];
-
-const POPULAR_SOURCES: Omit<NewsSource, 'id' | 'isActive'>[] = [
-  {
-    name: "Bloomberg",
-    type: "publication",
-    url: "bloomberg.com",
-    category: "Finance",
-    keywords: ["markets", "finance", "economy", "business"],
-    importance: "high"
-  },
-  {
-    name: "Reuters",
+    name: "Reuters (Free)",
     type: "publication",
     url: "reuters.com",
     category: "News",
-    keywords: ["breaking", "global", "markets", "politics"],
+    keywords: ["breaking", "global", "markets"],
     importance: "high"
   },
   {
-    name: "TechCrunch",
+    name: "AP News",
     type: "publication",
-    url: "techcrunch.com",
-    category: "Technology",
-    keywords: ["startups", "tech", "venture", "innovation"],
+    url: "apnews.com",
+    category: "News",
+    keywords: ["breaking", "global", "politics"],
     importance: "medium"
   },
   {
-    name: "Wall Street Journal",
+    name: "Yahoo Finance",
     type: "publication",
-    url: "wsj.com",
+    url: "finance.yahoo.com",
     category: "Finance",
-    keywords: ["markets", "business", "economy", "finance"],
-    importance: "high"
+    keywords: ["markets", "stocks", "earnings"],
+    importance: "medium"
   }
 ];
 
