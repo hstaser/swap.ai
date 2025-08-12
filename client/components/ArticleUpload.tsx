@@ -578,62 +578,81 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                 </Button>
               </div>
 
-              {/* Curated News Tab */}
+              {/* News Content */}
               <div className="border rounded-lg p-4 bg-gray-50 max-h-60 overflow-y-auto">
-                {newsArticles.some((article: any) => article.customSource) ? (
-                  <div className="flex items-center gap-2 mb-3 p-2 bg-green-50 rounded border border-green-200">
-                    <CheckCircle className="h-4 w-4 text-green-600" />
-                    <p className="text-xs text-green-700 font-medium">
-                      Showing news from your custom sources
+                {newsArticles.length === 0 ? (
+                  <div className="text-center py-8">
+                    <Users className="h-8 w-8 text-gray-400 mx-auto mb-3" />
+                    <p className="text-sm font-medium text-gray-900 mb-2">No news sources configured</p>
+                    <p className="text-xs text-gray-600 mb-4">
+                      Add custom sources to get personalized news for analysis
                     </p>
+                    <Button
+                      onClick={() => setShowNewsSourceManager(true)}
+                      size="sm"
+                      className="bg-blue-600 hover:bg-blue-700"
+                    >
+                      Setup News Sources
+                    </Button>
                   </div>
                 ) : (
-                  <p className="text-xs text-gray-600 mb-3">
-                    Click on any article below to analyze its impact on your portfolio:
-                  </p>
-                )}
-                <div className="space-y-2">
-                  {newsArticles.map((article) => (
-                    <div
-                      key={article.id}
-                      onClick={() => {
-                        setTitle(article.headline);
-                        setContent(`News article from ${article.source}: ${article.headline}`);
-                        setSelectedArticleId(article.id);
-                      }}
-                      className={cn(
-                        "p-3 rounded border cursor-pointer transition-colors",
-                        selectedArticleId === article.id
-                          ? "bg-blue-100 border-blue-300"
-                          : "bg-white hover:bg-blue-50"
-                      )}
-                    >
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <h4 className="text-sm font-medium text-gray-900 line-clamp-2 mb-1">
-                            {article.headline}
-                          </h4>
-                          <div className="flex items-center gap-2 text-xs text-gray-500">
-                            <span>{article.source}</span>
-                            <span>•</span>
-                            <span>{article.timestamp}</span>
-                            <Badge variant="outline" className="text-xs">
-                              {article.category}
-                            </Badge>
-                            {(article as any).customSource && (
-                              <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-700">
-                                Custom
-                              </Badge>
-                            )}
+                  <>
+                    {newsArticles.some((article: any) => article.customSource) ? (
+                      <div className="flex items-center gap-2 mb-3 p-2 bg-green-50 rounded border border-green-200">
+                        <CheckCircle className="h-4 w-4 text-green-600" />
+                        <p className="text-xs text-green-700 font-medium">
+                          Showing news from your custom sources
+                        </p>
+                      </div>
+                    ) : (
+                      <p className="text-xs text-gray-600 mb-3">
+                        Click on any article below to analyze its impact on your portfolio:
+                      </p>
+                    )}
+                    <div className="space-y-2">
+                      {newsArticles.map((article) => (
+                        <div
+                          key={article.id}
+                          onClick={() => {
+                            setTitle(article.headline);
+                            setContent(`News article from ${article.source}: ${article.headline}`);
+                            setSelectedArticleId(article.id);
+                          }}
+                          className={cn(
+                            "p-3 rounded border cursor-pointer transition-colors",
+                            selectedArticleId === article.id
+                              ? "bg-blue-100 border-blue-300"
+                              : "bg-white hover:bg-blue-50"
+                          )}
+                        >
+                          <div className="flex items-start justify-between">
+                            <div className="flex-1">
+                              <h4 className="text-sm font-medium text-gray-900 line-clamp-2 mb-1">
+                                {article.headline}
+                              </h4>
+                              <div className="flex items-center gap-2 text-xs text-gray-500">
+                                <span>{article.source}</span>
+                                <span>•</span>
+                                <span>{article.timestamp}</span>
+                                <Badge variant="outline" className="text-xs">
+                                  {article.category}
+                                </Badge>
+                                {(article as any).customSource && (
+                                  <Badge variant="secondary" className="text-xs bg-blue-100 text-blue-700">
+                                    Custom
+                                  </Badge>
+                                )}
+                              </div>
+                            </div>
+                            <Button size="sm" variant="ghost" className="text-xs px-2">
+                              Select
+                            </Button>
                           </div>
                         </div>
-                        <Button size="sm" variant="ghost" className="text-xs px-2">
-                          Select
-                        </Button>
-                      </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
+                  </>
+                )}
               </div>
             </div>
           )}
