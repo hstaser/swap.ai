@@ -794,9 +794,8 @@ export default function Research() {
                   Educational Research & Queue Building
                 </h3>
                 <p className="text-sm text-yellow-700">
-                  This AI assistant provides educational information and creates investment queues
-                  based on objective data sources like public filings and disclosures.
-                  It does not provide personalized investment advice or guarantee future performance.
+                  This AI assistant provides educational research and analysis based on publicly available data.
+                  All information is for educational purposes only.
                 </p>
               </div>
             </div>
