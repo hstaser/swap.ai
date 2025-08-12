@@ -225,44 +225,6 @@ export default function Watchlist() {
         {/* Watchlist Content */}
         <div className="max-w-4xl mx-auto">
           {/* Clean watchlist interface without overwhelming charts */}
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-red-800">
-                  Top Loser
-                </span>
-                <TrendingDown className="h-4 w-4 text-red-600" />
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <span className="text-xl font-bold text-red-900">
-                    {topPerformers.loser.symbol}
-                  </span>
-                  <span className="text-lg font-semibold text-red-600">
-                    v{topPerformers.loser.change.toFixed(2)}%
-                  </span>
-                </div>
-
-                {/* Mini Chart */}
-                <div className="h-12">
-                  <svg
-                    width="100%"
-                    height="100%"
-                    viewBox="0 0 100 30"
-                    className="overflow-visible"
-                  >
-                    <path
-                      d={topPerformers.loser.chartData
-                        .map((point, index) => {
-                          const x =
-                            (index /
-                              (topPerformers.loser.chartData.length - 1)) *
-                            100;
-                          const y =
-                            30 -
-                            ((point -
-                              Math.min(...topPerformers.loser.chartData)) /
-                              (Math.max(...topPerformers.loser.chartData) -
-                                Math.min(...topPerformers.loser.chartData))) *
 
 
         {/* Add Stock Button */}
