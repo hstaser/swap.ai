@@ -1181,6 +1181,18 @@ export default function Research() {
         </div>
           </TabsContent>
 
+          <TabsContent value="intelligence" className="space-y-4">
+            <div className="space-y-6">
+              <h2 className="text-lg font-semibold">Market Intelligence</h2>
+
+              {/* Article Upload Section */}
+              <ArticleUpload />
+
+              {/* News Monitor Section */}
+              <NewsMonitor />
+            </div>
+          </TabsContent>
+
           <TabsContent value="insights" className="space-y-4">
             <div className="space-y-4">
               <h2 className="text-lg font-semibold">AI Insights</h2>
