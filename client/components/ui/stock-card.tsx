@@ -79,6 +79,7 @@ export function StockCard({
   isInWatchlist,
   className,
   onSkip,
+  currentIndex = 0,
 }: StockCardProps) {
   // Validate stock against catalog for existence check only
   const validation = validateStock(stock.symbol);
