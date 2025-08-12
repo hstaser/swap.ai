@@ -889,36 +889,25 @@ export default function Index() {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => {
-                  if (filteredStocks.length > 0) {
-                    setCurrentStockIndex(Math.max(0, currentStockIndex - 1));
-                  }
-                }}
-                disabled={currentStockIndex === 0 || filteredStocks.length === 0}
+                onClick={() => setCurrentStockIndex(i => Math.max(i - 1, 0))}
+                disabled={currentStockIndex === 0}
+                aria-label="Previous stock"
               >
                 <ChevronLeft className="h-4 w-4" />
               </Button>
 
               <div className="text-center">
                 <p className="text-sm text-muted-foreground">
-                  {filteredStocks.length > 0 ? currentStockIndex + 1 : 0} of {filteredStocks.length}
+                  {currentStockIndex + 1} of {filteredStocks.length}
                 </p>
               </div>
 
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => {
-                  if (filteredStocks.length > 0) {
-                    const nextIndex = currentStockIndex + 1;
-                    if (nextIndex < filteredStocks.length) {
-                      setCurrentStockIndex(nextIndex);
-                    } else {
-                      setCurrentStockIndex(0); // Loop back to start
-                    }
-                  }
-                }}
-                disabled={filteredStocks.length === 0}
+                onClick={() => setCurrentStockIndex(i => Math.min(i + 1, filteredStocks.length - 1))}
+                disabled={currentStockIndex >= filteredStocks.length - 1}
+                aria-label="Next stock"
               >
                 <ChevronRight className="h-4 w-4" />
               </Button>
