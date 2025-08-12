@@ -412,9 +412,22 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                         </div>
                       </div>
                       <div className="flex flex-col items-end gap-1">
-                        <Badge variant={figure.isActive ? "default" : "outline"}>
-                          {figure.isActive ? "Active" : "Inactive"}
-                        </Badge>
+                        <div className="flex items-center gap-1">
+                          <Badge variant={figure.isActive ? "default" : "outline"}>
+                            {figure.isActive ? "Active" : "Inactive"}
+                          </Badge>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleRemoveFigure(figure.id);
+                            }}
+                            className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
+                          >
+                            <X className="h-3 w-3" />
+                          </Button>
+                        </div>
                         {figure.followerCount && (
                           <span className="text-xs text-gray-500">{figure.followerCount}</span>
                         )}
