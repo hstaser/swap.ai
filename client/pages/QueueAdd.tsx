@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -11,11 +11,12 @@ import {
   Plus,
   CheckCircle,
 } from "lucide-react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
 import { extendedStockDatabase } from "@/data/extended-stocks";
 import { getStock } from "@/data/stocks.catalog";
+import { STOCKS } from "@/data/stocks";
 
 export default function QueueAdd() {
   const navigate = useNavigate();
