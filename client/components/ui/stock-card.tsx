@@ -9,7 +9,7 @@ import { CommunitySentiment } from "./community-sentiment";
 import { WatchlistNoteModal } from "./watchlist-note-modal";
 import { StockShareModal } from "./stock-share-modal";
 import { FriendDashboardShare } from "./friend-dashboard-share";
-import { PinnedStockNotification, getPinnedStockInfo } from "./pinned-stock-notification";
+
 import {
   TrendingUp,
   TrendingDown,
