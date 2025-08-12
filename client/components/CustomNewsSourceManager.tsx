@@ -476,11 +476,21 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                           <Badge variant="outline" className="text-xs mt-1">
                             {source.category}
                           </Badge>
+                          {!source.isActive && (
+                            <p className="text-xs text-gray-500 mt-1">
+                              Click to link account
+                            </p>
+                          )}
                         </div>
                       </div>
-                      <Badge variant={source.isActive ? "default" : "outline"}>
-                        {source.isActive ? "Active" : "Inactive"}
-                      </Badge>
+                      <div className="flex flex-col items-end gap-1">
+                        <Badge variant={source.isActive ? "default" : "outline"}>
+                          {source.isActive ? "Linked" : "Link Account"}
+                        </Badge>
+                        {source.isActive && (
+                          <span className="text-xs text-green-600">✓ Connected</span>
+                        )}
+                      </div>
                     </div>
 
                     {source.keywords && source.keywords.length > 0 && (
