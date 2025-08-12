@@ -875,12 +875,15 @@ export default function Index() {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() =>
-                  setCurrentStockIndex(
-                    Math.min(filteredStocks.length - 1, currentStockIndex + 1),
-                  )
-                }
-                disabled={currentStockIndex === filteredStocks.length - 1}
+                onClick={() => {
+                  const nextIndex = currentStockIndex + 1;
+                  if (nextIndex < filteredStocks.length) {
+                    setCurrentStockIndex(nextIndex);
+                  } else {
+                    setCurrentStockIndex(0); // Loop back to start
+                  }
+                }}
+                disabled={false}
               >
                 <ChevronRight className="h-4 w-4" />
               </Button>
