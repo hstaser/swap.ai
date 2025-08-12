@@ -821,8 +821,9 @@ export default function Research() {
 
         {/* Tabs for Research and Insights */}
         <Tabs defaultValue="research" className="space-y-4">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="research">Research Chat</TabsTrigger>
+            <TabsTrigger value="intelligence">Market Intelligence</TabsTrigger>
             <TabsTrigger value="insights">AI Insights</TabsTrigger>
           </TabsList>
 
