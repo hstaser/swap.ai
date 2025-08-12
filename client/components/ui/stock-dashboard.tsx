@@ -621,8 +621,14 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
                       e.stopPropagation();
                       addToQueue(stock.symbol, "bullish");
                       console.log(`Added ${stock.symbol} to queue`);
+                      // Add scale animation feedback
+                      const button = e.currentTarget;
+                      button.style.transform = 'scale(1.05)';
+                      setTimeout(() => {
+                        button.style.transform = 'scale(1)';
+                      }, 150);
                     }}
-                    className="h-8 px-3 text-xs bg-blue-600 hover:bg-blue-700"
+                    className="h-8 px-3 text-xs bg-blue-600 hover:bg-blue-700 transition-transform duration-150"
                   >
                     <Plus className="h-3 w-3 mr-1" />
                     Queue
