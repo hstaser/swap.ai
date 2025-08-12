@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { PELOSI_TRADES } from "../data/pelosi.trades";
 import { getStock } from "../data/stocks.catalog";
 import { extendedStockDatabase } from "../data/extended-stocks";
@@ -6,9 +7,24 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { ScrollArea } from "./ui/scroll-area";
-import { Plus, Eye } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from "./ui/dialog";
+import { Plus, Eye, CheckCircle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-export default function PelosiSection() {
+interface PelosiSectionProps {
+  onClose?: () => void;
+}
+
+export default function PelosiSection({ onClose }: PelosiSectionProps) {
+  const navigate = useNavigate();
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
   const rows = PELOSI_TRADES
     .map(t => {
       // Get stock from extended database for richer data
@@ -21,12 +37,24 @@ export default function PelosiSection() {
 
   const handleAddAllToQueue = () => {
     addManyToQueue(symbols);
-    console.log(`Added ${symbols.length} stocks to queue:`, symbols);
+    setShowSuccessModal(true);
+
+    // Close the original section if callback provided
+    if (onClose) {
+      setTimeout(() => {
+        onClose();
+      }, 100);
+    }
   };
 
   const handleAddToQueue = (symbol: string) => {
     addManyToQueue([symbol]);
     console.log(`Added ${symbol} to queue`);
+  };
+
+  const handleViewQueue = () => {
+    setShowSuccessModal(false);
+    navigate('/queue/review');
   };
 
   return (
