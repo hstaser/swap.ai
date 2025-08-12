@@ -301,9 +301,27 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
   };
 
   const toggleSourceActive = (sourceId: string) => {
-    setSources(prev => prev.map(src =>
-      src.id === sourceId ? { ...src, isActive: !src.isActive } : src
-    ));
+    const source = sources.find(s => s.id === sourceId);
+    if (source && !source.isActive) {
+      // Show account linking dialog for premium sources
+      setSelectedSourceForLink(source);
+      setShowAccountLink(true);
+    } else {
+      setSources(prev => prev.map(src =>
+        src.id === sourceId ? { ...src, isActive: !src.isActive } : src
+      ));
+    }
+  };
+
+  const handleAccountLink = () => {
+    if (selectedSourceForLink) {
+      // Simulate account linking
+      setSources(prev => prev.map(src =>
+        src.id === selectedSourceForLink.id ? { ...src, isActive: true } : src
+      ));
+      setShowAccountLink(false);
+      setSelectedSourceForLink(null);
+    }
   };
 
   const toggleBlockActive = (blockId: string) => {
