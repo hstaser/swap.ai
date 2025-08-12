@@ -69,6 +69,7 @@ interface StockCardProps {
   isInWatchlist: boolean;
   className?: string;
   onSkip?: () => void;
+  currentIndex?: number;
 }
 
 export function StockCard({
