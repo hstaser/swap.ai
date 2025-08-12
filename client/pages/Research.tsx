@@ -1129,10 +1129,10 @@ export default function Research() {
                   size="sm"
                   className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
                   onClick={() =>
-                    handleSuggestionClick("What are the best ESG investment opportunities?")
+                    handleSuggestionClick("Find undervalued stocks trading below intrinsic value using value investing principles")
                   }
                 >
-                  ESG & Sustainable Investing
+                  Value Investing: Undervalued Stocks
                 </Button>
               </div>
             </CardContent>
