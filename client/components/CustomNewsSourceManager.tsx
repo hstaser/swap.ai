@@ -576,6 +576,119 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
           </div>
         </DialogContent>
       )}
+
+      {/* Add Figure Modal */}
+      <Dialog open={showAddFigure} onOpenChange={setShowAddFigure}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Add Public Figure</DialogTitle>
+            <DialogDescription>
+              Add a public figure to track their updates and news
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium">Name</label>
+              <Input
+                placeholder="e.g., Elon Musk, Warren Buffett"
+                value={newFigureName}
+                onChange={(e) => setNewFigureName(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Platform Handle (Optional)</label>
+              <Input
+                placeholder="@username or account name"
+                value={newFigureHandle}
+                onChange={(e) => setNewFigureHandle(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Platform</label>
+              <Select value={newFigurePlatform} onValueChange={(value: any) => setNewFigurePlatform(value)}>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="twitter">Twitter/X</SelectItem>
+                  <SelectItem value="linkedin">LinkedIn</SelectItem>
+                  <SelectItem value="news">News Outlets</SelectItem>
+                  <SelectItem value="reddit">Reddit</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowAddFigure(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleAddFigure}
+                disabled={!newFigureName.trim()}
+                className="flex-1"
+              >
+                Add Figure
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Source Modal */}
+      <Dialog open={showAddSource} onOpenChange={setShowAddSource}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Add News Source</DialogTitle>
+            <DialogDescription>
+              Add a custom news source or newsletter
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div>
+              <label className="text-sm font-medium">Source Name</label>
+              <Input
+                placeholder="e.g., Bloomberg, TechCrunch"
+                value={newSourceName}
+                onChange={(e) => setNewSourceName(e.target.value)}
+              />
+            </div>
+
+            <div>
+              <label className="text-sm font-medium">Website URL (Optional)</label>
+              <Input
+                placeholder="https://example.com"
+                value={newSourceUrl}
+                onChange={(e) => setNewSourceUrl(e.target.value)}
+              />
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowAddSource(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleAddSource}
+                disabled={!newSourceName.trim()}
+                className="flex-1"
+              >
+                Add Source
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </Dialog>
   );
 }
