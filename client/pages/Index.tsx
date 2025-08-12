@@ -845,7 +845,10 @@ export default function Index() {
                 />
 
                 {/* Legacy Smart Prompt for AAPL */}
-                {filteredStocks[currentStockIndex]?.symbol === "AAPL" && (
+                {filteredStocks.length > 0 &&
+                 currentStockIndex >= 0 &&
+                 currentStockIndex < filteredStocks.length &&
+                 filteredStocks[currentStockIndex]?.symbol === "AAPL" && (
                   <SmartPromptCard
                     prompt={{
                       id: "aapl_concentration",
