@@ -1095,6 +1095,49 @@ export default function Research() {
             </CardContent>
           </Card>
 
+          <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 shadow-lg ring-1 ring-green-200">
+            <CardContent className="p-4">
+              <div className="flex items-center gap-2 mb-3">
+                <div className="p-1 bg-green-600 rounded-full">
+                  <Target className="h-4 w-4 text-white" />
+                </div>
+                <h4 className="font-semibold text-sm text-green-800">Investment Strategies</h4>
+                <Badge className="bg-green-600 text-white text-xs">Research</Badge>
+              </div>
+              <div className="space-y-2">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
+                  onClick={() =>
+                    handleSuggestionClick("What's the best dividend growth strategy for 2024?")
+                  }
+                >
+                  Dividend Growth Strategy
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
+                  onClick={() =>
+                    handleSuggestionClick("How to build a recession-proof portfolio?")
+                  }
+                >
+                  Recession-Proof Investing
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-green-50 min-h-[40px]"
+                  onClick={() =>
+                    handleSuggestionClick("What are the best ESG investment opportunities?")
+                  }
+                >
+                  ESG & Sustainable Investing
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
 
         </div>
           </TabsContent>
