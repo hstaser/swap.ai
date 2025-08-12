@@ -80,6 +80,7 @@ function AppContent() {
         <Route path="/rewards" element={<Rewards />} />
         <Route path="/queue/add/:symbol" element={<QueueAdd />} />
         <Route path="/queue/review" element={<QueueReview />} />
+        <Route path="/news" element={<NewsMonitoring />} />
         <Route path="/optimize" element={<PortfolioOptimize />} />
         <Route path="/optimize/review" element={<OptimizationReview />} />
         <Route path="/stock/:symbol" element={<StockDetail />} />
