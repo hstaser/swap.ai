@@ -3,7 +3,6 @@ import { Button } from "./ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Input } from "./ui/input";
 import { Badge } from "./ui/badge";
-import { Textarea } from "./ui/textarea";
 import {
   Select,
   SelectContent,
@@ -17,7 +16,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "./ui/dialog";
 import {
   Tabs,
@@ -28,37 +26,25 @@ import {
 import {
   Twitter,
   User,
-  Building2,
-  TrendingUp,
   Plus,
   X,
   Settings,
   Search,
-  Star,
-  Filter,
-  Trash2,
-  Edit3,
-  Save,
   CheckCircle,
   Globe,
-  Hash,
+  Users,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Types for news sources
 export interface PublicFigure {
   id: string;
   name: string;
   platform: "twitter" | "linkedin" | "reddit" | "news";
   handle?: string;
-  avatar?: string;
   category: "politics" | "business" | "tech" | "finance" | "celebrity" | "other";
   verified?: boolean;
-  followerCount?: string;
   description?: string;
   isActive: boolean;
-  keywords?: string[];
-  importance: "high" | "medium" | "low";
 }
 
 export interface NewsSource {
@@ -68,205 +54,101 @@ export interface NewsSource {
   url?: string;
   category: string;
   isActive: boolean;
-  keywords?: string[];
-  importance: "high" | "medium" | "low";
 }
 
-export interface SourceBlock {
-  id: string;
-  name: string;
-  description: string;
-  color: string;
-  figures: string[]; // PublicFigure IDs
-  sources: string[]; // NewsSource IDs
-  keywords: string[];
-  isActive: boolean;
-  createdAt: string;
-}
-
-// Default free news sources to start with
+// Default free sources that users start with
 const DEFAULT_FREE_SOURCES: Omit<NewsSource, 'id' | 'isActive'>[] = [
   {
     name: "Reuters (Free)",
     type: "publication",
     url: "reuters.com",
-    category: "News",
-    keywords: ["breaking", "global", "markets"],
-    importance: "high"
+    category: "News"
   },
   {
     name: "AP News",
     type: "publication",
     url: "apnews.com",
-    category: "News",
-    keywords: ["breaking", "global", "politics"],
-    importance: "medium"
+    category: "News"
   },
   {
     name: "Yahoo Finance",
     type: "publication",
     url: "finance.yahoo.com",
-    category: "Finance",
-    keywords: ["markets", "stocks", "earnings"],
-    importance: "medium"
+    category: "Finance"
   }
 ];
 
 interface CustomNewsSourceManagerProps {
   isOpen: boolean;
   onClose: () => void;
-  onSourcesUpdate?: (blocks: SourceBlock[]) => void;
+  onSourcesUpdate?: (data: any) => void;
 }
 
 export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: CustomNewsSourceManagerProps) {
   const [figures, setFigures] = useState<PublicFigure[]>([]);
   const [sources, setSources] = useState<NewsSource[]>([]);
-  const [sourceBlocks, setSourceBlocks] = useState<SourceBlock[]>([]);
-  const [activeTab, setActiveTab] = useState("blocks");
-
-  // Form states
-  const [newBlockName, setNewBlockName] = useState("");
-  const [newBlockDescription, setNewBlockDescription] = useState("");
-  const [newBlockColor, setNewBlockColor] = useState("#3b82f6");
-  const [selectedFigures, setSelectedFigures] = useState<string[]>([]);
-  const [selectedSources, setSelectedSources] = useState<string[]>([]);
-  const [blockKeywords, setBlockKeywords] = useState("");
-
-  const [searchTerm, setSearchTerm] = useState("");
-  const [editingBlock, setEditingBlock] = useState<string | null>(null);
-  const [showAccountLink, setShowAccountLink] = useState(false);
-  const [selectedSourceForLink, setSelectedSourceForLink] = useState<NewsSource | null>(null);
+  const [activeTab, setActiveTab] = useState("figures");
+  
+  // Add figure states
   const [showAddFigure, setShowAddFigure] = useState(false);
-  const [showAddSource, setShowAddSource] = useState(false);
   const [newFigureName, setNewFigureName] = useState("");
   const [newFigureHandle, setNewFigureHandle] = useState("");
   const [newFigurePlatform, setNewFigurePlatform] = useState<"twitter" | "linkedin" | "reddit" | "news">("twitter");
+  
+  // Add source states
+  const [showAddSource, setShowAddSource] = useState(false);
   const [newSourceName, setNewSourceName] = useState("");
   const [newSourceUrl, setNewSourceUrl] = useState("");
+  
+  const [searchTerm, setSearchTerm] = useState("");
 
-  // Load data from localStorage on mount
+  // Load saved data or initialize with defaults
   useEffect(() => {
     const savedFigures = localStorage.getItem('customNewsFigures');
     const savedSources = localStorage.getItem('customNewsSources');
-    const savedBlocks = localStorage.getItem('customNewsBlocks');
-
+    
     if (savedFigures) {
       setFigures(JSON.parse(savedFigures));
-    } else {
-      // Start with empty figures - user must add manually
-      setFigures([]);
     }
-
+    
     if (savedSources) {
       setSources(JSON.parse(savedSources));
     } else {
-      // Initialize with only free sources
+      // Initialize with free sources
       const initialSources = DEFAULT_FREE_SOURCES.map(src => ({
         ...src,
         id: `src_${Date.now()}_${Math.random()}`,
-        isActive: true // Auto-activate free sources
+        isActive: true
       }));
       setSources(initialSources);
     }
-
-    if (savedBlocks) {
-      setSourceBlocks(JSON.parse(savedBlocks));
-    }
-
-    // Set default tab to figures to skip the intro
-    setActiveTab("figures");
   }, []);
 
-  // Save to localStorage when data changes
+  // Save to localStorage
   useEffect(() => {
     localStorage.setItem('customNewsFigures', JSON.stringify(figures));
   }, [figures]);
-
+  
   useEffect(() => {
     localStorage.setItem('customNewsSources', JSON.stringify(sources));
-  }, [sources]);
-
-  useEffect(() => {
-    localStorage.setItem('customNewsBlocks', JSON.stringify(sourceBlocks));
     if (onSourcesUpdate) {
-      onSourcesUpdate(sourceBlocks);
+      onSourcesUpdate({ figures, sources });
     }
-  }, [sourceBlocks, onSourcesUpdate]);
-
-  const handleCreateBlock = () => {
-    if (!newBlockName.trim()) return;
-
-    const newBlock: SourceBlock = {
-      id: `block_${Date.now()}`,
-      name: newBlockName,
-      description: newBlockDescription,
-      color: newBlockColor,
-      figures: selectedFigures,
-      sources: selectedSources,
-      keywords: blockKeywords.split(',').map(k => k.trim()).filter(k => k),
-      isActive: true,
-      createdAt: new Date().toISOString()
-    };
-
-    setSourceBlocks(prev => [...prev, newBlock]);
-
-    // Reset form
-    setNewBlockName("");
-    setNewBlockDescription("");
-    setSelectedFigures([]);
-    setSelectedSources([]);
-    setBlockKeywords("");
-  };
-
-  const handleDeleteBlock = (blockId: string) => {
-    setSourceBlocks(prev => prev.filter(block => block.id !== blockId));
-  };
-
-  const toggleFigureActive = (figureId: string) => {
-    setFigures(prev => prev.map(fig =>
-      fig.id === figureId ? { ...fig, isActive: !fig.isActive } : fig
-    ));
-  };
-
-  const toggleSourceActive = (sourceId: string) => {
-    const source = sources.find(s => s.id === sourceId);
-    if (source && !source.isActive) {
-      // Show account linking dialog for premium sources
-      setSelectedSourceForLink(source);
-      setShowAccountLink(true);
-    } else {
-      setSources(prev => prev.map(src =>
-        src.id === sourceId ? { ...src, isActive: !src.isActive } : src
-      ));
-    }
-  };
-
-  const handleAccountLink = () => {
-    if (selectedSourceForLink) {
-      // Simulate account linking
-      setSources(prev => prev.map(src =>
-        src.id === selectedSourceForLink.id ? { ...src, isActive: true } : src
-      ));
-      setShowAccountLink(false);
-      setSelectedSourceForLink(null);
-    }
-  };
+  }, [sources, figures, onSourcesUpdate]);
 
   const handleAddFigure = () => {
     if (!newFigureName.trim()) return;
-
+    
     const newFigure: PublicFigure = {
       id: `fig_${Date.now()}`,
       name: newFigureName,
       platform: newFigurePlatform,
       handle: newFigureHandle,
       category: "other",
-      verified: false,
       description: `Custom figure: ${newFigureName}`,
-      isActive: true,
-      importance: "medium"
+      isActive: true
     };
-
+    
     setFigures(prev => [...prev, newFigure]);
     setNewFigureName("");
     setNewFigureHandle("");
@@ -275,307 +157,227 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
 
   const handleAddSource = () => {
     if (!newSourceName.trim()) return;
-
+    
     const newSource: NewsSource = {
       id: `src_${Date.now()}`,
       name: newSourceName,
       type: "publication",
       url: newSourceUrl,
       category: "Custom",
-      isActive: true,
-      importance: "medium"
+      isActive: true
     };
-
+    
     setSources(prev => [...prev, newSource]);
     setNewSourceName("");
     setNewSourceUrl("");
     setShowAddSource(false);
   };
 
-  const handleRemoveFigure = (figureId: string) => {
-    setFigures(prev => prev.filter(fig => fig.id !== figureId));
-  };
-
-  const handleRemoveSource = (sourceId: string) => {
-    setSources(prev => prev.filter(src => src.id !== sourceId));
-  };
-
-  const toggleBlockActive = (blockId: string) => {
-    setSourceBlocks(prev => prev.map(block =>
-      block.id === blockId ? { ...block, isActive: !block.isActive } : block
+  const toggleFigureActive = (figureId: string) => {
+    setFigures(prev => prev.map(fig => 
+      fig.id === figureId ? { ...fig, isActive: !fig.isActive } : fig
     ));
   };
 
-  const filteredFigures = figures.filter(fig =>
+  const toggleSourceActive = (sourceId: string) => {
+    setSources(prev => prev.map(src => 
+      src.id === sourceId ? { ...src, isActive: !src.isActive } : src
+    ));
+  };
+
+  const removeFigure = (figureId: string) => {
+    setFigures(prev => prev.filter(fig => fig.id !== figureId));
+  };
+
+  const removeSource = (sourceId: string) => {
+    setSources(prev => prev.filter(src => src.id !== sourceId));
+  };
+
+  const filteredFigures = figures.filter(fig => 
     fig.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     fig.handle?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredSources = sources.filter(src =>
-    src.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    src.category.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredSources = sources.filter(src => 
+    src.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
-  const getBlockStats = (block: SourceBlock) => {
-    const activeFigures = block.figures.filter(fId =>
-      figures.find(f => f.id === fId)?.isActive
-    ).length;
-    const activeSources = block.sources.filter(sId =>
-      sources.find(s => s.id === sId)?.isActive
-    ).length;
-
-    return { activeFigures, activeSources, totalItems: activeFigures + activeSources };
-  };
 
   if (!isOpen) return null;
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl max-h-[90vh] overflow-hidden">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-            <Settings className="h-5 w-5" />
-            Custom News Sources
-          </DialogTitle>
-        </DialogHeader>
-
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden mt-2">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="figures">Public Figures</TabsTrigger>
-            <TabsTrigger value="sources">News Sources</TabsTrigger>
-          </TabsList>
-
-
-          {/* Public Figures Tab */}
-          <TabsContent value="figures" className="space-y-4 overflow-y-auto max-h-[60vh]">
-            <div className="flex items-center gap-2">
-              <Search className="h-4 w-4 text-gray-500" />
-              <Input
-                placeholder="Search figures..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="flex-1"
-              />
-              <Button
-                onClick={() => setShowAddFigure(true)}
-                size="sm"
-                className="bg-blue-600 hover:bg-blue-700"
-              >
-                <Plus className="h-4 w-4 mr-1" />
-                Add Figure
-              </Button>
-            </div>
-
-            {figures.length === 0 ? (
-              <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg">
-                <Users className="h-8 w-8 text-gray-400 mx-auto mb-2" />
-                <p className="text-sm text-gray-600 mb-2">No public figures added yet</p>
-                <p className="text-xs text-gray-500 mb-3">
-                  Add figures like Elon Musk, politicians, or CEOs to track their updates
-                </p>
-                <Button
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="max-w-4xl max-h-[85vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Settings className="h-5 w-5" />
+              Custom News Sources
+            </DialogTitle>
+          </DialogHeader>
+          
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="figures">Public Figures</TabsTrigger>
+              <TabsTrigger value="sources">News Sources</TabsTrigger>
+            </TabsList>
+            
+            {/* Public Figures Tab */}
+            <TabsContent value="figures" className="space-y-4 overflow-y-auto max-h-[55vh]">
+              <div className="flex items-center gap-2">
+                <Search className="h-4 w-4 text-gray-500" />
+                <Input
+                  placeholder="Search figures..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="flex-1"
+                />
+                <Button 
                   onClick={() => setShowAddFigure(true)}
                   size="sm"
-                  variant="outline"
+                  className="bg-blue-600 hover:bg-blue-700"
                 >
-                  Add Your First Figure
+                  <Plus className="h-4 w-4 mr-1" />
+                  Add Figure
                 </Button>
               </div>
-            ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {filteredFigures.map(figure => (
-                <Card key={figure.id} className={cn(
-                  "cursor-pointer transition-colors",
-                  figure.isActive ? "border-green-200 bg-green-50/30" : "hover:border-gray-300"
-                )} onClick={() => toggleFigureActive(figure.id)}>
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start gap-3">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100">
-                          {figure.platform === "twitter" ? (
-                            <Twitter className="h-5 w-5 text-blue-600" />
-                          ) : (
-                            <User className="h-5 w-5 text-blue-600" />
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2">
-                            <h4 className="font-semibold">{figure.name}</h4>
-                            {figure.verified && (
-                              <CheckCircle className="h-4 w-4 text-blue-500" />
-                            )}
+
+              {figures.length === 0 ? (
+                <div className="text-center py-12 border-2 border-dashed border-gray-300 rounded-lg">
+                  <Users className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                  <p className="text-lg font-medium text-gray-900 mb-2">Build Your Research Sources</p>
+                  <p className="text-sm text-gray-600 mb-4">
+                    Add public figures like Elon Musk, politicians, or CEOs to track their updates
+                  </p>
+                  <Button 
+                    onClick={() => setShowAddFigure(true)}
+                    className="bg-blue-600 hover:bg-blue-700"
+                  >
+                    Add Your First Figure
+                  </Button>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {filteredFigures.map(figure => (
+                    <Card key={figure.id} className={cn(
+                      "cursor-pointer transition-colors",
+                      figure.isActive ? "border-green-200 bg-green-50/30" : "hover:border-gray-300"
+                    )}>
+                      <CardContent className="p-4">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-3" onClick={() => toggleFigureActive(figure.id)}>
+                            <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-100">
+                              {figure.platform === "twitter" ? (
+                                <Twitter className="h-5 w-5 text-blue-600" />
+                              ) : (
+                                <User className="h-5 w-5 text-blue-600" />
+                              )}
+                            </div>
+                            <div className="flex-1">
+                              <h4 className="font-semibold">{figure.name}</h4>
+                              {figure.handle && (
+                                <p className="text-sm text-gray-600">{figure.handle}</p>
+                              )}
+                              <Badge variant="outline" className="text-xs mt-1">
+                                {figure.platform}
+                              </Badge>
+                            </div>
                           </div>
-                          {figure.handle && (
-                            <p className="text-sm text-gray-600">{figure.handle}</p>
-                          )}
-                          <p className="text-xs text-gray-500 mt-1">{figure.description}</p>
+                          <div className="flex items-center gap-2">
+                            <Badge variant={figure.isActive ? "default" : "outline"}>
+                              {figure.isActive ? "Active" : "Inactive"}
+                            </Badge>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeFigure(figure.id)}
+                              className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
                         </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-1">
-                        <div className="flex items-center gap-1">
-                          <Badge variant={figure.isActive ? "default" : "outline"}>
-                            {figure.isActive ? "Active" : "Inactive"}
-                          </Badge>
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              handleRemoveFigure(figure.id);
-                            }}
-                            className="h-6 w-6 p-0 text-red-500 hover:text-red-700"
-                          >
-                            <X className="h-3 w-3" />
-                          </Button>
-                        </div>
-                        {figure.followerCount && (
-                          <span className="text-xs text-gray-500">{figure.followerCount}</span>
-                        )}
-                      </div>
-                    </div>
-
-                    {figure.keywords && figure.keywords.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-3">
-                        {figure.keywords.slice(0, 3).map((keyword, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
-                            {keyword}
-                          </Badge>
-                        ))}
-                        {figure.keywords.length > 3 && (
-                          <Badge variant="secondary" className="text-xs">
-                            +{figure.keywords.length - 3}
-                          </Badge>
-                        )}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-
-          {/* News Sources Tab */}
-          <TabsContent value="sources" className="space-y-4 overflow-y-auto max-h-[60vh]">
-            <div className="flex items-center gap-2">
-              <Search className="h-4 w-4 text-gray-500" />
-              <Input
-                placeholder="Search sources..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="flex-1"
-              />
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredSources.map(source => (
-                <Card key={source.id} className={cn(
-                  "cursor-pointer transition-colors",
-                  source.isActive ? "border-green-200 bg-green-50/30" : "hover:border-gray-300"
-                )} onClick={() => toggleSourceActive(source.id)}>
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between">
-                      <div className="flex items-start gap-3">
-                        <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100">
-                          <Globe className="h-5 w-5 text-purple-600" />
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-semibold">{source.name}</h4>
-                          {source.url && (
-                            <p className="text-sm text-gray-600">{source.url}</p>
-                          )}
-                          <Badge variant="outline" className="text-xs mt-1">
-                            {source.category}
-                          </Badge>
-                          {!source.isActive && (
-                            <p className="text-xs text-gray-500 mt-1">
-                              Click to link account
-                            </p>
-                          )}
-                        </div>
-                      </div>
-                      <div className="flex flex-col items-end gap-1">
-                        <Badge variant={source.isActive ? "default" : "outline"}>
-                          {source.isActive ? "Linked" : "Link Account"}
-                        </Badge>
-                        {source.isActive && (
-                          <span className="text-xs text-green-600">✓ Connected</span>
-                        )}
-                      </div>
-                    </div>
-
-                    {source.keywords && source.keywords.length > 0 && (
-                      <div className="flex flex-wrap gap-1 mt-3">
-                        {source.keywords.slice(0, 3).map((keyword, idx) => (
-                          <Badge key={idx} variant="secondary" className="text-xs">
-                            {keyword}
-                          </Badge>
-                        ))}
-                        {source.keywords.length > 3 && (
-                          <Badge variant="secondary" className="text-xs">
-                            +{source.keywords.length - 3}
-                          </Badge>
-                        )}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </TabsContent>
-        </Tabs>
-
-        <div className="flex justify-between items-center pt-4 border-t">
-          <div className="text-sm text-gray-600">
-            {figures.filter(f => f.isActive).length} active figures • {sources.filter(s => s.isActive).length} active sources
-          </div>
-          <Button onClick={onClose}>
-            Done
-          </Button>
-        </div>
-      </DialogContent>
-
-      {/* Account Linking Modal */}
-      {showAccountLink && selectedSourceForLink && (
-        <DialogContent className="max-w-md">
-          <DialogHeader>
-            <DialogTitle>Link {selectedSourceForLink.name} Account</DialogTitle>
-            <DialogDescription>
-              Connect your {selectedSourceForLink.name} account to access their news feed
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-4">
-            <div className="text-center py-6">
-              <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4">
-                <Globe className="h-8 w-8 text-purple-600" />
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              )}
+            </TabsContent>
+            
+            {/* News Sources Tab */}
+            <TabsContent value="sources" className="space-y-4 overflow-y-auto max-h-[55vh]">
+              <div className="flex items-center gap-2">
+                <Search className="h-4 w-4 text-gray-500" />
+                <Input
+                  placeholder="Search sources..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="flex-1"
+                />
+                <Button 
+                  onClick={() => setShowAddSource(true)}
+                  size="sm"
+                  className="bg-blue-600 hover:bg-blue-700"
+                >
+                  <Plus className="h-4 w-4 mr-1" />
+                  Add Source
+                </Button>
               </div>
-              <h3 className="font-semibold text-lg mb-2">{selectedSourceForLink.name}</h3>
-              <p className="text-sm text-gray-600 mb-4">
-                {selectedSourceForLink.url}
-              </p>
-              <p className="text-xs text-gray-500">
-                You'll be redirected to {selectedSourceForLink.name} to sign in and authorize access
-              </p>
+              
+              <div className="space-y-3">
+                {filteredSources.map(source => (
+                  <Card key={source.id} className={cn(
+                    "cursor-pointer transition-colors",
+                    source.isActive ? "border-green-200 bg-green-50/30" : "hover:border-gray-300"
+                  )}>
+                    <CardContent className="p-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-3" onClick={() => toggleSourceActive(source.id)}>
+                          <div className="flex items-center justify-center w-10 h-10 rounded-full bg-purple-100">
+                            <Globe className="h-5 w-5 text-purple-600" />
+                          </div>
+                          <div className="flex-1">
+                            <h4 className="font-semibold">{source.name}</h4>
+                            {source.url && (
+                              <p className="text-sm text-gray-600">{source.url}</p>
+                            )}
+                            <Badge variant="outline" className="text-xs mt-1">
+                              {source.category}
+                            </Badge>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Badge variant={source.isActive ? "default" : "outline"}>
+                            {source.isActive ? "Active" : "Inactive"}
+                          </Badge>
+                          {!DEFAULT_FREE_SOURCES.some(def => def.name === source.name) && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeSource(source.id)}
+                              className="h-8 w-8 p-0 text-red-500 hover:text-red-700"
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </TabsContent>
+          </Tabs>
+          
+          <div className="flex justify-between items-center pt-4 border-t">
+            <div className="text-sm text-gray-600">
+              {figures.filter(f => f.isActive).length} active figures • {sources.filter(s => s.isActive).length} active sources
             </div>
-
-            <div className="flex gap-3">
-              <Button
-                variant="outline"
-                onClick={() => setShowAccountLink(false)}
-                className="flex-1"
-              >
-                Cancel
-              </Button>
-              <Button
-                onClick={handleAccountLink}
-                className="flex-1 bg-purple-600 hover:bg-purple-700"
-              >
-                Link Account
-              </Button>
-            </div>
+            <Button onClick={onClose}>
+              Done
+            </Button>
           </div>
         </DialogContent>
-      )}
+      </Dialog>
 
       {/* Add Figure Modal */}
       <Dialog open={showAddFigure} onOpenChange={setShowAddFigure}>
@@ -586,7 +388,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
               Add a public figure to track their updates and news
             </DialogDescription>
           </DialogHeader>
-
+          
           <div className="space-y-4">
             <div>
               <label className="text-sm font-medium">Name</label>
@@ -596,7 +398,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                 onChange={(e) => setNewFigureName(e.target.value)}
               />
             </div>
-
+            
             <div>
               <label className="text-sm font-medium">Platform Handle (Optional)</label>
               <Input
@@ -605,7 +407,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                 onChange={(e) => setNewFigureHandle(e.target.value)}
               />
             </div>
-
+            
             <div>
               <label className="text-sm font-medium">Platform</label>
               <Select value={newFigurePlatform} onValueChange={(value: any) => setNewFigurePlatform(value)}>
@@ -620,7 +422,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                 </SelectContent>
               </Select>
             </div>
-
+            
             <div className="flex gap-3">
               <Button
                 variant="outline"
@@ -647,20 +449,20 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
           <DialogHeader>
             <DialogTitle>Add News Source</DialogTitle>
             <DialogDescription>
-              Add a custom news source or newsletter
+              Add a custom news source, publication, or newsletter
             </DialogDescription>
           </DialogHeader>
-
+          
           <div className="space-y-4">
             <div>
               <label className="text-sm font-medium">Source Name</label>
               <Input
-                placeholder="e.g., Bloomberg, TechCrunch"
+                placeholder="e.g., Bloomberg, TechCrunch, Substack Newsletter"
                 value={newSourceName}
                 onChange={(e) => setNewSourceName(e.target.value)}
               />
             </div>
-
+            
             <div>
               <label className="text-sm font-medium">Website URL (Optional)</label>
               <Input
@@ -669,7 +471,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                 onChange={(e) => setNewSourceUrl(e.target.value)}
               />
             </div>
-
+            
             <div className="flex gap-3">
               <Button
                 variant="outline"
@@ -689,6 +491,6 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
           </div>
         </DialogContent>
       </Dialog>
-    </Dialog>
+    </>
   );
 }
