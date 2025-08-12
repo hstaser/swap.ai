@@ -489,6 +489,37 @@ export default function Index() {
     return filtered;
   }, [filters, viewMode]);
 
+  // Handle URL parameters
+  useEffect(() => {
+    const sectorParam = searchParams.get("sector");
+    const indexParam = searchParams.get("index");
+
+    // Handle sector filter from URL params (from AI insights)
+    if (sectorParam) {
+      const sectorMap: Record<string, string> = {
+        "healthcare": "Healthcare",
+        "financials": "Financial Services",
+        "international": "International"
+      };
+      const mappedSector = sectorMap[sectorParam] || sectorParam;
+      setFilters(prev => ({ ...prev, sector: mappedSector }));
+      setViewMode("dashboard"); // Switch to dashboard view to see filters
+    }
+
+    // Handle index parameter to navigate to specific slide
+    if (indexParam && filteredStocks.length > 0) {
+      const targetIndex = parseInt(indexParam, 10);
+      if (!isNaN(targetIndex) && targetIndex >= 0 && targetIndex < filteredStocks.length) {
+        setCurrentStockIndex(targetIndex);
+        // Clear the index parameter after navigation
+        setSearchParams((params) => {
+          params.delete("index");
+          return params;
+        });
+      }
+    }
+  }, [searchParams, filteredStocks.length, setSearchParams]);
+
   const toggleWatchlist = (symbol: string) => {
     const isCurrentlyInWatchlist = isInWatchlist(symbol);
     const currentStock = filteredStocks.find(s => s.symbol === symbol) || catalogStocks.find(s => s.symbol === symbol);
