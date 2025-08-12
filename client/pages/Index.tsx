@@ -629,44 +629,7 @@ export default function Index() {
     }
   }, [symbolParam, filteredStocks, setSearchParams]);
 
-  // Move to next stock when current stock gets added to queue
-  useEffect(() => {
-    if (
-      filteredStocks.length > 0 &&
-      currentStockIndex >= 0 &&
-      currentStockIndex < filteredStocks.length
-    ) {
-      const currentStock = filteredStocks[currentStockIndex];
-      if (currentStock && isInQueue(currentStock.symbol)) {
-        // Find next available non-queued stock
-        let nextIndex = -1;
-
-        // First try stocks after current position
-        for (let i = currentStockIndex + 1; i < filteredStocks.length; i++) {
-          if (!isInQueue(filteredStocks[i].symbol)) {
-            nextIndex = i;
-            break;
-          }
-        }
-
-        // If no stocks found after, try from beginning
-        if (nextIndex === -1) {
-          for (let i = 0; i < currentStockIndex; i++) {
-            if (!isInQueue(filteredStocks[i].symbol)) {
-              nextIndex = i;
-              break;
-            }
-          }
-        }
-
-        // If we found a non-queued stock, navigate to it
-        if (nextIndex !== -1) {
-          setCurrentStockIndex(nextIndex);
-        }
-        // If all stocks are queued, stay at current position
-      }
-    }
-  }, [queue, filteredStocks, currentStockIndex, isInQueue]);
+  // Removed automatic queue-based navigation - slides now move sequentially only
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-blue-50 to-green-100">
