@@ -89,6 +89,35 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Mock news articles for drag and drop
+  // Helper function to generate simulated content from source blocks
+  const generateBlockContent = (block: SourceBlock) => {
+    const contentTypes = [
+      {
+        title: `${block.name} Update: Market-Moving News Detected`,
+        content: `Latest analysis from ${block.name} sources shows significant market developments. ${block.description}`,
+        source: "Custom Block",
+        time: "15m ago"
+      },
+      {
+        title: `Breaking: Key Figures in ${block.name} Make Strategic Moves`,
+        content: `Important updates from tracked sources in ${block.name}. This could impact your portfolio positions.`,
+        source: "Tracked Sources",
+        time: "1h ago"
+      },
+      {
+        title: `${block.name} Intelligence: Weekly Summary`,
+        content: `Compiled insights from ${block.figures.length} figures and ${block.sources.length} sources tracked in this block.`,
+        source: "AI Summary",
+        time: "2h ago"
+      }
+    ];
+    return contentTypes.slice(0, 2); // Return first 2 items
+  };
+
+  const handleSourcesUpdate = (blocks: SourceBlock[]) => {
+    setSourceBlocks(blocks);
+  };
+
   const newsArticles = [
     {
       id: "news_1",
