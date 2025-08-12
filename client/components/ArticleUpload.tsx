@@ -53,9 +53,11 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
   const [content, setContent] = useState("");
   const [selectedAnalysis, setSelectedAnalysis] = useState<"portfolio" | "specific" | string>("portfolio");
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
+  const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
   const [showStockSelector, setShowStockSelector] = useState(false);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showAnalysis, setShowAnalysis] = useState(false);
   const [currentArticle, setCurrentArticle] = useState<UploadedArticle | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -129,7 +131,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
     setTimeout(() => {
       setCurrentArticle(article);
       setIsAnalyzing(false);
-      setShowSuccess(true);
+      setShowAnalysis(true);
       if (onAnalyze) {
         onAnalyze(article);
       }
@@ -319,9 +321,15 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                       onClick={() => {
                         setTitle(article.headline);
                         setContent(`News article from ${article.source}: ${article.headline}`);
+                        setSelectedArticleId(article.id);
                         // Keep in news mode instead of switching to text
                       }}
-                      className="p-3 bg-white rounded border hover:bg-blue-50 cursor-pointer transition-colors"
+                      className={cn(
+                        "p-3 rounded border cursor-pointer transition-colors",
+                        selectedArticleId === article.id
+                          ? "bg-blue-100 border-blue-300"
+                          : "bg-white hover:bg-blue-50"
+                      )}
                     >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -475,6 +483,90 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
               </>
             )}
           </Button>
+
+          {/* Mock Analysis Results */}
+          {showAnalysis && currentArticle && (
+            <Card className="bg-gradient-to-r from-green-50 to-blue-50 border-green-200">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-green-800">
+                  <CheckCircle className="h-5 w-5" />
+                  Analysis Complete
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="bg-white rounded-lg p-4 border">
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    📊 Portfolio Impact Summary
+                  </h4>
+                  <div className="grid grid-cols-2 gap-4 text-sm">
+                    <div>
+                      <span className="text-gray-600">Overall Sentiment:</span>
+                      <div className="font-medium text-green-600">Positive (+2.3%)</div>
+                    </div>
+                    <div>
+                      <span className="text-gray-600">Risk Level:</span>
+                      <div className="font-medium text-blue-600">Moderate</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-lg p-4 border">
+                  <h4 className="font-semibold text-gray-900 mb-3">
+                    📈 Top Stock Impacts
+                  </h4>
+                  <div className="space-y-2">
+                    {[
+                      { symbol: "AAPL", impact: "+4.2%", reason: "iPhone sales surge drives revenue growth" },
+                      { symbol: "MSFT", impact: "+2.8%", reason: "Azure expansion boosts cloud revenue" },
+                      { symbol: "NVDA", impact: "+3.1%", reason: "AI chip demand continues accelerating" },
+                    ].map((stock) => (
+                      <div key={stock.symbol} className="flex items-center justify-between text-sm">
+                        <div className="flex items-center gap-2">
+                          <Badge variant="secondary">{stock.symbol}</Badge>
+                          <span className="text-gray-600">{stock.reason}</span>
+                        </div>
+                        <span className="font-medium text-green-600">{stock.impact}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="bg-white rounded-lg p-4 border">
+                  <h4 className="font-semibold text-gray-900 mb-2">
+                    🎯 Key Insights
+                  </h4>
+                  <ul className="text-sm text-gray-700 space-y-1">
+                    <li>• Technology sector shows strong momentum (+3.2% avg)</li>
+                    <li>• Consumer spending patterns remain robust</li>
+                    <li>• Interest rate environment favors growth stocks</li>
+                    <li>• Recommend monitoring Q1 earnings for confirmation</li>
+                  </ul>
+                </div>
+
+                <div className="flex gap-3">
+                  <Button
+                    variant="outline"
+                    onClick={() => setShowAnalysis(false)}
+                    className="flex-1"
+                  >
+                    Close Analysis
+                  </Button>
+                  <Button
+                    onClick={() => {
+                      setShowAnalysis(false);
+                      // Reset for new analysis
+                      setTitle("");
+                      setContent("");
+                      setSelectedArticleId(null);
+                    }}
+                    className="flex-1 bg-blue-600 hover:bg-blue-700"
+                  >
+                    Analyze Another Article
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          )}
         </CardContent>
       </Card>
 
