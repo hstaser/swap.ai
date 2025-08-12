@@ -225,48 +225,6 @@ export default function Watchlist() {
         {/* Watchlist Content */}
         <div className="max-w-4xl mx-auto">
           {/* Clean watchlist interface without overwhelming charts */}
-                    height="100%"
-                    viewBox="0 0 100 30"
-                    className="overflow-visible"
-                  >
-                    <path
-                      d={topPerformers.gainer.chartData
-                        .map((point, index) => {
-                          const x =
-                            (index /
-                              (topPerformers.gainer.chartData.length - 1)) *
-                            100;
-                          const y =
-                            30 -
-                            ((point -
-                              Math.min(...topPerformers.gainer.chartData)) /
-                              (Math.max(...topPerformers.gainer.chartData) -
-                                Math.min(...topPerformers.gainer.chartData))) *
-                              25;
-                          return `${index === 0 ? "M" : "L"} ${x} ${y}`;
-                        })
-                        .join(" ")}
-                      fill="none"
-                      stroke="#22c55e"
-                      strokeWidth="1.5"
-                    />
-                  </svg>
-                </div>
-
-                <p className="text-xs text-green-700">in Saved Stocks</p>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Top Loser Card */}
-          <Card
-            className="cursor-pointer hover:shadow-md transition-shadow bg-gradient-to-br from-red-50 to-rose-50 border-red-200"
-            onClick={() => {
-              setSelectedStock("FICO");
-              setShowChart(true);
-            }}
-          >
-            <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-red-800">
                   Top Loser
