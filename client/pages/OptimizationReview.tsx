@@ -397,10 +397,15 @@ export default function OptimizationReview() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <div className="font-bold text-lg">
-                        {stock.percentage}%
+                      <div className="font-bold text-lg relative group">
+                        <span className="blur-sm group-hover:blur-none transition-all duration-300">
+                          {stock.percentage}%
+                        </span>
+                        <div className="absolute inset-0 flex items-center justify-center opacity-100 group-hover:opacity-0 transition-opacity duration-300 text-xs font-normal text-gray-500">
+                          Hover
+                        </div>
                       </div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="text-sm text-muted-foreground blur-sm hover:blur-none transition-all duration-300">
                         {formatCurrency(stock.amount)}
                       </div>
                     </div>
