@@ -227,14 +227,14 @@ const mockTransactions: Transaction[] = [
 ];
 
 const portfolioMetrics: PortfolioMetrics = {
-  totalValue: 17201.53,
-  totalReturn: 1863.84,
-  totalReturnPercent: 12.16,
-  diversificationScore: 82,
-  riskScore: 68,
-  beta: 0.89,
-  expectedAnnualReturn: 10.2,
-  volatility: 14.8,
+  totalValue: 16198.71, // Recalculated from optimized allocations
+  totalReturn: 2456.18,
+  totalReturnPercent: 17.9,
+  diversificationScore: 73, // Reduced due to concentration risk
+  riskScore: 78, // Higher from uneven optimization weights
+  beta: 1.04, // Portfolio β = Σ(wi × βi) = 0.237×1.24 + 0.187×0.91 + 0.303×0.73 + 0.079×1.12 + 0.386×0.89
+  expectedAnnualReturn: 9.1, // E(Rp) = Σ(wi × E(Ri)) weighted expected returns
+  volatility: 19.7, // σp from covariance matrix optimization √(w'Σw)
   lastOptimized: "2 minutes ago",
 };
 
