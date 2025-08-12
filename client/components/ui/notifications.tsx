@@ -404,7 +404,12 @@ export function NotificationSystem({
             </Select>
 
             {unreadCount > 0 && (
-              <Button variant="outline" size="sm" onClick={markAllAsRead}>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={markAllAsRead}
+                className="text-xs px-2 py-1 h-7 whitespace-nowrap"
+              >
                 Mark all read
               </Button>
             )}
