@@ -1094,14 +1094,13 @@ export default function Research() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200 shadow-lg ring-1 ring-green-200">
+          <Card className="border-gray-200 shadow-sm">
             <CardContent className="p-4">
               <div className="flex items-center gap-2 mb-3">
-                <div className="p-1 bg-green-600 rounded-full">
+                <div className="p-1 bg-gray-400 rounded-full">
                   <Target className="h-4 w-4 text-white" />
                 </div>
-                <h4 className="font-semibold text-sm text-green-800">Investment Strategies</h4>
-                <Badge className="bg-green-600 text-white text-xs">Research</Badge>
+                <h4 className="font-semibold text-sm text-gray-800">Investment Strategies</h4>
               </div>
               <div className="space-y-2">
                 <Button
