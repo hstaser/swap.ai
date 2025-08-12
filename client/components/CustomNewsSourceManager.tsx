@@ -247,6 +247,9 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
     if (savedBlocks) {
       setSourceBlocks(JSON.parse(savedBlocks));
     }
+
+    // Set default tab to figures to skip the intro
+    setActiveTab("figures");
   }, []);
 
   // Save to localStorage when data changes
