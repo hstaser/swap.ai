@@ -1081,6 +1081,13 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Custom News Source Manager Modal */}
+      <CustomNewsSourceManager
+        isOpen={showNewsSourceManager}
+        onClose={() => setShowNewsSourceManager(false)}
+        onSourcesUpdate={handleSourcesUpdate}
+      />
     </>
   );
 }
