@@ -280,7 +280,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
     return dynamicArticles.slice(0, 8); // Limit to 8 articles
   };
 
-  const newsArticles = generateDynamicNews();
+  const newsArticles = useMemo(() => generateDynamicNews(), [newsRefreshTrigger]);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
