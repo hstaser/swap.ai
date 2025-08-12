@@ -516,13 +516,56 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
 
         <div className="flex justify-between items-center pt-4 border-t">
           <div className="text-sm text-gray-600">
-            {sourceBlocks.filter(b => b.isActive).length} active blocks • {figures.filter(f => f.isActive).length} active figures • {sources.filter(s => s.isActive).length} active sources
+            {figures.filter(f => f.isActive).length} active figures • {sources.filter(s => s.isActive).length} active sources
           </div>
           <Button onClick={onClose}>
             Done
           </Button>
         </div>
       </DialogContent>
+
+      {/* Account Linking Modal */}
+      {showAccountLink && selectedSourceForLink && (
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Link {selectedSourceForLink.name} Account</DialogTitle>
+            <DialogDescription>
+              Connect your {selectedSourceForLink.name} account to access their news feed
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4">
+            <div className="text-center py-6">
+              <div className="w-16 h-16 mx-auto bg-purple-100 rounded-full flex items-center justify-center mb-4">
+                <Globe className="h-8 w-8 text-purple-600" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2">{selectedSourceForLink.name}</h3>
+              <p className="text-sm text-gray-600 mb-4">
+                {selectedSourceForLink.url}
+              </p>
+              <p className="text-xs text-gray-500">
+                You'll be redirected to {selectedSourceForLink.name} to sign in and authorize access
+              </p>
+            </div>
+
+            <div className="flex gap-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowAccountLink(false)}
+                className="flex-1"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleAccountLink}
+                className="flex-1 bg-purple-600 hover:bg-purple-700"
+              >
+                Link Account
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      )}
     </Dialog>
   );
 }
