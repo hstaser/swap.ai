@@ -239,7 +239,7 @@ export default function QueueAdd() {
           {!selectedConfidence && (
             <Button
               variant="ghost"
-              onClick={() => navigate("/")}
+              onClick={() => navigate(`/?index=${currentIndex}`)}
               className="w-full text-muted-foreground"
             >
               Cancel
