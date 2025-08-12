@@ -28,6 +28,11 @@ import {
   CheckCircle,
   AlertTriangle,
   Target,
+  Settings,
+  Users,
+  TrendingUp,
+  Filter,
+  Star,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
