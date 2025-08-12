@@ -55,10 +55,10 @@ interface NotificationPreferences {
 const mockNotifications: Notification[] = [
   {
     id: "1",
-    type: "ai_insight",
-    title: "Diversification Opportunity Detected",
+    type: "rebalance",
+    title: "Portfolio Rebalance Recommended",
     message:
-      "Your tech allocation (52%) is above optimal range. Consider reducing by 7% to improve risk-adjusted returns.",
+      "Your portfolio allocation has drifted from target. AI suggests rebalancing to optimize risk-adjusted returns.",
     timestamp: new Date(Date.now() - 1 * 60 * 60 * 1000), // 1 hour ago
     read: false,
     priority: "high",
@@ -66,60 +66,61 @@ const mockNotifications: Notification[] = [
   },
   {
     id: "2",
-    type: "ai_insight",
-    title: "Risk Management Alert",
-    message:
-      "Market correlation has increased 23% this week. Your portfolio beta is now 1.34 - consider defensive positioning.",
-    timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
-    read: false,
-    priority: "medium",
-    actionUrl: "/portfolio/rebalance",
-  },
-  {
-    id: "3",
-    type: "ai_insight",
-    title: "Sector Rotation Opportunity",
-    message:
-      "Healthcare sector showing strength vs tech. Consider rotating 5% allocation for better performance.",
-    timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
-    read: false,
-    priority: "medium",
-    actionUrl: "/portfolio/rebalance",
-  },
-  {
-    id: "4",
-    type: "rebalance",
-    title: "Portfolio Rebalance Recommended",
-    message:
-      "Your portfolio has drifted from target allocation. AI suggests rebalancing AAPL and adding defensive positions.",
-    timestamp: new Date(Date.now() - 8 * 60 * 60 * 1000), // 8 hours ago
-    read: true,
-    priority: "high",
-    actionUrl: "/portfolio/rebalance",
-  },
-  {
-    id: "5",
     type: "news",
     title: "AAPL Earnings Beat Expected",
     message:
-      "Apple reported strong quarterly earnings. Consider adjusting your position based on positive momentum.",
-    timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
-    read: true,
+      "Apple reported strong quarterly earnings, beating analyst expectations by 12%. Stock up 3.2% in after-hours trading.",
+    timestamp: new Date(Date.now() - 3 * 60 * 60 * 1000), // 3 hours ago
+    read: false,
     priority: "medium",
     symbol: "AAPL",
     actionUrl: "/stock/AAPL/news",
   },
   {
-    id: "6",
+    id: "3",
     type: "portfolio",
     title: "Dividend Payment Received",
     message:
       "You received $47.50 in dividends from JNJ. Amount has been added to your cash balance.",
-    timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
-    read: true,
+    timestamp: new Date(Date.now() - 6 * 60 * 60 * 1000), // 6 hours ago
+    read: false,
     priority: "low",
     symbol: "JNJ",
     actionUrl: "/portfolio",
+  },
+  {
+    id: "4",
+    type: "news",
+    title: "TSLA Production Update",
+    message:
+      "Tesla announces Q4 delivery numbers exceeded guidance. Cybertruck production ramping up as expected.",
+    timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000), // 12 hours ago
+    read: true,
+    priority: "medium",
+    symbol: "TSLA",
+    actionUrl: "/stock/TSLA/news",
+  },
+  {
+    id: "5",
+    type: "portfolio",
+    title: "Monthly Statement Available",
+    message:
+      "Your November portfolio statement is ready. Total return: +2.8% for the month.",
+    timestamp: new Date(Date.now() - 18 * 60 * 60 * 1000), // 18 hours ago
+    read: true,
+    priority: "low",
+    actionUrl: "/portfolio",
+  },
+  {
+    id: "6",
+    type: "news",
+    title: "Fed Interest Rate Decision",
+    message:
+      "Federal Reserve maintains current interest rates. Market reacting positively to dovish commentary.",
+    timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000), // 1 day ago
+    read: true,
+    priority: "medium",
+    actionUrl: "/research",
   },
 ];
 
