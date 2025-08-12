@@ -583,9 +583,16 @@ export default function Index() {
     setFilters(defaultFilters);
 
     // Find the stock in the full database and navigate to it
-    const stockIndex = mockStocks.findIndex((stock) => stock.symbol === symbol);
+    const stockIndex = catalogStocks.findIndex((stock) => stock.symbol === symbol);
     if (stockIndex !== -1) {
-      setCurrentStockIndex(stockIndex);
+      // After resetting filters, we need to wait for the filteredStocks to update
+      // So we'll use setTimeout to delay the index setting
+      setTimeout(() => {
+        const newFilteredIndex = filteredStocks.findIndex((stock) => stock.symbol === symbol);
+        if (newFilteredIndex !== -1) {
+          setCurrentStockIndex(newFilteredIndex);
+        }
+      }, 100);
     }
   };
 
