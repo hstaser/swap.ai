@@ -115,10 +115,13 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
     return contentTypes.slice(0, 2); // Return first 2 items
   };
 
-  const handleSourcesUpdate = (blocks: SourceBlock[]) => {
-    setSourceBlocks(blocks);
-    // Trigger news refresh when sources are updated
-    setNewsRefreshTrigger(prev => prev + 1);
+  const handleSourcesUpdate = (data: { figures: any[], sources: any[] }) => {
+    if (data.figures && data.sources) {
+      setActiveFiguresCount(data.figures.filter(f => f.isActive).length);
+      setActiveSourcesCount(data.sources.filter(s => s.isActive).length);
+      // Trigger news refresh when sources are updated
+      setNewsRefreshTrigger(prev => prev + 1);
+    }
   };
 
   // Generate dynamic news articles based on active custom sources
