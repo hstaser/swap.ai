@@ -4,12 +4,12 @@ import { extendedStockDatabase } from "./extended-stocks";
 export const INFLUENCER_MAP: Record<string, { name: string; tickers: string[] }> = {
   "lebron-james": {
     name: "LeBron James",
-    tickers: ["NKE", "PEP", "AAPL"]
+    tickers: ["NKE", "PEP", "WMT", "AAPL", "NFLX"] // Nike (lifetime deal), PepsiCo (Blaze Pizza), Walmart (SpringHill), Apple (Beats), Netflix (content)
   },
 };
 
 export const INFLUENCER_TICKERS: Record<string, string[]> = {
-  "lebron-james": ["NKE", "PEP", "AAPL"],
+  "lebron-james": ["NKE", "PEP", "WMT", "AAPL", "NFLX"],
 };
 
 export const getInfluencerStocks = (slug: string) => {
