@@ -35,6 +35,7 @@ import { Link, useSearchParams, useNavigate } from "react-router-dom";
 
 import { ALL_SYMBOLS, getStock, type Stock as CatalogStock } from "../data/stocks.catalog";
 import { extendedStockDatabase } from "../data/extended-stocks";
+import { STOCKS, STOCK_LOOKUP, type StockCard } from "../data/stocks";
 import { addToQueue, isInQueue } from "../store/queue";
 import { addToWatchlist, isInWatchlist } from "../store/watchlist";
 
