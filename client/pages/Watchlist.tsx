@@ -214,16 +214,17 @@ export default function Watchlist() {
       </header>
 
       <div className="container mx-auto px-4 py-6 space-y-6">
-        {/* Top Gainer/Loser Cards - Like your image */}
-        <div className="grid grid-cols-2 gap-4">
-          {/* Top Gainer Card */}
-          <Card
-            className="cursor-pointer hover:shadow-md transition-shadow bg-gradient-to-br from-green-50 to-emerald-50 border-green-200"
-            onClick={() => {
-              setSelectedStock("U");
-              setShowChart(true);
-            }}
-          >
+        {/* Clean Header */}
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-foreground mb-2">Your Watchlist</h1>
+          <p className="text-lg text-muted-foreground">
+            Stay updated on your saved stocks
+          </p>
+        </div>
+
+        {/* Watchlist Content */}
+        <div className="max-w-4xl mx-auto">
+          {/* Skip the overwhelming charts */}
             <CardContent className="p-4">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium text-green-800">
