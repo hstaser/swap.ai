@@ -575,12 +575,8 @@ export default function Index() {
       });
     }
 
-    if (currentStockIndex < filteredStocks.length - 1) {
-      setCurrentStockIndex(currentStockIndex + 1);
-    } else {
-      // If at the end, go back to the beginning
-      setCurrentStockIndex(0);
-    }
+    // Move exactly one slide forward, no wrapping at end
+    setCurrentStockIndex(i => Math.min(i + 1, filteredStocks.length - 1));
   };
 
   const handleFilterOverride = (symbol: string) => {
