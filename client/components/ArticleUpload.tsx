@@ -84,7 +84,8 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
   const [chatInput, setChatInput] = useState("");
   const [isThinking, setIsThinking] = useState(false);
   const [showNewsSourceManager, setShowNewsSourceManager] = useState(false);
-  const [sourceBlocks, setSourceBlocks] = useState<SourceBlock[]>([]);
+  const [activeFiguresCount, setActiveFiguresCount] = useState(0);
+  const [activeSourcesCount, setActiveSourcesCount] = useState(0);
   const [newsRefreshTrigger, setNewsRefreshTrigger] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
