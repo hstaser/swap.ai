@@ -85,7 +85,6 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
   const [isThinking, setIsThinking] = useState(false);
   const [showNewsSourceManager, setShowNewsSourceManager] = useState(false);
   const [sourceBlocks, setSourceBlocks] = useState<SourceBlock[]>([]);
-  const [selectedNewsTab, setSelectedNewsTab] = useState<"curated" | "blocks" | "figures">("curated");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Mock news articles for drag and drop
