@@ -1,5 +1,6 @@
 // Centralized Queue Store — append + dedupe, never replace
 import { getStock, resolveSymbol } from "../data/stocks.catalog";
+import { STOCK_LOOKUP } from "../data/stocks";
 
 type QueueItem = { id: string; symbol: string; addedAt: number };
 type State = { items: QueueItem[] };
