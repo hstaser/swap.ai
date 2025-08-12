@@ -165,7 +165,7 @@ const POPULAR_SOURCES: Omit<NewsSource, 'id' | 'isActive'>[] = [
   },
   {
     name: "Reuters",
-    type: "publication", 
+    type: "publication",
     url: "reuters.com",
     category: "News",
     keywords: ["breaking", "global", "markets", "politics"],
@@ -200,7 +200,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
   const [sources, setSources] = useState<NewsSource[]>([]);
   const [sourceBlocks, setSourceBlocks] = useState<SourceBlock[]>([]);
   const [activeTab, setActiveTab] = useState("blocks");
-  
+
   // Form states
   const [newBlockName, setNewBlockName] = useState("");
   const [newBlockDescription, setNewBlockDescription] = useState("");
@@ -208,7 +208,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
   const [selectedFigures, setSelectedFigures] = useState<string[]>([]);
   const [selectedSources, setSelectedSources] = useState<string[]>([]);
   const [blockKeywords, setBlockKeywords] = useState("");
-  
+
   const [searchTerm, setSearchTerm] = useState("");
   const [editingBlock, setEditingBlock] = useState<string | null>(null);
 
@@ -217,7 +217,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
     const savedFigures = localStorage.getItem('customNewsFigures');
     const savedSources = localStorage.getItem('customNewsSources');
     const savedBlocks = localStorage.getItem('customNewsBlocks');
-    
+
     if (savedFigures) {
       setFigures(JSON.parse(savedFigures));
     } else {
@@ -229,7 +229,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
       }));
       setFigures(initialFigures);
     }
-    
+
     if (savedSources) {
       setSources(JSON.parse(savedSources));
     } else {
@@ -241,7 +241,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
       }));
       setSources(initialSources);
     }
-    
+
     if (savedBlocks) {
       setSourceBlocks(JSON.parse(savedBlocks));
     }
@@ -251,11 +251,11 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
   useEffect(() => {
     localStorage.setItem('customNewsFigures', JSON.stringify(figures));
   }, [figures]);
-  
+
   useEffect(() => {
     localStorage.setItem('customNewsSources', JSON.stringify(sources));
   }, [sources]);
-  
+
   useEffect(() => {
     localStorage.setItem('customNewsBlocks', JSON.stringify(sourceBlocks));
     if (onSourcesUpdate) {
@@ -265,7 +265,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
 
   const handleCreateBlock = () => {
     if (!newBlockName.trim()) return;
-    
+
     const newBlock: SourceBlock = {
       id: `block_${Date.now()}`,
       name: newBlockName,
@@ -277,9 +277,9 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
       isActive: true,
       createdAt: new Date().toISOString()
     };
-    
+
     setSourceBlocks(prev => [...prev, newBlock]);
-    
+
     // Reset form
     setNewBlockName("");
     setNewBlockDescription("");
@@ -293,41 +293,41 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
   };
 
   const toggleFigureActive = (figureId: string) => {
-    setFigures(prev => prev.map(fig => 
+    setFigures(prev => prev.map(fig =>
       fig.id === figureId ? { ...fig, isActive: !fig.isActive } : fig
     ));
   };
 
   const toggleSourceActive = (sourceId: string) => {
-    setSources(prev => prev.map(src => 
+    setSources(prev => prev.map(src =>
       src.id === sourceId ? { ...src, isActive: !src.isActive } : src
     ));
   };
 
   const toggleBlockActive = (blockId: string) => {
-    setSourceBlocks(prev => prev.map(block => 
+    setSourceBlocks(prev => prev.map(block =>
       block.id === blockId ? { ...block, isActive: !block.isActive } : block
     ));
   };
 
-  const filteredFigures = figures.filter(fig => 
+  const filteredFigures = figures.filter(fig =>
     fig.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     fig.handle?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredSources = sources.filter(src => 
+  const filteredSources = sources.filter(src =>
     src.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     src.category.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const getBlockStats = (block: SourceBlock) => {
-    const activeFigures = block.figures.filter(fId => 
+    const activeFigures = block.figures.filter(fId =>
       figures.find(f => f.id === fId)?.isActive
     ).length;
-    const activeSources = block.sources.filter(sId => 
+    const activeSources = block.sources.filter(sId =>
       sources.find(s => s.id === sId)?.isActive
     ).length;
-    
+
     return { activeFigures, activeSources, totalItems: activeFigures + activeSources };
   };
 
@@ -345,14 +345,13 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
             Create custom source blocks to control what news feeds into your analysis
           </DialogDescription>
         </DialogHeader>
-        
+
         <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden">
-          <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="blocks">Source Blocks</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="figures">Public Figures</TabsTrigger>
             <TabsTrigger value="sources">News Sources</TabsTrigger>
           </TabsList>
-          
+
           {/* Source Blocks Tab */}
           <TabsContent value="blocks" className="space-y-4 overflow-y-auto max-h-[60vh]">
             {/* Create New Block */}
@@ -390,7 +389,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                     </div>
                   </div>
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium">Description</label>
                   <Textarea
@@ -400,7 +399,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                     rows={2}
                   />
                 </div>
-                
+
                 <div>
                   <label className="text-sm font-medium">Keywords (comma-separated)</label>
                   <Input
@@ -409,7 +408,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                     onChange={(e) => setBlockKeywords(e.target.value)}
                   />
                 </div>
-                
+
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="text-sm font-medium">Select Figures</label>
@@ -432,7 +431,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                       ))}
                     </div>
                   </div>
-                  
+
                   <div>
                     <label className="text-sm font-medium">Select Sources</label>
                     <div className="max-h-32 overflow-y-auto border rounded p-2 space-y-1">
@@ -455,14 +454,14 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                     </div>
                   </div>
                 </div>
-                
+
                 <Button onClick={handleCreateBlock} disabled={!newBlockName.trim()}>
                   <Plus className="h-4 w-4 mr-2" />
                   Create Block
                 </Button>
               </CardContent>
             </Card>
-            
+
             {/* Existing Blocks */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {sourceBlocks.map(block => {
@@ -528,7 +527,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
               })}
             </div>
           </TabsContent>
-          
+
           {/* Public Figures Tab */}
           <TabsContent value="figures" className="space-y-4 overflow-y-auto max-h-[60vh]">
             <div className="flex items-center gap-2">
@@ -540,7 +539,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                 className="flex-1"
               />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {filteredFigures.map(figure => (
                 <Card key={figure.id} className={cn(
@@ -579,7 +578,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                         )}
                       </div>
                     </div>
-                    
+
                     {figure.keywords && figure.keywords.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-3">
                         {figure.keywords.slice(0, 3).map((keyword, idx) => (
@@ -599,7 +598,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
               ))}
             </div>
           </TabsContent>
-          
+
           {/* News Sources Tab */}
           <TabsContent value="sources" className="space-y-4 overflow-y-auto max-h-[60vh]">
             <div className="flex items-center gap-2">
@@ -611,7 +610,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                 className="flex-1"
               />
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {filteredSources.map(source => (
                 <Card key={source.id} className={cn(
@@ -638,7 +637,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                         {source.isActive ? "Active" : "Inactive"}
                       </Badge>
                     </div>
-                    
+
                     {source.keywords && source.keywords.length > 0 && (
                       <div className="flex flex-wrap gap-1 mt-3">
                         {source.keywords.slice(0, 3).map((keyword, idx) => (
@@ -659,7 +658,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
             </div>
           </TabsContent>
         </Tabs>
-        
+
         <div className="flex justify-between items-center pt-4 border-t">
           <div className="text-sm text-gray-600">
             {sourceBlocks.filter(b => b.isActive).length} active blocks • {figures.filter(f => f.isActive).length} active figures • {sources.filter(s => s.isActive).length} active sources
