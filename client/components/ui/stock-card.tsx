@@ -72,6 +72,96 @@ interface StockCardProps {
   currentIndex?: number;
 }
 
+// Generate realistic news articles for stocks
+const generateNewsArticles = (symbol: string, newsSummary: string): NewsItem[] => {
+  const newsData: Record<string, NewsItem[]> = {
+    AAPL: [
+      {
+        title: "Apple's Q4 iPhone Sales Surge 15% Amid Strong AI Feature Adoption",
+        source: "TechCrunch",
+        time: "2 hours ago",
+        summary: "Apple's latest quarterly earnings reveal robust iPhone sales driven by consumer excitement around new AI capabilities integrated into iOS."
+      },
+      {
+        title: "Apple Intelligence Features Drive Consumer Upgrade Cycle",
+        source: "The Wall Street Journal",
+        time: "4 hours ago",
+        summary: "Industry analysts note significant consumer interest in Apple's AI features, leading to higher-than-expected device upgrade rates."
+      },
+      {
+        title: "Apple Stock Hits New 52-Week High on AI Momentum",
+        source: "MarketWatch",
+        time: "6 hours ago",
+        summary: "Shares of Apple reached a new 52-week high as investors respond positively to the company's artificial intelligence strategy."
+      }
+    ],
+    MSFT: [
+      {
+        title: "Microsoft Azure AI Services Revenue Jumps 40% Year-Over-Year",
+        source: "Reuters",
+        time: "1 hour ago",
+        summary: "Microsoft's cloud computing division shows strong growth in AI services, contributing significantly to overall revenue."
+      },
+      {
+        title: "Teams Integration with GPT-4 Drives Enterprise Adoption",
+        source: "VentureBeat",
+        time: "3 hours ago",
+        summary: "Microsoft's integration of advanced AI into Teams is accelerating enterprise customer adoption and subscription growth."
+      }
+    ],
+    GOOGL: [
+      {
+        title: "Google's Search Algorithm Update Improves AI-Generated Content Detection",
+        source: "Search Engine Land",
+        time: "2 hours ago",
+        summary: "Google announces improvements to its search algorithm to better identify and rank authentic content over AI-generated material."
+      },
+      {
+        title: "Alphabet's Waymo Expands Autonomous Vehicle Testing to 5 New Cities",
+        source: "TechCrunch",
+        time: "5 hours ago",
+        summary: "Waymo continues expanding its self-driving car testing program as the company moves closer to commercial deployment."
+      }
+    ],
+    TSLA: [
+      {
+        title: "Tesla Cybertruck Production Ramp Faces Q1 2025 Delays",
+        source: "Electrek",
+        time: "1 hour ago",
+        summary: "Tesla acknowledges production challenges with the Cybertruck, pushing delivery timeline for some orders into Q1 2025."
+      },
+      {
+        title: "Tesla's Supercharger Network Opens to All EVs in Europe",
+        source: "Reuters",
+        time: "4 hours ago",
+        summary: "Tesla expands access to its Supercharger network across European markets, potentially creating new revenue streams."
+      }
+    ]
+  };
+
+  // Return specific articles for the symbol, or generate generic ones
+  return newsData[symbol] || [
+    {
+      title: `${symbol} Reports Strong Quarterly Performance`,
+      source: "Financial News",
+      time: "2 hours ago",
+      summary: newsSummary || `${symbol} continues to show strong market performance with strategic growth initiatives.`
+    },
+    {
+      title: `Analysts Upgrade ${symbol} Price Target`,
+      source: "MarketWatch",
+      time: "4 hours ago",
+      summary: `Industry analysts express optimism about ${symbol}'s future prospects and growth potential.`
+    },
+    {
+      title: `${symbol} Announces Strategic Partnership Initiative`,
+      source: "Business Wire",
+      time: "6 hours ago",
+      summary: `${symbol} reveals new strategic partnerships aimed at expanding market reach and capabilities.`
+    }
+  ];
+};
+
 export function StockCard({
   stock,
   onToggleWatchlist,
