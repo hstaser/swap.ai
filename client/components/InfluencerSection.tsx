@@ -57,11 +57,21 @@ export default function InfluencerSection({ slug = "lebron-james", onClose }: In
   }
 
   return (
-    <section className="p-6 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg">
-      <div className="mb-4">
-        <h3 className="text-lg font-bold text-gray-800">LeBron James — Related Public Tickers</h3>
-        <p className="text-sm text-gray-600">(Demo - Public associations only)</p>
-      </div>
+    <>
+      <section className="p-6 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg">
+        <div className="mb-4 flex items-center justify-between">
+          <div>
+            <h3 className="text-lg font-bold text-gray-800">LeBron James's Portfolio</h3>
+            <p className="text-sm text-gray-600">(Public business associations)</p>
+          </div>
+          <Button
+            onClick={handleAddAllToQueue}
+            className="bg-blue-600 hover:bg-blue-700 flex items-center gap-2"
+          >
+            <Plus className="h-4 w-4" />
+            Add All to Queue
+          </Button>
+        </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {stocks.map(stock => {
