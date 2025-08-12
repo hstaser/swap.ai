@@ -366,7 +366,7 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
           </DialogTitle>
         </DialogHeader>
 
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1 overflow-hidden mt-2">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="figures">Public Figures</TabsTrigger>
             <TabsTrigger value="sources">News Sources</TabsTrigger>
