@@ -487,10 +487,6 @@ export default function Index() {
       return true;
     });
 
-    // Ensure we always have enough stocks for all slides and shuffle for variety
-    const nonQueuedStocks = filtered.filter(stock => !isInQueue(stock.symbol));
-    const queuedStocks = filtered.filter(stock => isInQueue(stock.symbol));
-
     // Shuffle the stocks to ensure variety across slides
     const shuffleArray = (array: any[]) => {
       const shuffled = [...array];
@@ -501,13 +497,8 @@ export default function Index() {
       return shuffled;
     };
 
-    // Always prioritize non-queued stocks, but ensure we have at least 50 total
-    let result = shuffleArray(nonQueuedStocks);
-    if (result.length < 50) {
-      result = [...result, ...shuffleArray(queuedStocks).slice(0, 50 - result.length)];
-    }
-
-    return result;
+    // Simple shuffle without forcing specific counts - let the actual data determine the size
+    return shuffleArray(filtered);
   }, [filters, isInQueue]);
 
   const toggleWatchlist = (symbol: string) => {
