@@ -1127,59 +1127,7 @@ export default function Research() {
             </CardContent>
           </Card>
 
-          <Card className="bg-gradient-to-r from-purple-50 to-blue-50 border-purple-200 shadow-lg ring-1 ring-purple-200">
-            <CardContent className="p-4">
-              <div className="flex items-center gap-2 mb-3">
-                <div className="p-1 bg-purple-600 rounded-full">
-                  <Sparkles className="h-4 w-4 text-white" />
-                </div>
-                <h4 className="font-semibold text-sm text-purple-800">Queue Construction</h4>
-                <Badge className="bg-purple-600 text-white text-xs">AI Powered</Badge>
-              </div>
-              <div className="space-y-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-purple-50 min-h-[40px]"
-                  asChild
-                >
-                  <Link to="/pelosi">
-                    Follow Nancy Pelosi's Portfolio
-                  </Link>
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-purple-50 min-h-[40px]"
-                  onClick={() =>
-                    handleSuggestionClick("Create a queue with companies that sponsor LeBron James")
-                  }
-                >
-                  LeBron's Brand Empire
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  className="w-full justify-start h-auto p-3 text-sm text-left hover:bg-purple-50 min-h-[40px]"
-                  onClick={() =>
-                    handleSuggestionClick("Build a Warren Buffett inspired queue with Berkshire holdings")
-                  }
-                >
-                  Clone Buffett's Strategy
-                </Button>
-                <div className="pt-2 border-t border-gray-100">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="w-full text-sm h-auto p-3 min-h-[40px]"
-                    onClick={() => setShowThemeDialog(true)}
-                  >
-                    + Add Your Own Theme
-                  </Button>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
+
         </div>
           </TabsContent>
 
