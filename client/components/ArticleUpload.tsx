@@ -458,7 +458,7 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
           {/* Analyze Button */}
           <Button
             onClick={handleAnalyze}
-            disabled={isAnalyzing || !title || (!url && !content) || (selectedAnalysis !== "portfolio" && queue.length === 0)}
+            disabled={isAnalyzing || !title || (!url && !content) || (selectedAnalysis === "specific" && selectedStocks.length === 0)}
             className="w-full bg-blue-600 hover:bg-blue-700"
           >
             {isAnalyzing ? (
@@ -471,6 +471,8 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                 <MessageCircle className="h-4 w-4 mr-2" />
                 {selectedAnalysis === "portfolio"
                   ? `Analyze Portfolio Impact (${queue.length} stocks)`
+                  : selectedAnalysis === "specific"
+                  ? `Analyze Selected Stocks (${selectedStocks.length})`
                   : `Analyze ${selectedAnalysis} Impact`
                 }
               </>
@@ -516,6 +518,8 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
                 <div className="text-blue-700">
                   {selectedAnalysis === "portfolio"
                     ? `Portfolio-wide impact analysis completed for ${queue.length} stocks.`
+                    : selectedAnalysis === "specific"
+                    ? `Specific impact analysis completed for ${selectedStocks.length} selected stocks.`
                     : `Specific impact analysis completed for ${selectedAnalysis}.`
                   }
                 </div>
