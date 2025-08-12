@@ -125,5 +125,50 @@ export default function InfluencerSection({ slug = "lebron-james", onClose }: In
         * Based on publicly reported business relationships. Not investment advice.
       </div>
     </section>
+
+    {/* Success Dialog */}
+    <Dialog open={showSuccessModal} onOpenChange={setShowSuccessModal}>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <div className="flex items-center gap-3 mb-2">
+            <div className="flex-shrink-0 w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+              <CheckCircle className="h-6 w-6 text-green-600" />
+            </div>
+            <div>
+              <DialogTitle className="text-lg font-semibold">Portfolio Added!</DialogTitle>
+              <DialogDescription className="text-sm text-gray-600">
+                You've added LeBron James's portfolio to your queue
+              </DialogDescription>
+            </div>
+          </div>
+        </DialogHeader>
+
+        <div className="mt-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="text-sm font-medium text-blue-900 mb-1">
+            {stocks.length} stocks added to your queue
+          </div>
+          <div className="text-xs text-blue-700">
+            {stocks.map(s => s!.symbol).join(', ')}
+          </div>
+        </div>
+
+        <div className="flex gap-3 mt-6">
+          <Button
+            variant="outline"
+            onClick={() => setShowSuccessModal(false)}
+            className="flex-1"
+          >
+            Continue Research
+          </Button>
+          <Button
+            onClick={handleViewQueue}
+            className="flex-1 bg-blue-600 hover:bg-blue-700"
+          >
+            View Queue
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }
