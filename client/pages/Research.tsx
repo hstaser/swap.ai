@@ -45,6 +45,7 @@ import { SectorExplorer } from "@/components/ui/sector-explorer";
 import { ListEditorModal } from "@/components/ui/list-editor-modal";
 import InfluencerSection from "@/components/InfluencerSection";
 import NewsMonitor from "@/components/NewsMonitor";
+import ArticleUpload from "@/components/ArticleUpload";
 import { extendedStockDatabase } from "@/data/extended-stocks";
 import { getInfluencerTickers, getInfluencerInfo, isInfluencerVerified } from "@/data/influencer.map";
 import { getStock, validateStock } from "@/data/stocks.catalog";
