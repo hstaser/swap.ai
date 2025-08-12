@@ -889,26 +889,7 @@ export default function Index() {
                 )}
               />
 
-              {/* End Session Button with subtle optimization hints */}
-              {queue.length > 0 && (
-                <div className="text-center space-y-2">
-                  <Button
-                    variant="outline"
-                    onClick={() => navigate("/queue/review")}
-                    className="h-12 px-8 text-sm font-medium bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white border-0"
-                  >
-                    Review & Invest ({queue.length}{" "}
-                    {queue.length === 1 ? "stock" : "stocks"})
-                  </Button>
 
-                  {/* Subtle AI optimization hint */}
-                  {queue.length >= 3 && (
-                    <p className="text-xs text-muted-foreground">
-                      AI detected optimization opportunities
-                    </p>
-                  )}
-                </div>
-              )}
             </div>
           </div>
         ) : null}
