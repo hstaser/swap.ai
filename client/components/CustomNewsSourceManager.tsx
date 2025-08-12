@@ -356,10 +356,34 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="flex-1"
               />
+              <Button
+                onClick={() => setShowAddFigure(true)}
+                size="sm"
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                <Plus className="h-4 w-4 mr-1" />
+                Add Figure
+              </Button>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {filteredFigures.map(figure => (
+            {figures.length === 0 ? (
+              <div className="text-center py-8 border-2 border-dashed border-gray-300 rounded-lg">
+                <Users className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                <p className="text-sm text-gray-600 mb-2">No public figures added yet</p>
+                <p className="text-xs text-gray-500 mb-3">
+                  Add figures like Elon Musk, politicians, or CEOs to track their updates
+                </p>
+                <Button
+                  onClick={() => setShowAddFigure(true)}
+                  size="sm"
+                  variant="outline"
+                >
+                  Add Your First Figure
+                </Button>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {filteredFigures.map(figure => (
                 <Card key={figure.id} className={cn(
                   "cursor-pointer transition-colors",
                   figure.isActive ? "border-green-200 bg-green-50/30" : "hover:border-gray-300"
