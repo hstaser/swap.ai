@@ -600,11 +600,14 @@ export default function Index() {
   useEffect(() => {
     if (filteredStocks.length > 0) {
       if (currentStockIndex >= filteredStocks.length) {
-        setCurrentStockIndex(filteredStocks.length - 1);
+        setCurrentStockIndex(Math.max(0, filteredStocks.length - 1));
       }
       if (currentStockIndex < 0) {
         setCurrentStockIndex(0);
       }
+    } else {
+      // If no stocks available, reset to 0
+      setCurrentStockIndex(0);
     }
   }, [filteredStocks.length, currentStockIndex]);
 
