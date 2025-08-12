@@ -74,52 +74,34 @@ export default function InfluencerSection({ slug = "lebron-james", onClose }: In
           </Button>
         </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        {stocks.map(stock => {
-          const isPositive = (stock!.changePercent ?? 0) >= 0;
-          return (
-            <Card key={stock!.symbol} className="hover:shadow-md transition-shadow">
-              <CardContent className="p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div>
-                    <div className="font-bold text-lg text-gray-900">{stock!.symbol}</div>
-                    <div className="text-sm text-gray-600 font-medium">{stock!.name}</div>
-                    <Badge variant="outline" className="text-xs mt-1">
-                      {stock!.exchange}
-                    </Badge>
-                  </div>
-                  <div className="text-right">
-                    <div className="font-bold text-lg">${stock!.price?.toFixed(2) ?? "0.00"}</div>
-                    <div className={`flex items-center gap-1 text-sm ${
-                      isPositive ? "text-green-600" : "text-red-600"
-                    }`}>
-                      {isPositive ? (
-                        <TrendingUp className="h-3 w-3" />
-                      ) : (
-                        <TrendingDown className="h-3 w-3" />
-                      )}
-                      {isPositive ? "+" : ""}{stock!.changePercent?.toFixed(2) ?? "0.00"}%
-                    </div>
-                  </div>
-                </div>
+      <div className="space-y-3">
+        {stocks.map((stock, index) => (
+          <div
+            key={`${stock!.symbol}-${index}`}
+            className="grid grid-cols-12 gap-4 items-center p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
+          >
+            {/* Stock Symbol & Name */}
+            <div className="col-span-10">
+              <div className="font-bold text-lg text-gray-900">{stock!.symbol}</div>
+              <div className="text-sm text-gray-600 line-clamp-1">{stock!.name}</div>
+              <Badge variant="outline" className="text-xs mt-1">
+                {stock!.exchange}
+              </Badge>
+            </div>
 
-                <div className="flex items-center justify-between">
-                  <Badge variant="outline" className="text-xs">
-                    {stock!.sector}
-                  </Badge>
-                  <Button
-                    size="sm"
-                    onClick={() => handleAddToQueue(stock!.symbol)}
-                    className="bg-blue-600 hover:bg-blue-700 text-white"
-                  >
-                    <Plus className="h-4 w-4 mr-1" />
-                    Add to Queue
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          );
-        })}
+            {/* Action Button */}
+            <div className="col-span-2 flex justify-end">
+              <Button
+                size="sm"
+                onClick={() => handleAddToQueue(stock!.symbol)}
+                className="bg-blue-600 hover:bg-blue-700 flex items-center gap-1"
+              >
+                <Plus className="h-3 w-3" />
+                Add to Queue
+              </Button>
+            </div>
+          </div>
+        ))}
       </div>
 
       <div className="mt-4 text-xs text-gray-500">
