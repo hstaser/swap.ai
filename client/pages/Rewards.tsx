@@ -174,7 +174,11 @@ export default function Rewards() {
                 </p>
               </div>
             </div>
-            <Button onClick={handleShareInvite} size="sm" className="bg-blue-600 hover:bg-blue-700">
+            <Button
+              onClick={() => navigate('/add-friends')}
+              size="sm"
+              className="bg-blue-600 hover:bg-blue-700"
+            >
               <Share2 className="h-4 w-4 mr-2" />
               Invite Friends
             </Button>
