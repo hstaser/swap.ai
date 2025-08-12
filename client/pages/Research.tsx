@@ -570,13 +570,7 @@ export default function Research() {
   };
 
   const createQueue = async (queueType: string) => {
-    // Check if user has existing queue first
-    if (queue.length > 0) {
-      const confirmReplace = window.confirm(
-        "Your existing queue will be erased. Continue?"
-      );
-      if (!confirmReplace) return;
-    }
+    // Note: We now append to existing queue instead of replacing
 
     // Handle influencer-based queues using new mapping system
     if (queueType === "lebron") {
