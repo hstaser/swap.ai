@@ -427,12 +427,12 @@ export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
             >
               <Upload className="h-4 w-4 mr-2" />
               From News
-              {sourceBlocks.filter(b => b.isActive).length > 0 && (
+              {(activeFiguresCount + activeSourcesCount) > 0 && (
                 <Badge
                   variant="secondary"
                   className="absolute -top-2 -right-2 h-5 w-5 rounded-full p-0 text-xs flex items-center justify-center bg-green-500 text-white"
                 >
-                  {sourceBlocks.filter(b => b.isActive).length}
+                  {activeFiguresCount + activeSourcesCount}
                 </Badge>
               )}
             </Button>
