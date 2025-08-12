@@ -252,6 +252,54 @@ export function CustomNewsSourceManager({ isOpen, onClose, onSourcesUpdate }: Cu
     }
   };
 
+  const handleAddFigure = () => {
+    if (!newFigureName.trim()) return;
+
+    const newFigure: PublicFigure = {
+      id: `fig_${Date.now()}`,
+      name: newFigureName,
+      platform: newFigurePlatform,
+      handle: newFigureHandle,
+      category: "other",
+      verified: false,
+      description: `Custom figure: ${newFigureName}`,
+      isActive: true,
+      importance: "medium"
+    };
+
+    setFigures(prev => [...prev, newFigure]);
+    setNewFigureName("");
+    setNewFigureHandle("");
+    setShowAddFigure(false);
+  };
+
+  const handleAddSource = () => {
+    if (!newSourceName.trim()) return;
+
+    const newSource: NewsSource = {
+      id: `src_${Date.now()}`,
+      name: newSourceName,
+      type: "publication",
+      url: newSourceUrl,
+      category: "Custom",
+      isActive: true,
+      importance: "medium"
+    };
+
+    setSources(prev => [...prev, newSource]);
+    setNewSourceName("");
+    setNewSourceUrl("");
+    setShowAddSource(false);
+  };
+
+  const handleRemoveFigure = (figureId: string) => {
+    setFigures(prev => prev.filter(fig => fig.id !== figureId));
+  };
+
+  const handleRemoveSource = (sourceId: string) => {
+    setSources(prev => prev.filter(src => src.id !== sourceId));
+  };
+
   const toggleBlockActive = (blockId: string) => {
     setSourceBlocks(prev => prev.map(block =>
       block.id === blockId ? { ...block, isActive: !block.isActive } : block
