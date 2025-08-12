@@ -487,18 +487,27 @@ export default function Index() {
       return true;
     });
 
-    // Ensure we always have enough stocks for all slides
-    // Prioritize non-queued stocks but include queued ones if needed
+    // Ensure we always have enough stocks for all slides and shuffle for variety
     const nonQueuedStocks = filtered.filter(stock => !isInQueue(stock.symbol));
     const queuedStocks = filtered.filter(stock => isInQueue(stock.symbol));
 
-    // If we have enough non-queued stocks, use them. Otherwise, mix in queued stocks
-    // to ensure we never have empty slides that show "Review & Invest" buttons
-    if (nonQueuedStocks.length < 30) {
-      return [...nonQueuedStocks, ...queuedStocks.slice(0, 30 - nonQueuedStocks.length)];
+    // Shuffle the stocks to ensure variety across slides
+    const shuffleArray = (array: any[]) => {
+      const shuffled = [...array];
+      for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+      }
+      return shuffled;
+    };
+
+    // Always prioritize non-queued stocks, but ensure we have at least 50 total
+    let result = shuffleArray(nonQueuedStocks);
+    if (result.length < 50) {
+      result = [...result, ...shuffleArray(queuedStocks).slice(0, 50 - result.length)];
     }
 
-    return nonQueuedStocks;
+    return result;
   }, [filters, isInQueue]);
 
   const toggleWatchlist = (symbol: string) => {
