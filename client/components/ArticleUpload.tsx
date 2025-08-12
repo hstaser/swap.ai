@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useQueue } from "@/hooks/use-queue";
+import { useLocation } from "react-router-dom";
 
 // Mock portfolio data - in production this would come from a portfolio hook/store
 const mockPortfolioStocks = [
@@ -59,10 +60,12 @@ interface UploadedArticle {
 export default function ArticleUpload({ onAnalyze }: ArticleUploadProps) {
   const { queue } = useQueue();
   const portfolio = mockPortfolioStocks; // Use portfolio instead of queue
-  const [uploadMethod, setUploadMethod] = useState<"file" | "url" | "text" | "news">("url");
+  const location = useLocation();
+  const prefilledArticle = location.state?.prefilledArticle;
+  const [uploadMethod, setUploadMethod] = useState<"file" | "url" | "text" | "news">(prefilledArticle ? "text" : "url");
   const [url, setUrl] = useState("");
-  const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [title, setTitle] = useState(prefilledArticle?.title || "");
+  const [content, setContent] = useState(prefilledArticle?.content || "");
   const [selectedAnalysis, setSelectedAnalysis] = useState<"portfolio" | "specific" | string>("portfolio");
   const [selectedStocks, setSelectedStocks] = useState<string[]>([]);
   const [selectedArticleId, setSelectedArticleId] = useState<string | null>(null);
