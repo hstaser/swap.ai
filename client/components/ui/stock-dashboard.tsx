@@ -547,8 +547,7 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
           return (
             <div
               key={stock.symbol}
-              className="bg-white/90 backdrop-blur-sm border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-all cursor-pointer p-4"
-              onClick={() => handleStockClick(stock.symbol)}
+              className="bg-white/90 backdrop-blur-sm border-b border-gray-100 last:border-b-0 hover:bg-gray-50 transition-all p-4"
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
@@ -584,10 +583,10 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
                 </div>
 
                 {/* Price and Change */}
-            <div className="text-right w-[140px] flex flex-col items-end">
-              <div className="font-bold text-lg text-gray-900 tabular-nums w-full text-right font-mono">
-                ${stock.price.toFixed(2)}
-              </div>
+                <div className="text-right w-[140px] flex flex-col items-end">
+                  <div className="font-bold text-lg text-gray-900 tabular-nums w-full text-right font-mono">
+                    ${stock.price.toFixed(2)}
+                  </div>
                   <Badge
                     className={cn(
                       "mt-1 font-medium tabular-nums w-[70px] justify-center text-center",
@@ -601,8 +600,33 @@ export function StockDashboard({ onStockSelect }: StockDashboardProps) {
                   </Badge>
                 </div>
 
-                {/* Chevron */}
-                <ChevronRight className="h-5 w-5 text-gray-400 ml-2" />
+                {/* Action Buttons */}
+                <div className="flex items-center gap-2 ml-4">
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleStockClick(stock.symbol);
+                    }}
+                    className="h-8 px-3 text-xs"
+                  >
+                    <Eye className="h-3 w-3 mr-1" />
+                    View
+                  </Button>
+                  <Button
+                    size="sm"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      addToQueue(stock.symbol);
+                      console.log(`Added ${stock.symbol} to queue`);
+                    }}
+                    className="h-8 px-3 text-xs bg-blue-600 hover:bg-blue-700"
+                  >
+                    <Plus className="h-3 w-3 mr-1" />
+                    Queue
+                  </Button>
+                </div>
               </div>
             </div>
           );
