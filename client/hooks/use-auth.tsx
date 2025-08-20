@@ -24,6 +24,8 @@ interface AuthContextType {
   signOut: () => void;
   completeKYC: (kycData: any) => Promise<void>;
   requiresKYC: () => boolean;
+  completeOnboarding: (onboardingData: any) => Promise<void>;
+  requiresOnboarding: () => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
