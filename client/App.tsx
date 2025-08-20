@@ -39,13 +39,7 @@ import NotFound from "./pages/NotFound";
 const queryClient = new QueryClient();
 
 function AppContent() {
-  const { authStatus } = useAuth();
-  const [showOnboarding, setShowOnboarding] = useState(
-    // Show onboarding for authenticated users only - force show for AI agent setup
-    authStatus === "authenticated" &&
-      (localStorage.getItem("onboarding_completed") !== "true" ||
-       localStorage.getItem("ai_agent_profile") === null),
-  );
+  const { authStatus, requiresOnboarding, completeOnboarding } = useAuth();
 
   const handleOnboardingComplete = (data: any) => {
     console.log("Onboarding completed with data:", data);
