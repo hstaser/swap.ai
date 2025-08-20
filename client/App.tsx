@@ -102,14 +102,6 @@ function AppContent() {
         {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
         <Route path="*" element={<NotFound />} />
       </Routes>
-
-      {/* Onboarding Flow - only for authenticated users */}
-      {showOnboarding && authStatus === "authenticated" && (
-        <OnboardingFlow
-          onComplete={handleOnboardingComplete}
-          onSkip={handleOnboardingSkip}
-        />
-      )}
     </>
   );
 }
