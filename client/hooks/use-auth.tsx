@@ -13,6 +13,7 @@ interface User {
   name: string;
   email: string;
   kycCompleted: boolean;
+  onboardingCompleted: boolean;
 }
 
 interface AuthContextType {
