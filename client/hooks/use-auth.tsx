@@ -55,12 +55,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
+    // Check if user has completed onboarding
+    const onboardingData = localStorage.getItem("onboarding_data");
+    const hasCompletedOnboarding = onboardingData !== null;
+
     // Mock authentication - in real app, validate with backend
     const mockUser: User = {
       id: "user_123",
       name: email.split("@")[0],
       email,
-      kycCompleted: false,
+      kycCompleted: true, // Set to true for returning users
+      onboardingCompleted: hasCompletedOnboarding,
     };
 
     setUser(mockUser);
