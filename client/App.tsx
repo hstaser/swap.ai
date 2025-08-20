@@ -41,19 +41,37 @@ const queryClient = new QueryClient();
 function AppContent() {
   const { authStatus, requiresOnboarding, completeOnboarding } = useAuth();
 
-  const handleOnboardingComplete = (data: any) => {
+  const handleOnboardingComplete = async (data: any) => {
     console.log("Onboarding completed with data:", data);
-    localStorage.setItem("onboarding_completed", "true");
-    setShowOnboarding(false);
+    await completeOnboarding(data);
   };
 
-  const handleOnboardingSkip = () => {
-    setShowOnboarding(false);
+  const handleOnboardingSkip = async () => {
+    // Create minimal onboarding data for users who skip
+    const minimalData = {
+      user_type: 'intermediate',
+      sector_interests: ['technology'],
+      primary_goal: 'wealth-building',
+      risk_tolerance: 5,
+      ai_involvement: 'advisory',
+      skipped: true
+    };
+    await completeOnboarding(minimalData);
   };
 
   // Show landing page if not authenticated
   if (authStatus === "unauthenticated") {
     return <Landing />;
+  }
+
+  // Show onboarding if user needs to complete it
+  if (requiresOnboarding()) {
+    return (
+      <OnboardingFlow
+        onComplete={handleOnboardingComplete}
+        onSkip={handleOnboardingSkip}
+      />
+    );
   }
 
   return (
