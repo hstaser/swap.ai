@@ -79,6 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       name: email.split("@")[0], // Use email prefix as temporary name
       email,
       kycCompleted: false,
+      onboardingCompleted: false,
     };
 
     setUser(newUser);
