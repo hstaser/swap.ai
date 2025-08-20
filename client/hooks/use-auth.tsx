@@ -79,11 +79,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Mock registration - in real app, create account via backend
+    // New users automatically have KYC completed so they can proceed to onboarding
     const newUser: User = {
       id: "user_" + Date.now(),
       name: email.split("@")[0], // Use email prefix as temporary name
       email,
-      kycCompleted: false,
+      kycCompleted: true, // Auto-complete KYC for new signups to trigger onboarding
       onboardingCompleted: false,
     };
 
