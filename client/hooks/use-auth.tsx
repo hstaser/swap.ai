@@ -30,7 +30,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export function AuthProvider({ children }: { children: ReactNode }) {
+// Separate the AuthProvider component to fix Fast Refresh issues
+function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [authStatus, setAuthStatus] = useState<AuthStatus>("unauthenticated");
 
@@ -158,6 +159,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// Export hook separately for Fast Refresh compatibility
 export function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined) {
@@ -165,3 +167,6 @@ export function useAuth() {
   }
   return context;
 }
+
+// Export AuthProvider as default for Fast Refresh compatibility
+export default AuthProvider;
