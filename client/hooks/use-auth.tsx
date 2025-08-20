@@ -111,6 +111,28 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return authStatus === "authenticated" && user && !user.kycCompleted;
   };
 
+  const completeOnboarding = async (onboardingData: any) => {
+    // Simulate API call to save onboarding data
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
+    // Store onboarding data
+    localStorage.setItem("onboarding_data", JSON.stringify({
+      ...onboardingData,
+      completedAt: new Date().toISOString(),
+      userId: user?.id
+    }));
+
+    if (user) {
+      const updatedUser = { ...user, onboardingCompleted: true };
+      setUser(updatedUser);
+      localStorage.setItem("user_data", JSON.stringify(updatedUser));
+    }
+  };
+
+  const requiresOnboarding = () => {
+    return authStatus === "authenticated" && user && user.kycCompleted && !user.onboardingCompleted;
+  };
+
   return (
     <AuthContext.Provider
       value={{
