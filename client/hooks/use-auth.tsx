@@ -143,6 +143,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         signOut,
         completeKYC,
         requiresKYC,
+        completeOnboarding,
+        requiresOnboarding,
       }}
     >
       {children}
