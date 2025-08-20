@@ -80,7 +80,7 @@ export function OnboardingFlow({ onComplete, onSkip, className }: OnboardingFlow
       ...prev,
       [questionId]: value
     }));
-    
+
     // Clear error when user provides answer
     if (errors[questionId]) {
       setErrors(prev => {
@@ -98,7 +98,7 @@ export function OnboardingFlow({ onComplete, onSkip, className }: OnboardingFlow
 
     step.questions.forEach(question => {
       const answer = answers[question.id];
-      
+
       if (!validateAnswer(question, answer)) {
         isValid = false;
         stepErrors[question.id] = question.validation?.message || 'This field is required';
@@ -144,16 +144,45 @@ export function OnboardingFlow({ onComplete, onSkip, className }: OnboardingFlow
 
   // Submit data to backend
   const submitOnboardingData = async (data: Record<string, any>) => {
-    // For now, just store in localStorage
-    // In production, this would be an API call
-    localStorage.setItem('onboarding_data', JSON.stringify({
-      ...data,
-      completedAt: new Date().toISOString(),
-      version: '1.0'
-    }));
-    
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    try {
+      // Submit to backend API
+      const response = await fetch('/api/onboarding/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit onboarding data');
+      }
+
+      const result = await response.json();
+
+      // Store result locally for immediate access
+      localStorage.setItem('onboarding_data', JSON.stringify({
+        ...data,
+        completedAt: new Date().toISOString(),
+        version: '1.0',
+        insights: result.insights,
+        personalization: result.personalization
+      }));
+
+      return result;
+    } catch (error) {
+      console.error('Failed to submit onboarding data:', error);
+
+      // Fallback to localStorage if API fails
+      localStorage.setItem('onboarding_data', JSON.stringify({
+        ...data,
+        completedAt: new Date().toISOString(),
+        version: '1.0',
+        fallback: true
+      }));
+
+      throw error;
+    }
   };
 
   // Render question based on type
@@ -217,7 +246,7 @@ export function OnboardingFlow({ onComplete, onSkip, className }: OnboardingFlow
             {question.options?.map(option => {
               const isSelected = selectedAnswers.includes(option.value);
               const IconComponent = option.icon ? ICONS[option.icon as keyof typeof ICONS] : null;
-              
+
               return (
                 <Card
                   key={option.value}
@@ -272,7 +301,7 @@ export function OnboardingFlow({ onComplete, onSkip, className }: OnboardingFlow
         const scaleValue = answer || question.validation?.min || 1;
         const min = question.validation?.min || 1;
         const max = question.validation?.max || 10;
-        
+
         return (
           <div className="space-y-6">
             <div className="text-center">
@@ -401,13 +430,13 @@ export function OnboardingFlow({ onComplete, onSkip, className }: OnboardingFlow
                     <p className="text-sm text-gray-500 mt-1">{question.description}</p>
                   )}
                 </div>
-                
+
                 {renderQuestion(question)}
-                
+
                 {errors[question.id] && (
                   <p className="text-sm text-red-600">{errors[question.id]}</p>
                 )}
-                
+
                 {index < step.questions.length - 1 && (
                   <hr className="border-gray-200" />
                 )}
@@ -429,7 +458,7 @@ export function OnboardingFlow({ onComplete, onSkip, className }: OnboardingFlow
                 Previous
               </Button>
             )}
-            
+
             {step.skipAllowed && (
               <Button
                 variant="ghost"
