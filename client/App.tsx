@@ -8,7 +8,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { QueueProvider } from "@/hooks/use-queue";
-import { AuthProvider, useAuth } from "@/hooks/use-auth";
+import AuthProvider, { useAuth } from "@/hooks/use-auth";
 import { AIAgentProvider } from "@/hooks/use-ai-agent";
 import { OnboardingFlow } from "@/components/OnboardingFlow";
 import Landing from "./pages/Landing";
