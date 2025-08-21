@@ -17,6 +17,22 @@ export function createServer() {
 
   app.get("/api/demo", handleDemo);
 
+  // Health check endpoint
+  app.get("/api/health", (_req, res) => {
+    res.json({
+      status: "healthy",
+      timestamp: new Date().toISOString(),
+      endpoints: [
+        "/api/ping",
+        "/api/onboarding/submit",
+        "/api/stocks/swipeable",
+        "/api/stocks/swipe",
+        "/api/portfolio/holdings",
+        "/api/watchlist"
+      ]
+    });
+  });
+
   // Onboarding endpoints
   app.post("/api/onboarding/submit", (req, res) => {
     try {
