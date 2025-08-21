@@ -102,7 +102,17 @@ export function AIAgentProvider({ children }: { children: ReactNode }) {
 export function useAIAgent() {
   const context = useContext(AIAgentContext);
   if (context === undefined) {
-    throw new Error("useAIAgent must be used within an AIAgentProvider");
+    // Return default values instead of throwing during development hot reload
+    console.warn("useAIAgent used outside AIAgentProvider, returning defaults");
+    return {
+      isSetup: false,
+      interventions: [],
+      setupAgent: () => {},
+      trackSwipe: () => {},
+      dismissIntervention: () => {},
+      getInsights: () => ({}),
+      refreshInterventions: () => {},
+    };
   }
   return context;
 }
