@@ -449,6 +449,18 @@ export default function Index() {
   // Generate sample risk interventions
   const riskInterventions = generateSampleInterventions([], queue);
 
+  // Check if current stock is owned and show prompt
+  useEffect(() => {
+    if (viewMode === "swipe" && filteredStocks.length > 0 && currentStockIndex < filteredStocks.length) {
+      const currentStock = filteredStocks[currentStockIndex];
+      if (currentStock?.alreadyOwned && !dismissedOwnedPrompts.has(currentStock.symbol)) {
+        setShowOwnedPrompt(true);
+      } else {
+        setShowOwnedPrompt(false);
+      }
+    }
+  }, [currentStockIndex, filteredStocks, viewMode, dismissedOwnedPrompts]);
+
   const filteredStocks = useMemo(() => {
     // Add portfolio ownership data to all stocks
     const stocksWithOwnership = catalogStocks.map(stock => ({
