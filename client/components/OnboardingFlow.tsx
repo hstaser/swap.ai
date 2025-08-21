@@ -136,7 +136,8 @@ export function OnboardingFlow({ onComplete, onSkip, className }: OnboardingFlow
       onComplete(answers);
     } catch (error) {
       console.error('Failed to submit onboarding data:', error);
-      // Handle error (could show toast or error message)
+      // Even if API fails, we continue since data is stored locally
+      onComplete(answers);
     } finally {
       setIsSubmitting(false);
     }
