@@ -993,6 +993,17 @@ export default function Index() {
               </Button>
             </div>
 
+            {/* Already Owned Prompt */}
+            {showOwnedPrompt && filteredStocks[currentStockIndex] && (
+              <div className="max-w-lg mx-auto">
+                <AlreadyOwnedPrompt
+                  symbol={filteredStocks[currentStockIndex].symbol}
+                  onHideOwned={handleHideOwnedStocks}
+                  onDismiss={handleDismissOwnedPrompt}
+                />
+              </div>
+            )}
+
             {/* Current Stock */}
             <div className="max-w-lg mx-auto space-y-4">
               {filteredStocks[currentStockIndex] && (
