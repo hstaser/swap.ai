@@ -15,6 +15,7 @@ from .services.stock_service import StockService
 from .services.portfolio_service import PortfolioService
 from .services.queue_service import QueueService
 from .services.auth_service import AuthService
+from .routes.onboarding import router as onboarding_router
 
 # Setup logging
 logging.basicConfig(level=logging.INFO)
@@ -45,6 +46,9 @@ stock_service = StockService()
 portfolio_service = PortfolioService()
 queue_service = QueueService()
 auth_service = AuthService()
+
+# Include routers
+app.include_router(onboarding_router)
 
 # Dependency for authenticated requests
 async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(security)):
@@ -154,7 +158,7 @@ async def get_stocks(
     try:
         filters = StockFilters(
             sector=sector or "All",
-            marketCap=market_cap or "All", 
+            marketCap=market_cap or "All",
             performance=performance or "All"
         )
         stocks = stock_service.get_filtered_stocks(filters, user["id"])
@@ -192,7 +196,7 @@ async def add_to_queue(
     """Add stock to queue"""
     try:
         result = queue_service.add_to_queue(user["id"], queue_item)
-        
+
         # Track for AI agent
         stock = stock_service.get_stock(queue_item.symbol)
         if stock:
@@ -204,7 +208,7 @@ async def add_to_queue(
                 risk=stock.risk
             )
             ai_agent_service.track_swipe(user["id"], swipe_data)
-        
+
         return {"success": True, "queue_item": result}
     except Exception as e:
         logger.error(f"Add to queue error: {str(e)}")
@@ -258,7 +262,7 @@ async def add_to_watchlist(
     """Add stock to watchlist"""
     try:
         result = stock_service.add_to_watchlist(user["id"], watchlist_item)
-        
+
         # Track for AI agent
         stock = stock_service.get_stock(watchlist_item.symbol)
         if stock:
@@ -269,7 +273,7 @@ async def add_to_watchlist(
                 risk=stock.risk
             )
             ai_agent_service.track_swipe(user["id"], swipe_data)
-        
+
         return {"success": True, "watchlist_item": result}
     except Exception as e:
         logger.error(f"Add to watchlist error: {str(e)}")
