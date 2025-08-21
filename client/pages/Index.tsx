@@ -435,8 +435,12 @@ export default function Index() {
       try {
         // Run API health check in development
         if (process.env.NODE_ENV === "development") {
-          const { logApiHealth } = await import("@/utils/api-health");
-          logApiHealth();
+          try {
+            const { logApiHealth } = await import("@/utils/api-health");
+            logApiHealth();
+          } catch (error) {
+            console.warn("API health check failed:", error);
+          }
         }
 
         // Set fallback portfolio immediately to prevent UI issues
