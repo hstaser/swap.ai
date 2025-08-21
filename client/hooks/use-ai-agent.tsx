@@ -23,16 +23,6 @@ export function AIAgentProvider({ children }: { children: ReactNode }) {
   const [isSetup, setIsSetup] = useState(false);
   const [interventions, setInterventions] = useState<AIIntervention[]>([]);
 
-  // Use queue safely with error handling
-  let queue: any[] = [];
-  try {
-    const queueContext = useQueue();
-    queue = queueContext.queue || [];
-  } catch (error) {
-    console.warn("Queue context not available in AIAgentProvider:", error);
-    queue = [];
-  }
-
   useEffect(() => {
     // Check if agent is already setup
     const profile = aiAgent.getUserProfile();
