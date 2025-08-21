@@ -1,12 +1,12 @@
 // Onboarding Schema Configuration
 // This file defines the structure and flow of the user onboarding process
 
-export type QuestionType = 
-  | 'multi-select' 
-  | 'single-select' 
-  | 'scale' 
-  | 'text' 
-  | 'number' 
+export type QuestionType =
+  | 'multi-select'
+  | 'single-select'
+  | 'scale'
+  | 'text'
+  | 'number'
   | 'boolean'
   | 'investment-allocation';
 
@@ -67,23 +67,23 @@ export const ONBOARDING_SCHEMA: OnboardingStep[] = [
         subtitle: 'This helps us tailor your experience',
         required: true,
         options: [
-          { 
-            value: 'beginner', 
-            label: 'New to investing', 
+          {
+            value: 'beginner',
+            label: 'New to investing',
             description: 'Just getting started with stocks and trading',
             icon: 'GraduationCap',
             color: 'blue'
           },
-          { 
-            value: 'intermediate', 
-            label: 'Some experience', 
+          {
+            value: 'intermediate',
+            label: 'Some experience',
             description: 'Have traded before but want to improve',
             icon: 'TrendingUp',
             color: 'green'
           },
-          { 
-            value: 'advanced', 
-            label: 'Experienced investor', 
+          {
+            value: 'advanced',
+            label: 'Experienced investor',
             description: 'Actively manage my own portfolio',
             icon: 'Target',
             color: 'purple'
@@ -154,82 +154,7 @@ export const ONBOARDING_SCHEMA: OnboardingStep[] = [
       }
     ]
   },
-  {
-    id: 'goals',
-    title: 'Investment Goals',
-    subtitle: 'What are you hoping to achieve?',
-    icon: 'Goal',
-    progress: 50,
-    questions: [
-      {
-        id: 'primary_goal',
-        type: 'single-select',
-        title: 'What\'s your primary investment goal?',
-        required: true,
-        options: [
-          { 
-            value: 'wealth-building', 
-            label: 'Wealth Building', 
-            description: 'Growing my money over time',
-            icon: 'TrendingUp'
-          },
-          { 
-            value: 'retirement', 
-            label: 'Retirement Planning', 
-            description: 'Saving for my future retirement',
-            icon: 'Piggy Bank'
-          },
-          { 
-            value: 'income', 
-            label: 'Generate Income', 
-            description: 'Regular dividends and cash flow',
-            icon: 'DollarSign'
-          },
-          { 
-            value: 'major-purchase', 
-            label: 'Major Purchase', 
-            description: 'House, car, or other big expenses',
-            icon: 'Home'
-          },
-          { 
-            value: 'learning', 
-            label: 'Learning & Experience', 
-            description: 'Understanding how markets work',
-            icon: 'Book'
-          }
-        ],
-        meta: { category: 'goals', priority: 'high', version: '1.0' }
-      },
-      {
-        id: 'target_return',
-        type: 'single-select',
-        title: 'What annual return are you targeting?',
-        subtitle: 'Be realistic - higher returns come with higher risk',
-        required: true,
-        options: [
-          { value: 'conservative', label: '5-8% (Conservative)', description: 'Lower risk, steady growth' },
-          { value: 'moderate', label: '8-12% (Moderate)', description: 'Balanced risk and return' },
-          { value: 'aggressive', label: '12-20% (Aggressive)', description: 'Higher risk, higher potential' },
-          { value: 'speculative', label: '20%+ (Speculative)', description: 'Very high risk, maximum potential' }
-        ],
-        meta: { category: 'goals', priority: 'high', version: '1.0' }
-      },
-      {
-        id: 'investment_amount',
-        type: 'single-select',
-        title: 'How much are you planning to invest initially?',
-        subtitle: 'This helps us recommend appropriate strategies',
-        required: true,
-        options: [
-          { value: 'small', label: 'Under $1,000', description: 'Starting small and learning' },
-          { value: 'medium', label: '$1,000 - $10,000', description: 'Building a foundation' },
-          { value: 'large', label: '$10,000 - $50,000', description: 'Serious portfolio building' },
-          { value: 'substantial', label: '$50,000+', description: 'Major investment commitment' }
-        ],
-        meta: { category: 'goals', priority: 'medium', version: '1.0' }
-      }
-    ]
-  },
+
   {
     id: 'risk-profile',
     title: 'Risk Assessment',
@@ -288,27 +213,27 @@ export const ONBOARDING_SCHEMA: OnboardingStep[] = [
         title: 'How involved should our AI be in your investment decisions?',
         required: true,
         options: [
-          { 
-            value: 'minimal', 
-            label: 'Minimal - Just provide data', 
+          {
+            value: 'minimal',
+            label: 'Minimal - Just provide data',
             description: 'I want to make all decisions myself',
             icon: 'User'
           },
-          { 
-            value: 'advisory', 
-            label: 'Advisory - Suggest and explain', 
+          {
+            value: 'advisory',
+            label: 'Advisory - Suggest and explain',
             description: 'Help me understand but let me decide',
             icon: 'MessageCircle'
           },
-          { 
-            value: 'guided', 
-            label: 'Guided - Active recommendations', 
+          {
+            value: 'guided',
+            label: 'Guided - Active recommendations',
             description: 'Give me specific advice and reasoning',
             icon: 'Navigation'
           },
-          { 
-            value: 'managed', 
-            label: 'Managed - Handle routine decisions', 
+          {
+            value: 'managed',
+            label: 'Managed - Handle routine decisions',
             description: 'Automate simple decisions, ask for complex ones',
             icon: 'Settings'
           }
@@ -384,11 +309,11 @@ export const validateAnswer = (question: OnboardingQuestion, answer: any): boole
 
   if (question.validation) {
     const { min, max, pattern } = question.validation;
-    
+
     if (min !== undefined && answer < min) return false;
     if (max !== undefined && answer > max) return false;
     if (pattern && typeof answer === 'string' && !new RegExp(pattern).test(answer)) return false;
-    
+
     if (question.type === 'multi-select') {
       if (min !== undefined && answer.length < min) return false;
       if (max !== undefined && answer.length > max) return false;
