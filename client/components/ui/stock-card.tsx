@@ -215,23 +215,6 @@ export function StockCard({
             <Button
               variant="ghost"
               size="icon"
-              onClick={() => {
-                // Download features documentation
-                const element = document.createElement('a');
-                element.href = '/FEATURES_DOCUMENTATION.md';
-                element.download = 'Swipr_Features_Documentation.md';
-                document.body.appendChild(element);
-                element.click();
-                document.body.removeChild(element);
-              }}
-              className="h-6 w-6 text-muted-foreground hover:text-green-600"
-              title="Download Features Documentation"
-            >
-              <Download className="h-3 w-3" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
               onClick={() => setShowShareModal(true)}
               className="h-6 w-6 text-muted-foreground hover:text-blue-600"
             >
