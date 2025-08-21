@@ -248,6 +248,16 @@ export function StockFilters({
             ))}
           </SelectContent>
         </Select>
+
+        {/* Hide Owned Stocks Toggle */}
+        <Button
+          variant={filters.hideOwned ? "default" : "outline"}
+          size="sm"
+          onClick={() => updateFilter("hideOwned", !filters.hideOwned)}
+          className="w-full lg:w-auto h-11 px-3"
+        >
+          {filters.hideOwned ? "Show All" : "Hide Owned"}
+        </Button>
       </div>
 
       {hasActiveFilters && (
