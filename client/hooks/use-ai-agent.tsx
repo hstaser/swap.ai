@@ -22,13 +22,22 @@ const AIAgentContext = createContext<AIAgentContextType | undefined>(undefined);
 export function AIAgentProvider({ children }: { children: ReactNode }) {
   const [isSetup, setIsSetup] = useState(false);
   const [interventions, setInterventions] = useState<AIIntervention[]>([]);
-  const { queue } = useQueue();
+
+  // Use queue safely with error handling
+  let queue: any[] = [];
+  try {
+    const queueContext = useQueue();
+    queue = queueContext.queue || [];
+  } catch (error) {
+    console.warn("Queue context not available in AIAgentProvider:", error);
+    queue = [];
+  }
 
   useEffect(() => {
     // Check if agent is already setup
     const profile = aiAgent.getUserProfile();
     setIsSetup(!!profile);
-    
+
     if (profile) {
       refreshInterventions();
     }
@@ -54,7 +63,7 @@ export function AIAgentProvider({ children }: { children: ReactNode }) {
     confidence?: "conservative" | "bullish" | "very-bullish"
   ) => {
     aiAgent.trackSwipe(symbol, action, stockData, confidence);
-    
+
     // Refresh interventions after tracking behavior
     setTimeout(() => refreshInterventions(), 100);
   };
