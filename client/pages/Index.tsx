@@ -555,6 +555,18 @@ export default function Index() {
     return filtered;
   }, [filters, viewMode, portfolio]);
 
+  // Check if current stock is owned and show prompt
+  useEffect(() => {
+    if (viewMode === "swipe" && filteredStocks.length > 0 && currentStockIndex < filteredStocks.length) {
+      const currentStock = filteredStocks[currentStockIndex];
+      if (currentStock?.alreadyOwned && !dismissedOwnedPrompts.has(currentStock.symbol)) {
+        setShowOwnedPrompt(true);
+      } else {
+        setShowOwnedPrompt(false);
+      }
+    }
+  }, [currentStockIndex, filteredStocks, viewMode, dismissedOwnedPrompts]);
+
   // Handle URL parameters
   useEffect(() => {
     const sectorParam = searchParams.get("sector");
