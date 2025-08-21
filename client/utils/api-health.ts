@@ -48,23 +48,27 @@ export async function testApiConnectivity(): Promise<{
 }
 
 export function logApiHealth() {
-  testApiConnectivity().then(({ isHealthy, endpoints, errors }) => {
-    console.group("🔍 API Health Check");
-    console.log(
-      "Overall Status:",
-      isHealthy ? "✅ Healthy" : "❌ Issues Detected",
-    );
+  testApiConnectivity()
+    .then(({ isHealthy, endpoints, errors }) => {
+      console.group("🔍 API Health Check");
+      console.log(
+        "Overall Status:",
+        isHealthy ? "✅ Healthy" : "❌ Issues Detected",
+      );
 
-    Object.entries(endpoints).forEach(([name, status]) => {
-      console.log(`${status ? "✅" : "❌"} ${name}`);
-    });
+      Object.entries(endpoints).forEach(([name, status]) => {
+        console.log(`${status ? "✅" : "❌"} ${name}`);
+      });
 
-    if (errors.length > 0) {
-      console.group("Errors:");
-      errors.forEach((error) => console.log(`❌ ${error}`));
+      if (errors.length > 0) {
+        console.group("Errors:");
+        errors.forEach((error) => console.log(`❌ ${error}`));
+        console.groupEnd();
+      }
+
       console.groupEnd();
-    }
-
-    console.groupEnd();
-  });
+    })
+    .catch((error) => {
+      console.warn("🔍 API Health Check failed:", error);
+    });
 }
