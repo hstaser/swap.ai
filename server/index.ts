@@ -82,7 +82,7 @@ export function createServer() {
       } = req.query;
 
       // Mock portfolio for demo - in real app this would come from database
-      const mockPortfolio = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA"];
+      const mockPortfolio = ["AAPL", "MSFT", "AMZN", "TSLA", "NVDA"];
 
       // Mock swipe history - in real app this would come from database
       const mockSwipeHistory = ["META", "AMZN", "JPM"];
