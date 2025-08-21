@@ -383,7 +383,7 @@ export function StockCard({
               onClick={() => setShowNewsModal(true)}
               className="h-6 px-2 text-xs text-blue-600"
             >
-              How does this affect my portfolio?
+              View More
             </Button>
           </div>
         </div>
