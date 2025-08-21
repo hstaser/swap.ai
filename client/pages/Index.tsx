@@ -656,6 +656,19 @@ export default function Index() {
     }
   };
 
+  const handleHideOwnedStocks = () => {
+    setFilters(prev => ({ ...prev, hideOwned: true }));
+    setShowOwnedPrompt(false);
+  };
+
+  const handleDismissOwnedPrompt = () => {
+    const currentStock = filteredStocks[currentStockIndex];
+    if (currentStock) {
+      setDismissedOwnedPrompts(prev => new Set([...prev, currentStock.symbol]));
+    }
+    setShowOwnedPrompt(false);
+  };
+
   const handleSkip = async () => {
     if (filteredStocks.length === 0) return;
 
