@@ -243,7 +243,7 @@ export function StockCard({
             <h3 className="font-bold text-foreground text-4xl">
               {canonicalStock.symbol}
             </h3>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap justify-center">
               <Badge variant="outline" className="text-sm">
                 {canonicalStock.sector}
               </Badge>
@@ -261,6 +261,14 @@ export function StockCard({
                   )}
                 >
                   {canonicalStock.risk} Risk
+                </Badge>
+              )}
+              {canonicalStock.alreadyOwned && (
+                <Badge
+                  variant="outline"
+                  className="text-xs px-2 py-0.5 bg-blue-100 text-blue-800 border-blue-300 font-medium"
+                >
+                  Already Owned
                 </Badge>
               )}
             </div>
