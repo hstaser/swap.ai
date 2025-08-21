@@ -1,4 +1,10 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import { aiAgent, AIIntervention, UserProfile } from "@/lib/ai-agent";
 import { useQueue } from "./use-queue";
 
@@ -10,7 +16,7 @@ interface AIAgentContextType {
     symbol: string,
     action: "skip" | "queue" | "watchlist",
     stockData: { sector: string; risk: "Low" | "Medium" | "High" },
-    confidence?: "conservative" | "bullish" | "very-bullish"
+    confidence?: "conservative" | "bullish" | "very-bullish",
   ) => void;
   dismissIntervention: (id: string) => void;
   getInsights: () => any;
@@ -51,7 +57,7 @@ function AIAgentProviderInner({ children }: { children: ReactNode }) {
     symbol: string,
     action: "skip" | "queue" | "watchlist",
     stockData: { sector: string; risk: "Low" | "Medium" | "High" },
-    confidence?: "conservative" | "bullish" | "very-bullish"
+    confidence?: "conservative" | "bullish" | "very-bullish",
   ) => {
     aiAgent.trackSwipe(symbol, action, stockData, confidence);
 
@@ -60,7 +66,9 @@ function AIAgentProviderInner({ children }: { children: ReactNode }) {
   };
 
   const dismissIntervention = (id: string) => {
-    setInterventions(prev => prev.filter(intervention => intervention.id !== id));
+    setInterventions((prev) =>
+      prev.filter((intervention) => intervention.id !== id),
+    );
   };
 
   const getInsights = () => {
@@ -94,7 +102,10 @@ export function AIAgentProvider({ children }: { children: ReactNode }) {
   try {
     return <AIAgentProviderInner>{children}</AIAgentProviderInner>;
   } catch (error) {
-    console.warn("AIAgentProvider failed, rendering children without AI context:", error);
+    console.warn(
+      "AIAgentProvider failed, rendering children without AI context:",
+      error,
+    );
     return <>{children}</>;
   }
 }
