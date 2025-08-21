@@ -48,7 +48,7 @@ export interface SwipeFilters {
  */
 export async function getSwipeableStocks(
   filters?: SwipeFilters,
-  limit: number = 1,
+  limit: number = 1
 ): Promise<SwipeableStock[]> {
   try {
     const params = new URLSearchParams();
@@ -128,8 +128,8 @@ export async function getUserPortfolio(): Promise<string[]> {
     const response = await fetch("/api/portfolio/holdings", {
       signal: controller.signal,
       headers: {
-        "Content-Type": "application/json",
-      },
+        'Content-Type': 'application/json'
+      }
     });
 
     clearTimeout(timeoutId);
@@ -142,13 +142,10 @@ export async function getUserPortfolio(): Promise<string[]> {
     const portfolio = data.holdings?.map((h: any) => h.symbol) || [];
 
     // Cache the result for better performance
-    localStorage.setItem(
-      "user_portfolio",
-      JSON.stringify({
-        portfolio,
-        lastUpdated: new Date().toISOString(),
-      }),
-    );
+    localStorage.setItem("user_portfolio", JSON.stringify({
+      portfolio,
+      lastUpdated: new Date().toISOString()
+    }));
 
     return portfolio;
   } catch (error) {
@@ -198,10 +195,7 @@ export async function getWatchlist(): Promise<string[]> {
   }
 }
 
-export async function addToWatchlist(
-  symbol: string,
-  note?: string,
-): Promise<void> {
+export async function addToWatchlist(symbol: string, note?: string): Promise<void> {
   try {
     const response = await fetch("/api/watchlist", {
       method: "POST",
@@ -238,7 +232,7 @@ export async function removeFromWatchlist(symbol: string): Promise<void> {
 
     // Fallback to localStorage
     const currentWatchlist = await getWatchlist();
-    const updatedWatchlist = currentWatchlist.filter((s) => s !== symbol);
+    const updatedWatchlist = currentWatchlist.filter(s => s !== symbol);
     localStorage.setItem("watchlist", JSON.stringify(updatedWatchlist));
   }
 }
@@ -246,10 +240,7 @@ export async function removeFromWatchlist(symbol: string): Promise<void> {
 /**
  * Fallback functions for development
  */
-function getFallbackSwipeableStocks(
-  filters?: SwipeFilters,
-  limit: number = 1,
-): SwipeableStock[] {
+function getFallbackSwipeableStocks(filters?: SwipeFilters, limit: number = 1): SwipeableStock[] {
   // Import current stock data and add ownership flags
   const { extendedStockDatabase } = require("../data/extended-stocks");
   const mockPortfolio = getMockPortfolio();
@@ -264,10 +255,10 @@ function getFallbackSwipeableStocks(
   // Apply filters
   let filtered = stocks;
   if (filters?.hideOwned) {
-    filtered = filtered.filter((stock) => !stock.alreadyOwned);
+    filtered = filtered.filter(stock => !stock.alreadyOwned);
   }
   if (filters?.sector && filters.sector !== "All") {
-    filtered = filtered.filter((stock) => stock.sector === filters.sector);
+    filtered = filtered.filter(stock => stock.sector === filters.sector);
   }
 
   // Sort by priority (owned stocks lower unless hidden)
@@ -277,9 +268,7 @@ function getFallbackSwipeableStocks(
 }
 
 function trackSwipeLocally(swipeAction: SwipeAction): void {
-  const swipeHistory = JSON.parse(
-    localStorage.getItem("swipe_history") || "[]",
-  );
+  const swipeHistory = JSON.parse(localStorage.getItem("swipe_history") || "[]");
   swipeHistory.push({
     ...swipeAction,
     timestamp: swipeAction.timestamp.toISOString(),
@@ -295,5 +284,5 @@ function trackSwipeLocally(swipeAction: SwipeAction): void {
 
 function getMockPortfolio(): string[] {
   // Mock portfolio for development - simulate user owning some stocks
-  return ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA"];
+  return ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "V"];
 }
