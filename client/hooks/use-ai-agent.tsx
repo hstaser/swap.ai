@@ -67,8 +67,14 @@ export function AIAgentProvider({ children }: { children: ReactNode }) {
   };
 
   const refreshInterventions = () => {
-    const newInterventions = aiAgent.generateInterventions(queue);
-    setInterventions(newInterventions);
+    try {
+      const { queue } = useQueue();
+      const newInterventions = aiAgent.generateInterventions(queue);
+      setInterventions(newInterventions);
+    } catch (error) {
+      console.warn("Could not access queue for AI interventions:", error);
+      setInterventions([]);
+    }
   };
 
   return (
