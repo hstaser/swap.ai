@@ -416,7 +416,7 @@ export default function Index() {
         }
 
         // Set fallback portfolio immediately to prevent UI issues
-        const fallbackPortfolio = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA"];
+        const fallbackPortfolio = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "V"];
         setPortfolio(fallbackPortfolio);
 
         // Try to load from API
