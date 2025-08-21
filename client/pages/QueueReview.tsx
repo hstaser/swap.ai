@@ -37,7 +37,7 @@ interface QueuedStock {
 export default function QueueReview() {
   const navigate = useNavigate();
   const { queue, removeFromQueue, clearQueue } = useQueue();
-  const { authStatus, saveGuestDataAndSignOut } = useAuth();
+  const { authStatus } = useAuth();
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [viewMode, setViewMode] = useState<"marginal" | "net">("marginal");
 
@@ -358,7 +358,7 @@ export default function QueueReview() {
             {queuedStocks.length > 0 && (
               <Button
                 onClick={() => {
-                  if (authStatus === "guest") {
+                  if (authStatus === "unauthenticated") {
                     setShowAuthModal(true);
                   } else {
                     navigate("/optimize");
