@@ -19,6 +19,7 @@ export interface FilterState {
   dividendYield: string;
   exchange: string;
   performance: string;
+  hideOwned?: boolean; // NEW: Option to hide already owned stocks
 }
 
 interface StockFiltersProps {
