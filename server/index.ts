@@ -279,7 +279,7 @@ export function createServer() {
       const mockHoldings = [
         { symbol: "AAPL", shares: 10, avgCost: 150.0, currentValue: 1754.3 },
         { symbol: "MSFT", shares: 5, avgCost: 350.0, currentValue: 1894.25 },
-        { symbol: "GOOGL", shares: 8, avgCost: 120.0, currentValue: 1105.68 },
+        { symbol: "AMZN", shares: 8, avgCost: 120.0, currentValue: 1150.0 },
         { symbol: "TSLA", shares: 3, avgCost: 250.0, currentValue: 728.04 },
         { symbol: "NVDA", shares: 2, avgCost: 800.0, currentValue: 1750.56 },
       ];
