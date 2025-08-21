@@ -408,13 +408,21 @@ export default function Index() {
   useEffect(() => {
     const loadPortfolio = async () => {
       try {
+        // Set fallback portfolio immediately to prevent UI issues
+        const fallbackPortfolio = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA"];
+        setPortfolio(fallbackPortfolio);
+
+        // Try to load from API
         const { getUserPortfolio } = await import("@/services/swipe-api");
         const userPortfolio = await getUserPortfolio();
-        setPortfolio(userPortfolio);
+
+        // Only update if we got different data
+        if (JSON.stringify(userPortfolio) !== JSON.stringify(fallbackPortfolio)) {
+          setPortfolio(userPortfolio);
+        }
       } catch (error) {
-        console.warn("Failed to load portfolio:", error);
-        // Use fallback mock portfolio
-        setPortfolio(["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA"]);
+        console.warn("Failed to load portfolio, using fallback:", error);
+        // Fallback already set above
       }
     };
 
