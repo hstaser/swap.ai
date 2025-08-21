@@ -440,6 +440,8 @@ export default function Index() {
   const [viewMode, setViewMode] = useState<"swipe" | "dashboard" | "list">("swipe");
   const [showAIChat, setShowAIChat] = useState(false);
   const [riskSettings, setRiskSettings] = useState(defaultRiskSettings);
+  const [showOwnedPrompt, setShowOwnedPrompt] = useState(false);
+  const [dismissedOwnedPrompts, setDismissedOwnedPrompts] = useState<Set<string>>(new Set());
 
   // AI Agent
   const { isSetup, interventions, trackSwipe, dismissIntervention } = useAIAgent();
