@@ -636,27 +636,7 @@ export function StockCard({
                   )}
                 </div>
 
-                <div className="bg-green-50 rounded-lg p-4 border border-green-200">
-                  <h4 className="font-medium text-green-900 mb-2">Portfolio Impact Analysis</h4>
-                  <p className="text-green-800 text-sm">
-                    Based on this news, {canonicalStock.symbol} shows {canonicalStock.changePercent >= 0 ? 'positive' : 'negative'} momentum.
-                    {canonicalStock.changePercent >= 0
-                      ? ' This could benefit your portfolio if you have exposure to this stock or sector.'
-                      : ' Consider reviewing your position size if this stock represents a large portion of your portfolio.'
-                    }
-                  </p>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      setShowNewsModal(false);
-                      navigate('/research?tab=intelligence');
-                    }}
-                    className="mt-3 text-xs"
-                  >
-                    Analyze Impact on My Portfolio
-                  </Button>
-                </div>
+
               </div>
             </div>
           </div>
