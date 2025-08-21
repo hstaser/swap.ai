@@ -129,4 +129,9 @@ const App = () => {
   );
 };
 
-createRoot(document.getElementById("root")!).render(<App />);
+// Prevent double root creation during HMR
+const rootElement = document.getElementById("root")!;
+if (!rootElement._reactRoot) {
+  rootElement._reactRoot = createRoot(rootElement);
+}
+rootElement._reactRoot.render(<App />);
