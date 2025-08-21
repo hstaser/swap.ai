@@ -48,10 +48,23 @@ export function QueueProvider({ children }: { children: ReactNode }) {
     refreshQueue();
   }, []);
 
-  const addToQueue = (
+  const addToQueue = async (
     symbol: string,
     confidence: QueuedStock["confidence"] = "bullish"
   ) => {
+    // Track queue action for backend API
+    try {
+      const { recordSwipe } = await import("@/services/swipe-api");
+      await recordSwipe({
+        symbol,
+        action: "right",
+        timestamp: new Date(),
+        confidence
+      });
+    } catch (error) {
+      console.warn("Failed to record queue action:", error);
+    }
+
     storeAddToQueue(symbol);
     refreshQueue(); // Update React state
   };
