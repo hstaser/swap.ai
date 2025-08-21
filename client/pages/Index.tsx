@@ -628,11 +628,26 @@ export default function Index() {
     }
   };
 
-  const handleSkip = () => {
+  const handleSkip = async () => {
     if (filteredStocks.length === 0) return;
 
     const currentStock = filteredStocks[currentStockIndex];
-    if (isSetup && currentStock) {
+    if (!currentStock) return;
+
+    // Track skip for backend API
+    try {
+      const { recordSwipe } = await import("@/services/swipe-api");
+      await recordSwipe({
+        symbol: currentStock.symbol,
+        action: "left",
+        timestamp: new Date()
+      });
+    } catch (error) {
+      console.warn("Failed to record skip:", error);
+    }
+
+    // Track skip for AI agent
+    if (isSetup) {
       trackSwipe(currentStock.symbol, "skip", {
         sector: currentStock.sector,
         risk: currentStock.risk || "Medium"
