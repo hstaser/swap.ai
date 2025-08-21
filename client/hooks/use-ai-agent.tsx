@@ -19,22 +19,10 @@ interface AIAgentContextType {
 
 const AIAgentContext = createContext<AIAgentContextType | undefined>(undefined);
 
-export function AIAgentProvider({ children }: { children: ReactNode }) {
+function AIAgentProviderInner({ children }: { children: ReactNode }) {
   const [isSetup, setIsSetup] = useState(false);
   const [interventions, setInterventions] = useState<AIIntervention[]>([]);
-
-  // Safely access queue with fallback
-  const [queue, setQueue] = useState<any[]>([]);
-
-  useEffect(() => {
-    try {
-      const queueContext = useQueue();
-      setQueue(queueContext.queue || []);
-    } catch (error) {
-      console.warn("Queue context not available, using empty queue:", error);
-      setQueue([]);
-    }
-  }, []);
+  const { queue } = useQueue();
 
   useEffect(() => {
     // Check if agent is already setup
@@ -80,14 +68,8 @@ export function AIAgentProvider({ children }: { children: ReactNode }) {
   };
 
   const refreshInterventions = () => {
-    try {
-      const { queue } = useQueue();
-      const newInterventions = aiAgent.generateInterventions(queue);
-      setInterventions(newInterventions);
-    } catch (error) {
-      console.warn("Could not access queue for AI interventions:", error);
-      setInterventions([]);
-    }
+    const newInterventions = aiAgent.generateInterventions(queue);
+    setInterventions(newInterventions);
   };
 
   return (
@@ -105,6 +87,16 @@ export function AIAgentProvider({ children }: { children: ReactNode }) {
       {children}
     </AIAgentContext.Provider>
   );
+}
+
+export function AIAgentProvider({ children }: { children: ReactNode }) {
+  // Add error boundary for queue context issues
+  try {
+    return <AIAgentProviderInner>{children}</AIAgentProviderInner>;
+  } catch (error) {
+    console.warn("AIAgentProvider failed, rendering children without AI context:", error);
+    return <>{children}</>;
+  }
 }
 
 export function useAIAgent() {
