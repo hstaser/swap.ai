@@ -52,7 +52,7 @@ export async function getSwipeableStocks(
 ): Promise<SwipeableStock[]> {
   try {
     const params = new URLSearchParams();
-    
+
     if (filters?.sector && filters.sector !== "All") {
       params.append("sector", filters.sector);
     }
@@ -74,7 +74,7 @@ export async function getSwipeableStocks(
     params.append("limit", limit.toString());
 
     const response = await fetch(`/api/stocks/swipeable?${params.toString()}`);
-    
+
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
@@ -83,7 +83,7 @@ export async function getSwipeableStocks(
     return data.stocks || [];
   } catch (error) {
     console.warn("Swipeable stocks API not available, using fallback:", error);
-    
+
     // Fallback to current frontend logic for development
     return getFallbackSwipeableStocks(filters, limit);
   }
@@ -110,7 +110,7 @@ export async function recordSwipe(swipeAction: SwipeAction): Promise<void> {
     trackSwipeLocally(swipeAction);
   } catch (error) {
     console.warn("Swipe recording API not available, storing locally:", error);
-    
+
     // Fallback to local storage for development
     trackSwipeLocally(swipeAction);
   }
@@ -121,17 +121,53 @@ export async function recordSwipe(swipeAction: SwipeAction): Promise<void> {
  */
 export async function getUserPortfolio(): Promise<string[]> {
   try {
-    const response = await fetch("/api/portfolio/holdings");
-    
+    // Add timeout to prevent hanging
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
+
+    const response = await fetch("/api/portfolio/holdings", {
+      signal: controller.signal,
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+
+    clearTimeout(timeoutId);
+
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
 
     const data = await response.json();
-    return data.holdings?.map((h: any) => h.symbol) || [];
+    const portfolio = data.holdings?.map((h: any) => h.symbol) || [];
+
+    // Cache the result for better performance
+    localStorage.setItem("user_portfolio", JSON.stringify({
+      portfolio,
+      lastUpdated: new Date().toISOString()
+    }));
+
+    return portfolio;
   } catch (error) {
-    console.warn("Portfolio API not available, using mock data:", error);
-    
+    console.warn("Portfolio API not available, using fallback:", error);
+
+    // Try to get cached portfolio first
+    try {
+      const cached = localStorage.getItem("user_portfolio");
+      if (cached) {
+        const { portfolio, lastUpdated } = JSON.parse(cached);
+        const cacheAge = Date.now() - new Date(lastUpdated).getTime();
+
+        // Use cache if less than 5 minutes old
+        if (cacheAge < 5 * 60 * 1000) {
+          console.log("Using cached portfolio data");
+          return portfolio;
+        }
+      }
+    } catch (cacheError) {
+      console.warn("Failed to load cached portfolio:", cacheError);
+    }
+
     // Return mock portfolio for development
     return getMockPortfolio();
   }
@@ -143,7 +179,7 @@ export async function getUserPortfolio(): Promise<string[]> {
 export async function getWatchlist(): Promise<string[]> {
   try {
     const response = await fetch("/api/watchlist");
-    
+
     if (!response.ok) {
       throw new Error(`HTTP ${response.status}: ${response.statusText}`);
     }
@@ -152,7 +188,7 @@ export async function getWatchlist(): Promise<string[]> {
     return data.watchlist?.map((w: any) => w.symbol) || [];
   } catch (error) {
     console.warn("Watchlist API not available, using local storage:", error);
-    
+
     // Fallback to localStorage
     const localWatchlist = localStorage.getItem("watchlist");
     return localWatchlist ? JSON.parse(localWatchlist) : [];
@@ -174,7 +210,7 @@ export async function addToWatchlist(symbol: string, note?: string): Promise<voi
     }
   } catch (error) {
     console.warn("Watchlist add API not available, storing locally:", error);
-    
+
     // Fallback to localStorage
     const currentWatchlist = await getWatchlist();
     const updatedWatchlist = [...new Set([...currentWatchlist, symbol])];
@@ -193,7 +229,7 @@ export async function removeFromWatchlist(symbol: string): Promise<void> {
     }
   } catch (error) {
     console.warn("Watchlist remove API not available, storing locally:", error);
-    
+
     // Fallback to localStorage
     const currentWatchlist = await getWatchlist();
     const updatedWatchlist = currentWatchlist.filter(s => s !== symbol);
@@ -208,7 +244,7 @@ function getFallbackSwipeableStocks(filters?: SwipeFilters, limit: number = 1): 
   // Import current stock data and add ownership flags
   const { extendedStockDatabase } = require("../data/extended-stocks");
   const mockPortfolio = getMockPortfolio();
-  
+
   // Convert to swipeable format with ownership info
   const stocks = Object.values(extendedStockDatabase).map((stock: any) => ({
     ...stock,
@@ -237,12 +273,12 @@ function trackSwipeLocally(swipeAction: SwipeAction): void {
     ...swipeAction,
     timestamp: swipeAction.timestamp.toISOString(),
   });
-  
+
   // Keep only last 1000 swipes to prevent storage bloat
   if (swipeHistory.length > 1000) {
     swipeHistory.splice(0, swipeHistory.length - 1000);
   }
-  
+
   localStorage.setItem("swipe_history", JSON.stringify(swipeHistory));
 }
 
