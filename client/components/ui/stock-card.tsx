@@ -386,14 +386,7 @@ export function StockCard({
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <div className="text-sm text-muted-foreground">News Summary</div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setShowNewsArticles(true)}
-                className="h-6 px-2 text-xs text-purple-600 hover:text-purple-700"
-              >
-                View Articles ({newsArticles.length})
-              </Button>
+
             </div>
             <div
               className="font-bold text-sm text-primary leading-tight cursor-pointer hover:text-blue-600 transition-colors"
