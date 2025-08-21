@@ -408,6 +408,12 @@ export default function Index() {
   useEffect(() => {
     const loadPortfolio = async () => {
       try {
+        // Run API health check in development
+        if (process.env.NODE_ENV === 'development') {
+          const { logApiHealth } = await import("@/utils/api-health");
+          logApiHealth();
+        }
+
         // Set fallback portfolio immediately to prevent UI issues
         const fallbackPortfolio = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA"];
         setPortfolio(fallbackPortfolio);
