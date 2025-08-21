@@ -7,11 +7,7 @@ import { DashboardWithAssistant } from "@/components/ui/dashboard-with-assistant
 import { AIInterventions } from "@/components/ui/ai-intervention";
 import { AIChat } from "@/components/ui/ai-chat";
 import { SmartPromptCard } from "@/components/ui/smart-prompt-card";
-import {
-  RiskInterventionSystem,
-  generateSampleInterventions,
-  defaultRiskSettings,
-} from "@/components/ui/risk-intervention-system";
+import { RiskInterventionSystem, generateSampleInterventions, defaultRiskSettings } from "@/components/ui/risk-intervention-system";
 import { StockListConstructor } from "@/components/ui/stock-list-constructor";
 import { AlreadyOwnedPrompt } from "@/components/ui/already-owned-prompt";
 import { useQueue } from "@/hooks/use-queue";
@@ -38,19 +34,11 @@ import {
 import { cn } from "@/lib/utils";
 import { Link, useSearchParams, useNavigate } from "react-router-dom";
 
-import {
-  ALL_SYMBOLS,
-  getStock,
-  type Stock as CatalogStock,
-} from "../data/stocks.catalog";
+import { ALL_SYMBOLS, getStock, type Stock as CatalogStock } from "../data/stocks.catalog";
 import { extendedStockDatabase } from "../data/extended-stocks";
 import { STOCKS, STOCK_LOOKUP, type StockCard } from "../data/stocks";
 import { addToQueue, isInQueue } from "../store/queue";
-import {
-  addToWatchlist,
-  isInWatchlist,
-  removeFromWatchlist,
-} from "../store/watchlist";
+import { addToWatchlist, isInWatchlist, removeFromWatchlist } from "../store/watchlist";
 
 // Helper function to determine risk level based on sector and other factors
 const calculateRiskLevel = (stock: any): "Low" | "Medium" | "High" => {
@@ -69,9 +57,7 @@ const calculateRiskLevel = (stock: any): "Low" | "Medium" | "High" => {
 // Create 31 stocks from the specified list with enriched data
 const createStockWithDefaults = (stockCard: StockCard): Stock => {
   // Find matching data from extended database if available
-  const extendedData = extendedStockDatabase.find(
-    (s) => s.symbol === stockCard.symbol,
-  );
+  const extendedData = extendedStockDatabase.find(s => s.symbol === stockCard.symbol);
 
   return {
     symbol: stockCard.symbol,
@@ -80,29 +66,20 @@ const createStockWithDefaults = (stockCard: StockCard): Stock => {
     change: extendedData?.change ?? (Math.random() - 0.5) * 10,
     changePercent: extendedData?.changePercent ?? (Math.random() - 0.5) * 5,
     volume: extendedData?.volume ?? `${(Math.random() * 100 + 10).toFixed(1)}M`,
-    marketCap:
-      extendedData?.marketCap ??
-      stockCard.marketCap ??
-      `${(Math.random() * 2000 + 100).toFixed(0)}B`,
+    marketCap: extendedData?.marketCap ?? stockCard.marketCap ?? `${(Math.random() * 2000 + 100).toFixed(0)}B`,
     pe: extendedData?.pe ?? Math.random() * 30 + 10,
-    dividendYield:
-      extendedData?.dividendYield ??
-      (Math.random() < 0.3 ? null : Math.random() * 4),
+    dividendYield: extendedData?.dividendYield ?? (Math.random() < 0.3 ? null : Math.random() * 4),
     sector: stockCard.sector ?? extendedData?.sector ?? "Technology",
     isGainer: extendedData?.isGainer ?? Math.random() > 0.5,
     news: [],
-    newsSummary:
-      extendedData?.newsSummary ??
-      `${stockCard.name} continues to show strong market performance with strategic growth initiatives.`,
+    newsSummary: extendedData?.newsSummary ?? `${stockCard.name} continues to show strong market performance with strategic growth initiatives.`,
     returns: extendedData?.returns ?? {
       oneMonth: (Math.random() - 0.5) * 10,
       sixMonth: (Math.random() - 0.5) * 20,
       oneYear: (Math.random() - 0.5) * 40,
     },
     earningsDate: extendedData?.earningsDate ?? "TBD",
-    risk:
-      stockCard.risk ??
-      calculateRiskLevel({ sector: stockCard.sector ?? "Technology" }),
+    risk: stockCard.risk ?? calculateRiskLevel({ sector: stockCard.sector ?? "Technology" }),
   };
 };
 
@@ -379,8 +356,7 @@ const legacyMockStocks: Stock[] = [
         title: "Pfizer reports strong Q4 vaccine sales",
         source: "Reuters",
         time: "2h ago",
-        summary:
-          "COVID vaccine sales remain steady while RSV vaccine shows promise.",
+        summary: "COVID vaccine sales remain steady while RSV vaccine shows promise.",
       },
     ],
   },
@@ -389,7 +365,7 @@ const legacyMockStocks: Stock[] = [
     name: "UnitedHealth Group Inc.",
     price: 542.18,
     change: 4.32,
-    changePercent: 0.8,
+    changePercent: 0.80,
     volume: "3.1M",
     marketCap: "508.7B",
     pe: 24.1,
@@ -434,20 +410,13 @@ export default function Index() {
     const loadPortfolio = async () => {
       try {
         // Run API health check in development
-        if (process.env.NODE_ENV === "development") {
+        if (process.env.NODE_ENV === 'development') {
           const { logApiHealth } = await import("@/utils/api-health");
           logApiHealth();
         }
 
         // Set fallback portfolio immediately to prevent UI issues
-        const fallbackPortfolio = [
-          "AAPL",
-          "MSFT",
-          "GOOGL",
-          "TSLA",
-          "NVDA",
-          "V",
-        ];
+        const fallbackPortfolio = ["AAPL", "MSFT", "AMZN", "TSLA", "NVDA"];
         setPortfolio(fallbackPortfolio);
 
         // Try to load from API
@@ -455,9 +424,7 @@ export default function Index() {
         const userPortfolio = await getUserPortfolio();
 
         // Only update if we got different data
-        if (
-          JSON.stringify(userPortfolio) !== JSON.stringify(fallbackPortfolio)
-        ) {
+        if (JSON.stringify(userPortfolio) !== JSON.stringify(fallbackPortfolio)) {
           setPortfolio(userPortfolio);
         }
       } catch (error) {
@@ -471,29 +438,24 @@ export default function Index() {
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [viewMode, setViewMode] = useState<"swipe" | "dashboard" | "list">(
-    "swipe",
-  );
+  const [viewMode, setViewMode] = useState<"swipe" | "dashboard" | "list">("swipe");
   const [showAIChat, setShowAIChat] = useState(false);
   const [riskSettings, setRiskSettings] = useState(defaultRiskSettings);
   const [showOwnedPrompt, setShowOwnedPrompt] = useState(false);
-  const [dismissedOwnedPrompts, setDismissedOwnedPrompts] = useState<
-    Set<string>
-  >(new Set());
+  const [dismissedOwnedPrompts, setDismissedOwnedPrompts] = useState<Set<string>>(new Set());
 
   // AI Agent
-  const { isSetup, interventions, trackSwipe, dismissIntervention } =
-    useAIAgent();
+  const { isSetup, interventions, trackSwipe, dismissIntervention } = useAIAgent();
 
   // Generate sample risk interventions
   const riskInterventions = generateSampleInterventions([], queue);
 
   const filteredStocks = useMemo(() => {
     // Add portfolio ownership data to all stocks
-    const stocksWithOwnership = catalogStocks.map((stock) => ({
+    const stocksWithOwnership = catalogStocks.map(stock => ({
       ...stock,
       alreadyOwned: portfolio.includes(stock.symbol),
-      priorityScore: portfolio.includes(stock.symbol) ? 0.3 : 0.8, // Lower priority for owned
+      priorityScore: portfolio.includes(stock.symbol) ? 0.3 : 0.8 // Lower priority for owned
     }));
 
     // For swipe mode, apply ownership filter but keep order
@@ -502,13 +464,11 @@ export default function Index() {
 
       // Apply hideOwned filter if enabled
       if (filters.hideOwned) {
-        swiperStocks = swiperStocks.filter((stock) => !stock.alreadyOwned);
+        swiperStocks = swiperStocks.filter(stock => !stock.alreadyOwned);
       }
 
       // Sort by priority (owned stocks lower unless hidden)
-      swiperStocks.sort(
-        (a, b) => (b.priorityScore || 0) - (a.priorityScore || 0),
-      );
+      swiperStocks.sort((a, b) => (b.priorityScore || 0) - (a.priorityScore || 0));
 
       return swiperStocks;
     }
@@ -597,16 +557,9 @@ export default function Index() {
 
   // Check if current stock is owned and show prompt
   useEffect(() => {
-    if (
-      viewMode === "swipe" &&
-      filteredStocks.length > 0 &&
-      currentStockIndex < filteredStocks.length
-    ) {
+    if (viewMode === "swipe" && filteredStocks.length > 0 && currentStockIndex < filteredStocks.length) {
       const currentStock = filteredStocks[currentStockIndex];
-      if (
-        currentStock?.alreadyOwned &&
-        !dismissedOwnedPrompts.has(currentStock.symbol)
-      ) {
+      if (currentStock?.alreadyOwned && !dismissedOwnedPrompts.has(currentStock.symbol)) {
         setShowOwnedPrompt(true);
       } else {
         setShowOwnedPrompt(false);
@@ -622,23 +575,19 @@ export default function Index() {
     // Handle sector filter from URL params (from AI insights)
     if (sectorParam) {
       const sectorMap: Record<string, string> = {
-        healthcare: "Healthcare",
-        financials: "Financial Services",
-        international: "International",
+        "healthcare": "Healthcare",
+        "financials": "Financial Services",
+        "international": "International"
       };
       const mappedSector = sectorMap[sectorParam] || sectorParam;
-      setFilters((prev) => ({ ...prev, sector: mappedSector }));
+      setFilters(prev => ({ ...prev, sector: mappedSector }));
       setViewMode("dashboard"); // Switch to dashboard view to see filters
     }
 
     // Handle index parameter to navigate to specific slide
     if (indexParam && filteredStocks.length > 0) {
       const targetIndex = parseInt(indexParam, 10);
-      if (
-        !isNaN(targetIndex) &&
-        targetIndex >= 0 &&
-        targetIndex < filteredStocks.length
-      ) {
+      if (!isNaN(targetIndex) && targetIndex >= 0 && targetIndex < filteredStocks.length) {
         setCurrentStockIndex(targetIndex);
         // Clear the index parameter after navigation
         setSearchParams((params) => {
@@ -651,9 +600,7 @@ export default function Index() {
 
   const toggleWatchlist = (symbol: string) => {
     const isCurrentlyInWatchlist = isInWatchlist(symbol);
-    const currentStock =
-      filteredStocks.find((s) => s.symbol === symbol) ||
-      catalogStocks.find((s) => s.symbol === symbol);
+    const currentStock = filteredStocks.find(s => s.symbol === symbol) || catalogStocks.find(s => s.symbol === symbol);
 
     if (isCurrentlyInWatchlist) {
       // Remove from watchlist using store
@@ -673,7 +620,7 @@ export default function Index() {
     if (isSetup && currentStock) {
       trackSwipe(symbol, isCurrentlyInWatchlist ? "skip" : "watchlist", {
         sector: currentStock.sector,
-        risk: currentStock.risk || "Medium",
+        risk: currentStock.risk || "Medium"
       });
     }
   };
@@ -688,13 +635,11 @@ export default function Index() {
     }));
 
     // Track as watchlist action for AI agent
-    const currentStock =
-      filteredStocks.find((s) => s.symbol === symbol) ||
-      catalogStocks.find((s) => s.symbol === symbol);
+    const currentStock = filteredStocks.find(s => s.symbol === symbol) || catalogStocks.find(s => s.symbol === symbol);
     if (isSetup && currentStock) {
       trackSwipe(symbol, "watchlist", {
         sector: currentStock.sector,
-        risk: currentStock.risk || "Medium",
+        risk: currentStock.risk || "Medium"
       });
     }
   };
@@ -713,16 +658,14 @@ export default function Index() {
   };
 
   const handleHideOwnedStocks = () => {
-    setFilters((prev) => ({ ...prev, hideOwned: true }));
+    setFilters(prev => ({ ...prev, hideOwned: true }));
     setShowOwnedPrompt(false);
   };
 
   const handleDismissOwnedPrompt = () => {
     const currentStock = filteredStocks[currentStockIndex];
     if (currentStock) {
-      setDismissedOwnedPrompts(
-        (prev) => new Set([...prev, currentStock.symbol]),
-      );
+      setDismissedOwnedPrompts(prev => new Set([...prev, currentStock.symbol]));
     }
     setShowOwnedPrompt(false);
   };
@@ -739,7 +682,7 @@ export default function Index() {
       await recordSwipe({
         symbol: currentStock.symbol,
         action: "left",
-        timestamp: new Date(),
+        timestamp: new Date()
       });
     } catch (error) {
       console.warn("Failed to record skip:", error);
@@ -749,12 +692,12 @@ export default function Index() {
     if (isSetup) {
       trackSwipe(currentStock.symbol, "skip", {
         sector: currentStock.sector,
-        risk: currentStock.risk || "Medium",
+        risk: currentStock.risk || "Medium"
       });
     }
 
     // Move exactly one slide forward, no wrapping at end
-    setCurrentStockIndex((i) => Math.min(i + 1, filteredStocks.length - 1));
+    setCurrentStockIndex(i => Math.min(i + 1, filteredStocks.length - 1));
   };
 
   const handleFilterOverride = (symbol: string) => {
@@ -762,16 +705,12 @@ export default function Index() {
     setFilters(defaultFilters);
 
     // Find the stock in the full database and navigate to it
-    const stockIndex = catalogStocks.findIndex(
-      (stock) => stock.symbol === symbol,
-    );
+    const stockIndex = catalogStocks.findIndex((stock) => stock.symbol === symbol);
     if (stockIndex !== -1) {
       // After resetting filters, we need to wait for the filteredStocks to update
       // So we'll use setTimeout to delay the index setting
       setTimeout(() => {
-        const newFilteredIndex = filteredStocks.findIndex(
-          (stock) => stock.symbol === symbol,
-        );
+        const newFilteredIndex = filteredStocks.findIndex((stock) => stock.symbol === symbol);
         if (newFilteredIndex !== -1) {
           setCurrentStockIndex(newFilteredIndex);
         }
@@ -974,9 +913,9 @@ export default function Index() {
           </div>
         ) : /* Swipe View */
         filteredStocks.length > 0 &&
-          currentStockIndex >= 0 &&
-          currentStockIndex < filteredStocks.length &&
-          filteredStocks[currentStockIndex] ? (
+        currentStockIndex >= 0 &&
+        currentStockIndex < filteredStocks.length &&
+        filteredStocks[currentStockIndex] ? (
           <div className="space-y-4">
             {/* AI Risk Intervention System */}
             {isSetup && riskSettings.aiAssistanceLevel !== "off" && (
@@ -990,43 +929,39 @@ export default function Index() {
 
                 {/* Legacy Smart Prompt for AAPL */}
                 {filteredStocks.length > 0 &&
-                  currentStockIndex >= 0 &&
-                  currentStockIndex < filteredStocks.length &&
-                  filteredStocks[currentStockIndex]?.symbol === "AAPL" && (
-                    <SmartPromptCard
-                      prompt={{
-                        id: "aapl_concentration",
-                        title: "This stock is getting heavy in your portfolio",
-                        description:
-                          "AAPL represents 15% of your holdings. Consider keeping individual stocks under 12% for better diversification.",
-                        type: "suggestion",
-                        priority: "medium",
-                        actions: [
-                          {
-                            label: "See Alternatives",
-                            action: "primary",
-                            onClick: () =>
-                              console.log(
-                                "Show similar stocks in different sectors",
-                              ),
-                          },
-                          {
-                            label: "Add Anyway",
-                            action: "secondary",
-                            onClick: () => console.log("Add to queue"),
-                          },
-                          {
-                            label: "Got It",
-                            action: "dismiss",
-                            onClick: () => console.log("Dismiss"),
-                          },
-                        ],
-                        dismissible: true,
-                        collapsible: true,
-                      }}
-                      onDismiss={() => console.log("Dismissed AAPL prompt")}
-                    />
-                  )}
+                 currentStockIndex >= 0 &&
+                 currentStockIndex < filteredStocks.length &&
+                 filteredStocks[currentStockIndex]?.symbol === "AAPL" && (
+                  <SmartPromptCard
+                    prompt={{
+                      id: "aapl_concentration",
+                      title: "This stock is getting heavy in your portfolio",
+                      description: "AAPL represents 15% of your holdings. Consider keeping individual stocks under 12% for better diversification.",
+                      type: "suggestion",
+                      priority: "medium",
+                      actions: [
+                        {
+                          label: "See Alternatives",
+                          action: "primary",
+                          onClick: () => console.log("Show similar stocks in different sectors"),
+                        },
+                        {
+                          label: "Add Anyway",
+                          action: "secondary",
+                          onClick: () => console.log("Add to queue"),
+                        },
+                        {
+                          label: "Got It",
+                          action: "dismiss",
+                          onClick: () => console.log("Dismiss"),
+                        },
+                      ],
+                      dismissible: true,
+                      collapsible: true,
+                    }}
+                    onDismiss={() => console.log("Dismissed AAPL prompt")}
+                  />
+                )}
               </div>
             )}
             {/* Navigation */}
@@ -1034,7 +969,7 @@ export default function Index() {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() => setCurrentStockIndex((i) => Math.max(i - 1, 0))}
+                onClick={() => setCurrentStockIndex(i => Math.max(i - 1, 0))}
                 disabled={currentStockIndex === 0}
                 aria-label="Previous stock"
               >
@@ -1050,11 +985,7 @@ export default function Index() {
               <Button
                 variant="outline"
                 size="icon"
-                onClick={() =>
-                  setCurrentStockIndex((i) =>
-                    Math.min(i + 1, filteredStocks.length - 1),
-                  )
-                }
+                onClick={() => setCurrentStockIndex(i => Math.min(i + 1, filteredStocks.length - 1))}
                 disabled={currentStockIndex >= filteredStocks.length - 1}
                 aria-label="Next stock"
               >
@@ -1097,18 +1028,17 @@ export default function Index() {
         ) : null}
 
         {/* No Stocks Found - for swipe and list view (dashboard handles its own) */}
-        {filteredStocks.length === 0 &&
-          (viewMode === "swipe" || viewMode === "list") && (
-            <div className="text-center py-12">
-              <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-medium text-foreground mb-2">
-                No stocks found
-              </h3>
-              <p className="text-muted-foreground">
-                Try adjusting your filters to see more results.
-              </p>
-            </div>
-          )}
+        {filteredStocks.length === 0 && (viewMode === "swipe" || viewMode === "list") && (
+          <div className="text-center py-12">
+            <Search className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
+            <h3 className="text-lg font-medium text-foreground mb-2">
+              No stocks found
+            </h3>
+            <p className="text-muted-foreground">
+              Try adjusting your filters to see more results.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Help System */}
