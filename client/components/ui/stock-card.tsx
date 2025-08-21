@@ -386,7 +386,6 @@ export function StockCard({
           <div className="space-y-2">
             <div className="flex items-center justify-between">
               <div className="text-sm text-muted-foreground">News Summary</div>
-
             </div>
             <div
               className="font-bold text-sm text-primary leading-tight cursor-pointer hover:text-blue-600 transition-colors"
