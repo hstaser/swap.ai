@@ -50,12 +50,12 @@ function AppContent() {
   const handleOnboardingSkip = async () => {
     // Create minimal onboarding data for users who skip
     const minimalData = {
-      user_type: 'intermediate',
-      sector_interests: ['technology'],
-      primary_goal: 'wealth-building',
+      user_type: "intermediate",
+      sector_interests: ["technology"],
+      primary_goal: "wealth-building",
       risk_tolerance: 5,
-      ai_involvement: 'advisory',
-      skipped: true
+      ai_involvement: "advisory",
+      skipped: true,
     };
     await completeOnboarding(minimalData);
   };
