@@ -9,6 +9,7 @@ import { AIChat } from "@/components/ui/ai-chat";
 import { SmartPromptCard } from "@/components/ui/smart-prompt-card";
 import { RiskInterventionSystem, generateSampleInterventions, defaultRiskSettings } from "@/components/ui/risk-intervention-system";
 import { StockListConstructor } from "@/components/ui/stock-list-constructor";
+import { AlreadyOwnedPrompt } from "@/components/ui/already-owned-prompt";
 import { useQueue } from "@/hooks/use-queue";
 import { useAIAgent } from "@/hooks/use-ai-agent";
 
