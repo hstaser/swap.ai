@@ -160,7 +160,7 @@ export const ONBOARDING_SCHEMA: OnboardingStep[] = [
     title: 'Risk Assessment',
     subtitle: 'Understanding your risk tolerance',
     icon: 'Shield',
-    progress: 70,
+    progress: 60,
     questions: [
       {
         id: 'risk_tolerance',
@@ -205,7 +205,7 @@ export const ONBOARDING_SCHEMA: OnboardingStep[] = [
     title: 'AI Assistant Preferences',
     subtitle: 'How would you like our AI to help you?',
     icon: 'Bot',
-    progress: 85,
+    progress: 80,
     questions: [
       {
         id: 'ai_involvement',
