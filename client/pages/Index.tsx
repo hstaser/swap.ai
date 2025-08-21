@@ -403,6 +403,23 @@ export default function Index() {
   const [watchlistNotes, setWatchlistNotes] = useState<{
     [symbol: string]: { note: string; addedAt: Date };
   }>({});
+
+  // Load user's portfolio on mount
+  useEffect(() => {
+    const loadPortfolio = async () => {
+      try {
+        const { getUserPortfolio } = await import("@/services/swipe-api");
+        const userPortfolio = await getUserPortfolio();
+        setPortfolio(userPortfolio);
+      } catch (error) {
+        console.warn("Failed to load portfolio:", error);
+        // Use fallback mock portfolio
+        setPortfolio(["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA"]);
+      }
+    };
+
+    loadPortfolio();
+  }, []);
   const [currentStockIndex, setCurrentStockIndex] = useState(0);
   const [showHelp, setShowHelp] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
