@@ -434,13 +434,35 @@ export default function Index() {
   const riskInterventions = generateSampleInterventions([], queue);
 
   const filteredStocks = useMemo(() => {
-    // For swipe mode, always show all 31 stocks in exact order (no filtering)
+    // Add portfolio ownership data to all stocks
+    const stocksWithOwnership = catalogStocks.map(stock => ({
+      ...stock,
+      alreadyOwned: portfolio.includes(stock.symbol),
+      priorityScore: portfolio.includes(stock.symbol) ? 0.3 : 0.8 // Lower priority for owned
+    }));
+
+    // For swipe mode, apply ownership filter but keep order
     if (viewMode === "swipe") {
-      return catalogStocks; // Exact 31 stocks in specified order
+      let swiperStocks = stocksWithOwnership;
+
+      // Apply hideOwned filter if enabled
+      if (filters.hideOwned) {
+        swiperStocks = swiperStocks.filter(stock => !stock.alreadyOwned);
+      }
+
+      // Sort by priority (owned stocks lower unless hidden)
+      swiperStocks.sort((a, b) => (b.priorityScore || 0) - (a.priorityScore || 0));
+
+      return swiperStocks;
     }
 
-    // For dashboard mode, apply filters
-    let filtered = catalogStocks.filter((stock) => {
+    // For dashboard mode, apply all filters
+    let filtered = stocksWithOwnership.filter((stock) => {
+      // Hide owned filter
+      if (filters.hideOwned && stock.alreadyOwned) {
+        return false;
+      }
+
       // Sector filter
       if (filters.sector !== "All" && stock.sector !== filters.sector) {
         return false;
@@ -503,8 +525,18 @@ export default function Index() {
       return true;
     });
 
+    // Sort by priority (owned stocks lower, then by other criteria)
+    filtered.sort((a, b) => {
+      // First sort by priority score (owned vs not owned)
+      const priorityDiff = (b.priorityScore || 0) - (a.priorityScore || 0);
+      if (priorityDiff !== 0) return priorityDiff;
+
+      // Then by performance for same priority
+      return (b.changePercent || 0) - (a.changePercent || 0);
+    });
+
     return filtered;
-  }, [filters, viewMode]);
+  }, [filters, viewMode, portfolio]);
 
   // Handle URL parameters
   useEffect(() => {
