@@ -133,7 +133,8 @@ export function StockFilters({
     filters.peRange !== "All" ||
     filters.dividendYield !== "All" ||
     filters.exchange !== "All" ||
-    filters.performance !== "All";
+    filters.performance !== "All" ||
+    filters.hideOwned === true;
 
   return (
     <div className={className}>
