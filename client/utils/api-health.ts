@@ -12,7 +12,7 @@ export async function testApiConnectivity(): Promise<{
     health: "/api/health",
     portfolio: "/api/portfolio/holdings",
     swipeable: "/api/stocks/swipeable",
-    watchlist: "/api/watchlist"
+    watchlist: "/api/watchlist",
   };
 
   const results: Record<string, boolean> = {};
@@ -22,21 +22,23 @@ export async function testApiConnectivity(): Promise<{
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 3000);
-      
+
       const response = await fetch(url, {
         signal: controller.signal,
-        method: 'GET'
+        method: "GET",
       });
-      
+
       clearTimeout(timeoutId);
       results[name] = response.ok;
-      
+
       if (!response.ok) {
         errors.push(`${name}: HTTP ${response.status}`);
       }
     } catch (error) {
       results[name] = false;
-      errors.push(`${name}: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      errors.push(
+        `${name}: ${error instanceof Error ? error.message : "Unknown error"}`,
+      );
     }
   }
 
@@ -48,18 +50,21 @@ export async function testApiConnectivity(): Promise<{
 export function logApiHealth() {
   testApiConnectivity().then(({ isHealthy, endpoints, errors }) => {
     console.group("🔍 API Health Check");
-    console.log("Overall Status:", isHealthy ? "✅ Healthy" : "❌ Issues Detected");
-    
+    console.log(
+      "Overall Status:",
+      isHealthy ? "✅ Healthy" : "❌ Issues Detected",
+    );
+
     Object.entries(endpoints).forEach(([name, status]) => {
       console.log(`${status ? "✅" : "❌"} ${name}`);
     });
-    
+
     if (errors.length > 0) {
       console.group("Errors:");
-      errors.forEach(error => console.log(`❌ ${error}`));
+      errors.forEach((error) => console.log(`❌ ${error}`));
       console.groupEnd();
     }
-    
+
     console.groupEnd();
   });
 }

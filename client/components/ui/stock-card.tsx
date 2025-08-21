@@ -74,93 +74,112 @@ interface StockCardProps {
 }
 
 // Generate realistic news articles for stocks
-const generateNewsArticles = (symbol: string, newsSummary: string): NewsItem[] => {
+const generateNewsArticles = (
+  symbol: string,
+  newsSummary: string,
+): NewsItem[] => {
   const newsData: Record<string, NewsItem[]> = {
     AAPL: [
       {
-        title: "Apple's Q4 iPhone Sales Surge 15% Amid Strong AI Feature Adoption",
+        title:
+          "Apple's Q4 iPhone Sales Surge 15% Amid Strong AI Feature Adoption",
         source: "TechCrunch",
         time: "2 hours ago",
-        summary: "Apple's latest quarterly earnings reveal robust iPhone sales driven by consumer excitement around new AI capabilities integrated into iOS."
+        summary:
+          "Apple's latest quarterly earnings reveal robust iPhone sales driven by consumer excitement around new AI capabilities integrated into iOS.",
       },
       {
         title: "Apple Intelligence Features Drive Consumer Upgrade Cycle",
         source: "The Wall Street Journal",
         time: "4 hours ago",
-        summary: "Industry analysts note significant consumer interest in Apple's AI features, leading to higher-than-expected device upgrade rates."
+        summary:
+          "Industry analysts note significant consumer interest in Apple's AI features, leading to higher-than-expected device upgrade rates.",
       },
       {
         title: "Apple Stock Hits New 52-Week High on AI Momentum",
         source: "MarketWatch",
         time: "6 hours ago",
-        summary: "Shares of Apple reached a new 52-week high as investors respond positively to the company's artificial intelligence strategy."
-      }
+        summary:
+          "Shares of Apple reached a new 52-week high as investors respond positively to the company's artificial intelligence strategy.",
+      },
     ],
     MSFT: [
       {
         title: "Microsoft Azure AI Services Revenue Jumps 40% Year-Over-Year",
         source: "Reuters",
         time: "1 hour ago",
-        summary: "Microsoft's cloud computing division shows strong growth in AI services, contributing significantly to overall revenue."
+        summary:
+          "Microsoft's cloud computing division shows strong growth in AI services, contributing significantly to overall revenue.",
       },
       {
         title: "Teams Integration with GPT-4 Drives Enterprise Adoption",
         source: "VentureBeat",
         time: "3 hours ago",
-        summary: "Microsoft's integration of advanced AI into Teams is accelerating enterprise customer adoption and subscription growth."
-      }
+        summary:
+          "Microsoft's integration of advanced AI into Teams is accelerating enterprise customer adoption and subscription growth.",
+      },
     ],
     GOOGL: [
       {
-        title: "Google's Search Algorithm Update Improves AI-Generated Content Detection",
+        title:
+          "Google's Search Algorithm Update Improves AI-Generated Content Detection",
         source: "Search Engine Land",
         time: "2 hours ago",
-        summary: "Google announces improvements to its search algorithm to better identify and rank authentic content over AI-generated material."
+        summary:
+          "Google announces improvements to its search algorithm to better identify and rank authentic content over AI-generated material.",
       },
       {
-        title: "Alphabet's Waymo Expands Autonomous Vehicle Testing to 5 New Cities",
+        title:
+          "Alphabet's Waymo Expands Autonomous Vehicle Testing to 5 New Cities",
         source: "TechCrunch",
         time: "5 hours ago",
-        summary: "Waymo continues expanding its self-driving car testing program as the company moves closer to commercial deployment."
-      }
+        summary:
+          "Waymo continues expanding its self-driving car testing program as the company moves closer to commercial deployment.",
+      },
     ],
     TSLA: [
       {
         title: "Tesla Cybertruck Production Ramp Faces Q1 2025 Delays",
         source: "Electrek",
         time: "1 hour ago",
-        summary: "Tesla acknowledges production challenges with the Cybertruck, pushing delivery timeline for some orders into Q1 2025."
+        summary:
+          "Tesla acknowledges production challenges with the Cybertruck, pushing delivery timeline for some orders into Q1 2025.",
       },
       {
         title: "Tesla's Supercharger Network Opens to All EVs in Europe",
         source: "Reuters",
         time: "4 hours ago",
-        summary: "Tesla expands access to its Supercharger network across European markets, potentially creating new revenue streams."
-      }
-    ]
+        summary:
+          "Tesla expands access to its Supercharger network across European markets, potentially creating new revenue streams.",
+      },
+    ],
   };
 
   // Return specific articles for the symbol, or generate generic ones
-  return newsData[symbol] || [
-    {
-      title: `${symbol} Reports Strong Quarterly Performance`,
-      source: "Financial News",
-      time: "2 hours ago",
-      summary: newsSummary || `${symbol} continues to show strong market performance with strategic growth initiatives.`
-    },
-    {
-      title: `Analysts Upgrade ${symbol} Price Target`,
-      source: "MarketWatch",
-      time: "4 hours ago",
-      summary: `Industry analysts express optimism about ${symbol}'s future prospects and growth potential.`
-    },
-    {
-      title: `${symbol} Announces Strategic Partnership Initiative`,
-      source: "Business Wire",
-      time: "6 hours ago",
-      summary: `${symbol} reveals new strategic partnerships aimed at expanding market reach and capabilities.`
-    }
-  ];
+  return (
+    newsData[symbol] || [
+      {
+        title: `${symbol} Reports Strong Quarterly Performance`,
+        source: "Financial News",
+        time: "2 hours ago",
+        summary:
+          newsSummary ||
+          `${symbol} continues to show strong market performance with strategic growth initiatives.`,
+      },
+      {
+        title: `Analysts Upgrade ${symbol} Price Target`,
+        source: "MarketWatch",
+        time: "4 hours ago",
+        summary: `Industry analysts express optimism about ${symbol}'s future prospects and growth potential.`,
+      },
+      {
+        title: `${symbol} Announces Strategic Partnership Initiative`,
+        source: "Business Wire",
+        time: "6 hours ago",
+        summary: `${symbol} reveals new strategic partnerships aimed at expanding market reach and capabilities.`,
+      },
+    ]
+  );
 };
 
 export function StockCard({
@@ -196,7 +215,10 @@ export function StockCard({
   const navigate = useNavigate();
 
   // Generate news articles for this stock
-  const newsArticles = generateNewsArticles(canonicalStock.symbol, canonicalStock.newsSummary);
+  const newsArticles = generateNewsArticles(
+    canonicalStock.symbol,
+    canonicalStock.newsSummary,
+  );
 
   return (
     <Card
@@ -206,7 +228,6 @@ export function StockCard({
       )}
     >
       <CardContent className="p-4 sm:p-6 space-y-4 sm:space-y-6">
-
         {/* Header */}
         <div className="relative text-center space-y-3">
           {/* Share Button - Top Right */}
@@ -288,7 +309,8 @@ export function StockCard({
             )}
             <span>
               {isPositive ? "+" : ""}
-              {canonicalStock.change?.toFixed(2) ?? "0.00"} ({isPositive ? "+" : ""}
+              {canonicalStock.change?.toFixed(2) ?? "0.00"} (
+              {isPositive ? "+" : ""}
               {canonicalStock.changePercent?.toFixed(2) ?? "0.00"}%)
             </span>
           </div>
@@ -304,7 +326,9 @@ export function StockCard({
           <div className="grid grid-cols-2 gap-6">
             <div className="text-center space-y-1">
               <div className="text-sm text-muted-foreground">Market Cap</div>
-              <div className="font-bold text-lg">{canonicalStock.marketCap}</div>
+              <div className="font-bold text-lg">
+                {canonicalStock.marketCap}
+              </div>
             </div>
             <div className="text-center space-y-1">
               <div className="text-sm text-muted-foreground">Div Yield</div>
@@ -497,22 +521,27 @@ export function StockCard({
         <div className="text-center space-y-2">
           <Button
             variant="outline"
-            onClick={() => navigate(`/research?symbol=${canonicalStock.symbol}`)}
+            onClick={() =>
+              navigate(`/research?symbol=${canonicalStock.symbol}`)
+            }
             className="w-full h-12 sm:h-14 text-sm sm:text-base font-medium border-blue-200 text-blue-700 hover:bg-blue-50"
           >
             <MessageCircle className="h-4 w-4 mr-2" />
             <span className="hidden sm:inline">
               Need help? Ask AI about {canonicalStock.symbol}
             </span>
-            <span className="sm:hidden">Ask AI about {canonicalStock.symbol}</span>
+            <span className="sm:hidden">
+              Ask AI about {canonicalStock.symbol}
+            </span>
           </Button>
 
           {/* Subtle contextual suggestions */}
-          {canonicalStock.symbol === "AAPL" && canonicalStock.risk === "High" && (
-            <p className="text-xs text-muted-foreground italic">
-              This is high-beta. AI can suggest defensive pairs
-            </p>
-          )}
+          {canonicalStock.symbol === "AAPL" &&
+            canonicalStock.risk === "High" && (
+              <p className="text-xs text-muted-foreground italic">
+                This is high-beta. AI can suggest defensive pairs
+              </p>
+            )}
 
           {canonicalStock.changePercent > 5 && (
             <p className="text-xs text-muted-foreground italic">
@@ -526,7 +555,11 @@ export function StockCard({
         {/* Add to Queue Button */}
         <div className="space-y-4">
           <Button
-            onClick={() => navigate(`/queue/add/${canonicalStock.symbol}?index=${currentIndex}`)}
+            onClick={() =>
+              navigate(
+                `/queue/add/${canonicalStock.symbol}?index=${currentIndex}`,
+              )
+            }
             className="w-full h-12 sm:h-14 text-sm sm:text-base font-semibold bg-blue-600 hover:bg-blue-700 text-white"
           >
             <Plus className="h-4 w-4 mr-2" />
@@ -579,7 +612,9 @@ export function StockCard({
           <div className="bg-white rounded-lg shadow-xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
             <div className="p-6">
               <div className="flex items-center justify-between mb-4">
-                <h3 className="text-lg font-semibold">News & Analysis for {canonicalStock.symbol}</h3>
+                <h3 className="text-lg font-semibold">
+                  News & Analysis for {canonicalStock.symbol}
+                </h3>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -592,18 +627,29 @@ export function StockCard({
 
               <div className="space-y-4">
                 <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
-                  <h4 className="font-medium text-blue-900 mb-2">Current News Summary</h4>
-                  <p className="text-blue-800 text-sm">{canonicalStock.newsSummary}</p>
+                  <h4 className="font-medium text-blue-900 mb-2">
+                    Current News Summary
+                  </h4>
+                  <p className="text-blue-800 text-sm">
+                    {canonicalStock.newsSummary}
+                  </p>
                 </div>
 
                 <div className="space-y-3">
                   <h4 className="font-medium text-gray-900">Recent Articles</h4>
                   {canonicalStock.news?.map((article, index) => (
-                    <div key={index} className="border rounded-lg p-4 hover:bg-gray-50">
+                    <div
+                      key={index}
+                      className="border rounded-lg p-4 hover:bg-gray-50"
+                    >
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <h5 className="font-medium text-gray-900 mb-1">{article.title}</h5>
-                          <p className="text-sm text-gray-600 mb-2">{article.summary}</p>
+                          <h5 className="font-medium text-gray-900 mb-1">
+                            {article.title}
+                          </h5>
+                          <p className="text-sm text-gray-600 mb-2">
+                            {article.summary}
+                          </p>
                           <div className="flex items-center gap-2 text-xs text-gray-500">
                             <span>{article.source}</span>
                             <span>•</span>
@@ -615,14 +661,14 @@ export function StockCard({
                           size="sm"
                           onClick={() => {
                             setShowNewsModal(false);
-                            navigate('/research?tab=intelligence', {
+                            navigate("/research?tab=intelligence", {
                               state: {
                                 prefilledArticle: {
                                   title: article.title,
                                   content: article.summary,
-                                  source: article.source
-                                }
-                              }
+                                  source: article.source,
+                                },
+                              },
                             });
                           }}
                           className="text-blue-600 hover:text-blue-700"
@@ -632,11 +678,11 @@ export function StockCard({
                       </div>
                     </div>
                   )) || (
-                    <p className="text-gray-500 text-sm">No recent articles available.</p>
+                    <p className="text-gray-500 text-sm">
+                      No recent articles available.
+                    </p>
                   )}
                 </div>
-
-
               </div>
             </div>
           </div>
@@ -654,7 +700,8 @@ export function StockCard({
                     Latest News for {canonicalStock.symbol}
                   </h3>
                   <p className="text-sm text-gray-600 mt-1">
-                    {newsArticles.length} articles found • Sources used for summary
+                    {newsArticles.length} articles found • Sources used for
+                    summary
                   </p>
                 </div>
                 <Button
@@ -689,7 +736,7 @@ export function StockCard({
                     className="border border-gray-200 rounded-lg p-4 hover:border-purple-200 hover:bg-purple-50/30 transition-colors cursor-pointer"
                     onClick={() => {
                       // In a real app, this would open the full article
-                      console.log('Opening article:', article.title);
+                      console.log("Opening article:", article.title);
                     }}
                   >
                     <div className="flex items-start justify-between gap-4">
@@ -702,7 +749,9 @@ export function StockCard({
                         </p>
                         <div className="flex items-center gap-4 text-xs text-gray-500">
                           <span className="flex items-center gap-1">
-                            <span className="font-medium text-blue-600">{article.source}</span>
+                            <span className="font-medium text-blue-600">
+                              {article.source}
+                            </span>
                           </span>
                           <span className="flex items-center gap-1">
                             <Clock className="h-3 w-3" />
@@ -738,7 +787,7 @@ export function StockCard({
                       size="sm"
                       onClick={() => {
                         setShowNewsArticles(false);
-                        navigate('/research?tab=intelligence');
+                        navigate("/research?tab=intelligence");
                       }}
                       className="text-xs bg-purple-600 hover:bg-purple-700"
                     >

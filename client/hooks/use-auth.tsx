@@ -119,11 +119,14 @@ function AuthProvider({ children }: { children: ReactNode }) {
     await new Promise((resolve) => setTimeout(resolve, 1000));
 
     // Store onboarding data
-    localStorage.setItem("onboarding_data", JSON.stringify({
-      ...onboardingData,
-      completedAt: new Date().toISOString(),
-      userId: user?.id
-    }));
+    localStorage.setItem(
+      "onboarding_data",
+      JSON.stringify({
+        ...onboardingData,
+        completedAt: new Date().toISOString(),
+        userId: user?.id,
+      }),
+    );
 
     if (user) {
       const updatedUser = { ...user, onboardingCompleted: true };
@@ -133,7 +136,12 @@ function AuthProvider({ children }: { children: ReactNode }) {
   };
 
   const requiresOnboarding = () => {
-    return authStatus === "authenticated" && user && user.kycCompleted && !user.onboardingCompleted;
+    return (
+      authStatus === "authenticated" &&
+      user &&
+      user.kycCompleted &&
+      !user.onboardingCompleted
+    );
   };
 
   return (

@@ -248,8 +248,6 @@ export function StockFilters({
             ))}
           </SelectContent>
         </Select>
-
-
       </div>
 
       {hasActiveFilters && (

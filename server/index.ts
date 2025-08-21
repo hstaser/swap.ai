@@ -28,8 +28,8 @@ export function createServer() {
         "/api/stocks/swipeable",
         "/api/stocks/swipe",
         "/api/portfolio/holdings",
-        "/api/watchlist"
-      ]
+        "/api/watchlist",
+      ],
     });
   });
 
@@ -47,21 +47,23 @@ export function createServer() {
         insights: [
           "Based on your preferences, we recommend focusing on technology and healthcare sectors.",
           "Your moderate risk tolerance suggests a balanced portfolio approach.",
-          "Consider diversifying across different market capitalizations."
+          "Consider diversifying across different market capitalizations.",
         ],
         personalization: {
-          recommended_sectors: onboardingData.sector_interests || ['technology'],
+          recommended_sectors: onboardingData.sector_interests || [
+            "technology",
+          ],
           risk_level: onboardingData.risk_tolerance || 5,
-          ai_assistance: onboardingData.ai_involvement || 'advisory'
-        }
+          ai_assistance: onboardingData.ai_involvement || "advisory",
+        },
       };
 
       res.json(response);
     } catch (error) {
-      console.error('Onboarding submission error:', error);
+      console.error("Onboarding submission error:", error);
       res.status(500).json({
         status: "error",
-        message: "Failed to process onboarding data"
+        message: "Failed to process onboarding data",
       });
     }
   });
@@ -69,7 +71,15 @@ export function createServer() {
   // Swipeable stocks endpoints
   app.get("/api/stocks/swipeable", (req, res) => {
     try {
-      const { sector, market_cap, risk_level, hide_owned, performance, pe_range, limit = 1 } = req.query;
+      const {
+        sector,
+        market_cap,
+        risk_level,
+        hide_owned,
+        performance,
+        pe_range,
+        limit = 1,
+      } = req.query;
 
       // Mock portfolio for demo - in real app this would come from database
       const mockPortfolio = ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA"];
@@ -79,39 +89,135 @@ export function createServer() {
 
       // Mock stock universe (S&P 500 subset)
       const stockUniverse = [
-        { symbol: "AAPL", name: "Apple Inc.", sector: "Technology", marketCap: "Large", risk: "Medium", price: 175.43, change: 2.15, changePercent: 1.24 },
-        { symbol: "MSFT", name: "Microsoft Corporation", sector: "Technology", marketCap: "Large", risk: "Low", price: 378.85, change: -1.22, changePercent: -0.32 },
-        { symbol: "GOOGL", name: "Alphabet Inc.", sector: "Technology", marketCap: "Large", risk: "Medium", price: 138.21, change: 3.45, changePercent: 2.56 },
-        { symbol: "TSLA", name: "Tesla, Inc.", sector: "Automotive", marketCap: "Large", risk: "High", price: 242.68, change: -5.23, changePercent: -2.11 },
-        { symbol: "NVDA", name: "NVIDIA Corporation", sector: "Technology", marketCap: "Large", risk: "High", price: 875.28, change: 12.44, changePercent: 1.44 },
-        { symbol: "META", name: "Meta Platforms", sector: "Technology", marketCap: "Large", risk: "Medium", price: 298.35, change: 4.67, changePercent: 1.59 },
-        { symbol: "AMZN", name: "Amazon.com Inc.", sector: "Consumer Discretionary", marketCap: "Large", risk: "Medium", price: 143.75, change: -0.85, changePercent: -0.59 },
-        { symbol: "JPM", name: "JPMorgan Chase", sector: "Financial Services", marketCap: "Large", risk: "Low", price: 159.33, change: 1.12, changePercent: 0.71 },
-        { symbol: "V", name: "Visa Inc.", sector: "Financial Services", marketCap: "Large", risk: "Low", price: 267.89, change: 2.33, changePercent: 0.88 },
-        { symbol: "UNH", name: "UnitedHealth Group", sector: "Healthcare", marketCap: "Large", risk: "Low", price: 524.75, change: 3.21, changePercent: 0.62 }
+        {
+          symbol: "AAPL",
+          name: "Apple Inc.",
+          sector: "Technology",
+          marketCap: "Large",
+          risk: "Medium",
+          price: 175.43,
+          change: 2.15,
+          changePercent: 1.24,
+        },
+        {
+          symbol: "MSFT",
+          name: "Microsoft Corporation",
+          sector: "Technology",
+          marketCap: "Large",
+          risk: "Low",
+          price: 378.85,
+          change: -1.22,
+          changePercent: -0.32,
+        },
+        {
+          symbol: "GOOGL",
+          name: "Alphabet Inc.",
+          sector: "Technology",
+          marketCap: "Large",
+          risk: "Medium",
+          price: 138.21,
+          change: 3.45,
+          changePercent: 2.56,
+        },
+        {
+          symbol: "TSLA",
+          name: "Tesla, Inc.",
+          sector: "Automotive",
+          marketCap: "Large",
+          risk: "High",
+          price: 242.68,
+          change: -5.23,
+          changePercent: -2.11,
+        },
+        {
+          symbol: "NVDA",
+          name: "NVIDIA Corporation",
+          sector: "Technology",
+          marketCap: "Large",
+          risk: "High",
+          price: 875.28,
+          change: 12.44,
+          changePercent: 1.44,
+        },
+        {
+          symbol: "META",
+          name: "Meta Platforms",
+          sector: "Technology",
+          marketCap: "Large",
+          risk: "Medium",
+          price: 298.35,
+          change: 4.67,
+          changePercent: 1.59,
+        },
+        {
+          symbol: "AMZN",
+          name: "Amazon.com Inc.",
+          sector: "Consumer Discretionary",
+          marketCap: "Large",
+          risk: "Medium",
+          price: 143.75,
+          change: -0.85,
+          changePercent: -0.59,
+        },
+        {
+          symbol: "JPM",
+          name: "JPMorgan Chase",
+          sector: "Financial Services",
+          marketCap: "Large",
+          risk: "Low",
+          price: 159.33,
+          change: 1.12,
+          changePercent: 0.71,
+        },
+        {
+          symbol: "V",
+          name: "Visa Inc.",
+          sector: "Financial Services",
+          marketCap: "Large",
+          risk: "Low",
+          price: 267.89,
+          change: 2.33,
+          changePercent: 0.88,
+        },
+        {
+          symbol: "UNH",
+          name: "UnitedHealth Group",
+          sector: "Healthcare",
+          marketCap: "Large",
+          risk: "Low",
+          price: 524.75,
+          change: 3.21,
+          changePercent: 0.62,
+        },
       ];
 
       // Filter out already swiped stocks
-      let availableStocks = stockUniverse.filter(stock =>
-        !mockSwipeHistory.includes(stock.symbol)
+      let availableStocks = stockUniverse.filter(
+        (stock) => !mockSwipeHistory.includes(stock.symbol),
       );
 
       // Add ownership flags and priority scores
-      availableStocks = availableStocks.map(stock => ({
+      availableStocks = availableStocks.map((stock) => ({
         ...stock,
         alreadyOwned: mockPortfolio.includes(stock.symbol),
-        priorityScore: mockPortfolio.includes(stock.symbol) ? 0.3 : 0.8 // Lower priority for owned
+        priorityScore: mockPortfolio.includes(stock.symbol) ? 0.3 : 0.8, // Lower priority for owned
       }));
 
       // Apply filters
-      if (hide_owned === 'true') {
-        availableStocks = availableStocks.filter(stock => !stock.alreadyOwned);
+      if (hide_owned === "true") {
+        availableStocks = availableStocks.filter(
+          (stock) => !stock.alreadyOwned,
+        );
       }
       if (sector && sector !== "All") {
-        availableStocks = availableStocks.filter(stock => stock.sector === sector);
+        availableStocks = availableStocks.filter(
+          (stock) => stock.sector === sector,
+        );
       }
       if (risk_level && risk_level !== "All") {
-        availableStocks = availableStocks.filter(stock => stock.risk === risk_level);
+        availableStocks = availableStocks.filter(
+          (stock) => stock.risk === risk_level,
+        );
       }
 
       // Sort by priority (owned stocks lower unless hidden)
@@ -123,12 +229,19 @@ export function createServer() {
       res.json({
         stocks,
         total_available: availableStocks.length,
-        filters_applied: { sector, market_cap, risk_level, hide_owned, performance, pe_range }
+        filters_applied: {
+          sector,
+          market_cap,
+          risk_level,
+          hide_owned,
+          performance,
+          pe_range,
+        },
       });
     } catch (error) {
-      console.error('Swipeable stocks error:', error);
+      console.error("Swipeable stocks error:", error);
       res.status(500).json({
-        error: "Failed to fetch swipeable stocks"
+        error: "Failed to fetch swipeable stocks",
       });
     }
   });
@@ -138,7 +251,10 @@ export function createServer() {
     try {
       const { symbol, action, timestamp, confidence } = req.body;
 
-      console.log(`Swipe recorded: ${symbol} -> ${action}`, { timestamp, confidence });
+      console.log(`Swipe recorded: ${symbol} -> ${action}`, {
+        timestamp,
+        confidence,
+      });
 
       // In a real app, this would save to database
       // For demo, just log and return success
@@ -146,12 +262,12 @@ export function createServer() {
       res.json({
         status: "success",
         message: "Swipe recorded successfully",
-        swipe_id: `swipe_${Date.now()}`
+        swipe_id: `swipe_${Date.now()}`,
       });
     } catch (error) {
-      console.error('Swipe recording error:', error);
+      console.error("Swipe recording error:", error);
       res.status(500).json({
-        error: "Failed to record swipe"
+        error: "Failed to record swipe",
       });
     }
   });
@@ -161,21 +277,21 @@ export function createServer() {
     try {
       // Mock portfolio for demo
       const mockHoldings = [
-        { symbol: "AAPL", shares: 10, avgCost: 150.00, currentValue: 1754.30 },
-        { symbol: "MSFT", shares: 5, avgCost: 350.00, currentValue: 1894.25 },
-        { symbol: "GOOGL", shares: 8, avgCost: 120.00, currentValue: 1105.68 },
-        { symbol: "TSLA", shares: 3, avgCost: 250.00, currentValue: 728.04 },
-        { symbol: "NVDA", shares: 2, avgCost: 800.00, currentValue: 1750.56 }
+        { symbol: "AAPL", shares: 10, avgCost: 150.0, currentValue: 1754.3 },
+        { symbol: "MSFT", shares: 5, avgCost: 350.0, currentValue: 1894.25 },
+        { symbol: "GOOGL", shares: 8, avgCost: 120.0, currentValue: 1105.68 },
+        { symbol: "TSLA", shares: 3, avgCost: 250.0, currentValue: 728.04 },
+        { symbol: "NVDA", shares: 2, avgCost: 800.0, currentValue: 1750.56 },
       ];
 
       res.json({
         holdings: mockHoldings,
-        total_value: mockHoldings.reduce((sum, h) => sum + h.currentValue, 0)
+        total_value: mockHoldings.reduce((sum, h) => sum + h.currentValue, 0),
       });
     } catch (error) {
-      console.error('Portfolio holdings error:', error);
+      console.error("Portfolio holdings error:", error);
       res.status(500).json({
-        error: "Failed to fetch portfolio holdings"
+        error: "Failed to fetch portfolio holdings",
       });
     }
   });
@@ -185,15 +301,23 @@ export function createServer() {
     try {
       // Mock watchlist for demo
       const mockWatchlist = [
-        { symbol: "V", note: "Good long-term growth potential", addedAt: new Date().toISOString() },
-        { symbol: "UNH", note: "Healthcare sector exposure", addedAt: new Date().toISOString() }
+        {
+          symbol: "V",
+          note: "Good long-term growth potential",
+          addedAt: new Date().toISOString(),
+        },
+        {
+          symbol: "UNH",
+          note: "Healthcare sector exposure",
+          addedAt: new Date().toISOString(),
+        },
       ];
 
       res.json({ watchlist: mockWatchlist });
     } catch (error) {
-      console.error('Watchlist fetch error:', error);
+      console.error("Watchlist fetch error:", error);
       res.status(500).json({
-        error: "Failed to fetch watchlist"
+        error: "Failed to fetch watchlist",
       });
     }
   });
@@ -207,12 +331,12 @@ export function createServer() {
       res.json({
         status: "success",
         message: "Added to watchlist successfully",
-        watchlist_id: `watch_${Date.now()}`
+        watchlist_id: `watch_${Date.now()}`,
       });
     } catch (error) {
-      console.error('Watchlist add error:', error);
+      console.error("Watchlist add error:", error);
       res.status(500).json({
-        error: "Failed to add to watchlist"
+        error: "Failed to add to watchlist",
       });
     }
   });
@@ -225,12 +349,12 @@ export function createServer() {
 
       res.json({
         status: "success",
-        message: "Removed from watchlist successfully"
+        message: "Removed from watchlist successfully",
       });
     } catch (error) {
-      console.error('Watchlist remove error:', error);
+      console.error("Watchlist remove error:", error);
       res.status(500).json({
-        error: "Failed to remove from watchlist"
+        error: "Failed to remove from watchlist",
       });
     }
   });

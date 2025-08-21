@@ -1,10 +1,16 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+} from "react";
 import {
   addToQueue as storeAddToQueue,
   removeFromQueue as storeRemoveFromQueue,
   clearQueue as storeClearQueue,
   isInQueue as storeIsInQueue,
-  getQueue
+  getQueue,
 } from "../store/queue";
 
 // Legacy interface for backwards compatibility
@@ -24,8 +30,6 @@ interface QueueContextType {
 
 const QueueContext = createContext<QueueContextType | undefined>(undefined);
 
-
-
 export function QueueProvider({ children }: { children: ReactNode }) {
   const [queue, setQueue] = useState<QueuedStock[]>([]);
 
@@ -34,10 +38,10 @@ export function QueueProvider({ children }: { children: ReactNode }) {
     const currentQueue = getQueue();
 
     // Convert to legacy format for backwards compatibility
-    const legacyQueue: QueuedStock[] = currentQueue.map(item => ({
+    const legacyQueue: QueuedStock[] = currentQueue.map((item) => ({
       symbol: item.symbol,
       confidence: "bullish" as const, // Simple mapping
-      addedAt: new Date(item.addedAt)
+      addedAt: new Date(item.addedAt),
     }));
 
     setQueue(legacyQueue);
@@ -50,7 +54,7 @@ export function QueueProvider({ children }: { children: ReactNode }) {
 
   const addToQueue = async (
     symbol: string,
-    confidence: QueuedStock["confidence"] = "bullish"
+    confidence: QueuedStock["confidence"] = "bullish",
   ) => {
     // Track queue action for backend API
     try {
@@ -59,7 +63,7 @@ export function QueueProvider({ children }: { children: ReactNode }) {
         symbol,
         action: "right",
         timestamp: new Date(),
-        confidence
+        confidence,
       });
     } catch (error) {
       console.warn("Failed to record queue action:", error);
