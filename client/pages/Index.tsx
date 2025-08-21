@@ -451,6 +451,10 @@ export default function Index() {
   const riskInterventions = generateSampleInterventions([], queue);
 
   const filteredStocks = useMemo(() => {
+    // Debug logging
+    console.log("Portfolio:", portfolio);
+    console.log("Checking AMZN ownership:", portfolio.includes("AMZN"));
+
     // Add portfolio ownership data to all stocks
     const stocksWithOwnership = catalogStocks.map(stock => ({
       ...stock,
