@@ -284,5 +284,5 @@ function trackSwipeLocally(swipeAction: SwipeAction): void {
 
 function getMockPortfolio(): string[] {
   // Mock portfolio for development - simulate user owning some stocks
-  return ["AAPL", "MSFT", "GOOGL", "TSLA", "NVDA", "V"];
+  return ["AAPL", "MSFT", "AMZN", "TSLA", "NVDA"];
 }
