@@ -56,6 +56,8 @@ export interface Stock {
   };
   earningsDate?: string;
   risk?: "Low" | "Medium" | "High";
+  alreadyOwned?: boolean; // NEW: Indicates if user already owns this stock
+  priorityScore?: number; // NEW: Backend-calculated priority score
 }
 
 interface StockCardProps {
