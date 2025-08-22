@@ -400,7 +400,7 @@ export default function OptimizationReview() {
                       <div className="font-bold text-lg">
                         {stock.percentage}%
                       </div>
-                      <div className="text-sm text-muted-foreground blur-sm hover:blur-none transition-all duration-300">
+                      <div className="text-sm text-muted-foreground">
                         {formatCurrency(stock.amount)}
                       </div>
                     </div>
