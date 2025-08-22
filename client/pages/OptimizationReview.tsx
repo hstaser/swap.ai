@@ -346,9 +346,7 @@ export default function OptimizationReview() {
                     percentages, though we recommend staying close to our
                     suggested allocation for best results.
                   </div>
-                  <div className="text-xs text-blue-700 bg-yellow-50 border border-yellow-200 rounded p-2">
-                    ⚠️ Allocation percentages are protected. Hover to reveal values.
-                  </div>
+
                   <div className="text-xs text-blue-700">
                     Adjust allocations below.{" "}
                     {isOverAllocated ? (
